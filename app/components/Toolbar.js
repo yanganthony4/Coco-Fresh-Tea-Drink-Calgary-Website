@@ -33,7 +33,9 @@ const Toolbar = () => {
 
     return (
         <div className="flex items-center text-orange-500 p-4" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
-            <div className="text-lg font-bold">Insert Logo</div>
+            <a href="/" className="mr-auto">
+                <img src="/images/logo.png" alt="CoCo Logo" className="w-32 h-auto" />
+            </a>
             <nav className="flex space-x-5 ml-auto">
                 <a href="/" className="hover:text-orange-300 text-lg">Home</a>
                 <a href="/promotions" className="hover:text-orange-300 text-lg">Promotions</a>
