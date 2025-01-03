@@ -38,22 +38,37 @@ export default function Home() {
 
             {/* Build-a-Drink Feature Promo */}
             <section className="py-12 bg-white">
-            <h2 className="text-center text-3xl font-bold font-caveat text-[#653128]">
-                Can't decide? Build your own!
-            </h2>
+                <h2 className="text-center text-3xl font-bold font-caveat text-[#653128]">
+                    Can't decide? Build your own!
+                </h2>
+                <p className="text-center text-lg text-orange-500">Try our new "Build a Drink" feature!</p>
+                <div className="flex justify-center space-x-6 mt-8">
+                    {["ChocoDream", "grapefruit", "bsmt", "popping", "matcha"].map((drink, index) => {
+                        // Define custom size for each image based on its index
+                        const imageSizes = [
+                            { width: "200px", height: "260px" }, // ChocoDream
+                            { width: "180px", height: "240px" }, // grapefruit
+                            { width: "180px", height: "240px" }, // bsmt
+                            { width: "180px", height: "240px" }, // popping
+                            { width: "180px", height: "240px" }, // matcha
+                        ];
 
-              <p className="text-center text-lg text-orange-500">Try our new "Build a Drink" feature!</p>
-              <div className="flex justify-center space-x-6 mt-8">
-                  {["ChocoDream", "grapefruit", "bsmt", "popping", "matcha"].map((drink, index) => (
-                      <img
-                          key={index}
-                          src={`/images/${drink}.png`}
-                          alt={`Drink ${index + 1}`}
-                          className="w-32 h-64 object-cover"
-                      />
-                  ))}
-              </div>
+                        return (
+                            <img
+                                key={index}
+                                src={`/images/${drink}.png`}
+                                alt={`Drink ${index + 1}`}
+                                style={{
+                                    width: imageSizes[index]?.width || "100px", 
+                                    height: imageSizes[index]?.height || "150px", // Default height if not defined
+                                    objectFit: "cover", 
+                                }}
+                            />
+                        );
+                    })}
+                </div>
             </section>
+
 
 
             {/* App Download Promo */}
@@ -90,18 +105,70 @@ export default function Home() {
 
 
             {/* About CoCo */}
-            <section className="py-12 bg-orange-100">
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-[#653128]">Interested in the CoCo story? Learn more!</h2>
+            <section
+                className="flex flex-col lg:flex-row items-center justify-between py-12 px-6"
+                style={{
+                    backgroundColor: "#FFF5EB",
+                    padding: "3rem",
+                    maxWidth: "1500px",
+                    margin: "0",
+                    marginRight: "0",
+                    marginLeft: "auto",
+                    marginTop: "100px",
+                }}
+            >
+                <img
+                    src="/images/homelittle.png"
+                    alt="Little CoCo illustration"
+                    className="object-contain"
+                    style={{
+                        width: "1400px",
+                        height: "auto",
+                    }}
+                />
+
+                {/* Text Content */}
+                <div
+                    className="flex items-center"
+                    style={{
+                        position: "relative",
+                        top: "240px",
+                        left: "-1100px",
+                    }}
+                >
+                    <h2
+                        style={{
+                            fontSize: "48px",
+                            fontWeight: "bold",
+                            color: "#653128",
+                            marginRight: "20px",
+                            whiteSpace: "nowrap", 
+                        }}
+                    >
+                        Interested in the CoCo story? Learn More!
+                    </h2>
+                    <p
+                        style={{
+                            fontSize: "24px",
+                            color: "#FF8000",
+                            marginLeft: "-140px",
+                            marginTop:"100px",
+                            whiteSpace: "nowrap", 
+
+                        }}
+                    >
+                        About Us
+                    </p>
                 </div>
+            </section>
+
+
+            {/* Menu and Find Your CoCo */}
+            <section>
                 <div className="flex justify-around">
                     <div className="text-center">
                         <img src="/images/menu:find.png" alt="Menu" className="w-24 h-24 mx-auto" />
                         <p className="mt-4 text-lg font-medium text-[#653128]">Menu</p>
-                    </div>
-                    <div className="text-center">
-                        <img src="/images/homelittle.png" alt="Find your CoCo" className="w-24 h-24 mx-auto" />
-                        <p className="mt-4 text-lg font-medium text-[#653128]">Find your CoCo</p>
                     </div>
                 </div>
             </section>
