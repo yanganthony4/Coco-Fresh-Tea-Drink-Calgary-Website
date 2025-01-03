@@ -41,16 +41,25 @@ export default function Home() {
                 <h2 className="text-center text-3xl font-bold font-caveat text-[#653128]">
                     Can't decide? Build your own!
                 </h2>
-                <p className="text-center text-lg text-orange-500">Try our new "Build a Drink" feature!</p>
+                <a href="/menu" rel="menu" style={{ textDecoration: "none" }}>
+                    <p
+                        className="text-center text-lg"
+                        style={{
+                            cursor: "pointer", 
+                            color: "#FF8000",
+                        }}
+                    >
+                        Unlimited Options!
+                    </p>
+                </a>
                 <div className="flex justify-center space-x-6 mt-8">
                     {["ChocoDream", "grapefruit", "bsmt", "popping", "matcha"].map((drink, index) => {
-                        // Define custom size for each image based on its index
                         const imageSizes = [
                             { width: "200px", height: "260px" }, // ChocoDream
-                            { width: "180px", height: "240px" }, // grapefruit
-                            { width: "180px", height: "240px" }, // bsmt
+                            { width: "200px", height: "260px" }, // grapefruit
+                            { width: "180px", height: "260px" }, // bsmt
                             { width: "180px", height: "240px" }, // popping
-                            { width: "180px", height: "240px" }, // matcha
+                            { width: "180px", height: "260px" }, // matcha
                         ];
 
                         return (
@@ -60,7 +69,7 @@ export default function Home() {
                                 alt={`Drink ${index + 1}`}
                                 style={{
                                     width: imageSizes[index]?.width || "100px", 
-                                    height: imageSizes[index]?.height || "150px", // Default height if not defined
+                                    height: imageSizes[index]?.height || "150px", 
                                     objectFit: "cover", 
                                 }}
                             />
@@ -99,7 +108,20 @@ export default function Home() {
                   <h2 style={{ fontSize: "48px", fontWeight: "bold", color: "#653128" }}>Pick and pay!</h2>
                   <h2 style={{ fontSize: "48px", fontWeight: "bold", color: "#653128" }}>Skip the line!</h2>
                   <h2 style={{ fontSize: "48px", fontWeight: "bold", color: "#653128" }}>Get the latest offers!</h2>
-                  <p style={{ fontSize: "25px", color: "#FF8000" }}>Download the app today!</p>
+                  <a href="https://apps.apple.com/ca/app/coco-calgary/id1603524472" target="_blank" rel="app store" style={{ textDecoration: "none" }}>
+                    <p
+                        style={{
+                            fontSize: "24px",
+                            color: "#FF8000",
+                            marginRight: "200px",
+                            marginTop: "1px",
+                            whiteSpace: "nowrap",
+                            cursor: "pointer", 
+                        }}
+                    >
+                        Download the App today!
+                    </p>
+                </a>
               </div>
             </section>
 
@@ -147,31 +169,60 @@ export default function Home() {
                     >
                         Interested in the CoCo story? Learn More!
                     </h2>
+                    <a href="/about" style={{ textDecoration: "none" }}>
                     <p
                         style={{
                             fontSize: "24px",
                             color: "#FF8000",
                             marginLeft: "-140px",
-                            marginTop:"100px",
-                            whiteSpace: "nowrap", 
-
+                            marginTop: "100px",
+                            whiteSpace: "nowrap",
+                            cursor: "pointer", 
                         }}
                     >
                         About Us
                     </p>
+                </a>
                 </div>
             </section>
-
 
             {/* Menu and Find Your CoCo */}
-            <section>
-                <div className="flex justify-around">
-                    <div className="text-center">
-                        <img src="/images/menu:find.png" alt="Menu" className="w-24 h-24 mx-auto" />
-                        <p className="mt-4 text-lg font-medium text-[#653128]">Menu</p>
-                    </div>
+            <section
+                className="flex justify-center items-center py-12"
+                style={{
+                    paddingBottom: "20px",
+                }}
+            >
+                <div className="text-center">
+                    <img
+                        src="/images/menu:find.png"
+                        alt="Menu and Find Your CoCo"
+                        useMap="#menu-map"
+                        style={{
+                            width: "900px", 
+                            height: "800px", 
+                            objectFit: "contain", 
+                        }}
+                    />
+                    <map name="menu-map">
+                        {/* Left side of the image */}
+                        <area
+                            shape="rect"
+                            coords="0,0,450,800" 
+                            href="/menu"
+                            alt="Menu"
+                        />
+                        {/* Right side of the image */}
+                        <area
+                            shape="rect"
+                            coords="451,0,900,800" 
+                            href="/locations"
+                            alt="Find Your CoCo"
+                        />
+                    </map>
                 </div>
             </section>
-        </Layout>
+
+            </Layout>
     );
 }
