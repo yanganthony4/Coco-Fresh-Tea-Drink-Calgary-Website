@@ -195,7 +195,7 @@ export default function Home() {
             >
                 <div className="text-center">
                     <img
-                        src="/images/menu:find.png"
+                        src="/images/menu_find.png"
                         alt="Menu and Find Your CoCo"
                         useMap="#menu-map"
                         style={{
