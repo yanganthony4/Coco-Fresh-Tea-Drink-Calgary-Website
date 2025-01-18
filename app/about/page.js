@@ -1,12 +1,10 @@
 'use client'
 
-import Toolbar from '../components/Toolbar';
-
 import { useEffect, useRef, useState } from 'react'
 
 export default function Page() {
   const canvasRef = useRef(null)
-  const [hoveredYear, setHoveredYear] = useState(null)
+  const [hoveredYear, setHoveredYear] = useState(null) // Dynamic Timeline Hover
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -21,6 +19,7 @@ export default function Page() {
     const drawWave = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
+      // Sine Waves That Make Up The Dynamic Animation
       const drawSineWave = (baseOffset, color, amplitude, frequency, speed) => {
         ctx.beginPath()
         ctx.strokeStyle = color
@@ -41,14 +40,15 @@ export default function Page() {
       drawSineWave(100, 'rgba(173, 209, 158, 0.4)', 40, 60, 0.8)
       drawSineWave(200, 'rgba(255, 145, 87, 0.4)', 35, 40, 1.2)
 
-      offset += 0.25
-      animationFrameId = requestAnimationFrame(drawWave)
+      offset += 0.25 // Increment wave offset
+      animationFrameId = requestAnimationFrame(drawWave) // Requests next frame
     }
 
+    // Lines 49 - 50 Adjust width and height to display size
     const handleResize = () => {
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
-      drawWave()
+      drawWave() // Redraws waves after resize
     }
 
     window.addEventListener('resize', handleResize)
@@ -62,6 +62,7 @@ export default function Page() {
   }, [])
 
   const timelineEvents = [
+    // Different timelines for different events
     { year: '1997', text: 'The first CoCo store opened in Taipei', left: '5%', top: '50%' },
     { year: '2005', text: '100th store opened', left: '25%', top: '0' },
     { year: '2007', text: 'The first CoCo store opened in Suzhou, China', left: '45%', top: '50%' },
@@ -77,22 +78,30 @@ export default function Page() {
         <div className="w-full max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold">About CoCo</h2>
+              <h2 className="text-3xl font-bold text-black">About CoCo</h2>
               <div className="space-y-4 text-gray-800">
                 <p>
-                  CoCo was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea, CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality of tea with unmatchable services to its customers, and began its journey in building the world's biggest bubble tea empire.
+                  CoCo was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea, 
+                  CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality of 
+                  tea with unmatchable services to its customers, and began its journey in building the world's 
+                  biggest bubble tea empire.
                 </p>
                 <p>
-                  Spanning over decades of diligence and consistency, CoCo kept its promises and passions in quality and services with innovative new drinks, stylish store designs, quality fresh fruits and distinctive recipes. With the persistence of traditional craftsmanship, bold innovations and sharp international perspectives, CoCo successfully brought its spirit overseas with the first New York store opening in 2011.
+                  Spanning over decades of diligence and consistency, CoCo kept its promises and passions in 
+                  quality and services with innovative new drinks, stylish store designs, quality fresh fruits 
+                  and distinctive recipes. With the persistence of traditional craftsmanship, bold innovations 
+                  and sharp international perspectives, CoCo successfully brought its spirit overseas with the 
+                  first New York store opening in 2011.
                 </p>
                 <p>
-                  CoCo always aims to create a diverse and sustainable community for its customers, provide eyes-refreshing products, and is dedicated to "Embrace Tradition, Unleash Innovation, and Seize the World."
+                  CoCo always aims to create a diverse and sustainable community for its customers, provide 
+                  eyes-refreshing products, and is dedicated to "Embrace Tradition, Unleash Innovation, and Seize the World."
                 </p>
               </div>
             </div>
             <div>
               <img 
-                src="/placeholder.svg?height=360&width=495"
+                src="/placeholder.svg?height=360&width=495" // Current placeholder for image *** CHANGE TO PROPER IMAGE ***
                 alt="CoCo Store"
                 className="w-full h-full object-cover rounded-lg"
               />
@@ -102,7 +111,7 @@ export default function Page() {
 
         {/* Timeline Section */}
         <div className="w-full max-w-[1200px] mx-auto">
-          <h1 className="text-3xl font-bold mb-12 text-center">From Taiwan to Canada, and the World</h1>
+          <h1 className="text-3xl font-bold mb-12 text-center text-black">From Taiwan to Canada, and the World</h1>
           
           <div className="relative">
             <canvas 
@@ -120,7 +129,7 @@ export default function Page() {
                       left: point.left,
                       top: point.top === '0' ? '20%' : '70%',
                     }}
-                    onMouseEnter={() => setHoveredYear(point.year)}
+                    onMouseEnter={() => setHoveredYear(point.year)} // Lines 124 & 125 show and hide hover animations
                     onMouseLeave={() => setHoveredYear(null)}
                   >
                     <div className="relative flex flex-col items-center">
@@ -132,10 +141,10 @@ export default function Page() {
                       {/* Hoverable event text */}
                       <div className={`absolute top-full mt-2 transition-all duration-300 ${
                         hoveredYear === point.year 
-                          ? 'opacity-100 translate-y-0' 
-                          : 'opacity-0 -translate-y-2'
+                          ? 'opacity-100 translate-y-0' // Show event on hover
+                          : 'opacity-0 -translate-y-2' // Hides event off hover
                       }`}>
-                        <div className="max-w-[150px] text-sm text-gray-800 leading-tight bg-white/80 p-2 rounded-lg">
+                        <div className="max-w-[300px] text-sm text-gray-800 leading-tight bg-white/80 p-2 rounded-lg">
                           {point.text}
                         </div>
                       </div>
@@ -150,4 +159,3 @@ export default function Page() {
     </div>
   )
 }
-
