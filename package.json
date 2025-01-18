@@ -9,9 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.4.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
     "coco-website-calgary": "file:",
+    "cors": "^2.8.5",
+    "emailjs-com": "^3.2.0",
+    "express": "^4.21.2",
+    "framer-motion": "^11.18.1",
+    "lucide-react": "^0.473.0",
     "next": "14.2.13",
+    "nodemailer": "^6.9.16",
     "react": "^18",
     "react-dom": "^18"
   },

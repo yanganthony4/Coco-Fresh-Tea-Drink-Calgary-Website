@@ -43,6 +43,7 @@ const Toolbar = () => {
                 <a href="/locations" className="hover:text-orange-300 text-lg">Locations</a>
                 <a href="/build-a-drink" className="hover:text-orange-300 text-lg">Build A Drink</a>
                 <a href="/about" className="hover:text-orange-300 text-lg">About Us</a>
+                <a href="/contact-us" className="hover:text-orange-300 text-lg">Contact Us</a>
             </nav>
             <a
                 href="https://www.instagram.com/cocobubbletea.calgary/"
