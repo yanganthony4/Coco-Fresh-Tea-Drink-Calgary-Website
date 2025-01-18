@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import Layout from '../app/components/Layout';
-
+import Footer from './components/Footer';
+import Toolbar from './components/Toolbar';
 export default function Home() {
     return (
-        <Layout>
+        <Footer>
+
             <section className="relative bg-orange-100">
               <div className="relative">
                   {/* Main Background Image */}
@@ -223,6 +224,6 @@ export default function Home() {
                 </div>
             </section>
 
-            </Layout>
+            </Footer>
     );
 }

@@ -1,9 +1,10 @@
-import Toolbar from './Toolbar';
+
 
 export default function Layout({ children }) {
     return (
+        
         <div className="min-h-screen flex flex-col">
-            <Toolbar />
+
             
             <main className="flex-grow">{children}</main>
 
@@ -15,6 +16,7 @@ export default function Layout({ children }) {
                 </div>
                 <img src="/images/sun.png" alt="Sun" className="w-12 h-12 mx-auto mt-4" />
             </footer>
+
         </div>
     );
 }
