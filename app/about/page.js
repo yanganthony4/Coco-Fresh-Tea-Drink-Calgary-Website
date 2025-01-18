@@ -23,7 +23,7 @@ export default function Page() {
       const drawSineWave = (baseOffset, color, amplitude, frequency, speed) => {
         ctx.beginPath()
         ctx.strokeStyle = color
-        ctx.lineWidth = 2
+        ctx.lineWidth = 5
 
         for (let x = 0; x < canvas.width; x++) {
           const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2
@@ -64,38 +64,43 @@ export default function Page() {
   const timelineEvents = [
     // Different timelines for different events
     { year: '1997', text: 'The first CoCo store opened in Taipei', left: '5%', top: '50%' },
-    { year: '2005', text: '100th store opened', left: '25%', top: '0' },
-    { year: '2007', text: 'The first CoCo store opened in Suzhou, China', left: '45%', top: '50%' },
-    { year: '2012', text: '1000th store opened worldwide', left: '65%', top: '0' },
-    { year: '2014', text: 'The first CoCo store opened in Toronto, Canada', left: '75%', top: '50%' },
-    { year: '2019', text: '3500+ store opened worldwide', left: '95%', top: '0' }
+    { year: '2005', text: '100th store opened', left: '20%', top: '0' },
+    { year: '2007', text: 'The first CoCo store opened in Suzhou, China', left: '35%', top: '50%' },
+    { year: '2012', text: '1000th store opened worldwide', left: '50%', top: '0' },
+    { year: '2014', text: 'The first CoCo store opened in Toronto, Canada', left: '65%', top: '50%' },
+    { year: '2019', text: '3500+ store opened worldwide', left: '80%', top: '0' },
+    { year: '2025', text: '5000+ store opened worldwide', left: '95%', top: '50%' }
   ]
 
   return (
     <div className="min-h-screen bg-[#FFD9A0]">
-      <div className="container mx-auto px-4 py-8 space-y-16 overflow-y-auto h-screen">
+      <div className="width-100% height-100% py-8 space-y-16">
         {/* About Section */}
         <div className="w-full max-w-[3500px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6 text-left">
-              <h2 className="text-3xl font-bold text-black text-left">About CoCo</h2>
-              <div className="space-y-4 text-gray-800 text-left">
+              <h2 className="text-3xl font-bold text-black text-left px-4">About CoCo</h2>
+              <div className="space-y-4 text-gray-800 text-left px-4">
                 <p>
-                  CoCo was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea,
-                  CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality of 
-                  tea with unmatchable services to its customers, and began its journey in building the world's 
-                  biggest bubble tea empire.
+                  CoCo was established in 1997 by Chairman Tommy Hung with a vision to revolutionize the world of tea. 
+                  In a global landscape where diverse cultures converge over a shared love for tea, CoCo discovered its 
+                  guiding principle: "Consistency and Continuity." This philosophy drives the brand's unwavering commitment 
+                  to delivering the finest quality tea, paired with unparalleled customer service. From its humble beginnings, 
+                  CoCo embarked on an ambitious journey to craft an extraordinary legacy, aspiring to build the largest and most 
+                  beloved bubble tea empire the world has ever seen.
                 </p>
                 <p>
-                  Spanning over decades of diligence and consistency, CoCo kept its promises and passions in 
-                  quality and services with innovative new drinks, stylish store designs, quality fresh fruits 
-                  and distinctive recipes. With the persistence of traditional craftsmanship, bold innovations 
-                  and sharp international perspectives, CoCo successfully brought its spirit overseas with the 
-                  first New York store opening in 2011.
+                  For decades, CoCo has upheld its dedication to quality and service, delivering on its promises with unwavering passion. 
+                  Through innovative beverage creations, chic and inviting store designs, the use of fresh, high-quality fruits, and unique 
+                  recipes, CoCo has consistently set itself apart. Blending the art of traditional craftsmanship with bold innovation and a 
+                  forward-thinking global perspective, the brand expanded its reach beyond borders. This spirit of excellence culminated in 
+                  CoCo's international debut with the opening of its first New York store in 2011, marking a significant milestone in its 
+                  journey to bring the joy of bubble tea to the world.
                 </p>
                 <p>
-                  CoCo always aims to create a diverse and sustainable community for its customers, provide 
-                  eyes-refreshing products, and is dedicated to "Embrace Tradition, Unleash Innovation, and Seize the World."
+                  CoCo is committed to fostering a vibrant and sustainable community for its customers, offering visually appealing and refreshingly 
+                  delightful products. Guided by its enduring mission to "Embrace Tradition, Unleash Innovation, and Seize the World," CoCo strives 
+                  to honor its roots while continuously pushing boundaries to redefine the bubble tea experience for a global audience.
                 </p>
               </div>
             </div>
@@ -111,7 +116,7 @@ export default function Page() {
 
 
         {/* Timeline Section */}
-        <div className="w-full max-w-[2000px] mx-auto">
+        <div className="width-100%">
           <h1 className="text-3xl font-bold mb-12 text-center text-black">From Taiwan to Canada, and the World</h1>
           
           <div className="relative">
@@ -140,7 +145,7 @@ export default function Page() {
                         {point.year}
                       </div>
                       {/* Hoverable event text */}
-                      <div className={`absolute top-full mt-2 transition-all duration-300 ${
+                      <div className={` top-full mt-2 transition-all duration-300 ${
                         hoveredYear === point.year 
                           ? 'opacity-100 translate-y-0' // Show event on hover
                           : 'opacity-0 -translate-y-2' // Hides event off hover
@@ -157,15 +162,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      
-      {/* Footer Section */}
-      <footer className="bg-orange-300 py-6 text-center">
-        <div className="flex justify-center space-x-6">
-          <a href="#" className="text-white">Privacy Policy</a>
-          <a href="#" className="text-white">Accessibility</a>
-        </div>
-        <img src="/images/sun.png" alt="Sun" className="w-12 h-12 mx-auto mt-4" />
-      </footer>
     </div>
   )
 }
