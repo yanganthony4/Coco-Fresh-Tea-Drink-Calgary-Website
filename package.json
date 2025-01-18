@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.5",
     "bcryptjs": "^2.4.3",
     "coco-website-calgary": "file:",
-    "next": "14.2.13",
+    "next": "^14.2.23",
     "react": "^18",
     "react-dom": "^18"
   },
