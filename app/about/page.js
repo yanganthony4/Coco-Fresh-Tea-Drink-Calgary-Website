@@ -75,13 +75,13 @@ export default function Page() {
     <div className="min-h-screen bg-[#FFD9A0]">
       <div className="container mx-auto px-4 py-8 space-y-16 overflow-y-auto h-screen">
         {/* About Section */}
-        <div className="w-full max-w-[1200px] mx-auto">
+        <div className="w-full max-w-[3500px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-black">About CoCo</h2>
-              <div className="space-y-4 text-gray-800">
+            <div className="space-y-6 text-left">
+              <h2 className="text-3xl font-bold text-black text-left">About CoCo</h2>
+              <div className="space-y-4 text-gray-800 text-left">
                 <p>
-                  CoCo was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea, 
+                  CoCo was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea,
                   CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality of 
                   tea with unmatchable services to its customers, and began its journey in building the world's 
                   biggest bubble tea empire.
@@ -109,14 +109,15 @@ export default function Page() {
           </div>
         </div>
 
+
         {/* Timeline Section */}
-        <div className="w-full max-w-[1200px] mx-auto">
+        <div className="w-full max-w-[2000px] mx-auto">
           <h1 className="text-3xl font-bold mb-12 text-center text-black">From Taiwan to Canada, and the World</h1>
           
           <div className="relative">
             <canvas 
               ref={canvasRef} 
-              className="w-full h-[250px]"
+              className="w-full h-[310px]"
             />
             
             <div className="absolute top-0 left-0 w-full h-full">
@@ -144,7 +145,7 @@ export default function Page() {
                           ? 'opacity-100 translate-y-0' // Show event on hover
                           : 'opacity-0 -translate-y-2' // Hides event off hover
                       }`}>
-                        <div className="max-w-[300px] text-sm text-gray-800 leading-tight bg-white/80 p-2 rounded-lg">
+                        <div className="max-w-[150px] text-sm text-gray-800 leading-tight bg-white/80 p-2 rounded-lg">
                           {point.text}
                         </div>
                       </div>
@@ -156,6 +157,15 @@ export default function Page() {
           </div>
         </div>
       </div>
+      
+      {/* Footer Section */}
+      <footer className="bg-orange-300 py-6 text-center">
+        <div className="flex justify-center space-x-6">
+          <a href="#" className="text-white">Privacy Policy</a>
+          <a href="#" className="text-white">Accessibility</a>
+        </div>
+        <img src="/images/sun.png" alt="Sun" className="w-12 h-12 mx-auto mt-4" />
+      </footer>
     </div>
   )
 }
