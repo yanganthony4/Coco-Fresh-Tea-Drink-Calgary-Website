@@ -8,8 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        cocoBrown: '#653128',
+      },
+      margin: {
+        '1/4-screen': '25vw', // Custom margin utility
       },
     },
   },

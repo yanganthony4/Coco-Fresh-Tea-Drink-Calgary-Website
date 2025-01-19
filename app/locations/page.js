@@ -43,63 +43,19 @@ export default function LocationsPage() {
     ];
 
     return (
-        <>
-            <div className="relative w-full min-h-screen flex flex-col">
-                <Toolbar/>
-                {/* Background */}
-                <div
-                    className="relative w-full bg-no-repeat bg-cover bg-center flex-1"
-                    style={{
-                        backgroundImage: "url('/images/locationsbg.png')",
-                    }}
-                ></div>
-
-                {/* Main Content */}
-                <section className="relative flex flex-col items-center justify-center w-full text-center lg:text-left flex-1">
-                    <h1
-                        style={{
-                            fontSize: "48px",
-                            fontWeight: "bold",
-                            color: "#653128",
-                            marginBottom: "1rem",
-                        }}
-                    >
-                        Can't make the trip?
-                    </h1>
-
-                    {/* Delivery Links */}
-                    <div className="relative w-full h-full">
-                        {imageSettings.map((image, index) => (
-                            <a
-                                key={index}
-                                href="#"
-                                className="block"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    position: 'absolute',
-                                    width: image.width,
-                                    height: image.height,
-                                    top: image.top || 'auto',
-                                    bottom: image.bottom || 'auto',
-                                    left: image.left || 'auto',
-                                    right: image.right || 'auto',
-                                }}
-                            >
-                                <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    className="w-full h-full object-contain"
-                                />
-                            </a>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Footer */}
+        <div className="relative w-full min-h-screen flex flex-col">
+            <Toolbar/>
+            <div className="">
                 <Map/>
-                <Footer />
             </div>
-        </>
+            <div className="bg-orange-300">
+                <h1 className="text-4xl text-center font-bold text-cocoBrown">
+                    Can't Make It?
+                </h1>
+
+            </div>
+            <Footer />
+        </div>
+    
     );
 }

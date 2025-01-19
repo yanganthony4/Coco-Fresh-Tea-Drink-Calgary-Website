@@ -263,8 +263,8 @@ const Map = () => {
 
     // Render the component.
     return (
-        <div className="flex border-orange-500 rounded-md border-2">
-            <div className="w-1/3 h-[500px] overflow-y-auto">
+        <div className="flex rounded-md mt-10 mb-10 ml-1/4-screen mr-1/4-screen border-2 border-orange-300">
+            <div className="w-1/3 h-[500px] p-2 overflow-y-auto ">
                 <ul>
                     {sortedLocations.map((location) => {
                         const today = getDayOfWeek(); // Get the current day
