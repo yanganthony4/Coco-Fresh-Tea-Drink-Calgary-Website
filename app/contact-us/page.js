@@ -19,13 +19,11 @@ export default function ContactPage() {
     event.preventDefault();
     setIsPending(true);
 
-    const formData = new FormData(event.target);
-
     try {
       // Sending form data to EmailJS
       await emailjs.sendForm(
-        "sumaiyakurshid@gmail.com", // Replace with your actual EmailJS service ID
-        "template_n1x13ps", // Replace with your actual EmailJS template ID
+        "sumaiyakurshid@gmail.com", // Replace with your actual EmailJS Service ID
+        "template_n1x13ps", // Replace with your actual EmailJS Template ID
         event.target, // Pass the form element directly
         "3OhHXYVtaPA-m2hAk" // Replace with your actual EmailJS User ID
       );
@@ -123,6 +121,7 @@ export default function ContactPage() {
           </div>
         </div>
 
+        {/* FAQ Section with Animation */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
