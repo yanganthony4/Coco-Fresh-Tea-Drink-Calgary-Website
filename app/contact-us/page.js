@@ -1,19 +1,18 @@
 "use client"; // Add this directive to make it a Client Component
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Send } from 'lucide-react';
-import emailjs from 'emailjs-com';
-import Toolbar from '../components/Toolbar';
-
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
+import emailjs from "emailjs-com";
+import Toolbar from "../components/Toolbar";
 
 export default function ContactPage() {
   const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
     // Initialize EmailJS with your User ID
-    emailjs.init('YOUR_USER_ID');  // Replace with your actual EmailJS User ID
+    emailjs.init("3OhHXYVtaPA-m2hAk"); // Replace with your actual EmailJS User ID
   }, []);
 
   async function handleSubmit(event) {
@@ -25,15 +24,16 @@ export default function ContactPage() {
     try {
       // Sending form data to EmailJS
       await emailjs.sendForm(
-        'YOUR_SERVICE_ID',  // Your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Your EmailJS template ID
-        formData,
-        'YOUR_USER_ID'     // Your EmailJS user ID
+        "sumaiyakurshid@gmail.com", // Replace with your actual EmailJS service ID
+        "template_n1x13ps", // Replace with your actual EmailJS template ID
+        event.target, // Pass the form element directly
+        "3OhHXYVtaPA-m2hAk" // Replace with your actual EmailJS User ID
       );
       alert("Your message has been sent. We'll get back to you soon.");
+      event.target.reset(); // Clear the form after submission
     } catch (error) {
-      console.error('Error sending message', error);
-      alert('Failed to send message. Please try again later.');
+      console.error("Error sending message", error);
+      alert("Failed to send message. Please try again later.");
     }
 
     setIsPending(false);
@@ -44,7 +44,7 @@ export default function ContactPage() {
       {/* Header Section */}
       <header>
         <Toolbar />
-        <h1 style={{ margin: 0, fontSize: '2em' }}>Contact Us</h1>
+        <h1 style={{ margin: 0, fontSize: "2em" }}>Contact Us</h1>
       </header>
 
       <div className="container mx-auto px-4 py-12">
@@ -59,8 +59,8 @@ export default function ContactPage() {
           </div>
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl font-bold mb-4 text-black">Contact Us</h1>
-              <p className="text-black">
+              <h1 className="text-4xl font-bold mb-4 text-[#653128]">Contact Us</h1>
+              <p className="text-[#653128]">
                 Fill out the form below and we'll get back to you as soon as possible.
               </p>
             </div>
@@ -107,14 +107,12 @@ export default function ContactPage() {
                   required
                 />
               </div>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isPending}
-                className="w-full bg-[#FFD9A0] hover:bg-[#E5C38D] text-black py-2 rounded-md transition-colors"
+                className="w-full bg-[#FF9800] hover:bg-[#E5C38D] text-[#653128] py-2 rounded-md transition-colors"
               >
-                {isPending ? (
-                  "Sending..."
-                ) : (
+                {isPending ? "Sending..." : (
                   <>
                     Send Message
                     <Send className="ml-2 h-4 w-4" />
@@ -131,7 +129,7 @@ export default function ContactPage() {
           viewport={{ once: true }}
           className="mt-24 max-w-3xl mx-auto"
         >
-          <h2 className="text-3xl font-bold text-center mb-12 text-black">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#653128]">
             Frequently Asked Questions
           </h2>
           <div className="space-y-8">
@@ -144,7 +142,7 @@ export default function ContactPage() {
                 transition={{ delay: index * 0.2 }}
                 className="space-y-2"
               >
-                <h3 className="text-xl font-semibold text-black">{faq.question}</h3>
+                <h3 className="text-xl font-semibold text-[#653128]">{faq.question}</h3>
                 <p className="text-black">{faq.answer}</p>
               </motion.div>
             ))}
