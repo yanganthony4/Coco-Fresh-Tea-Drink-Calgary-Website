@@ -4,9 +4,11 @@ import Toolbar from './components/Toolbar';
 export default function Home() {
     return (
         <Footer>
-
+        <Toolbar/>
             <section className="relative bg-orange-100">
+                
               <div className="relative">
+                
                   {/* Main Background Image */}
                   <img src="/images/homepage.png" alt="Bubble Tea" className="w-full h-auto" />
 
@@ -223,7 +225,7 @@ export default function Home() {
                     </map>
                 </div>
             </section>
-
+                            
             </Footer>
     );
 }

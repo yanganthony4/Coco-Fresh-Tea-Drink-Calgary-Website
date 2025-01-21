@@ -1,10 +1,5 @@
-
-
 export default function Layout({ children }) {
-    return (
-        
-        
-        
+    return ( 
         <div className="min-h-screen flex flex-col">
             
             
