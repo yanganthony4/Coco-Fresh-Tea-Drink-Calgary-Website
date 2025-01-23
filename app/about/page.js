@@ -1,67 +1,94 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react"
 
 export default function Page() {
-  const canvasRef = useRef(null);
-  const [hoveredYear, setHoveredYear] = useState(null);
+  // Hook declarations and state management
+  const canvasRef = useRef(null)
+  const [hoveredYear, setHoveredYear] = useState(null)
 
+  // Intersection Observer for scroll animations
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add animation classes when element comes into view
+          entry.target.classList.add("animate-slide-up", "opacity-100")
+        }
+      })
+    }
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+    })
 
-    let animationFrameId;
-    let offset = 0;
+    document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+      observer.observe(el)
+    })
 
+    return () => observer.disconnect()
+  }, [])
+
+  // Canvas wave animation setup and rendering
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    let animationFrameId
+    let offset = 0
+
+    // Function to draw the animated wave pattern
     const drawWave = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+      // Helper function to draw individual sine waves
       const drawSineWave = (baseOffset, color, amplitude, frequency, speed) => {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 5;
+        ctx.beginPath()
+        ctx.strokeStyle = color
+        ctx.lineWidth = 5
 
         for (let x = 0; x < canvas.width; x++) {
-          const y =
-            amplitude *
-              Math.sin((x + baseOffset + offset * speed) / frequency) +
-            canvas.height / 2;
+          const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2
           if (x === 0) {
-            ctx.moveTo(x, y);
+            ctx.moveTo(x, y)
           } else {
-            ctx.lineTo(x, y);
+            ctx.lineTo(x, y)
           }
         }
-        ctx.stroke();
-      };
+        ctx.stroke()
+      }
 
-      drawSineWave(0, "rgba(255, 166, 89, 0.4)", 30, 50, 1);
-      drawSineWave(100, "rgba(173, 209, 158, 0.4)", 40, 60, 0.8);
-      drawSineWave(200, "rgba(255, 145, 87, 0.4)", 35, 40, 1.2);
+      // Draw three overlapping waves with different parameters
+      drawSineWave(0, "rgba(255, 166, 89, 0.4)", 30, 50, 1)
+      drawSineWave(100, "rgba(173, 209, 158, 0.4)", 40, 60, 0.8)
+      drawSineWave(200, "rgba(255, 145, 87, 0.4)", 35, 40, 1.2)
 
-      offset += 0.25;
-      animationFrameId = requestAnimationFrame(drawWave);
-    };
+      offset += 0.25
+      animationFrameId = requestAnimationFrame(drawWave)
+    }
 
+    // Handle canvas resize
     const handleResize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      drawWave();
-    };
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+      drawWave()
+    }
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    drawWave();
+    // Event listeners setup and cleanup
+    window.addEventListener("resize", handleResize)
+    handleResize()
+    drawWave()
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+      window.removeEventListener("resize", handleResize)
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
 
+  // Timeline data configuration
   const timelineEvents = [
     { year: "1997", text: "The first CoCo store opened in Taipei", left: "5%", top: "50%" },
     { year: "2005", text: "100th store opened", left: "20%", top: "0" },
@@ -70,60 +97,84 @@ export default function Page() {
     { year: "2014", text: "The first CoCo store opened in Toronto, Canada", left: "65%", top: "50%" },
     { year: "2019", text: "3500+ store opened worldwide", left: "80%", top: "0" },
     { year: "2025", text: "5000+ store opened worldwide", left: "95%", top: "50%" },
-  ];
+  ]
 
   return (
     <div className="min-h-screen bg-[white] text-[#653128]">
-      <div className="w-full h-full py-8 space-y-16">
-        {/* About Section */}
-        <div className="w-full max-w-[1750px] mx-auto pl-[35px] relative space-y-16">
-          {/* First Flexbox */}
-          <div className="relative flex items-center justify-end space-x-8 hover:scale-105 transition-transform duration-300 z-10">
+      {/* Hero Section: Full-width image with overlay and main title */}
+      <div className="relative w-full h-[60vh] overflow-hidden">
+        <img src="/images/hero-image.jpg" alt="CoCo Hero Image" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1 className="text-6xl font-bold text-white mb-16 opacity-0 animate-fade-in">About CoCo</h1>
+        </div>
+      </div>
+
+      {/* Secondary Title: Appears after hero section */}
+      <h2 className="text-4xl font-bold text-center my-16 opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
+        CoCo's Story
+      </h2>
+
+      <div className="w-full h-full py-16 space-y-32">
+        {/* Main Content Section: Three alternating image/text blocks */}
+        <div className="w-full max-w-[1750px] mx-auto px-[35px] relative space-y-32">
+          {/* First Content Block: Image left, text right */}
+          <div className="relative h-[400px] flex items-center justify-end opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
             <img
               src="/images/first-image.jpg"
               alt="First Flexbox Image"
-              className="absolute w-[50%] h-auto object-cover rounded-lg z-0 left-0 top-1/2 transform -translate-y-1/2"
+              className="absolute left-[10%] w-[45%] h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             />
-            <p className="relative w-[50%] text-lg bg-[#f78a39] p-4 rounded-lg text-right shadow-lg">
-              CoCo Bubble Tea, founded in 1997 by Chairman Tommy Hung, is a global leader in bubble tea, known for its
-              commitment to quality and innovation. With a mission of "Consistency and Continuity," CoCo has become a
-              favorite among bubble tea lovers worldwide.
-            </p>
+            <div className="relative w-[60%] -ml-[5%] transition-all duration-300 hover:scale-105">
+              <p className="text-lg bg-[#f78a39] p-8 rounded-lg text-right shadow-lg">
+                CoCo Bubble Tea, founded in 1997 by Chairman Tommy Hung, is a global leader in bubble tea, known for its
+                commitment to quality and innovation. With a mission of "Consistency and Continuity," CoCo has become a
+                favorite among bubble tea lovers worldwide.
+              </p>
+            </div>
           </div>
-          {/* Second Flexbox */}
-          <div className="relative flex items-center space-x-8 hover:scale-105 transition-transform duration-300 z-10">
-            <p className="relative w-[50%] text-lg bg-[#f78a39] p-4 rounded-lg mr-[50%] shadow-lg">
-              In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served in
-              stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an authentic and
-              innovative bubble tea experience to communities across the country.
-            </p>
+
+          {/* Second Content Block: Text left, image right */}
+          <div className="relative h-[400px] flex items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
+            <div className="relative w-[60%] -mr-[5%] z-10 transition-all duration-300 hover:scale-105">
+              <p className="text-lg bg-[#f78a39] p-8 rounded-lg shadow-lg">
+                In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served
+                in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an
+                authentic and innovative bubble tea experience to communities across the country.
+              </p>
+            </div>
             <img
               src="/images/second-image.jpg"
               alt="Second Flexbox Image"
-              className="absolute w-[50%] h-auto object-cover rounded-lg z-0 right-0 top-1/2 transform -translate-y-1/2"
+              className="absolute right-[10%] w-[45%] h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             />
           </div>
-          {/* Third Flexbox */}
-          <div className="relative flex items-center justify-end space-x-8 hover:scale-105 transition-transform duration-300 z-10">
+
+          {/* Third Content Block: Image left, text right */}
+          <div className="relative h-[400px] flex items-center justify-end opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
             <img
               src="/images/third-image.jpg"
               alt="Third Flexbox Image"
-              className="absolute w-[50%] h-auto object-cover rounded-lg z-0 left-0 top-1/2 transform -translate-y-1/2"
+              className="absolute left-[10%] w-[45%] h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             />
-            <p className="relative w-[50%] text-lg bg-[#f78a39] p-4 rounded-lg text-right shadow-lg">
-              As CoCo expands in Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.
-              Discover your nearest CoCo location and join the bubble tea revolution today!
-            </p>
+            <div className="relative w-[60%] -ml-[5%] transition-all duration-300 hover:scale-105">
+              <p className="text-lg bg-[#f78a39] p-8 rounded-lg text-right shadow-lg">
+                As CoCo expands in Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.
+                Discover your nearest CoCo location and join the bubble tea revolution today!
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Timeline Section */}
-        <div className="w-full">
+        {/* Timeline Section: Interactive historical timeline with wave animation */}
+        <div className="w-full mt-32 opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
           <div className="relative shadow-lg flex justify-center items-center flex-col bg-[#f5d3ba] rounded-md mx-[35px] p-8">
             <h1 className="text-3xl font-bold mb-12 text-center">From Taiwan to Canada, and the World</h1>
+            {/* Canvas element for wave animation */}
             <canvas ref={canvasRef} className="w-full h-[310px]" />
+            {/* Timeline events overlay */}
             <div className="absolute top-0 left-0 w-full h-full">
               <div className="relative h-full">
+                {/* Map through timeline events to create interactive points */}
                 {timelineEvents.map((point) => (
                   <div
                     key={point.year}
@@ -144,9 +195,7 @@ export default function Page() {
                       <div className="text-[#653128] font-bold text-lg mb-1">{point.year}</div>
                       <div
                         className={`top-full mt-2 transition-all duration-300 ${
-                          hoveredYear === point.year
-                            ? "opacity-100 translate-y-0"
-                            : "opacity-0 -translate-y-2"
+                          hoveredYear === point.year ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
                         }`}
                       >
                         <div className="max-w-[150px] text-sm text-[#653128] leading-tight bg-#f78a39 p-2 rounded-lg">
@@ -162,5 +211,6 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }
+
