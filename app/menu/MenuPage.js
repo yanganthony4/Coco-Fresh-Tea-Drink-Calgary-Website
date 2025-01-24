@@ -3,12 +3,20 @@
 import { useState } from 'react';
 import CategoryList from '../components/CategoryList';
 import ProductGrid from '../components/ProductGrid';
-import menuData from './data.json';
+import Data from './data.json';
 
 const MenuPage = () => {
-  const categories = Object.keys(menuData);
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const products = menuData[selectedCategory];
+  const drinks = Data.drinks;
+
+  // Define categories
+  const categories = ["All", "Favourites", "Milk Tea", "Fresh Tea", "Fresh Milk", "Fruit Tea", "Slush"];
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Filter drinks based on the selected category
+  const filteredDrinks =
+    selectedCategory === "All"
+      ? drinks
+      : drinks.filter((drink) => drink.category === selectedCategory);
 
   return (
     <div className="flex">
@@ -19,9 +27,9 @@ const MenuPage = () => {
       />
       <div className="flex-1 p-10">
         <h1 className="text-3xl font-bold text-gray-900 mb-6 capitalize">
-          {selectedCategory}
+          {selectedCategory} 
         </h1>
-        <ProductGrid products={products} />
+        <ProductGrid products={filteredDrinks} />
       </div>
     </div>
   );

@@ -5,8 +5,8 @@ import MenuPage from './MenuPage';
 export default function Page() {
   return (
     <div>
-    <Toolbar/>
-    <MenuPage />  
+      <Toolbar />
+      <MenuPage />
     </div>
   );
 }

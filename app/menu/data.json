@@ -1,339 +1,397 @@
 {
-    "Favourites": [
+    "drinks": [
       {
         "image": "mtsagotaro.png",
         "name": "Taro Milk Tea",
-        "description": "Made with Taro Flavoring, Creamer, and Sago"
+        "description": "Made with Taro Flavoring, Creamer, and Sago",
+        "category": "Milk Tea",
+        "category": "Favourites"
       },
       {
         "image": "slushavocado.png",
-        "name": "Avocado Slush",
-        "description": "A refreshing blend of avocado and ice"
+        "name": "Avocado Smoothie",
+        "description": "A refreshing blend of avocado and ice",
+        "category": "Slush",
+        "category": "Favourites"
       },
       {
         "image": "slushmangodream.png",
         "name": "Mango Dream",
-        "description": "Delicious mango slush with a hint of citrus"
+        "description": "Delicious mango slush with a hint of citrus",
+        "category": "Slush"
       },
       {
         "image": "yakultlychee.png",
         "name": "Yakult Lychee",
-        "description": "Lychee flavored Yakult with a refreshing taste"
+        "description": "Lychee flavored Yakult with a refreshing taste",
+        "category": "Yakult",
+        "category": "Favourites"
       },
       {
         "image": "mt3guys.png",
-        "name": "3 Guys",
-        "description": "Classic Milk Tea with Pearls, Pudding, and Grass Jelly"
+        "name": "Three Guys",
+        "description": "Classic Milk Tea with Pearls, Pudding, and Grass Jelly",
+        "category": "Milk Tea",
+        "category": "Favourites"
       },
       {
         "image": "ftbbgg.png",
         "name": "Bubble Gaga",
-        "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly"
+        "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly",
+        "category": "Fruit Tea",
+        "category": "Favourites"
       },
       {
         "image": "slushmangopomelo.png",
         "name": "Mango Pomelo Sago" ,
-        "description": "Mango Slush with Creamy Coconut Milk, Fresh Mango Jam and Pomelo, and Sago" 
+        "description": "Mango Slush with Creamy Coconut Milk, Fresh Mango Jam and Pomelo, and Sago",
+        "category": "Slush",
+        "category": "Favourites"
       },
       {
         "image": "mtbs.png",
         "name": "BrownSugar Pearl Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea",
+        "category": "Favourites"
       },
       {
         "image": "slushstrawberrydream.png",
         "name": "Strawberry Dream",
         "description": "",
-        "calories": 20
-      }
-    ],
-    "Fresh Tea": [
+        "category": "Slush",
+        "category": "Favourites"
+      },
       {
         "image": "teablack.png",
         "name": "Black Tea",
-        "description": "Classic black tea with rich aroma"
+        "description": "Classic black tea with rich aroma",
+        "category": "Fresh Tea"
       },
       {
         "image": "teajasmine.png",
         "name": "Jasmine Tea",
-        "description": "Light and floral jasmine green tea"
+        "description": "Light and floral jasmine green tea",
+        "category": "Fresh Tea"
       },
       {
         "image": "teablack.png",
         "name": "Oolong Tea",
-        "description": "Smooth and fragrant oolong tea"
-      }
-    ],
-    "Milk Tea": [
+        "description": "Smooth and fragrant oolong tea",
+        "category": "Fresh Tea"
+      },
       {
         "image": "mt3guys.png",
-        "name": "3 Guys",
-        "description": "Classic Milk Tea with Pearls, Pudding, and Grass Jelly"
+        "name": "Three Guys",
+        "description": "Classic Milk Tea with Pearls, Pudding, and Grass Jelly",
+        "category": "Milk Tea"
       },
       {
         "image": "mttwoladies.png",
         "name": "Two Ladies",
-        "description": "Milk Tea with Pearls and Pudding"
+        "description": "Milk Tea with Pearls and Pudding",
+        "category": "Milk Tea"
       },
       {
         "image": "mtbs.png",
         "name": "Brown Sugar Milk Tea",
-        "description": "Sweet milk tea with brown sugar pearls"
+        "description": "Sweet milk tea with brown sugar pearls",
+        "category": "Milk Tea"
       },
       {
         "image": "mtcaramel.png",
         "name": "Caramel Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtcaramelchoco.png",
         "name": "Caramel Chocolate Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtchoco.png",
         "name": "Chocolate Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtft.png",
         "name": "Fresh Taro Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtftjasmine.png",
         "name": "Fresh Taro Jasmine Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mthoneydew.png",
         "name": "HoneyDew Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtjas.png",
         "name": "Jasmine Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtmatcha.png",
         "name": "Matcha Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtoolong.png",
         "name": "Oolong Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtpearl.png",
         "name": "Pearl Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mtsagotaro.png",
         "name": "Sago Taro Milk Tea",
-        "description": ""
+        "description": "",
+        "category": "Milk Tea"
       },
       {
         "image": "mttaro.png",
         "name": "Taro Milk Tea",
-        "description": ""
-      }
-    ],
-    "Fruit Tea": [
+        "description": "",
+        "category": "Milk Tea"
+      },
       {
         "image": "ftbbgg.png",
         "name": "Bubble Gaga",
-        "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly"
+        "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftgrapefruit.png",
         "name": "Grapefruit Green Tea",
-        "description": "Refreshing green tea with fresh grapefruit"
+        "description": "Refreshing green tea with fresh grapefruit",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftlemongt.png",
         "name": "Lemon Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon"
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftlemonbt.png",
         "name": "Lemon Black Tea",
-        "description": "Refreshing green tea with freshly juiced lemon"
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftlemonking.png",
         "name": "Lemon King",
-        "description": "Refreshing green tea with freshly juiced lemon"
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftlychee.png",
         "name": "Lychee Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon"
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftmango.png",
         "name": "Mango Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon"
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftpfbt.png",
         "name": "Passionfruit Black Tea",
-        "description": "Refreshing green tea with freshly juiced lemon"
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
       },
       {
         "image": "ftpfgt.png",
         "name": "Passionfruit Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon"
-      }
-    ],
-    "Fresh Milk": [
+        "description": "Refreshing green tea with freshly juiced lemon",
+        "category": "Fruit Tea"
+      },
       {
         "image": "lattebs.png",
         "name": "Brown Sugar Pearl Latte",
-        "description": "Creamy milk with brown sugar syrup"
+        "description": "Creamy milk with brown sugar syrup",
+        "category": "Fresh Milk"
       },
       {
         "image": "latteft.png",
         "name": "Fresh Taro Latte",
-        "description": "Fresh fruit blended with creamy milk"
+        "description": "Fresh fruit blended with creamy milk",
+        "category": "Fresh Milk"
       },
       {
         "image": "lattematcha.png",
         "name": "Matcha Latte",
-        "description": "Creamy milk with brown sugar syrup"
+        "description": "Creamy milk with brown sugar syrup",
+        "category": "Fresh Milk"
       },
       {
         "image": "lattestrawberry.png",
         "name": "Strawberry Latte",
-        "description": "Creamy milk with brown sugar syrup"
-      }
-    ],
-    "Salty Cream": [
+        "description": "Creamy milk with brown sugar syrup",
+        "category": "Fresh Milk"
+      },
       {
         "image": "saltybt.png",
         "name": "Black Tea Salty Cream",
-        "description": "Fresh black tea with salty cream topping"
+        "description": "Fresh black tea with salty cream topping",
+        "category": "Salty Cream"
       },
       {
         "image": "saltychoco.png",
         "name": "Chocolate Salty Cream",
-        "description": "Rich chocolate milk tea with salty cream topping"
+        "description": "Rich chocolate milk tea with salty cream topping",
+        "category": "Salty Cream"
       },
       {
         "image": "saltygt.png",
         "name": "Jasmine Tea Salty Cream",
-        "description": "Fresh jasmine tea with salty cream topping"
+        "description": "Fresh jasmine tea with salty cream topping",
+        "category": "Salty Cream"
       },
       {
         "image": "saltymatcha.png",
         "name": "Matcha Salty Cream",
-        "description": "Japanese Matcha milk tea with salty cream topping"
-      }
-    ],
-    "Yakult": [
+        "description": "Japanese Matcha milk tea with salty cream topping",
+        "category": "Salty Cream"
+      },
       {
         "image": "yakultgf.png",
         "name": "Grapefruit Yakult",
-        "description": "Fresh grapefruit juice and Yakult yogurt"
+        "description": "Fresh grapefruit juice and Yakult yogurt",
+        "category": "Yakult"
       },
       {
         "image": "yakultgt.png",
         "name": "Green Tea Yakult",
-        "description": "Green tea infused and Yakult yogurt"
+        "description": "Green tea infused and Yakult yogurt",
+        "category": "Yakult"
       },
       {
         "image": "yakultlemon.png",
         "name": "Lemon Yakult",
-        "description": "Freshly juiced lemon and Yakult yogurt"
+        "description": "Freshly juiced lemon and Yakult yogurt",
+        "category": "Yakult"
       },
       {
         "image": "yakultmango.png",
         "name": "Mango Yakult",
-        "description": "Mango juice, fresh mango jam, and Yakult yogurt"
+        "description": "Mango juice, fresh mango jam, and Yakult yogurt",
+        "category": "Yakult"
       },
       {
         "image": "yakultlychee.png",
         "name": "Lychee Yakult",
-        "description": "Lychee juice and fruit, and Yakult yogurt"
-      }
-    ],
-    "Slush": [
+        "description": "Lychee juice and fruit, and Yakult yogurt",
+        "category": "Yakult"
+      },
       {
         "image": "slushavocado.png",
         "name": "Avocado Smoothie",
-        "description": "Fresh, creamy avocado blended with ice"
+        "description": "Fresh, creamy avocado blended with ice",
+        "category": "Slush"
       },
       {
         "image": "slushavocadopudding.png",
         "name": "Avocado Pudding Smoothie",
-        "description": "Fresh, creamy avocado blended with pudding and ice"
+        "description": "Fresh, creamy avocado blended with pudding and ice",
+        "category": "Slush"
       },
       {
         "image": "slushchoco.png",
         "name": "Chocolate Slush",
-        "description": "Decadent chocolate blended with ice"
+        "description": "Decadent chocolate blended with ice",
+        "category": "Slush"
       },
       {
         "image": "slushchocodream.png",
         "name": "Chocolate Dream",
-        "description": "Decadent chocolate blended with ice, with brown sugar pearls and salty cream"
+        "description": "Decadent chocolate blended with ice, with brown sugar pearls and salty cream",
+        "category": "Slush",
+        "category": "Favourites"
       },
       {
         "image": "slushcremestrawberry.png",
         "name": "Creme Brulee Strawberry Slush",
-        "description": ""
+        "description": "",
+        "category": "Slush"
       },
       {
         "image": "slushhoneydew.png",
         "name": "HoneyDew Slush",
-        "description": "Creamy honeydew blended with ice, with white pearl topping"
+        "description": "Creamy honeydew blended with ice, with white pearl topping",
+        "category": "Slush"
       },
       {
         "image": "slushmango.png",
         "name": "Mango Slush",
-        "description": "Mango slush with fresh mango jam"
+        "description": "Mango slush with fresh mango jam",
+        "category": "Slush"
       },
       {
         "image": "slushmangodream.png",
         "name": "Mango Dream",
-        "description": "Mango slush with fresh mango jam, salty cream and a white pearls"
+        "description": "Mango slush with fresh mango jam, salty cream and a white pearls",
+        "category": "Slush"
       },
       {
         "image": "slushmangopomelo.png",
         "name": "Mango Pomelo Sago" ,
-        "description": "Mango Slush with creamy Coconut Milk, fresh mango jam and pomelo, and sago" 
+        "description": "Mango Slush with creamy Coconut Milk, fresh mango jam and pomelo, and sago" ,
+        "category": "Slush"
       },
       {
         "image": "slushmangosmoothie.png",
         "name": "Mango Smoothie" ,
-        "description": "Mango Slush with fresh mango jam, topped with fresh milk" 
+        "description": "Mango Slush with fresh mango jam, topped with fresh milk" ,
+        "category": "Slush"
       },
       {
         "image": "slushmatcha.png",
         "name": "Matcha Slush Macchiato" ,
-        "description": "Japanese Matcha slush topped with salty cream" 
+        "description": "Japanese Matcha slush topped with salty cream" ,
+        "category": "Slush"
       },
       {
         "image": "slushpfmango.png",
         "name": "Passionfruit Mango Slush" ,
-        "description": "Refreshing passionfruit and mango juice blended with ice" 
+        "description": "Refreshing passionfruit and mango juice blended with ice" ,
+        "category": "Slush"
       },
       {
         "image": "slushstrawberry.png",
         "name": "Strawberry Slush" ,
-        "description": "Fresh strawberries and juice blended with ice, with white pearls" 
+        "description": "Fresh strawberries and juice blended with ice, with white pearls" ,
+        "category": "Slush"
       },
       {
         "image": "slushstrawberrydream.png",
         "name": "Strawberry Dream" ,
-        "description": "Fresh strawberries and juice blended with ice, with white pearls and topped with salty cream" 
+        "description": "Fresh strawberries and juice blended with ice, with white pearls and topped with salty cream" ,
+        "category": "Slush"
       },
       {
         "image": "slushtaro.png",
         "name": "Taro Slush" ,
-        "description": "Creamy taro milk tea blended with ice" 
+        "description": "Creamy taro milk tea blended with ice" ,
+        "category": "Slush"
       }
     ]
   }
