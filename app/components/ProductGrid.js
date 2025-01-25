@@ -18,7 +18,7 @@ const ProductGrid = ({ products }) => {
             <img
               src={`/menuAssets/${product.image}`}
               alt={product.name}
-              className="w-[210px] h-[320px] object-contain cursor-pointer rounded-lg shadow-md"
+              className="w-[210px] h-[320px] object-contain cursor-pointer rounded-lg "
             />
             <h3 className="mt-2 text-lg font-bold text-gray-800 capitalize">
               {product.name}
