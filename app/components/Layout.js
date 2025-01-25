@@ -2,8 +2,7 @@ import Toolbar from './Toolbar';
 
 export default function Layout({ children }) {
     return (
-        <div className="min-h-screen flex flex-col">
-            <Toolbar />
+        <div>
             
             <main className="flex-grow">{children}</main>
 
