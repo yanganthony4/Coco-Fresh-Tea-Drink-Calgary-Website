@@ -1,7 +1,6 @@
 "use client"; // Add this directive to make it a Client Component
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import emailjs from "emailjs-com";
@@ -20,7 +19,6 @@ export default function ContactPage() {
     setIsPending(true);
 
     try {
-      // Sending form data to EmailJS
       await emailjs.sendForm(
         "sumaiyakurshid@gmail.com", // Replace with your actual EmailJS Service ID
         "template_n1x13ps", // Replace with your actual EmailJS Template ID
@@ -37,32 +35,58 @@ export default function ContactPage() {
     setIsPending(false);
   }
 
+  const faqs = [
+    {
+      question: "Where can I collect reward points with my purchase?",
+      answer:
+        "You can collect points by ordering in our app or in the store. Points are synced with your phone number.",
+    },
+    {
+      question: "How to collect points in-store?",
+      answer:
+        "Tell our staff your phone number linked to your account. You'll earn 1 point per drink purchased.",
+    },
+    {
+      question: "Need help with the Coco app?",
+      answer:
+        "Contact support@gosnappy.io for any issues with your account or points.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen bg-white">
       {/* Header Section */}
-      <header>
+      <header className="relative z-10">
         <Toolbar />
-        <h1 style={{ margin: 0, fontSize: "2em" }}>Contact Us</h1>
       </header>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <div className="relative h-[500px] rounded-lg overflow-hidden">
-            <Image
+      {/* Contact Form Section */}
+      <div className="relative z-10 container mx-auto px-4 py-12">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          {/* Left Side: Image */}
+          <div className="flex justify-center">
+            <img
               src="/images/purpledrink.png"
-              alt="Contact Us"
-              layout="fill"
-              objectFit="cover"
+              alt="Purple Drink"
+              className="max-w-full lg:max-w-[90%] h-auto object-contain"
             />
           </div>
+
+          {/* Right Side: Contact Form */}
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl font-bold mb-4 text-[#653128]">Contact Us</h1>
+              <h1 className="text-4xl font-bold mb-4 text-[#653128]">
+                Contact Us
+              </h1>
               <p className="text-[#653128]">
-                Fill out the form below and we'll get back to you as soon as possible.
+                Fill out the form below and we'll get back to you as soon as
+                possible.
               </p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 bg-white p-6 rounded-lg shadow-lg"
+            >
               <div className="space-y-2">
                 <input
                   name="name"
@@ -121,8 +145,8 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* FAQ Section with Animation */}
-        <motion.div 
+        {/* FAQ Section */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -141,7 +165,9 @@ export default function ContactPage() {
                 transition={{ delay: index * 0.2 }}
                 className="space-y-2"
               >
-                <h3 className="text-xl font-semibold text-[#653128]">{faq.question}</h3>
+                <h3 className="text-xl font-semibold text-[#653128]">
+                  {faq.question}
+                </h3>
                 <p className="text-black">{faq.answer}</p>
               </motion.div>
             ))}
@@ -152,26 +178,19 @@ export default function ContactPage() {
       {/* Footer Section */}
       <footer className="bg-orange-300 py-6 text-center">
         <div className="flex justify-center space-x-6">
-          <a href="#" className="text-white">Privacy Policy</a>
-          <a href="#" className="text-white">Accessibility</a>
+          <a href="#" className="text-white">
+            Privacy Policy
+          </a>
+          <a href="#" className="text-white">
+            Accessibility
+          </a>
         </div>
-        <img src="/images/sun.png" alt="Sun" className="w-12 h-12 mx-auto mt-4" />
+        <img
+          src="/images/sun.png"
+          alt="Sun"
+          className="w-12 h-12 mx-auto mt-4"
+        />
       </footer>
     </div>
   );
 }
-
-const faqs = [
-  {
-    question: "Where can I collect reward points with my purchase?",
-    answer: "You can collect points by ordering in our app or in the store. Points are synced with your phone number.",
-  },
-  {
-    question: "How to collect points in-store?",
-    answer: "Tell our staff your phone number linked to your account. You'll earn 1 point per drink purchased.",
-  },
-  {
-    question: "Need help with the Coco app?",
-    answer: "Contact support@gosnappy.io for any issues with your account or points.",
-  },
-];
