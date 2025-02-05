@@ -3,7 +3,9 @@ import Toolbar from './Toolbar';
 export default function Layout({ children }) {
     return (
         <div>
-            
+            {/* Add Toolbar here */}
+            <Toolbar />
+
             <main className="flex-grow">{children}</main>
 
             {/* Footer */}

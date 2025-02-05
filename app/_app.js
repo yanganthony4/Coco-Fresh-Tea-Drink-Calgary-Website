@@ -10,7 +10,6 @@ function Appjs({ Component, pageProps }) {
 
     return (
         <>
-            <Toolbar />
             <Layout>
                 <Component {...pageProps} />
             </Layout>
