@@ -1,125 +1,125 @@
-'use client'
-import React, { useState } from 'react';
-import bcrypt from 'bcryptjs';
+"use client";
+
+import Link from "next/link";
+import React, { useState } from "react";
+import bcrypt from "bcryptjs";
 
 const Toolbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
-    const [showLoginPrompt, setShowLoginPrompt] = useState(false); // Toggle login prompt visibility
-    const [username, setUsername] = useState(''); // Store username input
-    const [password, setPassword] = useState(''); // Store password input
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    // Pre-hashed password for demo purposes
-    const storedHashedPassword = bcrypt.hashSync('password123', 10); // Replace 'password123' with your actual password
+    const storedHashedPassword = bcrypt.hashSync("password123", 10);
 
     const handleLogin = () => {
-        const validUsername = 'admin'; // Replace with your actual username
-
-        // Compare the hashed password
+        const validUsername = "admin";
         if (username === validUsername && bcrypt.compareSync(password, storedHashedPassword)) {
             setIsLoggedIn(true);
             setShowLoginPrompt(false);
-            alert('Login successful!');
+            alert("Login successful!");
         } else {
-            alert('Invalid username or password');
+            alert("Invalid username or password");
         }
     };
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        setUsername('');
-        setPassword('');
-        alert('You have logged out');
+        setUsername("");
+        setPassword("");
+        alert("You have logged out");
     };
 
     return (
-        <div className="flex items-center text-orange-500 p-4">
-            <a href="/" className="mr-auto">
-                <img src="/images/logo.png" alt="CoCo Logo" className="w-32 h-auto" />
-            </a>
-            <nav className="flex space-x-5 ml-auto">
-                <a href="/" className="hover:text-orange-300 text-lg">Home</a>
-                <a href="/promotions" className="hover:text-orange-300 text-lg">Promotions</a>
-                <a href="/menu" className="hover:text-orange-300 text-lg">Menu</a>
-                <a href="/locations" className="hover:text-orange-300 text-lg">Locations</a>
-                <a href="/build-a-drink" className="hover:text-orange-300 text-lg">Build A Drink</a>
-                <a href="/about" className="hover:text-orange-300 text-lg">About Us</a>
-            </nav>
-            <a
-                href="https://www.instagram.com/cocobubbletea.calgary/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-5"
-            >
-                <img
-                    src="/images/instalogo.png"
-                    alt="Coco Calgary Instagram"
-                    width={24}
-                    height={24}
-                />
-            </a>
-            <a
-                href="https://www.tiktok.com/@cocoteacalgary"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-2"
-            >
-                <img
-                    src="/images/tiktoklogo.png"
-                    alt="Coco Calgary Tiktok"
-                    width={40}
-                    height={40}
-                />
-            </a>
-            {!isLoggedIn ? (
-                <button
-                    onClick={() => setShowLoginPrompt(true)}
-                    className="ml-5 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-300"
-                >
-                    Admin Login
-                </button>
-            ) : (
-                <button
-                    onClick={handleLogout}
-                    className="ml-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-300"
-                >
-                    Logout
-                </button>
-            )}
+        <header className="bg-white shadow-sm border-b">
+            <div className="flex items-center justify-between p-4">
+                {/* Left Section with Logo and Navigation Links */}
+                <div className="flex items-center space-x-8">
+                    {/* Logo */}
+                    <Link href="/">
+                        <img
+                            src="/images/logo.png"
+                            alt="CoCo Logo"
+                            className="w-32 h-auto"
+                            loading="lazy"
+                        />
+                    </Link>
 
-            {showLoginPrompt && (
-                <div
-                    className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
-                    onClick={() => setShowLoginPrompt(false)} // Close modal on background click
-                >
-                    <div
-                        className="bg-white p-6 rounded shadow-md"
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
-                    >
-                        <h2 className="text-lg font-bold mb-4">Admin Login</h2>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="block w-full mb-3 px-4 py-2 border rounded"
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="block w-full mb-3 px-4 py-2 border rounded"
-                        />
-                        <button
-                            onClick={handleLogin}
-                            className="w-full bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-300"
-                        >
-                            Login
-                        </button>
+                    {/* Navigation Links - Hidden on Small Screens */}
+                    <nav className="hidden md:flex space-x-5">
+                        <Link href="/" className="hover:text-orange-300 text-lg text-orange-500">
+                            Home
+                        </Link>
+                        <Link href="/promotions" className="hover:text-orange-300 text-lg text-orange-500">
+                            Promotions
+                        </Link>
+                        <Link href="/build-a-drink" className="hover:text-orange-300 text-lg text-orange-500">
+                            Menu
+                        </Link>
+                    </nav>
+                </div>
+
+                {/* Location Section and Hamburger Dropdown */}
+                <div className="relative flex items-center space-x-4">
+                    {/* Location Section */}
+                    <div className="flex items-center space-x-2">
+                        <img src="/images/locationicon.png" alt="Location Icon" className="w-6 h-6" />
+                        <Link href="/locations" className="text-lg text-orange-500 hover:text-orange-300">
+                            Find a store
+                        </Link>
+                    </div>
+
+                    {/* Hamburger Icon with Dropdown */}
+                    <div className="group relative">
+                        <div className="cursor-pointer">
+                            <img
+                                src="/images/hamburgericon.png"
+                                alt="Hamburger Icon"
+                                className="w-8 h-8"
+                            />
+                        </div>
+
+                        {/* Dropdown Menu */}
+                        <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-48 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform transition-all duration-300 ease-in-out z-50">
+                            <nav className="flex flex-col space-y-3">
+                                {/* Render Home, Promotions, and Menu only on small screens */}
+                                <div className="md:hidden flex flex-col space-y-3">
+                                    <Link
+                                        href="/"
+                                        className="hover:text-orange-300 text-lg text-orange-500"
+                                    >
+                                        Home
+                                    </Link>
+                                    <Link
+                                        href="/promotions"
+                                        className="hover:text-orange-300 text-lg text-orange-500"
+                                    >
+                                        Promotions
+                                    </Link>
+                                    <Link
+                                        href="/build-a-drink"
+                                        className="hover:text-orange-300 text-lg text-orange-500"
+                                    >
+                                        Menu
+                                    </Link>
+                                </div>
+
+                                {/* Always visible links */}
+                                <Link href="/locations" className="hover:text-orange-300 text-lg text-orange-500">
+                                    Locations
+                                </Link>
+                                <Link href="/about" className="hover:text-orange-300 text-lg text-orange-500">
+                                    About Us
+                                </Link>
+                                <Link href="/contact" className="hover:text-orange-300 text-lg text-orange-500">
+                                    Contact Us
+                                </Link>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-            )}
-        </div>
+            </div>
+        </header>
     );
 };
 
