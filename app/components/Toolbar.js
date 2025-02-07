@@ -116,7 +116,7 @@ const Toolbar = () => {
                                 <Link href="/about" className="hover:text-orange-300 text-lg text-orange-500">
                                     About Us
                                 </Link>
-                                <Link href="/contact" className="hover:text-orange-300 text-lg text-orange-500">
+                                <Link href="/contact-us" className="hover:text-orange-300 text-lg text-orange-500">
                                     Contact Us
                                 </Link>
                             </nav>
