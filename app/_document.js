@@ -11,6 +11,8 @@ export default function Document() {
                     href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap"
                     rel="stylesheet"
                 />
+                <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
             </Head>
             <body>
                 <Main />
