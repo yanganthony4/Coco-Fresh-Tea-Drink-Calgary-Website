@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import bcrypt from "bcryptjs";
+import LazyImage from "../LazyImage";
 
 const Toolbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,7 +38,7 @@ const Toolbar = () => {
                 <div className="flex items-center space-x-8">
                     {/* Logo */}
                     <Link href="/">
-                        <img
+                        <LazyImage
                             src="/images/logo.png"
                             alt="CoCo Logo"
                             className="w-32 h-auto"
@@ -63,7 +64,11 @@ const Toolbar = () => {
                 <div className="relative flex items-center space-x-4">
                     {/* Location Section */}
                     <div className="flex items-center space-x-2">
-                        <img src="/images/locationicon.png" alt="Location Icon" className="w-6 h-6" />
+                        <LazyImage
+                            src="/images/locationicon.png"
+                            alt="Location Icon"
+                            className="w-6 h-6"
+                        />
                         <Link href="/locations" className="text-lg text-orange-500 hover:text-orange-300">
                             Find a store
                         </Link>
@@ -72,7 +77,7 @@ const Toolbar = () => {
                     {/* Hamburger Icon with Dropdown */}
                     <div className="group relative">
                         <div className="cursor-pointer">
-                            <img
+                            <LazyImage
                                 src="/images/hamburgericon.png"
                                 alt="Hamburger Icon"
                                 className="w-8 h-8"

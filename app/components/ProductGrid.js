@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LazyImage from '../LazyImage';
 
 const ProductGrid = ({ products }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -16,7 +17,7 @@ const ProductGrid = ({ products }) => {
             className="flex flex-col items-center text-center"
             onClick={() => handleToggle(index)}
           >
-            <img
+            <LazyImage
               src={`/menuAssets/${product.image}`}
               alt={product.name}
               className="w-[210px] h-[320px] object-contain cursor-pointer rounded-lg"
@@ -29,7 +30,7 @@ const ProductGrid = ({ products }) => {
           {/* Expanded Description Box */}
           {expandedIndex !== null &&
             Math.floor(expandedIndex / 3) === Math.floor(index / 3) &&
-            ((index % 3 === 2) || (index === products.length - 1)) && ( // Include last item in an incomplete row
+            ((index % 3 === 2) || (index === products.length - 1)) && (
               <div
                 className="col-span-3 transition-all duration-300 ease-in-out"
                 style={{ gridColumn: '1 / -1' }}
@@ -37,7 +38,7 @@ const ProductGrid = ({ products }) => {
                 <hr className="w-full" />
                 <div className="mt-4 p-5 flex max-w-5xl mx-auto rounded-lg bg-white">
                   {/* Product Image on the Left */}
-                  <img
+                  <LazyImage
                     src={`/menuAssets/${products[expandedIndex].image}`}
                     alt={products[expandedIndex].name}
                     className="w-[300px] h-[400px] object-contain rounded-lg mr-6"

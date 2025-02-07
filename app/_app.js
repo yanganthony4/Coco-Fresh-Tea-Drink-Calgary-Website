@@ -5,7 +5,7 @@ import Toolbar from '../components/Toolbar';
 
 function Appjs({ Component, pageProps }) {
     useEffect(() => {
-        document.body.style.fontFamily = "var(--font-caveat-brush), sans-serif";
+        document.body.style.fontFamily = "var(--font-gilroy), sans-serif";
     }, []);
 
     return (
