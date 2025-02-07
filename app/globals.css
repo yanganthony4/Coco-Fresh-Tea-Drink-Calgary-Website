@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-Gilroy: 'Gilroy', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,11 +18,21 @@
 body {
   color: var(--foreground);
   background-color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-gilroy), sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Lazy loading effects */
+.lazy-load {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
 }

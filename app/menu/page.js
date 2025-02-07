@@ -1,11 +1,14 @@
+"use client";
 import Toolbar from '../components/Toolbar';
+import MenuPage from './MenuPage';
+import Layout from '../components/Layout';
 
-export default function Menu(){
-    return (
-        <div>
-            <Toolbar/>
-            <h1>Menu</h1>
-            <p>This is the menu page</p>
-        </div>
-    )
+export default function Page() {
+  return (
+    <div>
+      <Toolbar />
+      <MenuPage />
+      <Layout/>
+    </div>
+  );
 }
