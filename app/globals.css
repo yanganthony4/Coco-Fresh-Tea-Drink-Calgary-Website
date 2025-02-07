@@ -5,7 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-caveat-brush: 'Caveat Brush', cursive;
+  --font-Gilroy: 'Gilroy', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,11 +18,21 @@
 body {
   color: var(--foreground);
   background-color: white;
-  font-family: var(--font-caveat-brush), sans-serif;
+  font-family: var(--font-gilroy), sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Lazy loading effects */
+.lazy-load {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
 }
