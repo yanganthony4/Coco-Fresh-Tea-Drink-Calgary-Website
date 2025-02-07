@@ -39,7 +39,7 @@ export default function Home() {
             {/* Build-a-Drink Feature Promo */}
             <section className="py-12 bg-white">
                 <h2 className="text-center text-3xl font-bold font-caveat text-[#653128]">
-                    Can't decide? Build your own!
+                    Can&apos;t decide? Build your own!
                 </h2>
                 <a href="/menu" rel="menu" style={{ textDecoration: "none" }}>
                     <p

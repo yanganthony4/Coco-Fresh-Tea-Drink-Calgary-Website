@@ -429,7 +429,7 @@ const Map = () => {
                                 })
                             ) : (
                                 <div className="flex justify-center items-center h-full text-gray-500">
-                                    Unfortunately there aren't any CoCo's within 100km.
+                                    Unfortunately there aren&apos;t any CoCo Locations within 100km of you.
                                 </div>
                             )}
                         </ul>
@@ -441,7 +441,7 @@ const Map = () => {
                     <div className="flex flex-col items-center pt-20 flex-grow">
                         <img src="/images/CoCoLogoMascotOnlyGreyTransparent.png" alt="Logo" className="size-24 mb-5 opacity-75"/>
                         <p className="text-gray-700 text-lg mb-6 text-center">
-                            Can't make the trip? Order delivery through our partners!
+                            Can&apos;t make the trip? Order delivery through our partners!
                         </p>
                     </div>
                 )}

@@ -1,6 +1,6 @@
 "use client"
 
-import LazyImage from '../LazyImage';
+import LazyImage from "../LazyImage";
 import { useEffect, useRef, useState } from "react" 
 import Layout from "../components/Layout"
 
@@ -114,7 +114,7 @@ export default function Page() {
 
         {/* Secondary Title: Appears after hero section */}
         <h2 className="text-4xl font-bold text-center my-16 opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
-          CoCo's Story
+          CoCo&apos;s Story
         </h2>
 
         <div className="w-full h-full py-4 space-y-8">
@@ -132,7 +132,7 @@ export default function Page() {
               <div className="absolute right-0 md:right-[10%] w-[60%] -ml-[5%] z-10 transition-all duration-300 hover:scale-105">
                 <p className="text-lg bg-white p-8 rounded-lg text-right shadow-lg h-[204px] flex items-center justify-center">
                   CoCo Bubble Tea, founded in 1997 by Chairman Tommy Hung, is a global leader in bubble tea, known for its
-                  commitment to quality and innovation. With a mission of "Consistency and Continuity," CoCo has become a
+                  commitment to quality and innovation. With a mission of &quot;Consistency and Continuity,&quot; CoCo has become a
                   favorite among bubble tea lovers worldwide.
                 </p>
               </div>
