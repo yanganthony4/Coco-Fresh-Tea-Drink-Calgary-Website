@@ -1,38 +1,37 @@
-"use client"; // Add this directive to make it a Client Component
+"use client"
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Send } from "lucide-react";
-import emailjs from "emailjs-com";
-import Toolbar from "../components/Toolbar";
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import emailjs from "emailjs-com"
 
 export default function ContactPage() {
-  const [isPending, setIsPending] = useState(false);
+  const IMAGE_WIDTH = "1000%" // Huge image for impact
+
+  const [isPending, setIsPending] = useState(false)
 
   useEffect(() => {
-    // Initialize EmailJS with your User ID
-    emailjs.init("3OhHXYVtaPA-m2hAk"); // Replace with your actual EmailJS User ID
-  }, []);
+    emailjs.init("3OhHXYVtaPA-m2hAk")
+  }, [])
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    setIsPending(true);
+    event.preventDefault()
+    setIsPending(true)
 
     try {
       await emailjs.sendForm(
-        "sumaiyakurshid@gmail.com", // Replace with your actual EmailJS Service ID
-        "template_n1x13ps", // Replace with your actual EmailJS Template ID
-        event.target, // Pass the form element directly
-        "3OhHXYVtaPA-m2hAk" // Replace with your actual EmailJS User ID
-      );
-      alert("Your message has been sent. We'll get back to you soon.");
-      event.target.reset(); // Clear the form after submission
+        "sumaiyakurshid@gmail.com",
+        "template_n1x13ps",
+        event.target,
+        "3OhHXYVtaPA-m2hAk"
+      )
+      alert("Your message has been sent. We'll get back to you soon.")
+      event.target.reset()
     } catch (error) {
-      console.error("Error sending message", error);
-      alert("Failed to send message. Please try again later.");
+      console.error("Error sending message", error)
+      alert("Failed to send message. Please try again later.")
     }
 
-    setIsPending(false);
+    setIsPending(false)
   }
 
   const faqs = [
@@ -51,146 +50,111 @@ export default function ContactPage() {
       answer:
         "Contact support@gosnappy.io for any issues with your account or points.",
     },
-  ];
+  ]
 
   return (
-    <div className="relative min-h-screen bg-white">
-      {/* Header Section */}
-      <header className="relative z-10">
-        <Toolbar />
-      </header>
-
-      {/* Contact Form Section */}
-      <div className="relative z-10 container mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Left Side: Image */}
-          <div className="flex justify-center">
-            <img
-              src="/images/purpledrink.png"
-              alt="Purple Drink"
-              className="max-w-full lg:max-w-[90%] h-auto object-contain"
-            />
-          </div>
-
-          {/* Right Side: Contact Form */}
-          <div className="space-y-8">
-            <div>
-              <h1 className="text-4xl font-bold mb-4 text-[#653128]">
-                Contact Us
-              </h1>
-              <p className="text-[#653128]">
-                Fill out the form below and we'll get back to you as soon as
-                possible.
-              </p>
-            </div>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-4 bg-white p-6 rounded-lg shadow-lg"
-            >
-              <div className="space-y-2">
-                <input
-                  name="name"
-                  placeholder="Your name"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black cursor-text"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <input
-                  name="phone"
-                  type="tel"
-                  placeholder="Phone number"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black cursor-text"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email address"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black cursor-text"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <input
-                  name="subject"
-                  placeholder="Subject"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black cursor-text"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <textarea
-                  name="message"
-                  placeholder="Your message"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black cursor-text min-h-[100px]"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={isPending}
-                className="w-full bg-[#FF9800] hover:bg-[#E5C38D] text-[#653128] py-2 rounded-md transition-colors"
-              >
-                {isPending ? "Sending..." : (
-                  <>
-                    Send Message
-                    <Send className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
+    <div className="relative min-h-screen bg-white flex flex-col items-center">
+      <div className="relative container mx-auto px-4 py-12 flex flex-col lg:flex-row gap-4 w-full max-w-6xl items-stretch">
+        {/* Left Side: Even Bigger Animated Image */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-24 max-w-3xl mx-auto"
+          className="relative flex-1 overflow-visible"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#653128]">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-8">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="space-y-2"
-              >
-                <h3 className="text-xl font-semibold text-[#653128]">
-                  {faq.question}
-                </h3>
-                <p className="text-black">{faq.answer}</p>
-              </motion.div>
-            ))}
+          <img
+            src="/images/mim.png"
+            alt="Bubble Tea"
+            style={{ width: IMAGE_WIDTH }}
+            className="absolute left-[-22%] top-1/2 transform -translate-y-1/2 pointer-events-none z-0"
+          />
+        </motion.div>
+
+        {/* Right Side: Contact Form - Lighter Orange Border, No Shadow */}
+        <motion.div
+          className="relative flex-1 z-10 lg:ml-[-20px] bg-[#F7E6D5] border-4 border-[#FFD9A0] rounded-lg p-8"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="mb-8 text-center lg:text-left">
+            <h1 className="text-4xl font-bold mb-4 text-[#653128]">Contact Us</h1>
+            <p className="text-[#653128]">
+              Fill out the form below and we'll get back to you as soon as possible.
+            </p>
           </div>
+          <form
+            onSubmit={handleSubmit}
+            className="flex-1 flex flex-col space-y-4 w-full"
+          >
+            <input
+              name="name"
+              placeholder="Your name"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-700"
+              required
+            />
+            <input
+              name="phone"
+              type="tel"
+              placeholder="Phone number"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-700"
+              required
+            />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email address"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-700"
+              required
+            />
+            <input
+              name="subject"
+              placeholder="Subject"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-700"
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Your message"
+              className="w-full h-32 px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-700"
+              required
+            />
+            <button
+              type="submit"
+              disabled={isPending}
+              className="w-full bg-[#FF9800] hover:bg-[#E5C38D] text-[#653128] font-bold py-2 rounded-md transition-colors flex items-center justify-center"
+            >
+              {isPending ? "Sending..." : "Send Message"}
+            </button>
+          </form>
         </motion.div>
       </div>
 
-      {/* Footer Section */}
-      <footer className="bg-orange-300 py-6 text-center">
-        <div className="flex justify-center space-x-6">
-          <a href="#" className="text-white">
-            Privacy Policy
-          </a>
-          <a href="#" className="text-white">
-            Accessibility
-          </a>
+      {/* FAQ Section - Animated (No Borders) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="mt-24 max-w-3xl mx-auto text-center relative z-10"
+      >
+        <h2 className="text-3xl font-bold text-center mb-12 text-[#653128]">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-8">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="bg-white p-4 rounded-lg"
+            >
+              <h3 className="text-xl font-semibold text-[#653128]">{faq.question}</h3>
+              <p className="text-black">{faq.answer}</p>
+            </motion.div>
+          ))}
         </div>
-        <img
-          src="/images/sun.png"
-          alt="Sun"
-          className="w-12 h-12 mx-auto mt-4"
-        />
-      </footer>
+      </motion.div>
     </div>
-  );
+  )
 }
