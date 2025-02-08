@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,8 +20,14 @@
 body {
   color: var(--foreground);
   background-color: white;
+
+.font-museo {
+  font-family: 'MuseoSansRounded', sans-serif;
+  font-weight: 1000;
+
   font-family: var(--font-gilroy), sans-serif;
 }
+
 
 @layer utilities {
   .text-balance {
@@ -27,6 +35,22 @@ body {
   }
 }
 
+
+@keyframes bounce-scroll {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-scroll {
+  animation: bounce-scroll 1s;
+}
 /* Lazy loading effects */
 .lazy-load {
   opacity: 0;
