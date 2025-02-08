@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -36,9 +37,11 @@ export default function Promotions() {
                             alt="Promotions Background"
                             className="absolute inset-0 w-full h-full object-contain pointer-events-none"
                             loading="lazy"
+
                         />
                     </div>
                 </section>
+
 
                 {/* Main Content Section */}
                 <div className="container mx-auto px-4 lg:px-6 pt-1 pb-20">
@@ -69,6 +72,7 @@ export default function Promotions() {
 
                         {/* Promotions List Component */}
                         <PromotionsList />
+
                     </div>
                 </div>
             </div>

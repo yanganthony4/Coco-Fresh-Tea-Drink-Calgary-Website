@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
+import React, { useState } from "react";
 import bcrypt from "bcryptjs";
+import LazyImage from "../LazyImage";
+
 
 const Toolbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,6 +33,7 @@ const Toolbar = () => {
     };
 
     return (
+
         <header className="sticky top-0 z-50 bg-white  flex items-center justify-between p-4">
             {/* Left Section with Logo and Navigation Links */}
             <div className="flex items-center space-x-8">
@@ -114,6 +117,8 @@ const Toolbar = () => {
                                 Contact Us
                             </Link>
                         </nav>
+
+
                     </div>
                 </div>
             </div>

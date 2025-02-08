@@ -17,6 +17,7 @@ export default function Home() {
     "/images/mangodream.png",
   ]
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
@@ -56,6 +57,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
 
         {/* Dynamic Image Section - Full width orange background */}
             <section>
