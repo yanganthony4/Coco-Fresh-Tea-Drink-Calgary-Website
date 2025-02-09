@@ -1,5 +1,6 @@
 import "./globals.css";
-import Toolbar from './/components/Toolbar';
+import Toolbar from './components/Toolbar';
+import Script from "next/script";
 
 export const metadata = {
   title: "Coco Calgary",
@@ -8,18 +9,35 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body
-      className="bg-white">
-        <Toolbar/>
-        <main>{children}</main>
-      </body>
-    </html>
+      <html lang="en">
+          <head>
+              <link
+                  href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap"
+                  rel="stylesheet"
+              />
+          </head>
+          <body className="bg-white">
+              <Script
+                  strategy="afterInteractive"
+                  src="https://www.googletagmanager.com/gtag/js?id=G-3S12T44MMW"
+              />
+              <Script
+                  id="google-analytics"
+                  strategy="afterInteractive"
+                  dangerouslySetInnerHTML={{
+                      __html: `
+                          window.dataLayer = window.dataLayer || [];
+                          function gtag(){dataLayer.push(arguments);}
+                          gtag('js', new Date());
+                           gtag('config', 'G-3S12T44MMW');
+                      `,
+                  }}
+              />
+              
+              
+              <Toolbar />
+              <main>{children}</main>
+          </body>
+      </html>
   );
 }
