@@ -67,7 +67,7 @@ const DeliveryAppCarouselMap = () => {
           </div>
 
           <p className="text-center text-xs md:text-sm font-medium text-[#653128] animate-pulse mt-2 leading-relaxed max-w-md mx-auto">
-            Enjoy the refreshing taste of Coco's Bubble Tea and Fresh Juice delivered straight to your door. Sip on your
+            Enjoy the refreshing taste of Coco&apos;s Bubble Tea and Fresh Juice delivered straight to your door. Sip on your
             favorites without leaving the comfort of home!
           </p>
         </div>

@@ -37,7 +37,7 @@ export default function Boxes() {
       <div className="flex flex-col bg-orange-300 text-white max-w-[400px] h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
         <h3 className="text-2xl font-bold mb-4">HAVE A QUESTION?</h3>
         <p className="text-lg">
-          Reach out to us for any inquiries or feedback. We're here to make your experience delightful!
+          Reach out to us for any inquiries or feedback. We&apos;re here to make your experience delightful!
         </p>
         <Link href="/contact" className="group text-lg cursor-pointer absolute bottom-4 right-4">
           CONTACT US
