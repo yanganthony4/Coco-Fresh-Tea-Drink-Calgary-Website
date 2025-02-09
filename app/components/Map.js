@@ -421,6 +421,7 @@ const Map = () => {
         )}
         {viewMode === "delivery" && (
           <div className="flex flex-col items-center pt-20 flex-grow">
+            <img src="/images/CoCoLogoMascotOnlyGreyTransparent.png" alt="Logo" className="size-24 mb-5 opacity-75"/>
             <p className="text-gray-700 text-lg mb-6 text-center">
               Can&apos;t make the trip? Order delivery through our partners!
             </p>
