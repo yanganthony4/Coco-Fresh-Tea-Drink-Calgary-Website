@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 
-const DynamicImageSection = () => {
+const DeliveryAppCarouselMap = () => {
   const [mainImage, setMainImage] = useState({ src: "/images/main-image.jpg", alt: "Main Image" })
   const [smallImages, setSmallImages] = useState([
     { src: "/images/ubereats.png", alt: "Uber Eats", link: "https://www.ubereats.com/" },
@@ -15,7 +15,7 @@ const DynamicImageSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % smallImages.length)
-    }, 3000)
+    }, 2500)
 
     return () => clearInterval(interval)
   }, [smallImages.length])
@@ -30,7 +30,7 @@ const DynamicImageSection = () => {
   }
 
   return (
-    <section className="flex items-center justify-center bg-white py-20">
+    <section className="flex items-center justify-center bg-white">
       <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl w-full">
         <div className="flex-1">
           <Image
@@ -43,7 +43,7 @@ const DynamicImageSection = () => {
           />
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 border-l-4 border-grey-500 pl-5">
           <div className="grid grid-cols-3 gap-20 mb-4">
             {smallImages.map((img, index) => (
               <div
@@ -62,7 +62,6 @@ const DynamicImageSection = () => {
                     onError={() => handleImageError(index)}
                   />
                 </a>
-                <p className="mt-1 text-center text-xs font-medium text-[#653128]">{img.alt}</p>
               </div>
             ))}
           </div>
@@ -77,5 +76,5 @@ const DynamicImageSection = () => {
   )
 }
 
-export default DynamicImageSection
+export default DeliveryAppCarouselMap
 

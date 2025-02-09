@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import PromotionsList from "../promotions/PromotionsList";
+import PromotionsList from "../components/PromotionsList";
 import Layout from "../components/Layout";
 
 export default function Promotions() {
@@ -27,7 +27,6 @@ export default function Promotions() {
     }, []);
 
     return (
-        <Layout>
         <div className="min-h-screen flex flex-col">
 
             <div className="flex-1 flex flex-col relative">
@@ -80,6 +79,5 @@ export default function Promotions() {
             </div>
 
         </div>
-        </Layout>
     );
 }

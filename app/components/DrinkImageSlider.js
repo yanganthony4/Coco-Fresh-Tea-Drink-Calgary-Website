@@ -60,7 +60,7 @@ export default function DrinkImageSlider() {
   }
 
   return (
-    <div className="relative h-[300px] sm:h-[500px] flex justify-center items-center overflow-hidden bg-white">
+    <div className="relative h-[250px] sm:h-[500px] flex justify-center items-center overflow-hidden bg-white">
       {drinks.map((drink, index) => {
         const positionClasses = calculatePosition(index)
         const isCenter = (index - currentDrinkIndex + drinks.length) % drinks.length === 0
@@ -77,7 +77,7 @@ export default function DrinkImageSlider() {
               loading={isCenter ? "eager" : "lazy"}
             />
             {isCenter && (
-              <p className="text-center mt-2 sm:mt-4 text-[#653128] text-base sm:text-lg font-bold">{drink.name}</p>
+              <p className="text-center mt-2 sm:mt-4 text-black text-base sm:text-lg font-bold">{drink.name}</p>
             )}
           </div>
         )

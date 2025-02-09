@@ -1,4 +1,5 @@
 import "./globals.css";
+import Toolbar from './/components/Toolbar';
 
 export const metadata = {
   title: "Coco Calgary",
@@ -15,8 +16,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-      >
-        {children}
+      className="bg-white">
+        <Toolbar/>
+        <main>{children}</main>
       </body>
     </html>
   );
