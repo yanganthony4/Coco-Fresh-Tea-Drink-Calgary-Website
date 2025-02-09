@@ -4,9 +4,11 @@ import Link from "next/link"
 
 export default function Boxes() {
   return (
-    <div className="flex flex-wrap justify-center items-center gap-5 w-full mx-auto">
+    // Default mobile stacking (flex-col) and row layout on small screens and up (sm:flex-row)
+    <div className="flex flex-col sm:flex-row justify-center items-center gap-5 w-full mx-auto">
+      
       {/* Box 1 */}
-    <div className="flex flex-col bg-orange-300 text-white max-w-[400px] h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
+      <div className="flex flex-col bg-orange-300 text-white w-full sm:w-[400px] h-auto sm:h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
         <h3 className="text-2xl font-bold mb-4">WANT TO DROP BY?</h3>
         <p className="text-lg">
           Locate your nearest CoCo outlet and enjoy your favorite drinks. We are just around the corner!
@@ -20,7 +22,7 @@ export default function Boxes() {
       </div>
 
       {/* Box 2 */}
-      <div className="flex flex-col bg-orange-300 text-white max-w-[400px] h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
+      <div className="flex flex-col bg-orange-300 text-white w-full sm:w-[400px] h-auto sm:h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
         <h3 className="text-2xl font-bold mb-4">WANT TO LEARN OUR STORY?</h3>
         <p className="text-lg">
           Discover the journey of CoCo and how we became your go-to place for refreshing drinks.
@@ -34,7 +36,7 @@ export default function Boxes() {
       </div>
 
       {/* Box 3 */}
-      <div className="flex flex-col bg-orange-300 text-white max-w-[400px] h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
+      <div className="flex flex-col bg-orange-300 text-white w-full sm:w-[400px] h-auto sm:h-[400px] rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 relative font-sora">
         <h3 className="text-2xl font-bold mb-4">HAVE A QUESTION?</h3>
         <p className="text-lg">
           Reach out to us for any inquiries or feedback. We&apos;re here to make your experience delightful!
@@ -46,7 +48,7 @@ export default function Boxes() {
           </span>
         </Link>
       </div>
+      
     </div>
   )
 }
-
