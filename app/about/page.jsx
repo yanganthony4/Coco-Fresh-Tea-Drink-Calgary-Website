@@ -2,7 +2,7 @@
 
 import LazyImage from "../LazyImage";
 import { useEffect, useRef, useState } from "react" 
-import Layout from "../components/Layout"
+import Layout from "../components/Footer"
 
 export default function Page() {
   // Hook declarations and state management
@@ -102,7 +102,6 @@ export default function Page() {
   ]
 
   return (
-    <Layout>
       <div className="min-h-screen bg-[#ffe5d1] text-[#653128]">
         {/* Hero Section: Full-width image with overlay and main title */}
         <div className="relative w-full h-[60vh] overflow-hidden">
@@ -218,6 +217,5 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </Layout>
   )
 }

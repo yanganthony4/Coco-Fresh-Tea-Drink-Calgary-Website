@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import PromotionsList from "../components/PromotionsList";
-import Layout from "../components/Layout";
+import Layout from "../components/Footer";
 
 export default function Promotions() {
     const [isEmojiVisible, setIsEmojiVisible] = useState(false);
