@@ -1,11 +1,9 @@
 "use client"
 
-import LazyImage from "../LazyImage";
-import { useEffect, useRef, useState } from "react" 
-import Layout from "../components/Layout"
+import LazyImage from "../LazyImage"
+import { useEffect, useRef, useState } from "react"
 
 export default function Page() {
-  // Hook declarations and state management
   const canvasRef = useRef(null)
   const [hoveredYear, setHoveredYear] = useState(null)
 
@@ -14,7 +12,6 @@ export default function Page() {
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Add animation classes when element comes into view
           entry.target.classList.add("animate-slide-up", "opacity-100")
         }
       })
@@ -42,11 +39,9 @@ export default function Page() {
     let animationFrameId
     let offset = 0
 
-    // Function to draw the animated wave pattern
     const drawWave = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Helper function to draw individual sine waves
       const drawSineWave = (baseOffset, color, amplitude, frequency, speed) => {
         ctx.beginPath()
         ctx.strokeStyle = color
@@ -63,7 +58,6 @@ export default function Page() {
         ctx.stroke()
       }
 
-      // Draw three overlapping waves with different parameters
       drawSineWave(0, "rgba(255, 166, 89, 0.4)", 30, 50, 1)
       drawSineWave(100, "rgba(173, 209, 158, 0.4)", 40, 60, 0.8)
       drawSineWave(200, "rgba(255, 145, 87, 0.4)", 35, 40, 1.2)
@@ -72,14 +66,12 @@ export default function Page() {
       animationFrameId = requestAnimationFrame(drawWave)
     }
 
-    // Handle canvas resize
     const handleResize = () => {
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
       drawWave()
     }
 
-    // Event listeners setup and cleanup
     window.addEventListener("resize", handleResize)
     handleResize()
     drawWave()
@@ -90,7 +82,6 @@ export default function Page() {
     }
   }, [])
 
-  // Timeline data configuration
   const timelineEvents = [
     { year: "1997", text: "The first CoCo store opened in Taipei", left: "5%", top: "50%" },
     { year: "2005", text: "100th store opened", left: "20%", top: "0" },
@@ -102,87 +93,96 @@ export default function Page() {
   ]
 
   return (
-    <Layout>
-      <div className="min-h-screen bg-[#ffe5d1] text-[#653128]">
-        {/* Hero Section: Full-width image with overlay and main title */}
-        <div className="relative w-full h-[60vh] overflow-hidden">
-          <LazyImage src="/images/hero-image.jpg" alt="CoCo Hero Image" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <h1 className="text-6xl font-bold text-white mb-16 opacity-0 animate-fade-in">About CoCo</h1>
+    <div className="min-h-screen bg-[#ffe5d1] text-[#653128]">
+      {/* Hero Section */}
+      <div className="relative w-full h-[60vh] overflow-hidden">
+        <div className="w-full h-full max-w-[2000px] mx-auto">
+          <LazyImage src="/images/image4.webp" alt="CoCo Hero Image" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-16 opacity-0 animate-fade-in text-center px-4">
+              About CoCo
+            </h1>
           </div>
         </div>
+      </div>
 
-        {/* Secondary Title: Appears after hero section */}
-        <h2 className="text-4xl font-bold text-center my-16 opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
-          CoCo&apos;s Story
-        </h2>
+      {/* Secondary Title */}
+      <h2 className="text-3xl md:text-4xl font-bold text-center my-8 md:my-16 opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
+        CoCo&apos;s Story
+      </h2>
 
-        <div className="w-full h-full py-4 space-y-8">
-          {/* Main Content Section: Three alternating image/text blocks */}
-          <div className="w-full px-4 md:px-6 relative space-y-8">
-            {/* First Content Block: Image left, text right */}
-            <div className="relative h-[400px] flex items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
-              <div className="absolute left-0 md:left-[10%] w-[45%]">
-                <LazyImage
-                  src="/images/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp"
-                  alt="First Flexbox Image"
-                  className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                />
-              </div>
-              <div className="absolute right-0 md:right-[10%] w-[60%] -ml-[5%] z-10 transition-all duration-300 hover:scale-105">
-                <p className="text-lg bg-white p-8 rounded-lg text-right shadow-lg h-[204px] flex items-center justify-center">
-                  CoCo Bubble Tea, founded in 1997 by Chairman Tommy Hung, is a global leader in bubble tea, known for its
-                  commitment to quality and innovation. With a mission of &quot;Consistency and Continuity,&quot; CoCo has become a
-                  favorite among bubble tea lovers worldwide.
+      <div className="w-full h-full py-4 space-y-8">
+        {/* Main Content Section */}
+        <div className="w-full px-4 md:px-6 relative space-y-8 md:space-y-32">
+          {/* First Content Block */}
+          <div className="relative min-h-[400px] flex flex-col md:block items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700 max-w-[2000px] mx-auto">
+            <div className="w-full md:w-[45%] md:absolute md:left-[10%]">
+              <LazyImage
+                src="/images/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp"
+                alt="First Flexbox Image"
+                className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              />
+            </div>
+            <div className="w-full md:w-[60%] md:absolute md:right-[10%] md:-ml-[5%] z-10 mt-4 md:mt-16">
+              <div className="bg-white p-6 md:p-8 rounded-lg text-left md:text-right shadow-lg transition-all duration-300 hover:scale-105">
+                <p className="text-lg">
+                  CoCo Bubble Tea, founded in 1997 by Chairman Tommy Hung, is a global leader in bubble tea, known for
+                  its commitment to quality and innovation. With a mission of &quot;Consistency and Continuity,&quot;
+                  CoCo has become a favorite among bubble tea lovers worldwide.
                 </p>
               </div>
             </div>
+          </div>
 
-            {/* Second Content Block: Text left, image right */}
-            <div className="relative h-[400px] flex items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
-              <div className="absolute left-0 md:left-[10%] w-[60%] z-10 transition-all duration-300 hover:scale-105">
-                <p className="text-lg bg-white p-8 rounded-lg shadow-lg h-[204px] flex items-center justify-center">
-                  In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served
-                  in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an
+          {/* Second Content Block */}
+          <div className="relative min-h-[400px] flex flex-col md:block items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700 max-w-[2000px] mx-auto">
+            <div className="w-full md:w-[60%] md:absolute md:left-[10%] z-10 order-2 md:order-none mt-4 md:mt-16">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
+                <p className="text-lg">
+                  In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients,
+                  served in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an
                   authentic and innovative bubble tea experience to communities across the country.
                 </p>
               </div>
-              <div className="absolute right-0 md:right-[10%] w-[45%]">
-                <LazyImage
-                  src="/images/second-image.jpg"
-                  alt="Second Flexbox Image"
-                  className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                />
-              </div>
             </div>
+            <div className="w-full md:w-[45%] md:absolute md:right-[10%] order-1 md:order-none">
+              <LazyImage
+                src="/images/image3.webp"
+                alt="Second Flexbox Image"
+                className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              />
+            </div>
+          </div>
 
-            {/* Third Content Block: Image left, text right */}
-            <div className="relative h-[400px] flex items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
-              <div className="absolute left-0 md:left-[10%] w-[45%]">
-                <LazyImage
-                  src="/images/third-image.jpg"
-                  alt="Third Flexbox Image"
-                  className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                />
-              </div>
-              <div className="absolute right-0 md:right-[10%] w-[60%] -ml-[5%] z-10 transition-all duration-300 hover:scale-105">
-                <p className="text-lg bg-white p-8 rounded-lg text-right shadow-lg h-[204px] flex items-center justify-center">
+          {/* Third Content Block */}
+          <div className="relative min-h-[400px] flex flex-col md:block items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700 max-w-[2000px] mx-auto">
+            <div className="w-full md:w-[45%] md:absolute md:left-[10%]">
+              <LazyImage
+                src="/images/image1.webp"
+                alt="Third Flexbox Image"
+                className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              />
+            </div>
+            <div className="w-full md:w-[60%] md:absolute md:right-[10%] md:-ml-[5%] z-10 mt-4 md:mt-16">
+              <div className="bg-white p-6 md:p-8 rounded-lg text-left md:text-right shadow-lg transition-all duration-300 hover:scale-105">
+                <p className="text-lg">
                   As CoCo expands in Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.
                   Discover your nearest CoCo location and join the bubble tea revolution today!
                 </p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Timeline Section: Interactive historical timeline with wave animation */}
-          <div className="relative shadow-lg bg-[#f5d3ba] w-full mt-8">
-            <h1 className="text-3xl font-bold mb-12 text-center pt-8">From Taiwan to Canada, and the World</h1>
-            {/* Canvas element for wave animation */}
+        {/* Timeline Section */}
+        <div className="relative shadow-lg bg-[#ffe5d1] w-full mt-8">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center pt-8 px-4">
+            From Taiwan to Canada, and the World
+          </h2>
+          <div className="relative max-w-[2000px] mx-auto">
             <canvas ref={canvasRef} className="w-full h-[310px]" />
-            {/* Timeline events overlay */}
-            <div className="absolute top-0 left-0 w-full h-full">
-              <div className="relative h-full">
-                {/* Map through timeline events to create interactive points */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-x-auto">
+              <div className="relative h-full min-w-[768px]">
                 {timelineEvents.map((point) => (
                   <div
                     key={point.year}
@@ -202,11 +202,15 @@ export default function Page() {
                       />
                       <div className="text-[#653128] font-bold text-lg mb-1">{point.year}</div>
                       <div
-                        className={`top-full mt-2 transition-all duration-300 ${
+                        className={`absolute z-10 transition-all duration-300 ${
                           hoveredYear === point.year ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
                         }`}
+                        style={{
+                          top: point.top === "0" ? "100%" : "auto",
+                          bottom: point.top === "50%" ? "100%" : "auto",
+                        }}
                       >
-                        <div className="max-w-[150px] text-sm text-[#653128] leading-tight bg-#f78a39 p-2 rounded-lg">
+                        <div className="max-w-[150px] text-sm text-[#653128] leading-tight bg-white/90 p-2 rounded-lg shadow-lg">
                           {point.text}
                         </div>
                       </div>
@@ -218,6 +222,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   )
 }
+
