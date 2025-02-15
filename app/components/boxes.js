@@ -10,7 +10,7 @@ export default function Boxes() {
         <div className="flex-grow">
           <h3 className="text-2xl sm:text-3xl font-bold mb-4">WANT TO DROP BY?</h3>
           <p className="text-base sm:text-lg">
-            Locate your nearest CoCo outlet and enjoy your favorite drinks. We are just around the corner!
+            Locate your nearest CoCo and enjoy your favorite drinks. We are just around the corner!
           </p>
         </div>
         <div className="mt-4">

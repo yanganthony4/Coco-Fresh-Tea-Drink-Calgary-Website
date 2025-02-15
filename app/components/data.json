@@ -3,8 +3,10 @@
       {
         "image": "mtsagotaro.png",
         "name": "Sago Taro Milk Tea",
-        "description": "Made with Taro Flavoring, Creamer, and Sago",
+        "description": "Creamy Taro milk tea perfectly paired with sago.\nLactose-Free, Caffeine-Free, Gluten-Free, Gelatin-Free, Nut-Free ",
         "category": "Milk Tea",
+        "calories": "M: 500 L: 750",
+        "price": "",
         "category": "Favourites"
       },
       {

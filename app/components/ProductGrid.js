@@ -25,22 +25,25 @@ const ProductGrid = ({ products }) => {
           </div>
 
           {/* Expanded Description Box */}
+          {/* click and expand*/}
           {expandedIndex === index && (
             <div className="col-span-1 sm:col-span-2 lg:col-span-3 transition-all duration-300 ease-in-out mt-4">
               <hr className="w-full" />
               <div className="mt-4 p-4 sm:p-5 flex flex-col sm:flex-row max-w-5xl mx-auto rounded-lg bg-white">
                 {/* Product Image */}
+                {/* When item clicked on, image expands to larger image */}
                 <LazyImage
                   src={`/menuAssets/${product.image}`}
                   alt={product.name}
                   className="w-full sm:w-1/3 h-48 sm:h-64 object-contain rounded-lg mb-4 sm:mb-0 sm:mr-6"
                 />
                 {/* Product Details */}
+                {/* When item clicked on, expands with product description with calories and price */}
                 <div className="sm:border-l sm:pl-6 flex-1">
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-left mb-4">{product.name}</h3>
                   <p className="text-gray-700 mb-2">
                     <strong>Description:</strong> {product.description}
-                  </p>
+                  </p> {/* Calls the product description from data.json */}
                   <p className="text-gray-700 mb-2">
                     <strong>Calories:</strong> {product.calories || "N/A"} kcal
                   </p>
