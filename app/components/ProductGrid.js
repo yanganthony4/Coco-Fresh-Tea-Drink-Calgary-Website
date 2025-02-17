@@ -14,7 +14,7 @@ const ProductGrid = ({ products }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 p-4 sm:p-6 lg:p-8">
       {products.map((product, index) => (
         <React.Fragment key={index}>
-          {/* Grid Item */}
+          {/* Grid item - photo of drink being called from menu assets */}
           <div className="flex flex-col items-center text-center" onClick={() => handleToggle(index)}>
             <LazyImage
               src={`/menuAssets/${product.image}`}
@@ -41,9 +41,10 @@ const ProductGrid = ({ products }) => {
                 {/* When item clicked on, expands with product description with calories and price */}
                 <div className="sm:border-l sm:pl-6 flex-1">
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-left mb-4">{product.name}</h3>
+                  {/* Calls the product description from data.json */}
                   <p className="text-gray-700 mb-2">
                     <strong>Description:</strong> {product.description}
-                  </p> {/* Calls the product description from data.json */}
+                  </p> 
                   <p className="text-gray-700 mb-2">
                     <strong>Calories:</strong> {product.calories || "N/A"} kcal
                   </p>
