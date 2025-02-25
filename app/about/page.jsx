@@ -1,13 +1,7 @@
 "use client"
 
-<<<<<<< HEAD
-import LazyImage from "../LazyImage";
-import { useEffect, useRef, useState } from "react" 
-import Layout from "../components/Footer"
-=======
 import LazyImage from "../LazyImage"
 import { useEffect, useRef, useState } from "react"
->>>>>>> main
 
 export default function Page() {
   const canvasRef = useRef(null)
@@ -99,14 +93,6 @@ export default function Page() {
   ]
 
   return (
-<<<<<<< HEAD
-      <div className="min-h-screen bg-[#ffe5d1] text-[#653128]">
-        {/* Hero Section: Full-width image with overlay and main title */}
-        <div className="relative w-full h-[60vh] overflow-hidden">
-          <LazyImage src="/images/hero-image.jpg" alt="CoCo Hero Image" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <h1 className="text-6xl font-bold text-white mb-16 opacity-0 animate-fade-in">About CoCo</h1>
-=======
     <div className="min-h-screen bg-[#ffe5d1] text-[#653128]">
       {/* Hero Section */}
       <div className="relative w-full h-[60vh] overflow-hidden">
@@ -116,7 +102,6 @@ export default function Page() {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-16 opacity-0 animate-fade-in text-center px-4">
               About CoCo
             </h1>
->>>>>>> main
           </div>
         </div>
       </div>
@@ -237,10 +222,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-=======
     </div>
->>>>>>> main
   )
 }
 

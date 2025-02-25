@@ -1,15 +1,7 @@
 "use client"
 
-<<<<<<< HEAD
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import PromotionsList from "../components/PromotionsList";
-import Layout from "../components/Footer";
-=======
 import { useEffect, useRef, useState } from "react"
 import PromotionsList from "../components/PromotionsList"
->>>>>>> main
 
 export default function Promotions() {
   const [isEmojiVisible, setIsEmojiVisible] = useState(false)
