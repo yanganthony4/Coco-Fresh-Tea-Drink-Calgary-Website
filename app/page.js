@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import DrinkImageSlider from "./components/DrinkImageSlider"
-import Boxes from "./components/Boxes"
+import Boxes from "./components/HomePageInformationalBoxes"
 import DeliveryAppCarousel from "./components/DeliveryAppCarousel"
 import ImageSlider from "./components/ImageSlider"
 
