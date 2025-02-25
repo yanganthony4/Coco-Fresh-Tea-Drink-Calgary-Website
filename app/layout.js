@@ -57,10 +57,10 @@ export default function RootLayout({ children }) {
           {/* Footer */}
           <footer className="bg-orange-300 py-6 text-center">
             <div className="flex justify-center space-x-6 mb-4">
-              <a href="/footer-stuff/PrivacyPolicy" className="text-white hover:underline">
+              <a href="/privacy" className="text-white hover:underline">
                 Privacy Policy
               </a>
-              <a href="/footer-stuff/Accessibility" className="text-white hover:underline">
+              <a href="/accessibility" className="text-white hover:underline">
                 Accessibility
               </a>
             </div>
