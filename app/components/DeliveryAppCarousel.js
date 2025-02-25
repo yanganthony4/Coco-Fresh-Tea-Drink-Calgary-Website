@@ -30,8 +30,8 @@ const DeliveryAppCarouselMap = () => {
   }
 
   return (
-    <section className="flex items-center justify-center bg-white">
-      <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl w-full">
+    <section className="flex items-center justify-center bg-white py-4 md:py-8">
+      <div className="flex flex-col md:flex-row items-center gap-5 md:gap-10 w-full px-4 md:px-0">
         <div className="flex-1">
           <Image
             src={mainImage.src || "/placeholder.svg"}
@@ -43,8 +43,8 @@ const DeliveryAppCarouselMap = () => {
           />
         </div>
 
-        <div className="flex-1 border-l-4 border-grey-500 pl-5">
-          <div className="grid grid-cols-3 gap-20 mb-4">
+        <div className="flex-1 border-t-4 md:border-l-4 md:border-t-0 border-grey-500 pt-5 md:pt-0 md:pl-5 mt-5 md:mt-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-20 mb-4">
             {smallImages.map((img, index) => (
               <div
                 key={index}
@@ -52,7 +52,12 @@ const DeliveryAppCarouselMap = () => {
                   index === activeIndex ? "scale-105 z-10" : "scale-100 opacity-80"
                 }`}
               >
-                <a href={img.link} target="_blank" rel="noopener noreferrer" className="block w-[300px] h-[110px]">
+                <a
+                  href={img.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full md:w-[300px] h-[80px] md:h-[110px]"
+                >
                   <Image
                     src={img.src || "/placeholder.svg"}
                     alt={img.alt}
@@ -67,8 +72,8 @@ const DeliveryAppCarouselMap = () => {
           </div>
 
           <p className="text-center text-xs md:text-sm font-medium text-[#653128] animate-pulse mt-2 leading-relaxed max-w-md mx-auto">
-            Enjoy the refreshing taste of Coco&apos;s Bubble Tea and Fresh Juice delivered straight to your door. Sip on your
-            favorites without leaving the comfort of home!
+            Enjoy the refreshing taste of Coco&apos;s Bubble Tea and Fresh Juice delivered straight to your door. Sip on
+            your favorites without leaving the comfort of home!
           </p>
         </div>
       </div>

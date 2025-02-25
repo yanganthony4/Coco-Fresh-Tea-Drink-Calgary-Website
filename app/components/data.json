@@ -3,34 +3,44 @@
       {
         "image": "mtsagotaro.png",
         "name": "Sago Taro Milk Tea",
-        "description": "Made with Taro Flavoring, Creamer, and Sago",
+        "description": "Creamy Taro Milk Tea perfectly paired with sago.\nLactose-Free, Caffeine-Free, Gluten-Free, Gelatin-Free, Nut-Free ",
         "category": "Milk Tea",
+        "calories": "M: 500 L: 750",
+        "price": "",
         "category": "Favourites"
       },
       {
         "image": "slushavocado.png",
         "name": "Avocado Smoothie",
-        "description": "A refreshing blend of avocado and ice",
+        "description": "Fresh milk and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
+        "calories":"",
+        "price":"",
         "category": "Slush",
         "category": "Favourites"
       },
       {
         "image": "slushmangodream.png",
         "name": "Mango Dream",
-        "description": "Delicious mango slush with a hint of citrus",
+        "description": "Refreshing, smooth mango slush with fresh mango jam, blended with yakult.",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "yakultlychee.png",
         "name": "Yakult Lychee",
-        "description": "Lychee flavored Yakult with a refreshing taste",
+        "description": "Yakult with fresh lychee fruit.",
+        "calories":"",
+        "price":"",
         "category": "Yakult",
         "category": "Favourites"
       },
       {
         "image": "mt3guys.png",
         "name": "Three Guys",
-        "description": "Classic Milk Tea with Pearls, Pudding, and Grass Jelly",
+        "description": "Signature CoCo Milk Tea, with Pearls, Grassjelly and Pudding.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea",
         "category": "Favourites"
       },
@@ -38,33 +48,43 @@
         "image": "ftbbgg.png",
         "name": "Bubble Gaga",
         "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly",
+        "calories":"",
+        "price":"",
         "category": "Fruit Tea",
         "category": "Favourites"
       },
       {
         "image": "slushmangopomelo.png",
         "name": "Mango Pomelo Sago" ,
-        "description": "Mango Slush with Creamy Coconut Milk, Fresh Mango Jam and Pomelo, and Sago",
+        "description": "Creamy Mango Slush with Coconut Milk, Fresh Mango Jam and Pomelo, and Sago",
+        "calories":"",
+        "price":"",
         "category": "Slush",
         "category": "Favourites"
       },
       {
         "image": "mtbs.png",
         "name": "BrownSugar Pearl Milk Tea",
-        "description": "",
+        "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
+       "calories":"",
+        "price":"",
         "category": "Milk Tea",
         "category": "Favourites"
       },
       {
         "image": "slushstrawberrydream.png",
         "name": "Strawberry Dream",
-        "description": "",
+        "description": "Fresh Strawberry slush, paired with salty cream, the perfect balance.",
+        "calories":"",
+        "price":"",
         "category": "Slush",
         "category": "Favourites"
       },
       {
         "image": "teablack.png",
         "name": "Black Tea",
+        "calories":"",
+        "price":"",
         "description": "Classic black tea with rich aroma",
         "category": "Fresh Tea"
       },
@@ -77,97 +97,127 @@
       {
         "image": "teablack.png",
         "name": "Oolong Tea",
+        "calories":"",
+        "price":"",
         "description": "Smooth and fragrant oolong tea",
         "category": "Fresh Tea"
       },
       {
         "image": "mt3guys.png",
         "name": "Three Guys",
-        "description": "Classic Milk Tea with Pearls, Pudding, and Grass Jelly",
+        "calories":"",
+        "price":"",
+        "description": "Signature CoCo Milk Tea, with Pearls, Grassjelly and Pudding.",
         "category": "Milk Tea"
       },
       {
         "image": "mttwoladies.png",
         "name": "Two Ladies",
-        "description": "Milk Tea with Pearls and Pudding",
+        "calories":"",
+        "price":"",
+        "description": "Signature CoCo Milk Tea with Pearls and Pudding",
         "category": "Milk Tea"
       },
       {
         "image": "mtbs.png",
         "name": "Brown Sugar Milk Tea",
-        "description": "Sweet milk tea with brown sugar pearls",
+        "calories":"",
+        "price":"",
+        "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
         "category": "Milk Tea"
       },
       {
         "image": "mtcaramel.png",
         "name": "Caramel Milk Tea",
-        "description": "",
+        "description": "Classic Milk Tea with the sweet touch of caramel.",
         "category": "Milk Tea"
       },
       {
         "image": "mtcaramelchoco.png",
         "name": "Caramel Chocolate Milk Tea",
-        "description": "",
+        "description": "Chocolate and Caramel, rich, creamy and decadent.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtchoco.png",
         "name": "Chocolate Milk Tea",
-        "description": "",
+        "description": "Classic Chocolate, creamy and rich.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtft.png",
         "name": "Fresh Taro Milk Tea",
-        "description": "",
+        "description": "Signature CoCo Milk Tea with mashed Fresh Taro, sweet and creamy.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtftjasmine.png",
         "name": "Fresh Taro Jasmine Milk Tea",
-        "description": "",
+        "description": "Light and Floral Jasmine Milk Tea paired with mashed Fresh Taro, a perfect balance.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mthoneydew.png",
         "name": "HoneyDew Milk Tea",
-        "description": "",
+        "description": "Honeydew Jasmine Milk Tea, refreshing yet creamy, paired with Tea Jelly.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtjas.png",
         "name": "Jasmine Milk Tea",
-        "description": "",
+        "description": "Light and floral Jasmine Milk tea, perfectly creamy.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtmatcha.png",
         "name": "Matcha Milk Tea",
-        "description": "",
+        "calories":"",
+        "price":"",
+        "description": "Japanese Matcha Milk Tea. Sweet, creamy and earthy.",
         "category": "Milk Tea"
       },
       {
         "image": "mtoolong.png",
         "name": "Oolong Milk Tea",
         "description": "",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtpearl.png",
         "name": "Pearl Milk Tea",
-        "description": "",
+        "description": "Signature CoCo Milk Tea with Pearls.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mtsagotaro.png",
         "name": "Sago Taro Milk Tea",
-        "description": "",
+        "description": "Creamy Taro Milk Tea perfectly paired with sago.\nLactose-Free, Caffeine-Free, Gluten-Free, Gelatin-Free, Nut-Free ",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
         "image": "mttaro.png",
         "name": "Taro Milk Tea",
-        "description": "",
+        "description": "Creamy Taro Milk Tea, light and fragrant.",
+        "calories":"",
+        "price":"",
         "category": "Milk Tea"
       },
       {
@@ -179,151 +229,189 @@
       {
         "image": "ftgrapefruit.png",
         "name": "Grapefruit Green Tea",
-        "description": "Refreshing green tea with fresh grapefruit",
+        "description": "Refreshing Jasmine Tea with fresh grapefruit juice and pulp.",
         "category": "Fruit Tea"
       },
       {
         "image": "ftlemongt.png",
         "name": "Lemon Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Refreshing Jasmine Tea with freshly juiced lemon",
         "category": "Fruit Tea"
       },
       {
         "image": "ftlemonbt.png",
         "name": "Lemon Black Tea",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Refreshing Black tea with freshly juiced lemon",
         "category": "Fruit Tea"
       },
       {
         "image": "ftlemonking.png",
         "name": "Lemon King",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Refreshing Jasmine Tea with a whole lemon, fresh hand pressed lemon juice.",
         "category": "Fruit Tea"
       },
       {
         "image": "ftlychee.png",
         "name": "Lychee Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Light Jasmine Tea with fresh lychee, perfectly sweet and juicy.",
         "category": "Fruit Tea"
       },
       {
         "image": "ftmango.png",
         "name": "Mango Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Mango Jasmine Tea with fresh mango jam.",
+        "calories":"",
+        "price":"",
         "category": "Fruit Tea"
       },
       {
         "image": "ftpfbt.png",
         "name": "Passionfruit Black Tea",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Passionfruit Black Te, perfect balance of tart and sweet.",
+        "calories":"",
+        "price":"",
         "category": "Fruit Tea"
       },
       {
         "image": "ftpfgt.png",
         "name": "Passionfruit Green Tea",
-        "description": "Refreshing green tea with freshly juiced lemon",
+        "description": "Passionfruit Jasmine Tea, perfect balance of sweet and tart.",
+        "calories":"",
+        "price":"",
         "category": "Fruit Tea"
       },
       {
         "image": "lattebs.png",
         "name": "Brown Sugar Pearl Latte",
-        "description": "Creamy milk with brown sugar syrup",
+        "description": "Fresh whole milk with decadent Brown Sugar Pearls and salty cream.",
+        "calories":"",
+        "price":"",
         "category": "Fresh Milk"
       },
       {
         "image": "latteft.png",
         "name": "Fresh Taro Latte",
-        "description": "Fresh fruit blended with creamy milk",
+        "description": "Fresh whole milk with mashed Fresh Taro and salty cream, sweet and creamy.",
+        "calories":"",
+        "price":"",
         "category": "Fresh Milk"
       },
       {
         "image": "lattematcha.png",
         "name": "Matcha Latte",
-        "description": "Creamy milk with brown sugar syrup",
+        "description": "Japanese Matcha with fresh whole milk and salty cream, classic.",
+        "calories":"",
+        "price":"",
         "category": "Fresh Milk"
       },
       {
         "image": "lattestrawberry.png",
         "name": "Strawberry Latte",
-        "description": "Creamy milk with brown sugar syrup",
+        "description": "Fresh, sweet strawberries with fresh whole milk and salty cream.",
+        "calories":"",
+        "price":"",
         "category": "Fresh Milk"
       },
       {
         "image": "saltybt.png",
         "name": "Black Tea Salty Cream",
-        "description": "Fresh black tea with salty cream topping",
+        "description": "Fresh black tea with salty cream topping.",
+        "calories":"",
+        "price":"",
         "category": "Salty Cream"
       },
       {
         "image": "saltychoco.png",
         "name": "Chocolate Salty Cream",
-        "description": "Rich chocolate milk tea with salty cream topping",
+        "description": "Rich chocolate milk tea with salty cream topping.",
+        "calories":"",
+        "price":"",
         "category": "Salty Cream"
       },
       {
         "image": "saltygt.png",
         "name": "Jasmine Tea Salty Cream",
-        "description": "Fresh jasmine tea with salty cream topping",
+        "description": "Fresh jasmine tea with salty cream topping.",
+        "calories":"",
+        "price":"",
         "category": "Salty Cream"
       },
       {
         "image": "saltymatcha.png",
         "name": "Matcha Salty Cream",
-        "description": "Japanese Matcha milk tea with salty cream topping",
+        "description": "Japanese Matcha milk tea with salty cream topping.",
+        "calories":"",
+        "price":"",
         "category": "Salty Cream"
       },
       {
         "image": "yakultgf.png",
         "name": "Grapefruit Yakult",
-        "description": "Fresh grapefruit juice and Yakult yogurt",
+        "description": "Fresh grapefruit juice and pulp with Yakult.",
+        "calories":"",
+        "price":"",
         "category": "Yakult"
       },
       {
         "image": "yakultgt.png",
         "name": "Green Tea Yakult",
-        "description": "Green tea infused and Yakult yogurt",
+        "description": "Jasmine tea with Yakult, tart and refreshing.",
+        "calories":"",
+        "price":"",
         "category": "Yakult"
       },
       {
         "image": "yakultlemon.png",
         "name": "Lemon Yakult",
-        "description": "Freshly juiced lemon and Yakult yogurt",
+        "description": "Freshly juiced lemon and Yakult.",
+        "calories":"",
+        "price":"",
         "category": "Yakult"
       },
       {
         "image": "yakultmango.png",
         "name": "Mango Yakult",
-        "description": "Mango juice, fresh mango jam, and Yakult yogurt",
+        "description": "Mango juice, fresh mango jam, and Yakult.",
+        "calories":"",
+        "price":"",
         "category": "Yakult"
       },
       {
         "image": "yakultlychee.png",
         "name": "Lychee Yakult",
         "description": "Lychee juice and fruit, and Yakult yogurt",
+        "calories":"",
+        "price":"",
         "category": "Yakult"
       },
       {
         "image": "slushavocado.png",
         "name": "Avocado Smoothie",
-        "description": "Fresh, creamy avocado blended with ice",
+        "description": "Fresh whole milk and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "slushavocadopudding.png",
         "name": "Avocado Pudding Smoothie",
-        "description": "Fresh, creamy avocado blended with pudding and ice",
+        "description": "Fresh whole milk, pudding, and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "slushchoco.png",
         "name": "Chocolate Slush",
-        "description": "Decadent chocolate blended with ice",
+        "description": "Smooth decadent chocolate slush.",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "slushchocodream.png",
         "name": "Chocolate Dream",
-        "description": "Decadent chocolate blended with ice, with brown sugar pearls and salty cream",
+        "description": "Smooth decadent chocolate slush with rich brown sugar pearls and salty cream",
         "category": "Slush",
         "category": "Favourites"
       },
@@ -336,25 +424,31 @@
       {
         "image": "slushhoneydew.png",
         "name": "HoneyDew Slush",
-        "description": "Creamy honeydew blended with ice, with white pearl topping",
+        "description": "Soft and creamy honey dew, blended with whole milk and salty cream.",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "slushmango.png",
         "name": "Mango Slush",
-        "description": "Mango slush with fresh mango jam",
+        "description": "Mango slush with fresh mango jam.",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "slushmangodream.png",
         "name": "Mango Dream",
-        "description": "Mango slush with fresh mango jam, salty cream and a white pearls",
+        "description": "Mango slush with fresh mango jam, salty cream.",
+        "calories":"",
+        "price":"",
         "category": "Slush"
       },
       {
         "image": "slushmangopomelo.png",
         "name": "Mango Pomelo Sago" ,
-        "description": "Mango Slush with creamy Coconut Milk, fresh mango jam and pomelo, and sago" ,
+        "description": "Creamy Mango Slush with Coconut Milk, Fresh Mango Jam and Pomelo, and Sago" ,
         "category": "Slush"
       },
       {

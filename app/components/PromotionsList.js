@@ -12,7 +12,7 @@ export default function PromotionsList() {
         },
         {
             id: 2,
-            title: "Grapefruit Series",
+            title: "Creme Brulee Series",
             description: "A refreshing escape at participating locations!",
             timeFrame: "Available until April 15, 2025",
             images: ["/images/cremebruleeposter.png"],
