@@ -79,7 +79,7 @@ export default function ContactPage() {
           <div className="mb-8 text-center lg:text-left">
             <h1 className="text-4xl font-bold mb-4 text-[#653128]">Contact Us</h1>
             <p className="text-[#653128]">
-              Fill out the form below and we'll get back to you as soon as possible.
+              Fill out the form below and we&apos;ll get back to you as soon as possible.
             </p>
           </div>
           <form

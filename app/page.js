@@ -1,228 +1,64 @@
-import Link from 'next/link';
-import Layout from '../app/components/Layout';
+"use client"
+import Link from "next/link"
+import DrinkImageSlider from "./components/DrinkImageSlider"
+import Boxes from "./components/HomePageInformationalBoxes"
+import DeliveryAppCarousel from "./components/DeliveryAppCarousel"
+import ImageSlider from "./components/ImageSlider"
 
 export default function Home() {
-    return (
-        <Layout>
-            <section className="relative bg-orange-100">
-              <div className="relative">
-                  {/* Main Background Image */}
-                  <img src="/images/homepage.png" alt="Bubble Tea" className="w-full h-auto" />
+  const images = [
+    "/images/homebanner.png",
+    "/images/cremebruleeposter.png",
+    "/images/strawberryPromo.png",
+    "/images/mangodream.png",
+  ]
 
-                  {/* Overlay Image */}
-                  <div className="absolute inset-0">
-                      <img
-                          src="/images/blank.png"
-                          alt="Blank filler"
-                          className="absolute top-[45%] right-[2%] transform translate-y-[-72%] w-[40%] h-auto"
-                      />
-                  </div>
-                  {/* Overlay Image 2 */}
-                  <div className="absolute inset-0">
-                      <img
-                          src="/images/blank.png"
-                          alt="Blank filler"
-                          className="absolute top-[45%] right-[2%] transform translate-y-[-30%] w-[30%] h-auto"
-                      />
-                  </div>
-                  {/* Overlay Image Slogan */}
-                  <div className="absolute inset-0">
-                      <img
-                          src="/images/slogan.png"
-                          alt="Spark Up Every Moment"
-                          className="absolute top-[45%] right-[2%] transform translate-y-[-50%] w-[35%] h-auto"
-                      />
-                  </div>
-              </div>
-            </section>
+  return (
+    <div className="w-full overflow-x-hidden">
+      {/* Centralized container for consistency */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+        
+        {/* Image Slider */}
+        <div className="w-full">
+          <ImageSlider images={images} />
+        </div>
 
-            {/* Build-a-Drink Feature Promo */}
-            <section className="py-12 bg-white">
-                <h2 className="text-center text-3xl font-bold font-caveat text-[#653128]">
-                    Can't decide? Build your own!
-                </h2>
-                <a href="/menu" rel="menu" style={{ textDecoration: "none" }}>
-                    <p
-                        className="text-center text-lg"
-                        style={{
-                            cursor: "pointer", 
-                            color: "#FF8000",
-                        }}
-                    >
-                        Unlimited Options!
-                    </p>
-                </a>
-                <div className="flex justify-center space-x-6 mt-8">
-                    {["ChocoDream", "grapefruit", "bsmt", "popping", "matcha"].map((drink, index) => {
-                        const imageSizes = [
-                            { width: "200px", height: "260px" }, // ChocoDream
-                            { width: "200px", height: "260px" }, // grapefruit
-                            { width: "180px", height: "260px" }, // bsmt
-                            { width: "180px", height: "240px" }, // popping
-                            { width: "180px", height: "260px" }, // matcha
-                        ];
+        {/* Section Divider */}
+        <hr className="border-2 border-gray-500 w-full mx-auto mt-10 md:mt-20" />
 
-                        return (
-                            <img
-                                key={index}
-                                src={`/images/${drink}.png`}
-                                alt={`Drink ${index + 1}`}
-                                style={{
-                                    width: imageSizes[index]?.width || "100px", 
-                                    height: imageSizes[index]?.height || "150px", 
-                                    objectFit: "cover", 
-                                }}
-                            />
-                        );
-                    })}
-                </div>
-            </section>
+        {/* Drink Image Slider Section */}
+        <section className="w-full flex flex-col items-center text-center">
+          <div className="w-full max-w-5xl mx-auto px-4">
+            <DrinkImageSlider />
+            <div className="flex justify-center items-center">
+              <Link href="/menu" className="group flex items-center text-2xl space-x-2 font-bold text-black">
+                <span className="font-sora text-xl md:text-3xl pt-2">EXPLORE OUR MENU</span>
+                <span className="text-xl md:text-2xl transition-transform duration-300 transform group-hover:translate-x-2 ml-2">
+                  &#8594;
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
 
+        {/* Section Divider */}
+        <hr className="border-2 border-gray-500 my-8 w-full mx-auto my-20" />
 
+        {/* Informational Boxes Section */}
+        <div className="w-full flex justify-center">
+          <div className="max-w-5xl w-full">
+            <Boxes />
+          </div>
+        </div>
 
-            {/* App Download Promo */}
-            <section
-              className="flex flex-col lg:flex-row items-center justify-between py-12 px-6"
-              style={{
-                  backgroundColor: "#FFF5EB",
-                  padding: "3rem",
-                  maxWidth: "1500px",
-                  margin: "0",
-                  marginLeft: "0",
-              }}
-            >
-              <img
-                  src="/images/appdownload.png"
-                  alt="App Download"
-                  className="object-contain"
-                  style={{ width: "600px", height: "auto" }}
-              />
-              <div
-                  className="text-center lg:text-left"
-                  style={{
-                      position: "relative", 
-                      top: "20px", 
-                      right: "300px",
-                  }}
-              >
-                  <h2 style={{ fontSize: "48px", fontWeight: "bold", color: "#653128" }}>Pick and pay!</h2>
-                  <h2 style={{ fontSize: "48px", fontWeight: "bold", color: "#653128" }}>Skip the line!</h2>
-                  <h2 style={{ fontSize: "48px", fontWeight: "bold", color: "#653128" }}>Get the latest offers!</h2>
-                  <a href="https://apps.apple.com/ca/app/coco-calgary/id1603524472" target="_blank" rel="app store" style={{ textDecoration: "none" }}>
-                    <p
-                        style={{
-                            fontSize: "24px",
-                            color: "#FF8000",
-                            marginRight: "200px",
-                            marginTop: "1px",
-                            whiteSpace: "nowrap",
-                            cursor: "pointer", 
-                        }}
-                    >
-                        Download the App today!
-                    </p>
-                </a>
-              </div>
-            </section>
+        {/* Delivery App Carousel */}
+        <section className="w-full mt-20 flex justify-center">
+          <div className="max-w-7xl w-full">
+            <DeliveryAppCarousel />
+          </div>
+        </section>
 
-
-            {/* About CoCo */}
-            <section
-                className="flex flex-col lg:flex-row items-center justify-between py-12 px-6"
-                style={{
-                    backgroundColor: "#FFF5EB",
-                    padding: "3rem",
-                    maxWidth: "1500px",
-                    margin: "0",
-                    marginRight: "0",
-                    marginLeft: "auto",
-                    marginTop: "100px",
-                }}
-            >
-                <img
-                    src="/images/homelittle.png"
-                    alt="Little CoCo illustration"
-                    className="object-contain"
-                    style={{
-                        width: "1400px",
-                        height: "auto",
-                    }}
-                />
-
-                {/* Text Content */}
-                <div
-                    className="flex items-center"
-                    style={{
-                        position: "relative",
-                        top: "240px",
-                        left: "-1100px",
-                    }}
-                >
-                    <h2
-                        style={{
-                            fontSize: "48px",
-                            fontWeight: "bold",
-                            color: "#653128",
-                            marginRight: "20px",
-                            whiteSpace: "nowrap", 
-                        }}
-                    >
-                        Interested in the CoCo story? Learn More!
-                    </h2>
-                    <a href="/about" style={{ textDecoration: "none" }}>
-                    <p
-                        style={{
-                            fontSize: "24px",
-                            color: "#FF8000",
-                            marginLeft: "-140px",
-                            marginTop: "100px",
-                            whiteSpace: "nowrap",
-                            cursor: "pointer", 
-                        }}
-                    >
-                        About Us
-                    </p>
-                </a>
-                </div>
-            </section>
-
-            {/* Menu and Find Your CoCo */}
-            <section
-                className="flex justify-center items-center py-12"
-                style={{
-                    paddingBottom: "20px",
-                }}
-            >
-                <div className="text-center">
-                    <img
-                        src="/images/menu_find.png"
-                        alt="Menu and Find Your CoCo"
-                        useMap="#menu-map"
-                        style={{
-                            width: "900px", 
-                            height: "800px", 
-                            objectFit: "contain", 
-                        }}
-                    />
-                    <map name="menu-map">
-                        {/* Left side of the image */}
-                        <area
-                            shape="rect"
-                            coords="0,0,450,800" 
-                            href="/menu"
-                            alt="Menu"
-                        />
-                        {/* Right side of the image */}
-                        <area
-                            shape="rect"
-                            coords="451,0,900,800" 
-                            href="/locations"
-                            alt="Find Your CoCo"
-                        />
-                    </map>
-                </div>
-            </section>
-
-            </Layout>
-    );
-};
+      </div>
+    </div>
+  )
+}

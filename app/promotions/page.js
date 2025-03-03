@@ -1,75 +1,81 @@
-import Toolbar from '../components/Toolbar';
-import LazyImage from '../LazyImage';
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import PromotionsList from "../components/PromotionsList"
 
 export default function Promotions() {
-    return (
-        <div>
-            <Toolbar />
-            {/* Promotions Layout Section */}
-            <section className="relative">
-                <div className="relative">
-                    {/* Background Image */}
-                    <LazyImage
-                        src="/images/promobackground.png"
-                        alt="Promotions Background"
-                        className="absolute top-[20%] right-[%] transform translate-y-[24%] w-[-40%] h-auto pointer-events-none z-0"
-                    />
+  const [isEmojiVisible, setIsEmojiVisible] = useState(false)
+  const cocoRef = useRef(null)
 
-                    {/* Left Splash Image */}
-                    <div className="absolute inset-0">
-                        <LazyImage
-                            src="/images/left splash.png"
-                            alt="Left Splash"
-                            className="absolute top-[20%] left-[%] transform translate-y-[-15%] w-[60%] h-auto pointer-events-none z-0"
-                        />
-                    </div>
+  useEffect(() => {
+    if (!cocoRef.current) return
 
-                    {/* Right Splash Image */}
-                    <div className="absolute inset-0">
-                        <LazyImage
-                            src="/images/right splash.png"
-                            alt="Right Splash"
-                            className="absolute top-[20%] right-[5%] transform translate-y-[-20%] w-[62%] h-auto pointer-events-none z-0"
-                        />
-                    </div>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsEmojiVisible(entry.isIntersecting)
+        })
+      },
+      { threshold: 0.5 },
+    )
 
-                    {/* Center Promo Blank */}
-                    <div className="absolute inset-0">
-                        <LazyImage
-                            src="/images/promoblank.png"
-                            alt="Promo Blank"
-                            className="absolute top-[5%] left-[20%] transform translate-x-[-50%] translate-y-[-70%] w-[20%] h-auto pointer-events-none z-0"
-                        />
-                    </div>
+    observer.observe(cocoRef.current)
 
-                    {/* Leaf Left */}
-                    <div className="absolute inset-0">
-                        <LazyImage
-                            src="/images/leaf.png"
-                            alt="Leaf Left"
-                            className="absolute top-[10%] left-[15%] transform translate-y-[8%] w-[10%] h-auto pointer-events-none z-0"
-                        />
-                    </div>
+    return () => observer.disconnect()
+  }, [])
 
-                    {/* Leaf Right */}
-                    <div className="absolute inset-0">
-                        <LazyImage
-                            src="/images/leafright.png"
-                            alt="Leaf Right"
-                            className="absolute top-[10%] right-[25%] transform translate-y-[8%] w-[10%] h-auto pointer-events-none z-0"
-                        />
-                    </div>
+  return (
+    <div className="h-auto flex flex-col">
+      <div className="flex-1 flex flex-col relative">
+        {/* Promotions Banner Section */}
+        <section className="w-full relative overflow-hidden bg-white">
+          <div className="relative w-full max-w-[1555px] mx-auto">
+            <div className="relative w-full">
+              <img
+                src="/images/Promotionsbanner.png"
+                alt="Promotions Background"
+                className="w-full h-auto object-contain pointer-events-none"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
 
-                    {/* Bubble Gaga */}
-                    <div className="absolute inset-0">
-                        <LazyImage
-                            src="/images/bbgg.png"
-                            alt="Bubblegaga"
-                            className="absolute top-[25%] left-[50%] transform translate-x-[-50%] translate-y-[1%] w-[25%] h-auto pointer-events-none z-0"
-                        />
-                    </div>
+        {/* Main Content Section */}
+        <div className="container mx-auto px-4 lg:px-6 pt-4 sm:pt-6 lg:pt-8 pb-10">
+          <div className="flex flex-col lg:flex-row items-start justify-center gap-4 sm:gap-8">
+            {/* Left Side Content */}
+            <div className="w-full lg:w-1/3 flex flex-col items-center lg:items-start lg:sticky lg:top-8">
+              {/* Emoji Animation and CoCo text */}
+              <div
+                className="flex flex-col items-center py-6 sm:py-8 lg:py-12 px-4 sm:px-16 lg:items-start"
+                ref={cocoRef}
+              >
+                <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
+                  <img src="/images/cocoemoji.png" alt="Coco Emoji" className="w-16 sm:w-24 lg:w-32" loading="lazy" />
                 </div>
-            </section>
+                <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black font-museo flex">
+                  {["C", "o", "C", "o"].map((letter, index) => (
+                    <span
+                      key={index}
+                      className={`${isEmojiVisible ? "animate-bounce" : ""}`}
+                      style={{ animationDelay: `${index * 0.2}s`, animationDuration: "1s" }}
+                    >
+                      {letter}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Vertical Line */}
+            <div className="hidden lg:block w-0.5 bg-[#E7D4B5] h-auto self-stretch" />
+
+            {/* Promotions List Component */}
+            <PromotionsList />
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  )
 }

@@ -1,4 +1,4 @@
-// lazyload.js or within your main JS file
+
 
 function setupLazyLoading() {
   const lazyImages = document.querySelectorAll("img.lazy-load");

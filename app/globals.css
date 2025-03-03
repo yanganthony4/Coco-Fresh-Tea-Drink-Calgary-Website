@@ -1,11 +1,17 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root Variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-Gilroy: 'Gilroy', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-sora: 'Sora', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,19 +21,50 @@
   }
 }
 
+/* Global Styles */
 body {
   color: var(--foreground);
-  background-color: white;
-  font-family: var(--font-gilroy), sans-serif;
+  background-color: var(--background);
+  font-family: var(--font-inter);
 }
 
+/* Apply Sora for Toolbar */
+.toolbar {
+  font-family: var(--font-sora);
+  font-weight: 900; 
+}
+
+/* Additional Font Classes */
+.font-sora {
+  font-family: var(--font-sora), sans-serif;
+  font-weight:700;
+}
+
+/* Tailwind Utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Lazy loading effects */
+/* Keyframes for Bounce Animation */
+@keyframes bounce-scroll {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-scroll {
+  animation: bounce-scroll 1s;
+}
+
+/* Lazy Loading Effects */
 .lazy-load {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
