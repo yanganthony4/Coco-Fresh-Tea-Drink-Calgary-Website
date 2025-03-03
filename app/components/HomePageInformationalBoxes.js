@@ -2,9 +2,9 @@ import Link from "next/link"
 
 export default function Boxes() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 w-full">
       {/* Box 1 */}
-      <div className="flex flex-col bg-orange-300 text-white rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 min-h-[300px] sm:min-h-[400px]">
+      <div className="flex flex-col bg-orange-300 text-white transition-transform duration-500 hover:scale-105 p-6 aspect-square">
         <div className="flex-grow">
           <h3 className="text-2xl sm:text-3xl font-bold mb-4">WANT TO DROP BY?</h3>
           <p className="text-base sm:text-lg">
@@ -22,7 +22,7 @@ export default function Boxes() {
       </div>
 
       {/* Box 2 */}
-      <div className="flex flex-col bg-orange-300 text-white rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 min-h-[300px] sm:min-h-[400px]">
+      <div className="flex flex-col bg-orange-300 text-white transition-transform duration-500 hover:scale-105 p-6 aspect-square">
         <div className="flex-grow">
           <h3 className="text-2xl sm:text-3xl font-bold mb-4">WANT TO LEARN OUR STORY?</h3>
           <p className="text-base sm:text-lg">
@@ -40,7 +40,7 @@ export default function Boxes() {
       </div>
 
       {/* Box 3 */}
-      <div className="flex flex-col bg-orange-300 text-white rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-xl p-6 min-h-[300px] sm:min-h-[400px]">
+      <div className="flex flex-col bg-orange-300 text-white transition-transform duration-500 hover:scale-105 p-6 aspect-square">
         <div className="flex-grow">
           <h3 className="text-2xl sm:text-3xl font-bold mb-4">HAVE A QUESTION?</h3>
           <p className="text-base sm:text-lg">
@@ -59,4 +59,3 @@ export default function Boxes() {
     </div>
   )
 }
-

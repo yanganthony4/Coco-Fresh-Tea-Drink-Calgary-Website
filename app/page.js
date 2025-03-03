@@ -15,44 +15,50 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <div className="w-full">
-        <ImageSlider images={images} />
-      </div>
-      <div className="mx-auto w-full px-4 md:w-4/5">
-        <hr className="border-2 border-grey-500 w-full md:w-4/5 mx-auto mt-10 md:mt-20" />
-        {/* Build-a-Drink Feature Promo */}
-        <section>
-          <div className="w-4/5 relative mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Centralized container for consistency */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+        
+        {/* Image Slider */}
+        <div className="w-full">
+          <ImageSlider images={images} />
+        </div>
+
+        {/* Section Divider */}
+        <hr className="border-2 border-gray-500 w-full mx-auto mt-10 md:mt-20" />
+
+        {/* Drink Image Slider Section */}
+        <section className="w-full flex flex-col items-center text-center">
+          <div className="w-full max-w-5xl mx-auto px-4">
             <DrinkImageSlider />
-            <div className="flex justify-center items-center relative w-full">
+            <div className="flex justify-center items-center">
               <Link href="/menu" className="group flex items-center text-2xl space-x-2 font-bold text-black">
-                <span className="font-sora text-xl md:text-3xl pt-2 whitespace-nowrap">EXPLORE OUR MENU</span>
-                <span className="text-xl md:text-2xl no-underline transition-transform duration-300 transform group-hover:translate-x-2 ml-2">
+                <span className="font-sora text-xl md:text-3xl pt-2">EXPLORE OUR MENU</span>
+                <span className="text-xl md:text-2xl transition-transform duration-300 transform group-hover:translate-x-2 ml-2">
                   &#8594;
                 </span>
               </Link>
             </div>
           </div>
         </section>
-        <hr className="border-2 border-grey-500 my-8 w-full md:w-4/5 mx-auto my-20" />
-        {/* Boxes Section - Constrained width orange background */}
-        <div className="relative">
-          <div className="absolute inset-0" />
-          <div className="relative  mx-auto px-4 sm:px-6 lg:px-8">
-            <section>
-              <Boxes />
-            </section>
+
+        {/* Section Divider */}
+        <hr className="border-2 border-gray-500 my-8 w-full mx-auto my-20" />
+
+        {/* Informational Boxes Section */}
+        <div className="w-full flex justify-center">
+          <div className="max-w-5xl w-full">
+            <Boxes />
           </div>
         </div>
-      </div>
 
-      {/* Dynamic Image Section - Full width orange background */}
-      <section>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-          <DeliveryAppCarousel />
-        </div>
-      </section>
+        {/* Delivery App Carousel */}
+        <section className="w-full mt-20 flex justify-center">
+          <div className="max-w-7xl w-full">
+            <DeliveryAppCarousel />
+          </div>
+        </section>
+
+      </div>
     </div>
   )
 }
-
