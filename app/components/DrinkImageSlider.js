@@ -10,21 +10,21 @@ export default function DrinkImageSlider() {
     { name: "BSMT", src: "/images/bsmt.png" },
     { name: "Popping", src: "/images/popping.png" },
     { name: "Matcha", src: "/images/matcha.png" },
+    { name: "Popping", src: "/images/popping.png" },
+    { name: "Matcha", src: "/images/matcha.png" },
+    { name: "Grapefruit", src: "/images/grapefruit.png" },
   ]
 
   const [currentDrinkIndex, setCurrentDrinkIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
-  // Determine if the screen size is mobile
   useEffect(() => {
-    const updateIsMobile = () => {
-      setIsMobile(typeof window !== "undefined" && window.innerWidth < 640)
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
     }
-
-    updateIsMobile() // Initial check
-    window.addEventListener("resize", updateIsMobile)
-
-    return () => window.removeEventListener("resize", updateIsMobile)
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   useEffect(() => {
@@ -36,65 +36,75 @@ export default function DrinkImageSlider() {
 
   const calculatePosition = (index) => {
     const position = (index - currentDrinkIndex + drinks.length) % drinks.length
+    const totalItems = drinks.length
+    const radius = isMobile ? 110 : 200
+    const baseAngle = (2 * Math.PI) / totalItems
 
-    if (isMobile) {
-      // Mobile positions
-      switch (position) {
-        case 0:
-          return "translate-x-0 translate-y-0 scale-100 z-10 opacity-100"
-        case 1:
-          return "translate-x-[100px] translate-y-[-10px] scale-90 z-5 opacity-90"
-        case drinks.length - 1:
-          return "translate-x-[-100px] translate-y-[-10px] scale-90 z-5 opacity-90"
-        case 2:
-          return "translate-x-[200px] translate-y-[-20px] scale-80 z-0 opacity-75"
-        case drinks.length - 2:
-          return "translate-x-[-200px] translate-y-[-20px] scale-80 z-0 opacity-75"
-        default:
-          return "translate-y-[-30px] scale-70 opacity-50 z-0"
+    // Rotate the circle by adjusting the starting angle and direction
+    const startAngle = Math.PI / 300 // Start from bottom (π/2) instead of top (-π/2)
+    const angle = startAngle - baseAngle * position // Subtract to rotate clockwise
+
+    // Calculate base coordinates
+    const x = Math.sin(angle) * radius
+    const y = Math.cos(angle) * radius * 0.35  // Compress vertically for perspective
+
+    // Highlighted drink position (bottom center)
+    if (position === 0) {
+      return {
+        transform: `
+          translate(${x}px, ${y * 1.2}px)
+          scale(1.2)
+        `,
+        zIndex: totalItems + 1,
+        opacity: 1,
       }
     }
 
-    // Desktop positions
-    switch (position) {
-      case 0:
-        return "translate-x-0 translate-y-0 scale-125 z-10 opacity-100"
-      case 1:
-        return "translate-x-[200px] translate-y-[-20px] scale-110 z-5 opacity-90"
-      case drinks.length - 1:
-        return "translate-x-[-200px] translate-y-[-20px] scale-110 z-5 opacity-90"
-      case 2:
-        return "translate-x-[400px] translate-y-[-40px] scale-100 z-0 opacity-75"
-      case drinks.length - 2:
-        return "translate-x-[-400px] translate-y-[-40px] scale-100 z-0 opacity-75"
-      default:
-        return "translate-y-[-50px] scale-90 opacity-50 z-0"
+    // Lower opacity for non-highlighted drinks
+    const opacity = 0.3
+
+    // Calculate z-index to ensure proper layering
+    const zIndex = Math.round((y / radius) * 10) + totalItems
+
+    return {
+      transform: `
+        translate(${x}px, ${y}px)
+        scale(0.8)
+      `,
+      zIndex,
+      opacity,
     }
   }
 
   return (
-    <div className="relative h-[250px] sm:h-[500px] flex justify-center items-center overflow-hidden bg-white">
-      {drinks.map((drink, index) => {
-        const positionClasses = calculatePosition(index)
-        const isCenter = (index - currentDrinkIndex + drinks.length) % drinks.length === 0
+    <div className="relative h-[400px] md:h-[500px] flex justify-center items-center overflow-hidden">
+      <div className="relative w-full max-w-[1200px] h-full flex justify-center items-center">
+        {drinks.map((drink, index) => {
+          const style = calculatePosition(index)
+          const isHighlighted = (index - currentDrinkIndex + drinks.length) % drinks.length === 0
 
-        return (
-          <div key={index} className={`absolute transition-transform duration-700 ease-in-out ${positionClasses}`}>
-            <Image
-              src={drink.src || "/placeholder.svg"}
-              alt={drink.name}
-              width={280}
-              height={360}
-              className="w-[140px] h-[200px] sm:w-[280px] sm:h-[360px] rounded-lg object-contain"
-              priority={isCenter}
-              loading={isCenter ? "eager" : "lazy"}
-            />
-            {isCenter && (
-              <p className="text-center mt-2 sm:mt-4 text-black text-base sm:text-lg font-bold">{drink.name}</p>
-            )}
-          </div>
-        )
-      })}
+          return (
+            <div key={index} className="absolute transition-all duration-700 ease-in-out" style={style}>
+              <div className="relative">
+                <Image
+                  src={drink.src || "/placeholder.svg"}
+                  alt={drink.name}
+                  width={isMobile ? 90 : 160}
+                  height={isMobile ? 130 : 240}
+                  className="w-[80px] h-[120px] md:w-[160px] md:h-[240px] object-contain"
+                  priority={isHighlighted}
+                  loading={isHighlighted ? "eager" : "lazy"}
+                />
+                {isHighlighted && (
+                  <p className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 text-black text-sm md:text-base font-bold whitespace-nowrap">
+                    {drink.name}
+                  </p>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

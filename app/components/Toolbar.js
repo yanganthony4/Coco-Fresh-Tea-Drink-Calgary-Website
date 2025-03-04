@@ -43,7 +43,7 @@ const Toolbar = () => {
         {/* Logo */}
         <Link href="/">
           <LazyImage
-            src="/images/logo.png"
+            src="/images/logo.svg"
             alt="CoCo Logo"
             className="w-32 h-auto"
             placeholder="/images/placeholder.jpg"
@@ -65,27 +65,27 @@ const Toolbar = () => {
       </div>
 
       {/* Location Section and Hamburger Dropdown */}
-      <div className="relative flex items-center space-x-4">
-        {/* Location Section */}
-        <a href="/locations">
-          <div className="flex items-center space-x-2">
+      <div className="flex items-center">
+        {/* Location Section - Text hidden on small screens */}
+        <div className="flex items-center mr-4">
+          <a href="/locations" className="flex items-center">
             <LazyImage
               src="/images/locationicon.png"
               alt="Location Icon"
-              className="w-6 h-6"
+              className="w-6 h-6 object-contain"
               placeholder="/images/placeholder.jpg"
             />
-            <p className="text-sm text-orange-500 hover:text-orange-300">FIND YOUR COCO!</p>
-          </div>
-        </a>
+            <span className="text-sm text-orange-500 hover:text-orange-300 hidden sm:inline ml-2">FIND YOUR COCO!</span>
+          </a>
+        </div>
 
         {/* Hamburger Icon with Dropdown */}
         <div className="relative">
-          <button onClick={toggleDropdown} className="focus:outline-none">
+          <button onClick={toggleDropdown} className="focus:outline-none flex items-center justify-center">
             <LazyImage
               src="/images/hamburgericon.png"
               alt="Hamburger Icon"
-              className="w-8 h-8"
+              className="w-8 h-8 object-contain"
               placeholder="/images/placeholder.jpg"
             />
           </button>
