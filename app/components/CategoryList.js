@@ -1,4 +1,43 @@
-const CategoryList = ({ categories, onSelectCategory, selectedCategory }) => {
+import React from 'react';
+import { useForm, usePlugin } from 'tinacms';
+
+const CategoryList = ({ categories: initialCategories, onSelectCategory, selectedCategory }) => {
+  // Define the form configuration using useForm
+  const [formData, form] = useForm({
+    initialValues: {
+      categories: initialCategories,
+    },
+    onSubmit: (data) => {
+      console.log('Updated Categories:', data.categories);
+      //logic for saving to backend
+    },
+    fields: [
+      {
+        name: 'categories',
+        label: 'Categories',
+        component: 'group-list',
+        itemProps: (item) => ({
+          key: item,
+          label: item,
+        }),
+        defaultItem: () => 'New Category',
+        fields: [
+          {
+            name: 'category',
+            label: 'Category Name',
+            component: 'text',
+          },
+        ],
+      },
+    ],
+  });
+
+  // Connect the form to TinaCMS
+  usePlugin(form);
+
+  // Extract categories from formData
+  const categories = formData.categories;
+
   return (
     <div className="w-full lg:w-1/4 lg:pr-8 mb-6 lg:mb-0">
       <div className="overflow-x-auto lg:overflow-x-visible -mx-4 px-4 lg:mx-0 lg:px-0 lg:border-r lg:border-gray-300">
@@ -20,8 +59,7 @@ const CategoryList = ({ categories, onSelectCategory, selectedCategory }) => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CategoryList
-
+export default CategoryList;

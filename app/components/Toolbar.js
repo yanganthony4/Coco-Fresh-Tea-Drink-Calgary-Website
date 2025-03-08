@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import bcrypt from "bcryptjs"
 import LazyImage from "../LazyImage"
+import { useForm, usePlugin } from "tinacms"
 
 const Toolbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -13,6 +14,96 @@ const Toolbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const storedHashedPassword = bcrypt.hashSync("password123", 10)
+
+  // Define editable fields with TinaCMS
+  const [formData, form] = useForm({
+    initialValues: {
+      logo: "/images/logo.png",
+      locationText: "FIND YOUR COCO!",
+      navLinks: [
+        { label: "HOME", href: "/" },
+        { label: "PROMOTIONS", href: "/promotions" },
+        { label: "MENU", href: "/menu" },
+      ],
+      dropdownLinks: [
+        { label: "HOME", href: "/" },
+        { label: "PROMOTIONS", href: "/promotions" },
+        { label: "MENU", href: "/menu" },
+        { label: "LOCATIONS", href: "/locations" },
+        { label: "OUR STORY", href: "/about" },
+        { label: "CONTACT US", href: "/contact-us" },
+      ],
+    },
+    onSubmit: (data) => {
+      console.log("Updated Toolbar Data:", data)
+     //logic for saving to backend
+    },
+    fields: [
+      {
+        name: "logo",
+        label: "Logo Image",
+        component: "image",
+      },
+      {
+        name: "locationText",
+        label: "Location Text",
+        component: "text",
+      },
+      {
+        name: "navLinks",
+        label: "Navigation Links",
+        component: "group-list",
+        itemProps: (item) => ({
+          key: item.href,
+          label: item.label,
+        }),
+        defaultItem: () => ({
+          label: "New Link",
+          href: "/",
+        }),
+        fields: [
+          {
+            name: "label",
+            label: "Link Label",
+            component: "text",
+          },
+          {
+            name: "href",
+            label: "Link URL",
+            component: "text",
+          },
+        ],
+      },
+      {
+        name: "dropdownLinks",
+        label: "Dropdown Links",
+        component: "group-list",
+        itemProps: (item) => ({
+          key: item.href,
+          label: item.label,
+        }),
+        defaultItem: () => ({
+          label: "New Link",
+          href: "/",
+        }),
+        fields: [
+          {
+            name: "label",
+            label: "Link Label",
+            component: "text",
+          },
+          {
+            name: "href",
+            label: "Link URL",
+            component: "text",
+          },
+        ],
+      },
+    ],
+  })
+
+  // Connect the form to TinaCMS
+  usePlugin(form)
 
   const handleLogin = () => {
     const validUsername = "admin"
@@ -43,7 +134,7 @@ const Toolbar = () => {
         {/* Logo */}
         <Link href="/">
           <LazyImage
-            src="/images/logo.png"
+            src={formData.logo}
             alt="CoCo Logo"
             className="w-32 h-auto"
             placeholder="/images/placeholder.jpg"
@@ -52,15 +143,15 @@ const Toolbar = () => {
 
         {/* Navigation Links - Hidden on Small Screens */}
         <nav className="hidden md:flex space-x-5">
-          <Link href="/" className="hover:text-orange-300 text-md text-orange-500">
-            HOME
-          </Link>
-          <Link href="/promotions" className="hover:text-orange-300 text-md text-orange-500">
-            PROMOTIONS
-          </Link>
-          <Link href="/menu" className="hover:text-orange-300 text-md text-orange-500">
-            MENU
-          </Link>
+          {formData.navLinks.map((link, index) => (
+            <Link
+              key={index}
+              href={link.href}
+              className="hover:text-orange-300 text-md text-orange-500"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
       </div>
 
@@ -75,7 +166,9 @@ const Toolbar = () => {
               className="w-6 h-6"
               placeholder="/images/placeholder.jpg"
             />
-            <p className="text-sm text-orange-500 hover:text-orange-300">FIND YOUR COCO!</p>
+            <p className="text-sm text-orange-500 hover:text-orange-300">
+              {formData.locationText}
+            </p>
           </div>
         </a>
 
@@ -94,48 +187,16 @@ const Toolbar = () => {
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-[300px] md:w-[500px] z-50">
               <nav className="flex flex-col space-y-3">
-                <Link
-                  href="/"
-                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  HOME
-                </Link>
-                <Link
-                  href="/promotions"
-                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  PROMOTIONS
-                </Link>
-                <Link
-                  href="/menu"
-                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  MENU
-                </Link>
-                <Link
-                  href="/locations"
-                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  LOCATIONS
-                </Link>
-                <Link
-                  href="/about"
-                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  OUR STORY
-                </Link>
-                <Link
-                  href="/contact-us"
-                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  CONTACT US
-                </Link>
+                {formData.dropdownLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
               </nav>
             </div>
           )}
@@ -146,4 +207,3 @@ const Toolbar = () => {
 }
 
 export default Toolbar
-

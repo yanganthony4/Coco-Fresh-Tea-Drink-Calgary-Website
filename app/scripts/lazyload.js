@@ -8,7 +8,6 @@ function setupLazyLoading() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const img = entry.target;
-          // Replace placeholder src with actual URL
           img.src = img.dataset.src;
           img.classList.add("loaded");
           observer.unobserve(img);
