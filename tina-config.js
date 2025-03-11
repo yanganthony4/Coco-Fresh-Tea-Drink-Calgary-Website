@@ -8,6 +8,7 @@ export default defineConfig({
     },
   },
   //schemas
+  //promotions page
   const schema = defineSchema({
     collections: [
       {
@@ -25,6 +26,7 @@ export default defineConfig({
       },
     ],
   }),
+  //tool bar
   const schema = defineSchema({
     collections: [
       {
@@ -82,6 +84,7 @@ export default defineConfig({
       },
     ],
   }),
+  //homepage information boxes
   const schema = defineSchema({
     collections: [
       {
@@ -116,6 +119,7 @@ export default defineConfig({
       },
     ],
   }),
+ 
   
   
   // Export the Tina config

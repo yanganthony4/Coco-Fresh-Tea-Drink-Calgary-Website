@@ -2,32 +2,30 @@
 
 import { useEffect, useRef, useState } from "react"
 import PromotionsList from "../components/PromotionsList"
-import { useForm, usePlugin } from "tinacms"
+import { useTina } from "tinacms/dist/react"
 
-export default function Promotions() {
+// Default data for initial rendering
+const defaultData = {
+  bannerImage: "/images/Promotionsbanner.png",
+}
+
+export default function Promotions({ data = defaultData }) {
   const [isEmojiVisible, setIsEmojiVisible] = useState(false)
   const cocoRef = useRef(null)
 
-  // Define editable fields with TinaCMS (only banner image)
-  const [formData, form] = useForm({
-    initialValues: {
-      bannerImage: "/images/Promotionsbanner.png",
-    },
-    onSubmit: (data) => {
-      console.log("Updated Banner Image:", data.bannerImage)
-      // Add logic to save the updated banner image URL to your backend
-    },
-    fields: [
-      {
-        name: "bannerImage",
-        label: "Banner Image URL",
-        component: "text",
-      },
-    ],
+  // Use TinaCMS data
+  const { data: tinaData } = useTina({
+    query: `
+      query GetPromotionsPage {
+        bannerImage
+      }
+    `,
+    variables: {},
+    data,
   })
 
-  // Connect the form to TinaCMS
-  usePlugin(form)
+  // Extract banner image from TinaCMS data or fallback to default
+  const bannerImage = tinaData?.bannerImage || defaultData.bannerImage
 
   useEffect(() => {
     if (!cocoRef.current) return
@@ -54,7 +52,7 @@ export default function Promotions() {
           <div className="relative w-full max-w-[1555px] mx-auto">
             <div className="relative w-full" style={{ paddingTop: "51.45%" }}>
               <img
-                src={formData.bannerImage}
+                src={bannerImage}
                 alt="Promotions Background"
                 className="absolute top-0 left-0 w-full h-full object-contain pointer-events-none"
                 loading="lazy"
@@ -74,14 +72,14 @@ export default function Promotions() {
               >
                 {/* Static Emoji */}
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
-                  <img 
-                    src="/images/cocoemoji.png" 
-                    alt="Coco Emoji" 
-                    className="w-16 sm:w-24 lg:w-32" 
-                    loading="lazy" 
+                  <img
+                    src="/images/cocoemoji.png"
+                    alt="Coco Emoji"
+                    className="w-16 sm:w-24 lg:w-32"
+                    loading="lazy"
                   />
                 </div>
-                
+
                 {/* Static Coco Text */}
                 <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black font-museo flex">
                   {["C", "o", "C", "o"].map((letter, index) => (
