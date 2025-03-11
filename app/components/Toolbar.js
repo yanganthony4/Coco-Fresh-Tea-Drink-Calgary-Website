@@ -4,9 +4,28 @@ import Link from "next/link"
 import { useState } from "react"
 import bcrypt from "bcryptjs"
 import LazyImage from "../LazyImage"
-import { useForm, usePlugin } from "tinacms"
+import { useTina } from "tinacms/dist/react"
 
-const Toolbar = () => {
+// Default data for initial rendering
+const defaultData = {
+  logo: "/images/logo.png",
+  locationText: "FIND YOUR COCO!",
+  navLinks: [
+    { label: "HOME", href: "/" },
+    { label: "PROMOTIONS", href: "/promotions" },
+    { label: "MENU", href: "/menu" },
+  ],
+  dropdownLinks: [
+    { label: "HOME", href: "/" },
+    { label: "PROMOTIONS", href: "/promotions" },
+    { label: "MENU", href: "/menu" },
+    { label: "LOCATIONS", href: "/locations" },
+    { label: "OUR STORY", href: "/about" },
+    { label: "CONTACT US", href: "/contact-us" },
+  ],
+}
+
+export default function Toolbar({ data = defaultData }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [username, setUsername] = useState("")
@@ -15,95 +34,25 @@ const Toolbar = () => {
 
   const storedHashedPassword = bcrypt.hashSync("password123", 10)
 
-  // Define editable fields with TinaCMS
-  const [formData, form] = useForm({
-    initialValues: {
-      logo: "/images/logo.png",
-      locationText: "FIND YOUR COCO!",
-      navLinks: [
-        { label: "HOME", href: "/" },
-        { label: "PROMOTIONS", href: "/promotions" },
-        { label: "MENU", href: "/menu" },
-      ],
-      dropdownLinks: [
-        { label: "HOME", href: "/" },
-        { label: "PROMOTIONS", href: "/promotions" },
-        { label: "MENU", href: "/menu" },
-        { label: "LOCATIONS", href: "/locations" },
-        { label: "OUR STORY", href: "/about" },
-        { label: "CONTACT US", href: "/contact-us" },
-      ],
-    },
-    onSubmit: (data) => {
-      console.log("Updated Toolbar Data:", data)
-     //logic for saving to backend
-    },
-    fields: [
-      {
-        name: "logo",
-        label: "Logo Image",
-        component: "image",
-      },
-      {
-        name: "locationText",
-        label: "Location Text",
-        component: "text",
-      },
-      {
-        name: "navLinks",
-        label: "Navigation Links",
-        component: "group-list",
-        itemProps: (item) => ({
-          key: item.href,
-          label: item.label,
-        }),
-        defaultItem: () => ({
-          label: "New Link",
-          href: "/",
-        }),
-        fields: [
-          {
-            name: "label",
-            label: "Link Label",
-            component: "text",
-          },
-          {
-            name: "href",
-            label: "Link URL",
-            component: "text",
-          },
-        ],
-      },
-      {
-        name: "dropdownLinks",
-        label: "Dropdown Links",
-        component: "group-list",
-        itemProps: (item) => ({
-          key: item.href,
-          label: item.label,
-        }),
-        defaultItem: () => ({
-          label: "New Link",
-          href: "/",
-        }),
-        fields: [
-          {
-            name: "label",
-            label: "Link Label",
-            component: "text",
-          },
-          {
-            name: "href",
-            label: "Link URL",
-            component: "text",
-          },
-        ],
-      },
-    ],
+  // Use TinaCMS data
+  const { data: tinaData } = useTina({
+    query: `
+      query GetToolbarData {
+        logo
+        locationText
+        navLinks {
+          label
+          href
+        }
+        dropdownLinks {
+          label
+          href
+        }
+      }
+    `,
+    variables: {},
+    data,
   })
-
-  // Connect the form to TinaCMS
-  usePlugin(form)
 
   const handleLogin = () => {
     const validUsername = "admin"
@@ -134,7 +83,7 @@ const Toolbar = () => {
         {/* Logo */}
         <Link href="/">
           <LazyImage
-            src={formData.logo}
+            src={tinaData?.logo || defaultData.logo}
             alt="CoCo Logo"
             className="w-32 h-auto"
             placeholder="/images/placeholder.jpg"
@@ -143,7 +92,7 @@ const Toolbar = () => {
 
         {/* Navigation Links - Hidden on Small Screens */}
         <nav className="hidden md:flex space-x-5">
-          {formData.navLinks.map((link, index) => (
+          {(tinaData?.navLinks || defaultData.navLinks).map((link, index) => (
             <Link
               key={index}
               href={link.href}
@@ -167,7 +116,7 @@ const Toolbar = () => {
               placeholder="/images/placeholder.jpg"
             />
             <p className="text-sm text-orange-500 hover:text-orange-300">
-              {formData.locationText}
+              {tinaData?.locationText || defaultData.locationText}
             </p>
           </div>
         </a>
@@ -187,7 +136,7 @@ const Toolbar = () => {
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-[300px] md:w-[500px] z-50">
               <nav className="flex flex-col space-y-3">
-                {formData.dropdownLinks.map((link, index) => (
+                {(tinaData?.dropdownLinks || defaultData.dropdownLinks).map((link, index) => (
                   <Link
                     key={index}
                     href={link.href}
@@ -205,5 +154,3 @@ const Toolbar = () => {
     </header>
   )
 }
-
-export default Toolbar
