@@ -1,25 +1,42 @@
 import React from 'react';
-import { useTina } from 'tinacms/dist/react'; // Use useTina for GraphQL data
+import { useForm, usePlugin } from 'tinacms'; 
 
-// Default data for initial rendering
-const defaultData = {
-  categories: ["Category 1", "Category 2", "Category 3"], // Example default categories
-};
-
-const CategoryList = ({ categories: initialCategories = defaultData.categories, onSelectCategory, selectedCategory }) => {
-  // Use TinaCMS data
-  const { data: tinaData } = useTina({
-    query: `
-      query GetCategories {
-        categories
-      }
-    `,
-    variables: {},
-    data: { categories: initialCategories }, // Fallback data if TinaCMS data is not available
+const CategoryList = ({ categories: initialCategories, onSelectCategory, selectedCategory }) => {
+  // Define the form configuration using useForm
+  const [formData, form] = useForm({
+    initialValues: {
+      categories: initialCategories,
+    },
+    onSubmit: (data) => {
+      console.log('Updated Categories:', data.categories);
+      // Logic for saving to backend
+    },
+    fields: [
+      {
+        name: 'categories',
+        label: 'Categories',
+        component: 'group-list',
+        itemProps: (item) => ({
+          key: item,
+          label: item,
+        }),
+        defaultItem: () => 'New Category',
+        fields: [
+          {
+            name: 'category',
+            label: 'Category Name',
+            component: 'text',
+          },
+        ],
+      },
+    ],
   });
 
-  // Extract categories from tinaData
-  const categories = tinaData?.categories || initialCategories;
+  // Connect the form to TinaCMS
+  usePlugin(form);
+
+  // Extract categories from formData
+  const categories = formData.categories;
 
   return (
     <div className="w-full lg:w-1/4 lg:pr-8 mb-6 lg:mb-0">
