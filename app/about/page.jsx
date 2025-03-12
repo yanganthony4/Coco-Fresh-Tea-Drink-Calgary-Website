@@ -50,7 +50,10 @@ export default function AboutPage() {
         ctx.lineWidth = 3
 
         for (let x = 0; x < canvas.width; x++) {
-          const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2
+          const y =
+            amplitude *
+              Math.sin((x + baseOffset + offset * speed) / frequency) +
+            canvas.height / 2
           if (x === 0) {
             ctx.moveTo(x, y)
           } else {
@@ -101,7 +104,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#ffe5d1]/80 z-10" />
         <div className="w-full h-full">
           <Image
-            src="/images/image4.webp"
+            src="https://itsthecococapstonebucket.s3.amazonaws.com/image4.webp"
             alt="CoCo Hero Image"
             className="w-full h-full object-cover object-center"
             width={2000}
@@ -137,11 +140,11 @@ export default function AboutPage() {
               <div className="relative">
                 <div className="absolute -inset-4 bg-[#FF6B35]/10 transform -rotate-2 -z-10" />
                 <Image
-                  src="/images/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp"
+                  src="https://itsthecococapstonebucket.s3.amazonaws.com/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp"
                   alt="CoCo Bubble Tea Origin"
                   width={600}
                   height={400}
-                  className=" w-full h-[350px] object-cover"
+                  className="w-full h-[350px] object-cover"
                 />
               </div>
             </div>
@@ -179,13 +182,13 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="relative">
-              <div className="absolute -inset-4 bg-[#FF6B35]/10  -z-10 transform rotate-2" />
+              <div className="absolute -inset-4 bg-[#FF6B35]/10 -z-10 transform rotate-2" />
               <Image
-                src="/images/image3.webp"
+                src="https://itsthecococapstonebucket.s3.amazonaws.com/image3.webp"
                 alt="CoCo Bubble Tea Canada"
                 width={600}
                 height={400}
-                className=" w-full h-[350px] object-cover"
+                className="w-full h-[350px] object-cover"
               />
             </div>
           </div>
@@ -197,13 +200,13 @@ export default function AboutPage() {
           >
             <div className="order-2 md:order-1">
               <div className="relative">
-                <div className="absolute -inset-4 bg-[#FF6B35]/10  -z-10 transform -rotate-2" />
+                <div className="absolute -inset-4 bg-[#FF6B35]/10 -z-10 transform -rotate-2" />
                 <Image
-                  src="/images/image1.webp"
+                  src="https://itsthecococapstonebucket.s3.amazonaws.com/image1.webp"
                   alt="CoCo Bubble Tea Future"
                   width={600}
                   height={400}
-                  className=" w-full h-[350px] object-cover"
+                  className="w-full h-[350px] object-cover"
                 />
               </div>
             </div>
@@ -213,7 +216,7 @@ export default function AboutPage() {
               <p className="text-lg leading-relaxed">
                 CoCo dedicates to everything we do. We seek high-quality ingredients, we deliver trendy drinks mixed
                 with our passion and dedication, and we provide service from the heart and promise to give you the best
-                we have
+                we have.
               </p>
             </div>
           </div>
@@ -228,7 +231,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">OUR GLOBAL JOURNEY</h2>
 
-          <div className="relative bg-white/50  p-8 backdrop-blur-sm">
+          <div className="relative bg-white/50 p-8 backdrop-blur-sm">
             <canvas ref={canvasRef} className="w-full h-[280px]" />
             <div className="absolute top-0 left-0 w-full h-full overflow-x-auto py-8">
               <div className="relative h-full min-w-[768px]">
