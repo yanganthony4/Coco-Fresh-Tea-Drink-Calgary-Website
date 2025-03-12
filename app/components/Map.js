@@ -3,31 +3,16 @@
 import { useState, useEffect, useRef } from "react"
 import { GoogleMap, LoadScript } from "@react-google-maps/api"
 import DeliveryAppLogos from "./DeliveryAppLogos"
-import { useForm, usePlugin } from "tinacms"
+import { useTina } from "tinacms/dist/react" // Use useTina for GraphQL data
 
 // Define libraries as a constant outside the component to prevent re-creation on each render.
 const libraries = ["places", "marker"]
 
-const Map = () => {
-  // States for user location, selected location, sorted locations, etc.
-  const [userLocation, setUserLocation] = useState({ lat: 51.0447, lng: -114.0719 })
-  const [selectedLocation, setSelectedLocation] = useState(null)
-  const [sortedLocations, setSortedLocations] = useState([])
-  const [googleLoaded, setGoogleLoaded] = useState(false)
-  const [viewMode, setViewMode] = useState("pickup")
-
-  // Refs for the map and search input.
-  const mapRef = useRef(null)
-  const searchInputRef = useRef(null)
-  // Ref for markers so we can clear them on updates.
-  const markersRef = useRef([])
-
-  // Define editable fields with TinaCMS
-  const [formData, form] = useForm({
-    initialValues: {
-      locations: [
-        {
-          id: 1,
+// Default data for initial rendering
+const defaultData = {
+  locations: [
+    {
+      id: 1,
       lat: 51.140557671521876,
       lng: -114.06951971593705,
       name: "Harvest Hills",
@@ -170,122 +155,53 @@ const Map = () => {
         Sunday: "11:30 AM - 11:00 PM",
       },
     },
-      ],
-    },
-    onSubmit: (data) => {
-      console.log("Updated Locations Data:", data.locations)
-     //logic for saving updates to backend
-    },
-    fields: [
-      {
-        name: "locations",
-        label: "Locations",
-        component: "group-list",
-        itemProps: (item) => ({
-          key: item.id,
-          label: item.name,
-        }),
-        defaultItem: () => ({
-          id: Math.random().toString(36).substr(2, 9), // Generate a unique ID
-          lat: 51.0447,
-          lng: -114.0719,
-          name: "New Location",
-          address: "123 New Address",
-          postalcode: "T0T 0T0",
-          phone: "XXX-XXX-XXXX",
-          schedule: {
-            Monday: "12:00 PM - 9:00 PM",
-            Tuesday: "12:00 PM - 9:00 PM",
-            Wednesday: "12:00 PM - 9:00 PM",
-            Thursday: "12:00 PM - 9:00 PM",
-            Friday: "12:00 PM - 9:00 PM",
-            Saturday: "12:00 PM - 9:00 PM",
-            Sunday: "12:00 PM - 9:00 PM",
-          },
-        }),
-        fields: [
-          {
-            name: "name",
-            label: "Location Name",
-            component: "text",
-          },
-          {
-            name: "address",
-            label: "Address",
-            component: "text",
-          },
-          {
-            name: "postalcode",
-            label: "Postal Code",
-            component: "text",
-          },
-          {
-            name: "phone",
-            label: "Phone",
-            component: "text",
-          },
-          {
-            name: "lat",
-            label: "Latitude",
-            component: "number",
-          },
-          {
-            name: "lng",
-            label: "Longitude",
-            component: "number",
-          },
-          {
-            name: "schedule",
-            label: "Schedule",
-            component: "group",
-            fields: [
-              {
-                name: "Monday",
-                label: "Monday",
-                component: "text",
-              },
-              {
-                name: "Tuesday",
-                label: "Tuesday",
-                component: "text",
-              },
-              {
-                name: "Wednesday",
-                label: "Wednesday",
-                component: "text",
-              },
-              {
-                name: "Thursday",
-                label: "Thursday",
-                component: "text",
-              },
-              {
-                name: "Friday",
-                label: "Friday",
-                component: "text",
-              },
-              {
-                name: "Saturday",
-                label: "Saturday",
-                component: "text",
-              },
-              {
-                name: "Sunday",
-                label: "Sunday",
-                component: "text",
-              },
-            ],
-          },
-        ],
-      },
-    ],
+  ],
+}
+
+const Map = () => {
+  // States for user location, selected location, sorted locations, etc.
+  const [userLocation, setUserLocation] = useState({ lat: 51.0447, lng: -114.0719 })
+  const [selectedLocation, setSelectedLocation] = useState(null)
+  const [sortedLocations, setSortedLocations] = useState([])
+  const [googleLoaded, setGoogleLoaded] = useState(false)
+  const [viewMode, setViewMode] = useState("pickup")
+
+  // Refs for the map and search input.
+  const mapRef = useRef(null)
+  const searchInputRef = useRef(null)
+  // Ref for markers so we can clear them on updates.
+  const markersRef = useRef([])
+
+  // Use TinaCMS data
+  const { data: tinaData } = useTina({
+    query: `
+      query GetLocations {
+        locations {
+          id
+          lat
+          lng
+          name
+          address
+          postalcode
+          phone
+          schedule {
+            Monday
+            Tuesday
+            Wednesday
+            Thursday
+            Friday
+            Saturday
+            Sunday
+          }
+        }
+      }
+    `,
+    variables: {},
+    data: defaultData, // Fallback data if TinaCMS data is not available
   })
 
-  // Connect the form to TinaCMS
-  usePlugin(form)
-
-  // Extract locations from formData
-  const locations = formData.locations
+  // Extract locations from tinaData
+  const locations = tinaData?.locations || defaultData.locations
 
   // Calculate distance between two coordinates using the Haversine formula.
   const calculateDistance = (lat1, lon1, lat2, lon2) => {

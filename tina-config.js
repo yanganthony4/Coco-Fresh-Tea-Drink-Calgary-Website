@@ -119,7 +119,32 @@ export default defineConfig({
       },
     ],
   }),
- 
+  export default {
+    schema: {
+      collections: [
+        {
+          label: 'Categories', // Label for the collection in the CMS
+          name: 'categories', // Unique name for the collection
+          path: 'content/categories', // Path where the data will be stored
+          fields: [
+            {
+              name: 'categories',
+              label: 'Categories',
+              type: 'object',
+              list: true, // This indicates it's a list of items
+              fields: [
+                {
+                  name: 'category',
+                  label: 'Category Name',
+                  type: 'string', // Each item in the list is a string
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   
   
   // Export the Tina config
