@@ -34,7 +34,7 @@ export default function Promotions() {
               {" "}
               {/* Aspect ratio of 1555:800 */}
               <img
-                src="/images/Promotionsbanner.png"
+                src="https://itsthecococapstonebucket.s3.amazonaws.com/Promotionsbanner.png"
                 alt="Promotions Background"
                 className="absolute top-0 left-0 w-full h-full object-contain pointer-events-none"
                 loading="lazy"
@@ -54,7 +54,12 @@ export default function Promotions() {
                 ref={cocoRef}
               >
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
-                  <img src="/images/cocoemoji.png" alt="Coco Emoji" className="w-16 sm:w-24 lg:w-32" loading="lazy" />
+                  <img
+                    src="https://itsthecococapstonebucket.s3.amazonaws.com/cocoemoji.png"
+                    alt="Coco Emoji"
+                    className="w-16 sm:w-24 lg:w-32"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black font-museo flex">
                   {["C", "o", "C", "o"].map((letter, index) => (
@@ -81,4 +86,3 @@ export default function Promotions() {
     </div>
   )
 }
-
