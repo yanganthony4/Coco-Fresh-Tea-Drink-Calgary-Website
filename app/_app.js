@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Layout from "../components/Footer"; // Ensure this is the correct path
+import Layout from "../components/Footer"; 
 import { useEffect } from "react";
 import Head from "next/head";
 import { TinaCMS, TinaProvider } from "tinacms";
