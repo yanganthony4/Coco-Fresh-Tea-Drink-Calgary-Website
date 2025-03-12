@@ -44,9 +44,9 @@ const schema = defineSchema({
 // Export Tina config
 export const tinaConfig = defineConfig({
   schema,
-  apiURL: process.env.NEXT_PUBLIC_TINA_API_URL, 
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, 
-  token: process.env.NEXT_PUBLIC_TINA_TOKEN, 
+  apiURL: process.env.NEXT_PUBLIC_TINA_API_URL, // Ensure this is set in your .env.local
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, // Ensure this is set in your .env.local
+  token: process.env.NEXT_PUBLIC_TINA_TOKEN, // Ensure this is set in your .env.local
 })
 
 // Default data for initial rendering
