@@ -24,7 +24,7 @@ export default function ContactPage() {
         event.target,
         "3OhHXYVtaPA-m2hAk"
       )
-      alert("Your message has been sent. We'll get back to you soon!")
+      alert("Your message has been sent. We'll get back to you soon.")
       event.target.reset()
     } catch (error) {
       console.error("Error sending message", error)

@@ -2,46 +2,9 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useForm, usePlugin } from "tinacms"
 
-export default function ImageSlider({ initialImages }) {
+export default function ImageSlider({ images }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-  // Define editable fields with TinaCMS
-  const [formData, form] = useForm({
-    initialValues: {
-      images: initialImages,
-    },
-    onSubmit: (data) => {
-      console.log("Updated Images Data:", data.images)
-    //logic for saving updates to backend
-    },
-    fields: [
-      {
-        name: "images",
-        label: "Images",
-        component: "group-list",
-        itemProps: (item) => ({
-          key: item,
-          label: item,
-        }),
-        defaultItem: () => "/placeholder.svg",
-        fields: [
-          {
-            name: "image",
-            label: "Image URL",
-            component: "text",
-          },
-        ],
-      },
-    ],
-  })
-
-  // Connect the form to TinaCMS
-  usePlugin(form)
-
-  // Extract images from formData
-  const images = formData.images
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -80,3 +43,4 @@ export default function ImageSlider({ initialImages }) {
     </section>
   )
 }
+

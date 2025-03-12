@@ -1,20 +1,7 @@
 import "../styles/globals.css";
-import Layout from "../components/Footer"; 
+import Layout from "../components/Footer"; // Adjust the path if needed
 import { useEffect } from "react";
 import Head from "next/head";
-import { TinaCMS, TinaProvider } from "tinacms";
-
-//TinaCMS
-const cms = new TinaCMS({
-  enabled: process.env.NODE_ENV === "development", // Enable TinaCMS only in development mode
-  toolbar: true, 
-  apis: {
-    tina: {
-      clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, //  Tina Cloud client ID
-      token: process.env.NEXT_PUBLIC_TINA_TOKEN, //Tina Cloud token
-    },
-  },
-});
 
 function Appjs({ Component, pageProps }) {
   useEffect(() => {
@@ -40,12 +27,9 @@ function Appjs({ Component, pageProps }) {
         />
       </Head>
 
-      {/* Wrap with TinaProvider */}
-      <TinaProvider cms={cms}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </TinaProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }

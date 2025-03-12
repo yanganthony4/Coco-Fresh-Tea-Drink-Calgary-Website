@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import { GoogleMap, LoadScript } from "@react-google-maps/api"
 import DeliveryAppLogos from "./DeliveryAppLogos"
-import { useForm, usePlugin } from "tinacms"
 
 // Define libraries as a constant outside the component to prevent re-creation on each render.
 const libraries = ["places", "marker"]
@@ -22,12 +21,10 @@ const Map = () => {
   // Ref for markers so we can clear them on updates.
   const markersRef = useRef([])
 
-  // Define editable fields with TinaCMS
-  const [formData, form] = useForm({
-    initialValues: {
-      locations: [
-        {
-          id: 1,
+  // Hardcoded list of locations.
+  const locations = [
+    {
+      id: 1,
       lat: 51.140557671521876,
       lng: -114.06951971593705,
       name: "Harvest Hills",
@@ -170,122 +167,7 @@ const Map = () => {
         Sunday: "11:30 AM - 11:00 PM",
       },
     },
-      ],
-    },
-    onSubmit: (data) => {
-      console.log("Updated Locations Data:", data.locations)
-     //logic for saving updates to backend
-    },
-    fields: [
-      {
-        name: "locations",
-        label: "Locations",
-        component: "group-list",
-        itemProps: (item) => ({
-          key: item.id,
-          label: item.name,
-        }),
-        defaultItem: () => ({
-          id: Math.random().toString(36).substr(2, 9), // Generate a unique ID
-          lat: 51.0447,
-          lng: -114.0719,
-          name: "New Location",
-          address: "123 New Address",
-          postalcode: "T0T 0T0",
-          phone: "XXX-XXX-XXXX",
-          schedule: {
-            Monday: "12:00 PM - 9:00 PM",
-            Tuesday: "12:00 PM - 9:00 PM",
-            Wednesday: "12:00 PM - 9:00 PM",
-            Thursday: "12:00 PM - 9:00 PM",
-            Friday: "12:00 PM - 9:00 PM",
-            Saturday: "12:00 PM - 9:00 PM",
-            Sunday: "12:00 PM - 9:00 PM",
-          },
-        }),
-        fields: [
-          {
-            name: "name",
-            label: "Location Name",
-            component: "text",
-          },
-          {
-            name: "address",
-            label: "Address",
-            component: "text",
-          },
-          {
-            name: "postalcode",
-            label: "Postal Code",
-            component: "text",
-          },
-          {
-            name: "phone",
-            label: "Phone",
-            component: "text",
-          },
-          {
-            name: "lat",
-            label: "Latitude",
-            component: "number",
-          },
-          {
-            name: "lng",
-            label: "Longitude",
-            component: "number",
-          },
-          {
-            name: "schedule",
-            label: "Schedule",
-            component: "group",
-            fields: [
-              {
-                name: "Monday",
-                label: "Monday",
-                component: "text",
-              },
-              {
-                name: "Tuesday",
-                label: "Tuesday",
-                component: "text",
-              },
-              {
-                name: "Wednesday",
-                label: "Wednesday",
-                component: "text",
-              },
-              {
-                name: "Thursday",
-                label: "Thursday",
-                component: "text",
-              },
-              {
-                name: "Friday",
-                label: "Friday",
-                component: "text",
-              },
-              {
-                name: "Saturday",
-                label: "Saturday",
-                component: "text",
-              },
-              {
-                name: "Sunday",
-                label: "Sunday",
-                component: "text",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  })
-
-  // Connect the form to TinaCMS
-  usePlugin(form)
-
-  // Extract locations from formData
-  const locations = formData.locations
+  ]
 
   // Calculate distance between two coordinates using the Haversine formula.
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -360,7 +242,7 @@ const Map = () => {
     if (JSON.stringify(sorted) !== JSON.stringify(sortedLocations)) {
       setSortedLocations(sorted)
     }
-  }, [userLocation, locations]) // Removed 'locations' from dependencies
+  }, [userLocation, sortedLocations]) // Removed 'locations' from dependencies
 
   // Handle search functionality using Google Autocomplete.
   const handleSearch = () => {
@@ -580,3 +462,4 @@ const Map = () => {
 }
 
 export default Map
+
