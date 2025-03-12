@@ -1,57 +1,107 @@
-"use client"
+"use client";
 
-import { useTina } from "tinacms/dist/react"
+import { useForm, usePlugin } from "tinacms";
 
-const defaultData = {
-  promotions: [
-    {
-      id: 1,
-      title: "Strawberry Series",
-      description: "Dive into berry delights at participating locations!",
-      timeFrame: "Available until March 31, 2025",
-      images: ["/images/strawberryPromo.png"],
-      price: "$6.64",
+export default function PromotionsList() {
+  // Define editable fields with TinaCMS
+  const [formData, form] = useForm({
+    initialValues: {
+      promotions: [
+        {
+          id: 1,
+          title: "Strawberry Series",
+          description: "Dive into berry delights at participating locations!",
+          timeFrame: "Available until March 31, 2025",
+          images: ["/images/strawberryPromo.png"],
+          price: "$6.64",
+        },
+        {
+          id: 2,
+          title: "Creme Brulee Series",
+          description: "A refreshing escape at participating locations!",
+          timeFrame: "Available until April 15, 2025",
+          images: ["/images/cremebruleeposter.png"],
+          price: "$6.80",
+        },
+        {
+          id: 3,
+          title: "Brown Sugar Series",
+          description: "Indulge in caramel flavors at selected locations!",
+          timeFrame: "Available all year round",
+          images: ["/images/mangodream.png"],
+          price: "$6.80",
+        },
+      ],
     },
-    {
-      id: 2,
-      title: "Creme Brulee Series",
-      description: "A refreshing escape at participating locations!",
-      timeFrame: "Available until April 15, 2025",
-      images: ["/images/cremebruleeposter.png"],
-      price: "$6.80",
+    onSubmit: (data) => {
+      console.log("Updated Promotions Data:", data.promotions);
+      //logic for saving to backend
     },
-    {
-      id: 3,
-      title: "Brown Sugar Series",
-      description: "Indulge in caramel flavors at selected locations!",
-      timeFrame: "Available all year round",
-      images: ["/images/mangodream.png"],
-      price: "$6.80",
-    },
-  ],
-}
+    fields: [
+      {
+        name: "promotions",
+        label: "Promotions",
+        component: "group-list",
+        itemProps: (item) => ({
+          key: item.id,
+          label: item.title,
+        }),
+        defaultItem: () => ({
+          id: Math.random().toString(36).substr(2, 9), // Generate a unique ID
+          title: "New Promotion",
+          description: "Description of the new promotion",
+          timeFrame: "Available until...",
+          images: ["/placeholder.svg"],
+          price: "$0.00",
+        }),
+        fields: [
+          {
+            name: "title",
+            label: "Title",
+            component: "text",
+          },
+          {
+            name: "description",
+            label: "Description",
+            component: "textarea",
+          },
+          {
+            name: "timeFrame",
+            label: "Time Frame",
+            component: "text",
+          },
+          {
+            name: "images",
+            label: "Images",
+            component: "group-list",
+            itemProps: (item) => ({
+              key: item,
+              label: item,
+            }),
+            defaultItem: () => "/placeholder.svg",
+            fields: [
+              {
+                name: "image",
+                label: "Image URL",
+                component: "text",
+              },
+            ],
+          },
+          {
+            name: "price",
+            label: "Price",
+            component: "text",
+          },
+        ],
+      },
+    ],
+  });
 
-export default function PromotionsList({ data = defaultData }) {
-  // Use TinaCMS data
-  const { data: tinaData } = useTina({
-    query: `
-      query GetPromotions {
-        promotions {
-          id
-          title
-          description
-          timeFrame
-          images
-          price
-        }
-      }
-    `,
-    variables: {},
-    data,
-  })
+  // Connect the form to TinaCMS
+  usePlugin(form);
 
-  // Extract promotions from TinaCMS data or fallback to default
-  const promotions = tinaData?.promotions || defaultData.promotions
+  // Extract promotions from formData
+  const promotions = formData.promotions;
 
   return (
     <div className="w-full lg:w-3/5">
@@ -87,5 +137,5 @@ export default function PromotionsList({ data = defaultData }) {
         </section>
       ))}
     </div>
-  )
+  );
 }
