@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, usePlugin } from 'tinacms'; 
+import { useForm, usePlugin } from 'tinacms';
 
 const CategoryList = ({ categories: initialCategories, onSelectCategory, selectedCategory }) => {
   // Define the form configuration using useForm
@@ -9,7 +9,7 @@ const CategoryList = ({ categories: initialCategories, onSelectCategory, selecte
     },
     onSubmit: (data) => {
       console.log('Updated Categories:', data.categories);
-      // Logic for saving to backend
+      //logic for saving to backend
     },
     fields: [
       {

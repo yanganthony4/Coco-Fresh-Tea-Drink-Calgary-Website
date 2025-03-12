@@ -1,17 +1,17 @@
 import "../styles/globals.css";
-import Layout from "../components/Footer"; // Ensure this is the correct path
+import Layout from "../components/Footer"; 
 import { useEffect } from "react";
 import Head from "next/head";
 import { TinaCMS, TinaProvider } from "tinacms";
 
-// TinaCMS Configuration
+//TinaCMS
 const cms = new TinaCMS({
   enabled: process.env.NODE_ENV === "development", // Enable TinaCMS only in development mode
-  toolbar: true, // Enable the toolbar
+  toolbar: true, 
   apis: {
     tina: {
-      clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, // Tina Cloud client ID
-      token: process.env.NEXT_PUBLIC_TINA_TOKEN, // Tina Cloud token
+      clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, //  Tina Cloud client ID
+      token: process.env.NEXT_PUBLIC_TINA_TOKEN, //Tina Cloud token
     },
   },
 });
