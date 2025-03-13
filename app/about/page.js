@@ -1,11 +1,15 @@
-import Toolbar from '../components/Toolbar';
+import HeroSection from "../components/HeroSection";
+import StorySection from "../components/StorySection";
+import TimelineSection from "../components/TimelineSection";
+import ValuesSection from "../components/ValuesSection";
 
-export default function About(){
-    return (
-        <div>
-            <Toolbar/>
-            <h1>About Us</h1>
-            <p>This is the about us page</p>
-        </div>
-    )
+export default function AboutPage() {
+  return (
+    <div className="min-h-screen bg-white text-[black]">
+      <HeroSection />
+      <StorySection />
+      <TimelineSection />
+      <ValuesSection />
+    </div>
+  );
 }

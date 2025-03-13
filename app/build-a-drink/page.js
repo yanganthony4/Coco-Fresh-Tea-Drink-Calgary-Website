@@ -5,6 +5,7 @@ import { Card, CardContent } from "../components/card";
 import { Button } from "../components/button";
 import Image from "next/image"; 
 
+<<<<<<< HEAD
 const drinkCategories = ["Milk Tea", "Fresh Tea", "Fruit Tea", "Fresh Milk", "Slush"];
 const iceLevels = ["Extra Ice", "Regular Ice", "Less Ice", "No Ice"];
 const sugarLevels = ["Extra Sugar", "100% Sugar", "70%", "50%", "30%", "No Sugar"];
@@ -155,3 +156,14 @@ export default function BuildADrink() {
          </div>
        );
      }
+=======
+export default function BuildADrink(){
+    return (
+        <div>
+            
+            <h1>Build a Drink</h1>
+            <p>This is the build a drink page</p>
+        </div>
+    )
+}
+>>>>>>> main
