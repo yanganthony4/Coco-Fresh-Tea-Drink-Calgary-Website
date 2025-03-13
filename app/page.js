@@ -7,10 +7,10 @@ import ImageSlider from "./components/ImageSlider"
 
 export default function Home() {
   const images = [
-    "/images/homebanner.png",
-    "/images/cremebruleeposter.png",
-    "/images/strawberryPromo.png",
-    "/images/mangodream.png",
+    "/images/homebanner.webp",
+    "/images/cremebruleeposter.webp",
+    "/images/strawberryPromo.webp",
+    "/images/mangodream.webp",
   ]
 
   return (

@@ -5,15 +5,15 @@ import Image from "next/image"
 const DeliveryAppLogos = () => {
  
   const deliveryApps = [
-    { src: "/images/ubereats.png", alt: "Uber Eats", link: "https://www.ubereats.com/" },
-    { src: "/images/doordash.png", alt: "DoorDash", link: "https://www.doordash.com/" },
-    { src: "/images/skipthedishes.png", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
+    { src: "/images/ubereats.svg", alt: "Uber Eats", link: "https://www.ubereats.com/" },
+    { src: "/images/doordash.svg", alt: "DoorDash", link: "https://www.doordash.com/" },
+    { src: "/images/skipthedishes.svg", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
     { src: "", alt: "", link: "" }, 
   ]
 
  
   const handleImageError = (index) => {
-    const fallbackSrc = "/images/deliverydriver.png"
+    const fallbackSrc = "/images/deliverydriver.webp"
     
   }
 

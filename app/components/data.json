@@ -1,25 +1,23 @@
 {
     "drinks": [
       {
-        "image": "mtsagotaro.png",
+        "image": "mtsagotaro.webp",
         "name": "Sago Taro Milk Tea",
         "description": "Creamy Taro Milk Tea perfectly paired with sago.\nLactose-Free, Caffeine-Free, Gluten-Free, Gelatin-Free, Nut-Free ",
-        "category": "Milk Tea",
         "calories": "M: 500 L: 750",
         "price": "",
-        "category": "Favourites"
+        "category": ["Milk Tea", "Favourites"]
       },
       {
-        "image": "slushavocado.png",
+        "image": "sslushavocado.webp",
         "name": "Avocado Smoothie",
         "description": "Fresh milk and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
         "calories":"",
         "price":"",
-        "category": "Slush",
-        "category": "Favourites"
+        "category": ["Slush", "Favourites"]
       },
       {
-        "image": "slushmangodream.png",
+        "image": "smangodream.webp",
         "name": "Mango Dream",
         "description": "Refreshing, smooth mango slush with fresh mango jam, blended with yakult.",
         "calories":"",
@@ -27,61 +25,55 @@
         "category": "Slush"
       },
       {
-        "image": "yakultlychee.png",
+        "image": "ylycheeyakult.webp",
         "name": "Yakult Lychee",
         "description": "Yakult with fresh lychee fruit.",
         "calories":"",
         "price":"",
-        "category": "Yakult",
-        "category": "Favourites"
+        "category": ["Yakult", "Favourites"]
       },
       {
-        "image": "mt3guys.png",
+        "image": "mtthreeguys.webp",
         "name": "Three Guys",
         "description": "Signature CoCo Milk Tea, with Pearls, Grassjelly and Pudding.",
         "calories":"",
         "price":"",
-        "category": "Milk Tea",
-        "category": "Favourites"
+        "category": ["Milk Tea", "Favourites"]
       },
       {
-        "image": "ftbbgg.png",
+        "image": "fbubblegaga.webp",
         "name": "Bubble Gaga",
         "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly",
         "calories":"",
         "price":"",
-        "category": "Fruit Tea",
-        "category": "Favourites"
+        "category": ["Fruit Tea", "Favourites"]
       },
       {
-        "image": "slushmangopomelo.png",
+        "image": "smangopomelo.webp",
         "name": "Mango Pomelo Sago" ,
         "description": "Creamy Mango Slush with Coconut Milk, Fresh Mango Jam and Pomelo, and Sago",
         "calories":"",
         "price":"",
-        "category": "Slush",
-        "category": "Favourites"
+        "category": ["Slush", "Favourites"]
       },
       {
-        "image": "mtbs.png",
+        "image": "mtbrownsugar.webp",
         "name": "BrownSugar Pearl Milk Tea",
         "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
        "calories":"",
         "price":"",
-        "category": "Milk Tea",
-        "category": "Favourites"
+        "category": ["Milk Tea", "Favourites"]
       },
       {
-        "image": "slushstrawberrydream.png",
+        "image": "sstrawberrydream.webp",
         "name": "Strawberry Dream",
         "description": "Fresh Strawberry slush, paired with salty cream, the perfect balance.",
         "calories":"",
         "price":"",
-        "category": "Slush",
-        "category": "Favourites"
+        "category": ["Slush", "Favourites"]
       },
       {
-        "image": "teablack.png",
+        "image": "ffreshlemonblack.webp",
         "name": "Black Tea",
         "calories":"",
         "price":"",
@@ -89,7 +81,7 @@
         "category": "Fresh Tea"
       },
       {
-        "image": "teajasmine.png",
+        "image": "teajasmine.png", 
         "name": "Jasmine Tea",
         "description": "Light and floral jasmine green tea",
         "category": "Fresh Tea"
@@ -412,8 +404,7 @@
         "image": "slushchocodream.png",
         "name": "Chocolate Dream",
         "description": "Smooth decadent chocolate slush with rich brown sugar pearls and salty cream",
-        "category": "Slush",
-        "category": "Favourites"
+        "category": ["Slush", "Favourites"]
       },
       {
         "image": "slushcremestrawberry.png",
