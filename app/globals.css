@@ -74,7 +74,7 @@ body {
   opacity: 1;
 }
 
-/* Add this to your global CSS file or within a <style> tag */
+/* Animated Underline */
 .animated-underline {
   position: relative;
   display: inline-block;
