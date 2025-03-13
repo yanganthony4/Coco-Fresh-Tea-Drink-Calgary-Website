@@ -1,9 +1,9 @@
 "use client"
 
-import LazyImage from "../LazyImage"
+import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
-export default function Page() {
+export default function AboutPage() {
   const canvasRef = useRef(null)
   const [hoveredYear, setHoveredYear] = useState(null)
 
@@ -12,13 +12,15 @@ export default function Page() {
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("animate-slide-up", "opacity-100")
+          entry.target.classList.add("animate-fade-in", "opacity-100")
+          entry.target.style.transform = "translateY(0)"
         }
       })
     }
 
     const observer = new IntersectionObserver(observerCallback, {
       threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px",
     })
 
     document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
@@ -45,7 +47,7 @@ export default function Page() {
       const drawSineWave = (baseOffset, color, amplitude, frequency, speed) => {
         ctx.beginPath()
         ctx.strokeStyle = color
-        ctx.lineWidth = 5
+        ctx.lineWidth = 3
 
         for (let x = 0; x < canvas.width; x++) {
           const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2
@@ -58,9 +60,9 @@ export default function Page() {
         ctx.stroke()
       }
 
-      drawSineWave(0, "rgba(255, 166, 89, 0.4)", 30, 50, 1)
-      drawSineWave(100, "rgba(173, 209, 158, 0.4)", 40, 60, 0.8)
-      drawSineWave(200, "rgba(255, 145, 87, 0.4)", 35, 40, 1.2)
+      drawSineWave(0, "rgba(255, 166, 89, 0.3)", 30, 50, 1)
+      drawSineWave(100, "rgba(173, 209, 158, 0.3)", 40, 60, 0.8)
+      drawSineWave(200, "rgba(255, 145, 87, 0.3)", 35, 40, 1.2)
 
       offset += 0.25
       animationFrameId = requestAnimationFrame(drawWave)
@@ -93,95 +95,142 @@ export default function Page() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#ffe5d1] text-[#653128]">
+    <div className="min-h-screen bg-white text-[black]">
       {/* Hero Section */}
-      <div className="relative w-full h-[60vh] overflow-hidden">
-        <div className="w-full h-full max-w-[2000px] mx-auto">
-          <LazyImage src="/images/image4.webp" alt="CoCo Hero Image" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-16 opacity-0 animate-fade-in text-center px-4">
+      <div className="relative w-full h-[70vh] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#ffe5d1]/80 z-10" />
+        <div className="w-full h-full">
+          <Image
+            src="/images/image4.webp"
+            alt="CoCo Hero Image"
+            className="w-full h-full object-cover object-center"
+            width={2000}
+            height={1200}
+            priority
+          />
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 opacity-0 animate-fade-in text-center">
               About CoCo
             </h1>
+            <div className="w-24 h-1 bg-white rounded-full opacity-0 animate-fade-in animation-delay-300" />
           </div>
         </div>
       </div>
 
-      {/* Secondary Title */}
-      <h2 className="text-3xl md:text-4xl font-bold text-center my-8 md:my-16 opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700">
-        CoCo&apos;s Story
-      </h2>
+      {/* Our Story Section */}
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <h2
+          className="text-3xl md:text-5xl font-bold text-center mb-20 reveal-on-scroll opacity-0 transition-all duration-700"
+          style={{ transform: "translateY(40px)" }}
+        >
+          OUR STORY!
+        </h2>
 
-      <div className="w-full h-full py-4 space-y-8">
-        {/* Main Content Section */}
-        <div className="w-full px-4 md:px-6 relative space-y-8 md:space-y-32">
+        {/* Content Sections */}
+        <div className="space-y-32">
           {/* First Content Block */}
-          <div className="relative min-h-[400px] flex flex-col md:block items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700 max-w-[2000px] mx-auto">
-            <div className="w-full md:w-[45%] md:absolute md:left-[10%]">
-              <LazyImage
-                src="/images/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp"
-                alt="First Flexbox Image"
-                className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-              />
-            </div>
-            <div className="w-full md:w-[60%] md:absolute md:right-[10%] md:-ml-[5%] z-10 mt-4 md:mt-16">
-              <div className="bg-white p-6 md:p-8 rounded-lg text-left md:text-right shadow-lg transition-all duration-300 hover:scale-105">
-                <p className="text-lg">
-                  CoCo Bubble Tea, founded in 1997 by Chairman Tommy Hung, is a global leader in bubble tea, known for
-                  its commitment to quality and innovation. With a mission of &quot;Consistency and Continuity,&quot;
-                  CoCo has become a favorite among bubble tea lovers worldwide.
-                </p>
+          <div
+            className="relative grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal-on-scroll opacity-0 transition-all duration-700"
+            style={{ transform: "translateY(40px)" }}
+          >
+            <div className="order-2 md:order-1">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-[#FF6B35]/10 transform -rotate-2 -z-10" />
+                <Image
+                  src="/images/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp"
+                  alt="CoCo Bubble Tea Origin"
+                  width={600}
+                  height={400}
+                  className=" w-full h-[350px] object-cover"
+                />
               </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <span className="text-[#FF6B35] font-medium mb-3 block">Our Beginning</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">A Global Bubble Tea Leader</h3>
+              <p className="text-lg leading-relaxed">
+                CoCo Bubble Tea is founded in 1997 by Chairman, Tommy Hung. In a world where culture blends with tea,
+                CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality of tea with
+                unmatchable services to its customers, and began its journey in building the world's biggest bubble tea
+                empire. Spanning over decades of diligence and consistency, CoCo kept its promises and passions in
+                quality and services with innovative new drinks, stylish store designs, quality fresh fruits and
+                distinctive recipes. With the persistent on traditional craftsmanship, bold innovations and sharp
+                international perspectives, CoCo has successfully brought its spirit overseas with the first New York
+                store opening in 2011. CoCo always aims to create a diversity and sustainable community for its
+                customers, provide eyes refreshing products, and is dedicated to "Embrace Tradition, Unleash Innovation,
+                and Seize the World."
+              </p>
             </div>
           </div>
 
           {/* Second Content Block */}
-          <div className="relative min-h-[400px] flex flex-col md:block items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700 max-w-[2000px] mx-auto">
-            <div className="w-full md:w-[60%] md:absolute md:left-[10%] z-10 order-2 md:order-none mt-4 md:mt-16">
-              <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
-                <p className="text-lg">
-                  In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients,
-                  served in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an
-                  authentic and innovative bubble tea experience to communities across the country.
-                </p>
-              </div>
+          <div
+            className="relative grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal-on-scroll opacity-0 transition-all duration-700"
+            style={{ transform: "translateY(40px)" }}
+          >
+            <div>
+              <span className="text-[#FF6B35] font-medium mb-3 block">Canadian Experience</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">Fresh Ingredients, Creative Drinks</h3>
+              <p className="text-lg leading-relaxed">
+                In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served
+                in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an
+                authentic and innovative bubble tea experience to communities across the country. As CoCo expands in
+                Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.
+              </p>
             </div>
-            <div className="w-full md:w-[45%] md:absolute md:right-[10%] order-1 md:order-none">
-              <LazyImage
+            <div className="relative">
+              <div className="absolute -inset-4 bg-[#FF6B35]/10  -z-10 transform rotate-2" />
+              <Image
                 src="/images/image3.webp"
-                alt="Second Flexbox Image"
-                className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                alt="CoCo Bubble Tea Canada"
+                width={600}
+                height={400}
+                className=" w-full h-[350px] object-cover"
               />
             </div>
           </div>
 
           {/* Third Content Block */}
-          <div className="relative min-h-[400px] flex flex-col md:block items-center opacity-0 reveal-on-scroll translate-y-6 transition-all duration-700 max-w-[2000px] mx-auto">
-            <div className="w-full md:w-[45%] md:absolute md:left-[10%]">
-              <LazyImage
-                src="/images/image1.webp"
-                alt="Third Flexbox Image"
-                className="w-full h-[300px] object-cover rounded-lg shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-              />
-            </div>
-            <div className="w-full md:w-[60%] md:absolute md:right-[10%] md:-ml-[5%] z-10 mt-4 md:mt-16">
-              <div className="bg-white p-6 md:p-8 rounded-lg text-left md:text-right shadow-lg transition-all duration-300 hover:scale-105">
-                <p className="text-lg">
-                  As CoCo expands in Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.
-                  Discover your nearest CoCo location and join the bubble tea revolution today!
-                </p>
+          <div
+            className="relative grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal-on-scroll opacity-0 transition-all duration-700"
+            style={{ transform: "translateY(40px)" }}
+          >
+            <div className="order-2 md:order-1">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-[#FF6B35]/10  -z-10 transform -rotate-2" />
+                <Image
+                  src="/images/image1.webp"
+                  alt="CoCo Bubble Tea Future"
+                  width={600}
+                  height={400}
+                  className=" w-full h-[350px] object-cover"
+                />
               </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <span className="text-[#FF6B35] font-medium mb-3 block">Our Vision</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">Sustainability & Inclusivity</h3>
+              <p className="text-lg leading-relaxed">
+                CoCo dedicates to everything we do. We seek high-quality ingredients, we deliver trendy drinks mixed
+                with our passion and dedication, and we provide service from the heart and promise to give you the best
+                we have
+              </p>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Timeline Section */}
-        <div className="relative shadow-lg bg-[#ffe5d1] w-full mt-8">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center pt-8 px-4">
-            From Taiwan to Canada, and the World
-          </h2>
-          <div className="relative max-w-[2000px] mx-auto">
-            <canvas ref={canvasRef} className="w-full h-[310px]" />
-            <div className="absolute top-0 left-0 w-full h-full overflow-x-auto">
+      {/* Timeline Section */}
+      <div
+        className="w-full py-20 reveal-on-scroll opacity-0 transition-all duration-700"
+        style={{ transform: "translateY(40px)" }}
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">OUR GLOBAL JOURNEY</h2>
+
+          <div className="relative bg-white/50  p-8 backdrop-blur-sm">
+            <canvas ref={canvasRef} className="w-full h-[280px]" />
+            <div className="absolute top-0 left-0 w-full h-full overflow-x-auto py-8">
               <div className="relative h-full min-w-[768px]">
                 {timelineEvents.map((point) => (
                   <div
@@ -196,11 +245,11 @@ export default function Page() {
                   >
                     <div className="relative flex flex-col items-center">
                       <div
-                        className={`w-4 h-4 bg-[#FF6B35] rounded-full mx-auto mb-2 transition-transform duration-300 ${
+                        className={`w-5 h-5 bg-[#FF6B35] rounded-full mx-auto mb-2 transition-transform duration-300 ${
                           hoveredYear === point.year ? "scale-150" : ""
                         }`}
                       />
-                      <div className="text-[#653128] font-bold text-lg mb-1">{point.year}</div>
+                      <div className="text-[black] font-bold text-lg mb-1">{point.year}</div>
                       <div
                         className={`absolute z-10 transition-all duration-300 ${
                           hoveredYear === point.year ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
@@ -210,7 +259,7 @@ export default function Page() {
                           bottom: point.top === "50%" ? "100%" : "auto",
                         }}
                       >
-                        <div className="max-w-[150px] text-sm text-[#653128] leading-tight bg-white/90 p-2 rounded-lg shadow-lg">
+                        <div className="max-w-[180px] text-sm text-[black] leading-tight bg-white p-3 rounded-lg">
                           {point.text}
                         </div>
                       </div>
@@ -222,7 +271,90 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      {/* Values Section */}
+      <div className="w-full py-20 bg-white/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2
+            className="text-3xl md:text-4xl font-bold mb-16 text-center reveal-on-scroll opacity-0 transition-all duration-700"
+            style={{ transform: "translateY(40px)" }}
+          >
+            OUR VALUES
+          </h2>
+
+          <div
+            className="grid md:grid-cols-3 gap-8 reveal-on-scroll opacity-0 transition-all duration-700"
+            style={{ transform: "translateY(40px)" }}
+          >
+            <div className="bg-[#FF6B35]/10 p-8 transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 bg-[#FF6B35]/20 rounded-full flex items-center justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-[#FF6B35]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Quality</h3>
+              <p className="text-[black]/80">
+                We source only the finest ingredients and maintain strict quality control to ensure every cup is
+                perfect.
+              </p>
+            </div>
+
+            <div className="bg-[#FF6B35]/10 p-8 transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 bg-[#FF6B35]/20 rounded-full flex items-center justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-[#FF6B35]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Innovation</h3>
+              <p className="text-[black]/80">
+                We continuously explore new flavors and techniques to bring exciting bubble tea experiences to our
+                customers.
+              </p>
+            </div>
+
+            <div className="bg-[#FF6B35]/10 p-8 transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 bg-[#FF6B35]/20 rounded-full flex items-center justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-[#FF6B35]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Consistency</h3>
+              <p className="text-[black]/80">
+                Whether you visit us in Calgary or Taipei, you can expect the same delicious taste and exceptional
+                service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
-

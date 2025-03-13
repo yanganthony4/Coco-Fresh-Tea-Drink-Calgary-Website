@@ -13,7 +13,7 @@ const DeliveryAppLogos = () => {
 
  
   const handleImageError = (index) => {
-    const fallbackSrc = "/images/deliverydriver.png"
+    const fallbackSrc = "/images/deliverydriver.webp"
     
   }
 

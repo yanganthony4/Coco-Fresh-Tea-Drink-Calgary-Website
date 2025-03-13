@@ -6,9 +6,9 @@ import Image from "next/image"
 const DeliveryAppCarouselMap = () => {
   const [mainImage, setMainImage] = useState({ src: "/images/main-image.jpg", alt: "Main Image" })
   const [smallImages, setSmallImages] = useState([
-    { src: "/images/ubereats.png", alt: "Uber Eats", link: "https://www.ubereats.com/" },
-    { src: "/images/doordash.png", alt: "DoorDash", link: "https://www.doordash.com/" },
-    { src: "/images/skipthedishes.png", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
+    { src: "/images/ubereats.svg", alt: "Uber Eats", link: "https://www.ubereats.com/" },
+    { src: "/images/doordash.svg", alt: "DoorDash", link: "https://www.doordash.com/" },
+    { src: "/images/skipthedishes.svg", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
   ])
   const [activeIndex, setActiveIndex] = useState(0)
 
