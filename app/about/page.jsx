@@ -123,7 +123,7 @@ export default function AboutPage() {
           className="text-3xl md:text-5xl font-bold text-center mb-20 reveal-on-scroll opacity-0 transition-all duration-700"
           style={{ transform: "translateY(40px)" }}
         >
-          OUR STORY!
+          OUR STORY
         </h2>
 
         {/* Content Sections */}
@@ -146,19 +146,19 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <span className="text-[#FF6B35] font-medium mb-3 block">Our Beginning</span>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6">A Global Bubble Tea Leader</h3>
+              <span className="text-[#FF6B35] font-medium mb-3 block">OUR BEGINNING</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">A GLOBAL BUBBLE TEA LEADER</h3>
               <p className="text-lg leading-relaxed">
                 CoCo Bubble Tea is founded in 1997 by Chairman, Tommy Hung. In a world where culture blends with tea,
-                CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality of tea with
-                unmatchable services to its customers, and began its journey in building the world's biggest bubble tea
+                CoCo found its core mission, &apos;Consistency and Continuity&apos;, to bring the highest quality of tea with
+                unmatchable services to its customers, and began its journey in building the world&apos;s biggest bubble tea
                 empire. Spanning over decades of diligence and consistency, CoCo kept its promises and passions in
                 quality and services with innovative new drinks, stylish store designs, quality fresh fruits and
                 distinctive recipes. With the persistent on traditional craftsmanship, bold innovations and sharp
                 international perspectives, CoCo has successfully brought its spirit overseas with the first New York
                 store opening in 2011. CoCo always aims to create a diversity and sustainable community for its
-                customers, provide eyes refreshing products, and is dedicated to "Embrace Tradition, Unleash Innovation,
-                and Seize the World."
+                customers, provide eyes refreshing products, and is dedicated to &quot;Embrace Tradition, Unleash Innovation,
+                and Seize the World.&quot;
               </p>
             </div>
           </div>
@@ -169,8 +169,8 @@ export default function AboutPage() {
             style={{ transform: "translateY(40px)" }}
           >
             <div>
-              <span className="text-[#FF6B35] font-medium mb-3 block">Canadian Experience</span>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6">Fresh Ingredients, Creative Drinks</h3>
+              <span className="text-[#FF6B35] font-medium mb-3 block">CANADIAN EXPERIENCE</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">FRESH INGREDIENTS, CREATIVE DRINKS</h3>
               <p className="text-lg leading-relaxed">
                 In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served
                 in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an
@@ -208,8 +208,8 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <span className="text-[#FF6B35] font-medium mb-3 block">Our Vision</span>
-              <h3 className="text-2xl md:text-3xl font-bold mb-6">Sustainability & Inclusivity</h3>
+              <span className="text-[#FF6B35] font-medium mb-3 block">OUR VISION</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">SUSTAINABILITY & INCLUSIVITY</h3>
               <p className="text-lg leading-relaxed">
                 CoCo dedicates to everything we do. We seek high-quality ingredients, we deliver trendy drinks mixed
                 with our passion and dedication, and we provide service from the heart and promise to give you the best

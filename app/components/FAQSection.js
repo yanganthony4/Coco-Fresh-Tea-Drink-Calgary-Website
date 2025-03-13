@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 export default function FAQSection() {
   const faqs = [
     {
-      question: "Where can I collect reward points with my purchase?",
+      question: "Where can I collect reward points with my purchases?",
       answer:
         "You can collect points by ordering in our app or in the store. Points are synced with your phone number.",
     },
