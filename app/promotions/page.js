@@ -25,18 +25,16 @@ export default function Promotions() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-auto flex flex-col">
       <div className="flex-1 flex flex-col relative">
         {/* Promotions Banner Section */}
         <section className="w-full relative overflow-hidden bg-white">
           <div className="relative w-full max-w-[1555px] mx-auto">
-            <div className="relative w-full" style={{ paddingTop: "51.45%" }}>
-              {" "}
-              {/* Aspect ratio of 1555:800 */}
+            <div className="relative w-full">
               <img
                 src="https://itsthecococapstonebucket.s3.amazonaws.com/Promotionsbanner.png"
                 alt="Promotions Background"
-                className="absolute top-0 left-0 w-full h-full object-contain pointer-events-none"
+                className="w-full h-auto object-contain pointer-events-none"
                 loading="lazy"
               />
             </div>
@@ -44,13 +42,13 @@ export default function Promotions() {
         </section>
 
         {/* Main Content Section */}
-        <div className="container mx-auto px-4 lg:px-6 pt-4 sm:pt-8 lg:pt-12 pb-20">
+        <div className="container mx-auto px-4 lg:px-6 pt-4 sm:pt-6 lg:pt-8 pb-10">
           <div className="flex flex-col lg:flex-row items-start justify-center gap-4 sm:gap-8">
             {/* Left Side Content */}
             <div className="w-full lg:w-1/3 flex flex-col items-center lg:items-start lg:sticky lg:top-8">
               {/* Emoji Animation and CoCo text */}
               <div
-                className="flex flex-col items-center py-8 sm:py-12 lg:py-20 px-4 sm:px-24 lg:items-start"
+                className="flex flex-col items-center py-6 sm:py-8 lg:py-12 px-4 sm:px-16 lg:items-start"
                 ref={cocoRef}
               >
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>

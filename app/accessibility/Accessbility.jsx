@@ -51,7 +51,7 @@ export default function AccessibilityPage() {
             <h2 className="text-2xl font-bold text-black mb-4 text-center">Contact Us</h2>
             <div className="bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
               <p className="mb-4 text-center">
-                If you have any questions or concerns about the accessibility of our website, please don't hesitate to
+                If you have any questions or concerns about the accessibility of our website, please don&apos;t hesitate to
                 reach out to us.
               </p>
               <div className="flex justify-center">

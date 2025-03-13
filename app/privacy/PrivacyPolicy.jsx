@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
                 data for statistical analysis, the data is completely removed from our systems.
               </p>
               <p>
-                Please note that cookies don't allow us to gain control of your computer in any way. They are strictly
+                Please note that cookies don&apos;t allow us to gain control of your computer in any way. They are strictly
                 used to monitor which pages you find useful and which you do not so that we can provide a better
                 experience for you.
               </p>
@@ -117,7 +117,7 @@ export default function PrivacyPolicy() {
               <ul className="list-disc list-inside space-y-2 mb-4">
                 <li>
                   When you are filling the forms on the website, make sure to check if there is a box that you can leave
-                  unchecked, if you don't want to disclose your personal information.
+                  unchecked, if you don&apos;t want to disclose your personal information.
                 </li>
                 <li>
                   If you have already agreed to share your information with us, feel free to contact us via email and we

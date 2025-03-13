@@ -50,14 +50,14 @@ export default function PromotionsList() {
 
                     {/* Text */}
                     <div className="text-center md:text-left p-4 md:w-3/5">
-                        <h2 className="text-2xl md:text-3xl font-bold text-[#7c3d14] mb-2 font-caveat">
+                        <h2 className="text-2xl md:text-3xl font-bold text-[#7c3d14] mb-2">
                             {title} <span className="text-[#f04e23]">NEW!</span>
                         </h2>
-                        <p className="text-lg text-gray-700 font-medium mb-2 font-signika">
+                        <p className="text-lg text-gray-700 font-medium mb-2">
                             Refresh with choices from <span className="font-bold">{price}</span>.
                         </p>
-                        <p className="text-gray-600 font-signika">{description}</p>
-                        <p className="text-sm text-gray-500 mt-4 font-signika">{timeFrame}</p>
+                        <p className="text-gray-600">{description}</p>
+                        <p className="text-sm text-gray-500 mt-4">{timeFrame}</p>
                     </div>
                 </section>
             ))}

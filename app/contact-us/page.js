@@ -1,57 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import emailjs from "emailjs-com"
+import ContactForm from "../components/ContactForm"
+import FAQSection from "../components/FAQSection"
 
 export default function ContactPage() {
-  const IMAGE_WIDTH = "1000%" // Huge image for impact
-
-  const [isPending, setIsPending] = useState(false)
-
-  useEffect(() => {
-    emailjs.init("3OhHXYVtaPA-m2hAk")
-  }, [])
-
-  async function handleSubmit(event) {
-    event.preventDefault()
-    setIsPending(true)
-
-    try {
-      await emailjs.sendForm(
-        "sumaiyakurshid@gmail.com",
-        "template_n1x13ps",
-        event.target,
-        "3OhHXYVtaPA-m2hAk"
-      )
-      alert("Your message has been sent. We'll get back to you soon.")
-      event.target.reset()
-    } catch (error) {
-      console.error("Error sending message", error)
-      alert("Failed to send message. Please try again later.")
-    }
-
-    setIsPending(false)
-  }
-
-  const faqs = [
-    {
-      question: "Where can I collect reward points with my purchase?",
-      answer:
-        "You can collect points by ordering in our app or in the store. Points are synced with your phone number.",
-    },
-    {
-      question: "How to collect points in-store?",
-      answer:
-        "Tell our staff your phone number linked to your account. You'll earn 1 point per drink purchased.",
-    },
-    {
-      question: "Need help with the Coco app?",
-      answer:
-        "Contact support@gosnappy.io for any issues with your account or points.",
-    },
-  ]
-
   return (
     <div className="relative min-h-screen bg-white flex flex-col items-center">
       <div className="relative container mx-auto px-4 py-12 flex flex-col lg:flex-row gap-4 w-full max-w-6xl items-stretch">
@@ -62,7 +14,7 @@ export default function ContactPage() {
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
           <img
-            src="https://itsthecococapstonebucket.s3.amazonaws.com/mim.png"
+            src="/images/mim.png"
             alt="Bubble Tea"
             style={{ width: IMAGE_WIDTH }}
             className="absolute left-[-22%] top-1/2 transform -translate-y-1/2 pointer-events-none z-0"
@@ -116,7 +68,7 @@ export default function ContactPage() {
               name="message"
               placeholder="Your message"
               className="w-full h-32 px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-gray-700"
-              required
+              required  
             />
             <button
               type="submit"
@@ -129,32 +81,8 @@ export default function ContactPage() {
         </motion.div>
       </div>
 
-      {/* FAQ Section - Animated (No Borders) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="mt-24 max-w-3xl mx-auto text-center relative z-10"
-      >
-        <h2 className="text-3xl font-bold text-center mb-12 text-[#653128]">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-8">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-white p-4 rounded-lg"
-            >
-              <h3 className="text-xl font-semibold text-[#653128]">{faq.question}</h3>
-              <p className="text-black">{faq.answer}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+      {/* FAQ Section */}
+      <FAQSection />
     </div>
   )
 }
