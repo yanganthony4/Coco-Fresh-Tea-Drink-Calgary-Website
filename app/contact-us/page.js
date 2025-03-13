@@ -62,7 +62,7 @@ export default function ContactPage() {
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
           <img
-            src="/images/mim.png"
+            src="https://itsthecococapstonebucket.s3.amazonaws.com/mim.png"
             alt="Bubble Tea"
             style={{ width: IMAGE_WIDTH }}
             className="absolute left-[-22%] top-1/2 transform -translate-y-1/2 pointer-events-none z-0"
