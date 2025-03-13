@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Layout from "../components/Footer"; // Adjust the path if needed
+import Layout from "./components/Footer"; // Adjust the path if needed
 import { useEffect } from "react";
 import Head from "next/head";
 
