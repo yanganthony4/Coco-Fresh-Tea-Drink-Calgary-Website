@@ -136,6 +136,13 @@ const Toolbar = () => {
                 >
                   CONTACT US
                 </Link>
+                <Link
+                  href="/build-a-drink"
+                  className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  BUILD YOUR DRINK
+                </Link>
               </nav>
             </div>
           )}
