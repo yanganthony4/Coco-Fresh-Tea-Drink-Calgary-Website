@@ -1,36 +1,24 @@
-"use client";
+"use client"
 
-export function Select({ children, onValueChange, value, className = "" }) {
-  return (
-    <div className="relative">
-      <select
-        className={`w-full p-2 border rounded bg-white appearance-none cursor-pointer ${className}`}
-        onChange={(e) => onValueChange(e.target.value)}
-        value={value}
-      >
-        {children}
-      </select>
-      <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-        <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-    </div>
-  );
+export function Select({ value, onValueChange, children }) {
+  return <div className="relative">{children}</div>
 }
 
 export function SelectTrigger({ children, className = "" }) {
-  return <div className={className}>{children}</div>;
+  return (
+    <button className={`w-full p-2 text-left border rounded-md bg-white text-gray-900 ${className}`}>{children}</button>
+  )
 }
 
 export function SelectValue({ placeholder }) {
-  return <option value="" disabled>{placeholder}</option>;
+  return <span className="text-gray-900">{placeholder}</span>
 }
 
 export function SelectContent({ children }) {
-  return <>{children}</>;
+  return <div className="absolute w-full mt-1 bg-white border rounded-md shadow-lg z-10">{children}</div>
 }
 
-export function SelectItem({ children, value }) {
-  return <option value={value}>{children}</option>;
+export function SelectItem({ value, children }) {
+  return <div className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-gray-900">{children}</div>
 }
+
