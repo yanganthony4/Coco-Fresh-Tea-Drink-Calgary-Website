@@ -29,7 +29,7 @@ export default function FAQSection() {
       viewport={{ once: true }}
       className="mt-24 max-w-3xl mx-auto text-center relative z-10 pb-32"
     >
-      <h2 className="text-4xl font-bold text-center mb-12 text-[#FF9800] uppercase tracking-wide">
+      <h2 className="text-4xl font-bold text-center mb-12 text-black uppercase tracking-wide">
         Frequently Asked Questions
       </h2>
 

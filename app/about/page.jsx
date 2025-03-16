@@ -64,7 +64,10 @@ export default function AboutPage() {
       drawSineWave(100, "rgba(173, 209, 158, 0.3)", 40, 60, 0.8)
       drawSineWave(200, "rgba(255, 145, 87, 0.3)", 35, 40, 1.2)
 
-      offset += 0.25
+      // Slower animation speed on mobile devices
+      const isMobile = window.innerWidth < 768
+      offset += isMobile ? 0.1 : 0.25
+
       animationFrameId = requestAnimationFrame(drawWave)
     }
 
@@ -120,7 +123,7 @@ export default function AboutPage() {
       {/* Our Story Section */}
       <div className="max-w-7xl mx-auto px-6 py-20">
         <h2
-          className="text-3xl md:text-5xl font-bold text-center mb-20 reveal-on-scroll opacity-0 transition-all duration-700"
+          className="text-3xl md:text-5xl font-bold mb-20 reveal-on-scroll opacity-0 transition-all duration-700"
           style={{ transform: "translateY(40px)" }}
         >
           OUR STORY!
@@ -226,46 +229,56 @@ export default function AboutPage() {
         style={{ transform: "translateY(40px)" }}
       >
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">OUR GLOBAL JOURNEY</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-16">OUR GLOBAL JOURNEY</h2>
 
-          <div className="relative bg-white/50  p-8 backdrop-blur-sm">
-            <canvas ref={canvasRef} className="w-full h-[280px]" />
-            <div className="absolute top-0 left-0 w-full h-full overflow-x-auto py-8">
-              <div className="relative h-full min-w-[768px]">
-                {timelineEvents.map((point) => (
-                  <div
-                    key={point.year}
-                    className="absolute transform -translate-x-1/2 transition-all duration-300"
-                    style={{
-                      left: point.left,
-                      top: point.top === "0" ? "20%" : "70%",
-                    }}
-                    onMouseEnter={() => setHoveredYear(point.year)}
-                    onMouseLeave={() => setHoveredYear(null)}
-                  >
-                    <div className="relative flex flex-col items-center">
-                      <div
-                        className={`w-5 h-5 bg-[#FF6B35] rounded-full mx-auto mb-2 transition-transform duration-300 ${
-                          hoveredYear === point.year ? "scale-150" : ""
-                        }`}
-                      />
-                      <div className="text-[black] font-bold text-lg mb-1">{point.year}</div>
-                      <div
-                        className={`absolute z-10 transition-all duration-300 ${
-                          hoveredYear === point.year ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
-                        }`}
-                        style={{
-                          top: point.top === "0" ? "100%" : "auto",
-                          bottom: point.top === "50%" ? "100%" : "auto",
-                        }}
-                      >
-                        <div className="max-w-[180px] text-sm text-[black] leading-tight bg-white p-3 rounded-lg">
-                          {point.text}
+          <div className="relative bg-white/50 p-0 backdrop-blur-sm overflow-hidden">
+            <div className="w-full h-[280px] relative">
+              <canvas
+                ref={canvasRef}
+                className="absolute inset-0 w-[calc(100%+32px)] h-full -ml-4"
+                style={{
+                  width: "calc(100% + 32px)",
+                  marginLeft: "-16px",
+                }}
+              />
+              <div className="absolute top-0 left-0 w-full h-full overflow-x-auto py-8">
+                <div className="relative h-full w-full md:min-w-[768px]">
+                  {timelineEvents.map((point) => (
+                    <div
+                      key={point.year}
+                      className="absolute transform -translate-x-1/2 transition-all duration-300"
+                      style={{
+                        left: point.left,
+                        top: point.top === "0" ? "20%" : "70%",
+                        maxWidth: "100%",
+                      }}
+                      onMouseEnter={() => setHoveredYear(point.year)}
+                      onMouseLeave={() => setHoveredYear(null)}
+                    >
+                      <div className="relative flex flex-col items-center">
+                        <div
+                          className={`w-4 h-4 md:w-5 md:h-5 bg-[#FF6B35] rounded-full mx-auto mb-1 md:mb-2 transition-transform duration-300 ${
+                            hoveredYear === point.year ? "scale-150" : ""
+                          }`}
+                        />
+                        <div className="text-[black] font-bold text-sm md:text-lg mb-1">{point.year}</div>
+                        <div
+                          className={`absolute z-10 transition-all duration-300 ${
+                            hoveredYear === point.year ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+                          }`}
+                          style={{
+                            top: point.top === "0" ? "100%" : "auto",
+                            bottom: point.top === "50%" ? "100%" : "auto",
+                          }}
+                        >
+                          <div className="max-w-[120px] md:max-w-[180px] text-xs md:text-sm text-[black] leading-tight bg-white p-2 md:p-3 rounded-lg">
+                            {point.text}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -276,7 +289,7 @@ export default function AboutPage() {
       <div className="w-full py-20 bg-white/30">
         <div className="max-w-7xl mx-auto px-6">
           <h2
-            className="text-3xl md:text-4xl font-bold mb-16 text-center reveal-on-scroll opacity-0 transition-all duration-700"
+            className="text-3xl md:text-4xl font-bold mb-16 reveal-on-scroll opacity-0 transition-all duration-700"
             style={{ transform: "translateY(40px)" }}
           >
             OUR VALUES
@@ -358,3 +371,4 @@ export default function AboutPage() {
     </div>
   )
 }
+

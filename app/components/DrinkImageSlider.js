@@ -5,14 +5,14 @@ import Image from "next/image"
 
 export default function DrinkImageSlider() {
   const drinks = [
-    { name: "ChocoDream", src: "/images/ChocoDream.png" },
-    { name: "Grapefruit", src: "/images/grapefruit.png" },
-    { name: "BSMT", src: "/images/bsmt.png" },
-    { name: "Popping", src: "/images/popping.png" },
-    { name: "Matcha", src: "/images/matcha.png" },
-    { name: "Popping", src: "/images/popping.png" },
-    { name: "Matcha", src: "/images/matcha.png" },
-    { name: "Grapefruit", src: "/images/grapefruit.png" },
+    {src: "/images/Chocodream.png" },
+    {src: "/images/grapefruit.png" },
+    {src: "/images/bsmt.png" },
+    {src: "/images/popping.png" },
+    {src: "/images/matcha.png" },
+    {src: "/images/popping.png" },
+    {src: "/images/matcha.png" },
+    {src: "/images/grapefruit.png" },
   ]
 
   const [currentDrinkIndex, setCurrentDrinkIndex] = useState(0)
