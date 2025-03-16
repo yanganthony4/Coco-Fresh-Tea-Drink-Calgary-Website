@@ -1,16 +1,25 @@
 import React from "react";
+import {Metadata} from "next";
 import { ArrowRight } from "lucide-react";
+
+export const metadata = {
+  title: "Privacy Policy",
+  description: "Learn how CoCo Fresh Tea & Juice Calgary uses and protects your data.",
+  alternates: {
+    canonical: "https://coco-bubble-tea.ca/privacy-policy", //canonical data
+  },
+};
 
 export default function PrivacyPolicy() {
   return (
     React.createElement("div", { className: "min-h-screen bg-white" },
       React.createElement("div", { className: "max-w-4xl mx-auto px-4 py-12" },
-        React.createElement("h1", { className: "text-4xl font-bold text-[#FF5C28] mb-8" }, "Privacy Policy"),
+        React.createElement("h1", { className: "text-4xl font-bold text-[#000000] mb-8" }, "Privacy Policy"),
 
         React.createElement("div", { className: "space-y-8" },
           React.createElement("div", { className: "bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg" },
             React.createElement("p", { className: "mb-4" },
-              "This privacy policy will help you understand how CoCo Fresh Tea & Juice Ontario uses and protects the data you provide to us when you visit our website."
+              "This privacy policy will help you understand how CoCo Fresh Tea & Juice Calgary uses and protects the data you provide to us when you visit our website."
             ),
             React.createElement("p", null,
               "We reserve the right to change this policy at any given time, of which you will be promptly updated. If you want to make sure that you are up to date with the latest changes, we advise you to frequently visit this page."
@@ -33,7 +42,7 @@ export default function PrivacyPolicy() {
           ]),
 
           renderSection("Safeguarding and Securing the Data", [
-            "CoCo Fresh Tea & Juice Ontario is committed to securing your data and keeping it confidential. We have done all in our power to prevent data theft, unauthorized access, and disclosure by implementing the latest technologies and software, which help us safeguard all the information we collect online."
+            "CoCo Fresh Tea & Juice Calgary is committed to securing your data and keeping it confidential. We have done all in our power to prevent data theft, unauthorized access, and disclosure by implementing the latest technologies and software, which help us safeguard all the information we collect online."
           ]),
 
           renderSection("Our Cookie Policy", [
@@ -43,14 +52,14 @@ export default function PrivacyPolicy() {
           ]),
 
           renderSection("Links to Other Websites", [
-            "Our website contains links that lead to other websites. If you click on these links CoCo Fresh Tea & Juice Ontario is not held responsible for your data and privacy protection. Visiting those websites is not governed by this privacy policy agreement. Make sure to read the privacy policy documentation of the website you go to from our website."
+            "Our website contains links that lead to other websites. If you click on these links CoCo Fresh Tea & Juice Calgary is not held responsible for your data and privacy protection. Visiting those websites is not governed by this privacy policy agreement. Make sure to read the privacy policy documentation of the website you go to from our website."
           ]),
 
           renderSection("Restricting the Collection of your Personal Data", [
             "At some point, you might wish to restrict the use and collection of your personal data. You can achieve this by doing the following:",
             "When you are filling the forms on the website, make sure to check if there is a box that you can leave unchecked, if you don’t want to disclose your personal information.",
             "If you have already agreed to share your information with us, feel free to contact us via email and we will be more than happy to change this for you.",
-            "CoCo Fresh Tea & Juice Ontario will not lease, sell or distribute your personal information to any third parties unless we have your permission. We might do so if the law forces us. Your personal information will be used when we need to send you promotional materials if you agree to this privacy policy."
+            "CoCo Fresh Tea & Juice Calgary will not lease, sell or distribute your personal information to any third parties unless we have your permission. We might do so if the law forces us. Your personal information will be used when we need to send you promotional materials if you agree to this privacy policy."
           ]),
 
           React.createElement("p", { className: "text-sm text-gray-600 mt-8" },
