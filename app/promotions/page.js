@@ -1,5 +1,5 @@
 "use client"
-
+ 
 import { useEffect, useRef, useState } from "react"
 import PromotionsList from "../components/PromotionsList"
 
