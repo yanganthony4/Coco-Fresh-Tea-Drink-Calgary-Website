@@ -1191,8 +1191,8 @@ export default function BuildADrink() {
                       style={{ backgroundColor: drink.baseColor }}
                     />
                     <div className="flex-1">
-                      <h4 className="font-medium text-sm">{drink.base}</h4>
-                      <p className="text-xs text-gray-600">
+                      <h4 className="font-medium text-gray-700 text-sm">{drink.base}</h4>
+                      <p className="text-xs text-gray-700">
                         {drink.ice} • {drink.sugar} • {drink.size || "Regular"}
                       </p>
                       {drink.toppings.length > 0 && (
@@ -1206,7 +1206,7 @@ export default function BuildADrink() {
                           <p className="text-xs text-gray-700 italic">"{drink.addOns}"</p>
                         </div>
                       )}
-                      <p className="text-xs text-gray-400 mt-1">{drink.date}</p>
+                      <p className="text-xs text-gray-600 mt-1">{drink.date}</p>
                     </div>
                   </div>
                 </div>
