@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "../components/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/select"
 import { Textarea } from "../components/textarea"
-import { Check } from "lucide-react"
+import { Check, BookmarkIcon, HelpCircle, X, AlertCircle } from "lucide-react"
 import { cn } from "../lib/utils"
 
 // Data arrays for drink options
@@ -38,6 +38,45 @@ const toppings = [
   { name: "White Pearls", color: "#F5F5F5", shape: "circle", size: 4 },
   { name: "BrownSugar Pearls", color: "#8B4513", shape: "circle", size: 4 },
 ]
+
+// Nutritional information data
+const nutritionalInfo = {
+  base: {
+    "CoCo Milk Tea": { calories: 180, sugar: 22, fat: 4 },
+    "Jasmine Milk Tea": { calories: 170, sugar: 20, fat: 4 },
+    "Oolong Milk Tea": { calories: 175, sugar: 21, fat: 4 },
+    "Fresh Black Tea": { calories: 80, sugar: 18, fat: 0 },
+    "Fresh Jasmine Tea": { calories: 75, sugar: 17, fat: 0 },
+    "Mango Green Tea": { calories: 120, sugar: 25, fat: 0 },
+    "Passion Fruit Green Tea": { calories: 110, sugar: 23, fat: 0 },
+    "Matcha Latte": { calories: 200, sugar: 24, fat: 5 },
+    "Avocado Smoothie": { calories: 250, sugar: 20, fat: 12 },
+    "Chocolate Slush": { calories: 280, sugar: 35, fat: 8 },
+  },
+  sugar: {
+    "Extra Sugar": 1.2,
+    "100% Sugar": 1.0,
+    "70%": 0.7,
+    "50%": 0.5,
+    "30%": 0.3,
+    "No Sugar": 0,
+  },
+  toppings: {
+    Pearls: { calories: 80, sugar: 15, fat: 0 },
+    "Salty Cream": { calories: 120, sugar: 8, fat: 10 },
+    Sago: { calories: 40, sugar: 8, fat: 0 },
+    Pudding: { calories: 90, sugar: 18, fat: 2 },
+    "Grass Jelly": { calories: 50, sugar: 10, fat: 0 },
+    "Coconut Jelly": { calories: 60, sugar: 12, fat: 2 },
+    "Strawberry Popping Pearls": { calories: 70, sugar: 16, fat: 0 },
+    "Lychee Popping Pearls": { calories: 65, sugar: 15, fat: 0 },
+    "Jasmine Tea Jelly": { calories: 45, sugar: 9, fat: 0 },
+    "Fresh Taro": { calories: 85, sugar: 12, fat: 1 },
+    "Red Bean": { calories: 95, sugar: 14, fat: 1 },
+    "White Pearls": { calories: 75, sugar: 14, fat: 0 },
+    "BrownSugar Pearls": { calories: 90, sugar: 20, fat: 0 },
+  },
+}
 
 // Keep the cup ~90% full (or adapt if you want it to vary with sugar)
 const getSugarHeight = (sugarLevel) => {
@@ -170,10 +209,48 @@ export default function BuildADrink() {
   const [animateIce, setAnimateIce] = useState(false)
   const [animateToppings, setAnimateToppings] = useState(false)
   const [animateSugar, setAnimateSugar] = useState(false)
+  const [savedDrinks, setSavedDrinks] = useState([])
+  const [showSavedDrinks, setShowSavedDrinks] = useState(false)
+
+  // Add these state variables to your component
+  const [selectedSize, setSelectedSize] = useState("Regular")
+  const [showNutritionalInfo, setShowNutritionalInfo] = useState(false)
+  const [showSavedDrinksMenu, setShowSavedDrinksMenu] = useState(false)
 
   const prevIceRef = useRef(selectedIce)
   const prevToppingsRef = useRef(selectedToppings)
   const prevSugarRef = useRef(selectedSugar)
+
+  // Load saved drinks from localStorage on component mount
+  useEffect(() => {
+    const storedDrinks = localStorage.getItem("savedDrinks")
+    if (storedDrinks) {
+      setSavedDrinks(JSON.parse(storedDrinks))
+    }
+  }, [])
+
+  // Handle clicking outside the saved drinks menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if the click was outside the saved drinks menu
+      const menu = document.getElementById("saved-drinks-menu")
+      if (showSavedDrinksMenu && menu && !menu.contains(event.target)) {
+        // Make sure we're not clicking the bookmark icon itself
+        const bookmarkIcon = document.getElementById("bookmark-icon")
+        if (!bookmarkIcon || !bookmarkIcon.contains(event.target)) {
+          setShowSavedDrinksMenu(false)
+        }
+      }
+    }
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Clean up
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [showSavedDrinksMenu])
 
   // Update cup fill when base drink changes
   useEffect(() => {
@@ -292,6 +369,39 @@ export default function BuildADrink() {
     return baseOption?.color || "#8B4513"
   }
 
+  // Calculate nutritional values
+  const calculateNutrition = () => {
+    if (!selectedBase) return { calories: 0, sugar: 0, fat: 0 }
+
+    // Base values
+    const baseNutrition = nutritionalInfo.base[selectedBase] || { calories: 0, sugar: 0, fat: 0 }
+
+    // Sugar multiplier
+    const sugarMultiplier = nutritionalInfo.sugar[selectedSugar] || 0
+
+    // Calculate base nutrition with sugar adjustment
+    let totalCalories = baseNutrition.calories
+    let totalSugar = baseNutrition.sugar * sugarMultiplier
+    let totalFat = baseNutrition.fat
+
+    // Add toppings
+    selectedToppings.forEach((topping) => {
+      const toppingNutrition = nutritionalInfo.toppings[topping] || { calories: 0, sugar: 0, fat: 0 }
+      totalCalories += toppingNutrition.calories
+      totalSugar += toppingNutrition.sugar
+      totalFat += toppingNutrition.fat
+    })
+
+    // Size adjustment
+    const sizeMultiplier = selectedSize === "Large" ? 1.375 : 1 // 22oz vs 16oz
+
+    return {
+      calories: Math.round(totalCalories * sizeMultiplier),
+      sugar: Math.round(totalSugar * sizeMultiplier),
+      fat: Math.round(totalFat * sizeMultiplier),
+    }
+  }
+
   // Generate sugar sparkles (bigger, more opaque)
   const generateSugarSparkles = () => {
     const count = getSugarSparkleCount(selectedSugar)
@@ -355,7 +465,7 @@ export default function BuildADrink() {
 
     // For all other toppings, keep the existing logic
     // We'll do the standard "smoothFall" with random rotate
-    const biggerSize = size * 1.4
+    const biggerSize = name === "Salty Cream" ? size * 1.4 : size * 2.8
     const animationStyle =
       isAnimating && animateToppings
         ? {
@@ -535,6 +645,37 @@ export default function BuildADrink() {
     )
   }
 
+  const handleSaveDrink = () => {
+    if (!selectedBase) return
+
+    const newDrink = {
+      id: Date.now(),
+      base: selectedBase,
+      baseColor: getBaseColor(),
+      ice: selectedIce,
+      sugar: selectedSugar,
+      toppings: selectedToppings,
+      addOns: addOns,
+      size: selectedSize,
+      date: new Date().toLocaleDateString(),
+    }
+
+    // Limit to 12 drinks by removing oldest if needed
+    const updatedDrinks = [newDrink, ...savedDrinks]
+    if (updatedDrinks.length > 12) {
+      updatedDrinks.pop()
+    }
+
+    setSavedDrinks(updatedDrinks)
+    localStorage.setItem("savedDrinks", JSON.stringify(updatedDrinks))
+  }
+
+  const handleDeleteSavedDrink = (id) => {
+    const updatedDrinks = savedDrinks.filter((drink) => drink.id !== id)
+    setSavedDrinks(updatedDrinks)
+    localStorage.setItem("savedDrinks", JSON.stringify(updatedDrinks))
+  }
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 p-6">
       <style jsx global>{`
@@ -591,13 +732,57 @@ export default function BuildADrink() {
             opacity: 0;
           }
         }
+
+        /* Slide in animation for saved drinks menu */
+        @keyframes slideIn {
+          0% {
+            transform: translateX(100%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideOut {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
       `}</style>
 
       <h1 className="text-3xl font-bold text-amber-900 mt-8 mb-6">Build Your Perfect Bubble Tea</h1>
 
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8 flex flex-col md:flex-row gap-8">
         {/* Cup Visualization */}
-        <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="flex-1 flex flex-col items-center justify-center relative">
+          {/* Help and Saved Drinks Icons */}
+          <div className="absolute top-0 left-0 flex items-center gap-3 z-20">
+            {/* Help Icon with Tooltip */}
+            <div className="relative group">
+              <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center cursor-help">
+                <HelpCircle size={16} className="text-amber-800" />
+              </div>
+              <div className="absolute left-full ml-2 top-0 w-64 p-2 bg-white rounded-md shadow-md border border-gray-200 invisible group-hover:visible z-50">
+                <p className="text-sm text-gray-700">
+                  Build your perfect bubble tea by selecting a base drink, ice level, sugar level, and optional
+                  toppings. The visualization will update in real-time. Save up to 12 of your favorite combinations!
+                </p>
+              </div>
+            </div>
+
+            {/* Bookmark Icon for Saved Drinks */}
+            <div
+              id="bookmark-icon"
+              className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center cursor-pointer"
+              onClick={() => setShowSavedDrinksMenu(!showSavedDrinksMenu)}
+            >
+              <BookmarkIcon size={16} className="text-amber-800" />
+            </div>
+          </div>
+
           <div className="relative w-64 h-96">
             {/* Cup outline */}
             <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-56 h-72 border-4 border-gray-300 rounded-b-[100px] rounded-t-lg overflow-hidden">
@@ -685,11 +870,7 @@ export default function BuildADrink() {
                       <div
                         key={`falling-topping-${idx}-${index}`}
                         className={`absolute ${
-                          topping.shape === "circle"
-                            ? "rounded-full"
-                            : topping.shape === "square"
-                            ? ""
-                            : "rounded-sm"
+                          topping.shape === "circle" ? "rounded-full" : topping.shape === "square" ? "" : "rounded-sm"
                         }`}
                         style={{
                           width: `${(topping.size + 2) * 1.4}px`,
@@ -708,12 +889,45 @@ export default function BuildADrink() {
           </div>
 
           <div className="mt-4 text-center">
-            <h3 className="font-semibold text-lg" style={{ color: selectedBase ? getBaseColor() : "#8B4513" }}>
-              {selectedBase || "Select your drink"}
-            </h3>
+            <div className="flex items-center justify-center gap-2">
+              <h3 className="font-semibold text-lg" style={{ color: selectedBase ? getBaseColor() : "#8B4513" }}>
+                {selectedBase || "Select your drink"}
+              </h3>
+              {selectedBase && (
+                <button
+                  onClick={() => setShowNutritionalInfo(!showNutritionalInfo)}
+                  className="text-amber-600 hover:text-amber-800 transition-colors"
+                  aria-label="Show nutritional information"
+                >
+                  <AlertCircle size={18} />
+                </button>
+              )}
+            </div>
             <p className="text-sm text-gray-600">
-              {selectedIce} • {selectedSugar}
+              {selectedIce} • {selectedSugar} • {selectedSize}
             </p>
+
+            {/* Nutritional Info Popup */}
+            {showNutritionalInfo && selectedBase && (
+              <div className="mt-2 p-3 bg-white border border-amber-200 rounded-md shadow-md text-left">
+                <h4 className="font-medium text-sm mb-1 text-black">Nutritional Information</h4>
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  <div>
+                    <p className="font-medium text-black">Calories</p>
+                    <p className="text-black">{calculateNutrition().calories}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-black">Sugar (g)</p>
+                    <p className="text-black">{calculateNutrition().sugar}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-black">Fat (g)</p>
+                    <p className="text-black">{calculateNutrition().fat}</p>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-700 mt-2">Values are approximate and may vary.</p>
+              </div>
+            )}
 
             {/* Toppings dropdown */}
             {selectedToppings.length > 0 && (
@@ -791,10 +1005,10 @@ export default function BuildADrink() {
                               level === "Extra Ice"
                                 ? "100%"
                                 : level === "Regular Ice"
-                                ? "75%"
-                                : level === "Less Ice"
-                                ? "35%"
-                                : "0%",
+                                  ? "75%"
+                                  : level === "Less Ice"
+                                    ? "35%"
+                                    : "0%",
                           }}
                         ></div>
                       </div>
@@ -818,10 +1032,7 @@ export default function BuildADrink() {
                   <SelectItem key={level} value={level}>
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-amber-400"
-                          style={{ width: `${getSugarBarWidth(level)}%` }}
-                        ></div>
+                        <div className="h-full bg-amber-400" style={{ width: `${getSugarBarWidth(level)}%` }}></div>
                       </div>
                       <span className="text-gray-900">{level}</span>
                     </div>
@@ -867,10 +1078,10 @@ export default function BuildADrink() {
                         topping.shape === "circle"
                           ? "rounded-full"
                           : topping.shape === "square"
-                          ? ""
-                          : topping.shape === "rectangle"
-                          ? "w-4 h-3"
-                          : "rounded-sm",
+                            ? ""
+                            : topping.shape === "rectangle"
+                              ? "w-4 h-3"
+                              : "rounded-sm",
                       )}
                       style={{ backgroundColor: topping.color }}
                     ></div>
@@ -879,6 +1090,45 @@ export default function BuildADrink() {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+
+          {/* Size Selection */}
+          <div className="relative mt-4">
+            <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-8 h-0.5 bg-green-400"></div>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Size</label>
+            <div className="flex items-center gap-4">
+              <button
+                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+                  selectedSize === "Regular"
+                    ? "border-green-500 bg-green-50 text-green-700"
+                    : "border-gray-300 text-gray-500 hover:border-green-300"
+                }`}
+                onClick={() => setSelectedSize("Regular")}
+                aria-label="Regular size (16oz)"
+              >
+                R
+              </button>
+              <div className="text-sm">
+                <p className="font-medium">Regular</p>
+                <p className="text-gray-500 text-xs">16 oz</p>
+              </div>
+
+              <button
+                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+                  selectedSize === "Large"
+                    ? "border-green-500 bg-green-50 text-green-700"
+                    : "border-gray-300 text-gray-500 hover:border-green-300"
+                }`}
+                onClick={() => setSelectedSize("Large")}
+                aria-label="Large size (22oz)"
+              >
+                L
+              </button>
+              <div className="text-sm">
+                <p className="font-medium">Large</p>
+                <p className="text-gray-500 text-xs">22 oz</p>
+              </div>
+            </div>
           </div>
 
           {/* Add-ons Text Box */}
@@ -895,15 +1145,77 @@ export default function BuildADrink() {
             />
           </div>
 
-          {/* Confirm Button */}
+          {/* Save Button */}
           <Button
             className="mt-4 bg-amber-500 hover:bg-amber-600 text-white w-full py-3 text-lg"
             disabled={!selectedBase}
+            onClick={handleSaveDrink}
           >
             Save Drink!
           </Button>
         </div>
       </div>
+
+      {/* Sliding Saved Drinks Menu */}
+      <div
+        id="saved-drinks-menu"
+        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+          showSavedDrinksMenu ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="p-4 border-b">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold text-gray-700">Your Saved Drinks</h2>
+            <button className="text-gray-500 hover:text-gray-700" onClick={() => setShowSavedDrinksMenu(false)}>
+              <X size={20} />
+            </button>
+          </div>
+        </div>
+
+        <div className="overflow-y-auto h-[calc(100%-60px)] p-4">
+          {savedDrinks.length === 0 ? (
+            <p className="text-center py-6 text-gray-500">No saved drinks yet. Create and save your first drink!</p>
+          ) : (
+            <div className="space-y-4">
+              {savedDrinks.map((drink) => (
+                <div key={drink.id} className="relative border rounded-lg p-3 bg-white shadow-sm">
+                  <button
+                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                    onClick={() => handleDeleteSavedDrink(drink.id)}
+                  >
+                    <X size={16} />
+                  </button>
+                  <div className="flex items-start gap-3">
+                    <div
+                      className="w-10 h-14 rounded-b-full rounded-t-sm border border-gray-300 flex-shrink-0 overflow-hidden"
+                      style={{ backgroundColor: drink.baseColor }}
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm">{drink.base}</h4>
+                      <p className="text-xs text-gray-600">
+                        {drink.ice} • {drink.sugar} • {drink.size || "Regular"}
+                      </p>
+                      {drink.toppings.length > 0 && (
+                        <p className="text-xs text-gray-600 mt-1">
+                          <span className="font-medium">Toppings:</span> {drink.toppings.join(", ")}
+                        </p>
+                      )}
+                      {drink.addOns && (
+                        <div className="mt-1">
+                          <p className="text-xs font-medium text-gray-700">Special Instructions:</p>
+                          <p className="text-xs text-gray-700 italic">"{drink.addOns}"</p>
+                        </div>
+                      )}
+                      <p className="text-xs text-gray-400 mt-1">{drink.date}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
+
