@@ -6,7 +6,7 @@ export const metadata = {
   title: "Privacy Policy",
   description: "Learn how CoCo Fresh Tea & Juice Calgary uses and protects your data.",
   alternates: {
-    canonical: "https://www.coco-bubble-tea.ca/privacy-policy", //canonical data
+    canonical: "https://www.coco-bubble-tea.ca/privacy", //canonical data
   },
 };
 
