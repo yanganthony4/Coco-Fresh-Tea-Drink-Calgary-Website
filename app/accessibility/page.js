@@ -1,6 +1,15 @@
 import React from "react";
 import { Mail } from "lucide-react";
 import Link from "next/link";
+import {Metadata} from "next";
+
+export const metadata = {
+  title: "Accessibility",
+  description: "Learn how CoCo Fresh Tea & Juice Calgary strives to provide equal experiences.",
+  alternates: {
+    canonical: "https://www.coco-bubble-tea.ca/accessibility", //canonical data
+  },
+};
 
 export default function AccessibilityPage() {
   return React.createElement(
