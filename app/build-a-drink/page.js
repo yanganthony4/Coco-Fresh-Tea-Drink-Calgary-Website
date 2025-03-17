@@ -1174,7 +1174,7 @@ export default function BuildADrink() {
 
         <div className="overflow-y-auto h-[calc(100%-60px)] p-4">
           {savedDrinks.length === 0 ? (
-            <p className="text-center py-6 text-gray-500">No saved drinks yet. Create and save your first drink!</p>
+            <p className="text-center py-6 text-gray-500">No Saved Drinks Yet. It's Time To Get Creative!</p>
           ) : (
             <div className="space-y-4">
               {savedDrinks.map((drink) => (
