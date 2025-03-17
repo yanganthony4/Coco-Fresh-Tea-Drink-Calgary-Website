@@ -677,7 +677,7 @@ export default function BuildADrink() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 p-6">
+    <div className="flex flex-col items-center min-h-screen bg-white p-6">
       <style jsx global>{`
         /* Original "smoothFall" for toppings & ice (includes random rotate at 100%) */
         @keyframes smoothFall {
