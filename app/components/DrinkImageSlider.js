@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export default function DrinkImageSlider() {
   const drinks = [
-    { name: "ChocoDream", src: "/images/ChocoDream.png" },
+    { name: "BSMT", src: "/images/bsmt.png" },
     { name: "Grapefruit", src: "/images/grapefruit.png" },
     { name: "BSMT", src: "/images/bsmt.png" },
     { name: "Popping", src: "/images/popping.png" },
