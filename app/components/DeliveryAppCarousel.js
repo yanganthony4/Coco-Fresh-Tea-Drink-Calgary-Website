@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 
 const DeliveryAppCarouselMap = () => {
-  const [mainImage, setMainImage] = useState({ src: "/images/main-image.jpg", alt: "Main Image" })
+  const [mainImage, setMainImage] = useState({ src: "/images/main-image.webp", alt: "Main Image" })
   const [smallImages, setSmallImages] = useState([
     { src: "/images/ubereats.svg", alt: "Uber Eats", link: "https://www.ubereats.com/" },
     { src: "/images/doordash.svg", alt: "DoorDash", link: "https://www.doordash.com/" },
