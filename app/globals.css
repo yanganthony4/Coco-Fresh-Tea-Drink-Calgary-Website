@@ -73,3 +73,43 @@ body {
 .lazy-load.loaded {
   opacity: 1;
 }
+
+/* Animated Underline */
+.animated-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.animated-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px; /* Adjust this value to position the underline */
+  width: 100%;
+  height: 4px; /* Thickness of the underline */
+  background-color: #FF6B35; /* Color of the underline */
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.5s ease-in-out;
+}
+
+.animated-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}

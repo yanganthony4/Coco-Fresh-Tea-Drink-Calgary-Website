@@ -1,5 +1,5 @@
 "use client"
-
+ 
 import { useEffect, useRef, useState } from "react"
 import PromotionsList from "../components/PromotionsList"
 
@@ -27,6 +27,8 @@ export default function Promotions() {
   return (
     <div className="h-auto flex flex-col">
       <div className="flex-1 flex flex-col relative">
+          {/* Visually hidden H1 for SEO/accessibility */}
+          <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
         {/* Promotions Banner Section */}
         <section className="w-full relative overflow-hidden bg-white">
           <div className="relative w-full max-w-[1555px] mx-auto">
