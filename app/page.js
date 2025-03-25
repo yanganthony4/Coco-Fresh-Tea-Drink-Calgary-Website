@@ -15,6 +15,9 @@ export default function Home() {
           <ImageSlider />
         </div>
 
+        {/* Visually hidden H1 for SEO/accessibility */}
+        <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
+
         {/* Section Divider */}
         <hr className="border-1 sm:border-2 border-gray-500 w-full mx-auto mt-6 sm:mt-8 md:mt-12 lg:mt-20" />
 
