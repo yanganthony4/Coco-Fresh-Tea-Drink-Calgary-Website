@@ -10,6 +10,8 @@ export default function Locations() {
     <div className="h-screen w-full">
       <Map />
     </div>
+    
   )
 }
-
+  {/* Visually hidden H1 for SEO/accessibility */}
+  <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
