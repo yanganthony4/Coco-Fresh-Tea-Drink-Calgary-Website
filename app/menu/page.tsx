@@ -1,10 +1,12 @@
 "use client";
 import MenuPage from '../components/MenuPage';
 
-export default function Page() {
+const Page: React.FC = () => {
   return (
     <div>
       <MenuPage />
     </div>
   );
 }
+
+export default Page;

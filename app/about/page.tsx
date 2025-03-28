@@ -3,7 +3,7 @@ import StorySection from "../components/StorySection";
 import TimelineSection from "../components/TimelineSection";
 import ValuesSection from "../components/ValuesSection";
 
-export default function AboutPage() {
+const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white text-[black]">
       <HeroSection />
@@ -12,4 +12,6 @@ export default function AboutPage() {
       <ValuesSection />
     </div>
   );
-}
+};
+
+export default AboutPage;

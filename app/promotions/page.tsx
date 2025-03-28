@@ -1,11 +1,12 @@
 "use client"
- 
+
 import { useEffect, useRef, useState } from "react"
 import PromotionsList from "../components/PromotionsList"
 
+// TypeScript for the component state and refs
 export default function Promotions() {
-  const [isEmojiVisible, setIsEmojiVisible] = useState(false)
-  const cocoRef = useRef(null)
+  const [isEmojiVisible, setIsEmojiVisible] = useState(false) //boolean type but in ts 
+  const cocoRef = useRef<HTMLDivElement | null>(null) // type the ref for a div element
 
   useEffect(() => {
     if (!cocoRef.current) return
@@ -16,7 +17,7 @@ export default function Promotions() {
           setIsEmojiVisible(entry.isIntersecting)
         })
       },
-      { threshold: 0.5 },
+      { threshold: 0.5 }
     )
 
     observer.observe(cocoRef.current)
@@ -27,8 +28,8 @@ export default function Promotions() {
   return (
     <div className="h-auto flex flex-col">
       <div className="flex-1 flex flex-col relative">
-          {/* Visually hidden H1 for SEO/accessibility */}
-          <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
+        {/* Visually hidden H1 for SEO/accessibility */}
+        <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
         {/* Promotions Banner Section */}
         <section className="w-full relative overflow-hidden bg-white">
           <div className="relative w-full max-w-[1555px] mx-auto">
