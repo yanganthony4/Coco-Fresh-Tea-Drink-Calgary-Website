@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import PromotionsList from "../components/PromotionsList"
+import Image from 'next/image';
 
 // TypeScript for the component state and refs
 export default function Promotions() {
@@ -34,7 +35,7 @@ export default function Promotions() {
         <section className="w-full relative overflow-hidden bg-white">
           <div className="relative w-full max-w-[1555px] mx-auto">
             <div className="relative w-full">
-              <img
+              <Image
                 src="/images/Promotionsbanner.png"
                 alt="Promotions Background"
                 className="w-full h-auto object-contain pointer-events-none"
@@ -55,7 +56,7 @@ export default function Promotions() {
                 ref={cocoRef}
               >
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
-                  <img src="/images/cocoemoji.png" alt="Coco Emoji" className="w-16 sm:w-24 lg:w-32" loading="lazy" />
+                  <Image src="/images/cocoemoji.png" alt="Coco Emoji" className="w-16 sm:w-24 lg:w-32" loading="lazy" />
                 </div>
                 <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black font-museo flex">
                   {["C", "o", "C", "o"].map((letter, index) => (
