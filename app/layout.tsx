@@ -18,12 +18,6 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body className="bg-white">
         {/* Google Tag Manager */}
         <Script
@@ -75,6 +69,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </footer>
         </div>
       </body>
-    </html>
+   </html>
   );
 }
