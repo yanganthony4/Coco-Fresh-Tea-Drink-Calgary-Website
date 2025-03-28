@@ -1,17 +1,18 @@
-import React from "react";
+
 import { Mail } from "lucide-react";
 import Link from "next/link";
-import {Metadata} from "next";
+import { Metadata } from "next";
+import React, { JSX } from "react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Accessibility",
   description: "Learn how CoCo Fresh Tea & Juice Calgary strives to provide equal experiences.",
   alternates: {
-    canonical: "https://www.coco-bubble-tea.ca/accessibility", //canonical data
+    canonical: "https://www.coco-bubble-tea.ca/accessibility", // canonical data
   },
 };
 
-export default function AccessibilityPage() {
+const AccessibilityPage: React.FC = () => {
   return React.createElement(
     "div",
     { className: "min-h-screen bg-white" },
@@ -71,9 +72,9 @@ export default function AccessibilityPage() {
       )
     )
   );
-}
+};
 
-function renderSection(title, ...content) {
+function renderSection(title: string | null, ...content: (string | JSX.Element)[]): JSX.Element {
   return React.createElement(
     "section",
     null,
@@ -92,3 +93,5 @@ function renderSection(title, ...content) {
     )
   );
 }
+
+export default AccessibilityPage;

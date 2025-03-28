@@ -24,17 +24,17 @@
     "lucide-react": "^0.473.0",
     "next": "^14.2.23",
     "nodemailer": "^6.9.16",
-    "react": "^18",
-    "react-dom": "^18",
-    "styled-components": "^6.1.16"
+
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@types/node": "22.13.1",
-    "@types/react": "19.0.8",
-    "babel-plugin-styled-components": "^2.1.4",
+    "@types/node": "^22.13.1",
+    "@types/react": "^19.0.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.8.2"
   }
 }

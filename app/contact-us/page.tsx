@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import ContactForm from "../components/ContactForm"
-import FAQSection from "../components/FAQSection"
+import ContactForm from "../components/ContactForm";
+import FAQSection from "../components/FAQSection";
 
 export default function ContactPage() {
   return (
@@ -12,5 +12,5 @@ export default function ContactPage() {
       {/* FAQ Section */}
       <FAQSection />
     </div>
-  )
+  );
 }

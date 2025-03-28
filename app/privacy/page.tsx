@@ -81,7 +81,7 @@ const PrivacyPolicy: React.FC = () => {
   );
 };
 
-// Helper function to render each section with title and content
+// helper function to render each section with title and content
 function renderSection(title: string, content: (string | string[])[]): JSX.Element {
   return (
     <section>
