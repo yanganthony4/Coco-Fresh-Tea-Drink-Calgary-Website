@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import PromotionsList from "../components/PromotionsList"
+import PromotionsList from "../components/PromotionsList.tsx"
 
 export default function Promotions() {
   const [isEmojiVisible, setIsEmojiVisible] = useState(false)

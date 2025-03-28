@@ -1,4 +1,5 @@
 "use client"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import DrinkImageSlider from "./components/DrinkImageSlider"
 import Boxes from "./components/HomePageInformationalBoxes"
@@ -6,18 +7,23 @@ import DeliveryAppCarousel from "./components/DeliveryAppCarousel"
 import ImageSlider from "./components/ImageSlider"
 
 export default function Home() {
-  const images = [
-    "/images/homebanner.png",
-    "/images/cremebruleeposter.png",
-    "/images/strawberryPromo.png",
-    "/images/mangodream.png",
-  ]
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/home-media-images?limit=5")
+      .then(res => res.json())
+      .then(data => {
+        const fetched = data.docs.map(
+          (img) => `http://localhost:3000/api/home-media-images/file/${img.filename}`
+        );
+        setImages(fetched);
+      });
+  }, []);
 
   return (
     <div className="w-full overflow-x-hidden">
       {/* Centralized container for consistency */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
-        
         {/* Image Slider */}
         <div className="w-full">
           <ImageSlider images={images} />

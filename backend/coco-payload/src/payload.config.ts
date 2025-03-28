@@ -6,7 +6,9 @@ import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
 import { Users } from './collections/Users';
-import { Media } from './collections/Media';
+import { HomeMediaImages } from './collections/HomeMediaImages';
+import { Promotions } from './collections/Promotions'
+import { PromotionMedia } from './collections/PromotionMedia';
 import { Test } from './collections/Test';
 
 const filename = fileURLToPath(import.meta.url);
@@ -20,7 +22,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  collections: [Users, Media, Test],
+  collections: [Users, HomeMediaImages, Test, Promotions, PromotionMedia],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

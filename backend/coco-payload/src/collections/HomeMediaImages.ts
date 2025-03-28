@@ -1,7 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
-export const Media: CollectionConfig = {
-  slug: 'media',
+export const HomeMediaImages: CollectionConfig = {
+  slug: 'home-media-images',
+  upload: {
+    staticDir: 'media',
+    mimeTypes: ['image/*'],
+  },
   access: {
     read: () => true,
   },
@@ -9,8 +13,6 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      required: true,
     },
   ],
-  upload: true,
 }
