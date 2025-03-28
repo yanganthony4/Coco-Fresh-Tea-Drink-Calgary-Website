@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import PromotionsList from "../components/PromotionsList"
+import PromotionsList from "../components/PromotionsList.tsx"
 
 // TypeScript for the component state and refs
 export default function Promotions() {

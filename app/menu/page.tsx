@@ -1,5 +1,5 @@
 "use client";
-import MenuPage from '../components/MenuPage';
+import MenuPage from '../components/MenuPage.tsx';
 
 const Page: React.FC = () => {
   return (
