@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import PromotionsList from "../components/PromotionsList.tsx"
+import PromotionsList from "../components/PromotionsList"
+import Image from "next/image";
 
 // TypeScript for the component state and refs
 export default function Promotions() {
@@ -37,6 +38,8 @@ export default function Promotions() {
               <Image
                 src="/images/Promotionsbanner.png"
                 alt="Promotions Background"
+                width={1000}
+                height={500}
                 className="w-full h-auto object-contain pointer-events-none"
                 loading="lazy"
               />
@@ -55,7 +58,7 @@ export default function Promotions() {
                 ref={cocoRef}
               >
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
-                  <Image src="/images/cocoemoji.png" alt="Coco Emoji" className="w-16 sm:w-24 lg:w-32" loading="lazy" />
+                  <Image src="/images/cocoemoji.png" alt="Coco Emoji" width={50} height={50} className="w-16 sm:w-24 lg:w-32" loading="lazy" />
                 </div>
                 <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black font-museo flex">
                   {["C", "o", "C", "o"].map((letter, index) => (
