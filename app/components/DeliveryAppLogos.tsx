@@ -1,25 +1,28 @@
-"use client"
+"use client";
 
-import Image from "next/image"
+import Image from "next/image";
+
+type DeliveryApp = {
+  src: string;
+  alt: string;
+  link: string;
+};
 
 const DeliveryAppLogos = () => {
- 
-  const deliveryApps = [
+  const deliveryApps: DeliveryApp[] = [
     { src: "/images/ubereats.png", alt: "Uber Eats", link: "https://www.ubereats.com/" },
     { src: "/images/doordash.png", alt: "DoorDash", link: "https://www.doordash.com/" },
     { src: "/images/skipthedishes.png", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
-    { src: "", alt: "", link: "" }, 
-  ]
+    { src: "", alt: "", link: "" }, // Placeholder
+  ];
 
- 
-  const handleImageError = (index) => {
-    const fallbackSrc = "/images/deliverydriver.png"
-    
-  }
+  const handleImageError = (index: number) => {
+    // Currently unused, but you could update the image fallback if needed
+    console.warn(`Image at index ${index} failed to load.`);
+  };
 
   return (
     <section className="flex items-center justify-center bg-white py-4 sm:py-8 md:py-12 lg:py-20 mx-2 sm:mx-4 md:mx-6 lg:mx-10">
-      {/* Flex container for 4 images in a row, wrapping on smaller screens */}
       <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 max-w-5xl w-full">
         {deliveryApps.map((app, index) => (
           <a
@@ -27,7 +30,6 @@ const DeliveryAppLogos = () => {
             href={app.link || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            // On hover, scale the image container with a smooth animation.
             className="block transition-transform duration-500 hover:scale-110"
           >
             {app.src ? (
@@ -40,7 +42,6 @@ const DeliveryAppLogos = () => {
                 onError={() => handleImageError(index)}
               />
             ) : (
-              // For the empty item, show a placeholder container.
               <div className="w-[100px] h-[75px] sm:w-[150px] sm:h-[112px] md:w-[175px] md:h-[131px] lg:w-[200px] lg:h-[150px] rounded-lg bg-gray-200 flex items-center justify-center">
                 <span className="text-xs sm:text-sm text-gray-500">Coming Soon</span>
               </div>
@@ -49,8 +50,7 @@ const DeliveryAppLogos = () => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default DeliveryAppLogos
-
+export default DeliveryAppLogos;

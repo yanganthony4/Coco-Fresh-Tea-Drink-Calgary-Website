@@ -1,24 +1,27 @@
-import Image from "next/image"
-import { useState, useEffect } from "react"
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
-const ImageSlider = ({ images }) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
+type ImageSliderProps = {
+  images: string[];
+};
+
+const ImageSlider = ({ images }: ImageSliderProps) => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 4000)
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000);
 
-    return () => clearInterval(interval)
-  }, [images.length])
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-  const goToSlide = (index) => {
-    setCurrentIndex(index) // Updates the image when dot is clicked
-  }
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
 
   return (
     <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden flex justify-center items-center bg-gray-100">
-      
       {/* Image Container */}
       <div className="relative w-full max-w-screen-xl mx-auto h-full">
         <Image
@@ -26,7 +29,7 @@ const ImageSlider = ({ images }) => {
           alt={`Banner ${currentIndex}`}
           width={1920}
           height={600}
-          objectFit="cover"
+          style={{ objectFit: "cover" }}
           className="w-full h-full"
         />
       </div>
@@ -44,9 +47,8 @@ const ImageSlider = ({ images }) => {
           />
         ))}
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default ImageSlider
+export default ImageSlider;

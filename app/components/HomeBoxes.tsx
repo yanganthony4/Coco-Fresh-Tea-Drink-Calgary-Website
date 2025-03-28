@@ -1,6 +1,7 @@
-import Link from "next/link"
+import Link from "next/link";
+import { JSX } from "react";
 
-export default function Boxes() {
+export default function Boxes(): JSX.Element {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 w-full">
       {/* Box 1 */}
@@ -57,5 +58,5 @@ export default function Boxes() {
         </div>
       </div>
     </div>
-  )
+  );
 }

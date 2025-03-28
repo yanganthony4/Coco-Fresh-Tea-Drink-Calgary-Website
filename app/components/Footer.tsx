@@ -1,8 +1,13 @@
 "use client";
 
+import { ReactNode } from "react";
 import Toolbar from "./Toolbar";
 
-export default function Layout({ children }) {
+type LayoutProps = {
+  children: ReactNode;
+};
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <Toolbar />

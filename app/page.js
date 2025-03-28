@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import DrinkImageSlider from "./components/DrinkImageSlider"
-import Boxes from "./components/HomePageInformationalBoxes"
-import DeliveryAppCarousel from "./components/DeliveryAppCarousel"
+import Boxes from "./components/HomeBoxes"
+import DeliveryAppCarousel from "./components/DeliveryAppCarousel.tsx"
 import ImageSlider from "./components/ImageSlider"
 
 export default function Home() {

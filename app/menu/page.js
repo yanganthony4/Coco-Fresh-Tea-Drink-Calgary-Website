@@ -1,5 +1,5 @@
 "use client";
-import MenuPage from '../components/MenuPage';
+import MenuPage from '../components/MenuPage.tsx';
 
 export default function Page() {
   return (

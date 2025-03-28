@@ -1,9 +1,10 @@
 import "../styles/globals.css";
-import Layout from "./components/Footer"; // Adjust the path if needed
-import { useEffect } from "react";
+import Layout from "./components/Footer"; // Adjust if this is the layout component you meant
+import { useEffect, ReactNode, JSX } from "react";
 import Head from "next/head";
+import type { AppProps } from "next/app";
 
-function Appjs({ Component, pageProps }) {
+function App({ Component, pageProps }: AppProps): JSX.Element {
   useEffect(() => {
     document.body.style.fontFamily = "var(--font-gilroy), sans-serif";
   }, []);
@@ -18,7 +19,7 @@ function Appjs({ Component, pageProps }) {
 
         {/* Preconnect for Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* Import Sora (for toolbar) & Inter (for body text) */}
         <link
@@ -34,4 +35,4 @@ function Appjs({ Component, pageProps }) {
   );
 }
 
-export default Appjs;
+export default App;
