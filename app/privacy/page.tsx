@@ -40,7 +40,7 @@ const PrivacyPolicy: React.FC = () => {
             "Your IP address.",
             "Your contact information and email address.",
             "Other information such as interests and preferences.",
-            "Data profile regarding your online behaviour on our website.",
+            "Data profile regarding your online behavior on our website.",
           ])}
 
           {renderSection("Why We Collect Your Data", [
@@ -48,7 +48,7 @@ const PrivacyPolicy: React.FC = () => {
             "To improve our services and products.",
             "To send you promotional emails containing the information we think you will find interesting.",
             "To contact you to fill out surveys and participate in other types of market research.",
-            "To customize our website according to your online behaviour and personal preferences.",
+            "To customize our website according to your online behavior and personal preferences.",
           ])}
 
           {renderSection("Safeguarding and Securing the Data", [
@@ -56,7 +56,7 @@ const PrivacyPolicy: React.FC = () => {
           ])}
 
           {renderSection("Our Cookie Policy", [
-            "Once you agree to allow our website to use cookies, you also agree to use the data it collects regarding your online behaviour (analyze web traffic, web pages you spend the most time on, and websites you visit).",
+            "Once you agree to allow our website to use cookies, you also agree to use the data it collects regarding your online behavior (analyze web traffic, web pages you spend the most time on, and websites you visit).",
             "The data we collect by using cookies is used to customize our website to your needs. After we use the data for statistical analysis, the data is completely removed from our systems.",
             "Please note that cookies don’t allow us to gain control of your computer in any way. They are strictly used to monitor which pages you find useful and which you do not so that we can provide a better experience for you.",
           ])}

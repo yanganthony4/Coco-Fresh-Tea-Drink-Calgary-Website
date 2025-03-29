@@ -28,6 +28,7 @@ const LazyImage = ({ src, alt, placeholder = "placeholder.jpg", ...props }) => {
   }, [src])
 
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       ref={imgRef}
       src={placeholder || "/placeholder.svg"}

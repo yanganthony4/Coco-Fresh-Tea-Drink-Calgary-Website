@@ -54,7 +54,7 @@ export default function Home() {
           </div>
         </section>
 
-        <hr className="border-2 border-gray-500 my-8 w-full mx-auto my-20" />
+        <hr className="border-2 border-gray-500 w-full mx-auto my-20" />
 
         {/* Informational Boxes Section */}
         <div className="w-full flex justify-center">
