@@ -5,10 +5,10 @@ import { Metadata } from "next";
 import React, { JSX } from "react";
 
 export const metadata: Metadata = {
-  title: "Accessibility",
-  description: "Learn how CoCo Fresh Tea & Juice Calgary strives to provide equal experiences.",
+  title: "Accessibility | CoCo Fresh Tea & Juice Calgary",
+  description: "Discover how CoCo Fresh Tea & Juice Calgary ensures an inclusive and accessible experience for all customers. Learn more about our commitment!",
   alternates: {
-    canonical: "https://www.coco-bubble-tea.ca/accessibility", // canonical data
+    canonical: "https://www.coco-bubble-tea.ca/accessibility", // Canonical URL
   },
 };
 
