@@ -1,0 +1,28 @@
+{
+  "docs": [
+    {
+      "createdAt": "2025-04-01T22:23:19.625Z",
+      "updatedAt": "2025-04-01T22:23:19.625Z",
+      "alt": "This is a test",
+      "filename": "Test.png",
+      "mimeType": "image/png",
+      "filesize": 60065,
+      "width": 188,
+      "height": 192,
+      "focalX": 50,
+      "focalY": 50,
+      "id": "67ec67579c938f932e41fc95",
+      "url": "http://localhost:3000/api/home-media-images/file/Test.png",
+      "thumbnailURL": null
+    }
+  ],
+  "totalDocs": 1,
+  "limit": 100,
+  "totalPages": 1,
+  "page": 1,
+  "pagingCounter": 1,
+  "hasPrevPage": false,
+  "hasNextPage": false,
+  "prevPage": null,
+  "nextPage": null
+}
