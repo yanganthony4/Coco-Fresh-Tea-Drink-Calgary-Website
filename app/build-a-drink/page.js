@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Button } from "../components/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/select";
 import { Textarea } from "../components/textarea";
@@ -610,6 +610,42 @@ export default function BuildADrink() {
     localStorage.setItem("savedDrinks", JSON.stringify(updatedDrinks));
   };
 
+  // Memoize cup content so that changes to addOns do not cause re-rendering of the visual cup
+  const renderedCupContent = useMemo(() => {
+    return (
+      <>
+        {/* Base liquid */}
+        {selectedBase && (
+          <div
+            className="absolute bottom-0 left-0 right-0 transition-all duration-500 ease-in-out"
+            style={{
+              height: `${getSugarHeight(selectedSugar)}%`,
+              backgroundColor: cupFill.baseColor,
+              zIndex: 5,
+            }}
+          />
+        )}
+
+        {/* Ice cubes */}
+        {selectedIce !== "No Ice" &&
+          iceCubes.map((cube, index) => renderIceCube(cube, index))}
+
+        {/* Toppings */}
+        {cupFill.toppings.length > 0 &&
+          cupFill.toppings.map((topping) => {
+            if (topping.name === "Salty Cream") {
+              return renderTopping(topping, 0, { top: 0, left: 0, rotate: 0, delay: 0 });
+            }
+            const count = topping.shape === "wave" ? 4 : Math.floor(Math.random() * 5) + 3;
+            const positions = generateRandomPositions(count, topping.shape);
+            return positions.map((position, posIndex) =>
+              renderTopping(topping, posIndex, position)
+            );
+          })}
+      </>
+    );
+  }, [selectedBase, selectedSugar, cupFill, selectedIce, iceCubes, animateIce, animateToppings]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <style jsx global>{`
@@ -677,22 +713,17 @@ export default function BuildADrink() {
         }
       `}</style>
 
-      {/* Main content wrapper: center horizontally, add some padding, 
-          and allow the container to grow (flex-1). */}
+      {/* Main content wrapper */}
       <div className="max-w-4xl w-full mx-auto px-8 py-8 flex flex-col flex-1">
-        {/* Title at the very top of the box */}
         <h1 className="text-3xl font-bold text-amber-900 mb-6 text-center w-full">
           Build Your Perfect Bubble Tea
         </h1>
 
-        {/* Side-by-side layout with a bit of top margin so icons/cup 
-            are moved down (mt-4). */}
         <div className="flex-1 flex flex-col md:flex-row gap-8 items-start mt-4">
           {/* Left side: Cup Visualization */}
           <div className="flex-1 flex flex-col items-center justify-start relative">
             {/* Help and Saved Drinks Icons */}
             <div className="absolute top-0 left-0 flex items-center gap-3 z-20">
-              {/* Help Icon */}
               <div className="relative group">
                 <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center cursor-help">
                   <HelpCircle size={16} className="text-amber-800" />
@@ -704,7 +735,6 @@ export default function BuildADrink() {
                 </div>
               </div>
 
-              {/* Bookmark Icon */}
               <div
                 id="bookmark-icon"
                 className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center cursor-pointer"
@@ -717,38 +747,7 @@ export default function BuildADrink() {
             {/* The Cup */}
             <div className="relative w-64 h-96 mt-6">
               <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-56 h-72 border-4 border-gray-300 rounded-b-[100px] rounded-t-lg overflow-hidden">
-                {/* Base liquid */}
-                {selectedBase && (
-                  <div
-                    className="absolute bottom-0 left-0 right-0 transition-all duration-500 ease-in-out"
-                    style={{
-                      height: `${getSugarHeight(selectedSugar)}%`,
-                      backgroundColor: cupFill.baseColor,
-                      zIndex: 5,
-                    }}
-                  />
-                )}
-
-                {/* Sugar sparkles */}
-                {/*{selectedBase &&
-                  selectedSugar !== "No Sugar" &&
-                  generateSugarSparkles().map((sparkle, index) => renderSugarSparkle(sparkle, index))}
-                */}
-                {/* Ice cubes */}
-                {selectedIce !== "No Ice" && iceCubes.map((cube, index) => renderIceCube(cube, index))}
-
-                {/* Toppings */}
-                {cupFill.toppings.length > 0 &&
-                  cupFill.toppings.map((topping) => {
-                    if (topping.name === "Salty Cream") {
-                      return renderTopping(topping, 0, { top: 0, left: 0, rotate: 0, delay: 0 });
-                    }
-                    const count = topping.shape === "wave" ? 4 : Math.floor(Math.random() * 5) + 3;
-                    const positions = generateRandomPositions(count, topping.shape);
-                    return positions.map((position, posIndex) =>
-                      renderTopping(topping, posIndex, position)
-                    );
-                  })}
+                {renderedCupContent}
               </div>
 
               {/* Straw */}
@@ -817,7 +816,7 @@ export default function BuildADrink() {
               </div>
             </div>
 
-            {/* Drink info (base, ice, sugar, size) */}
+            {/* Drink info */}
             <div className="mt-4 text-center">
               <div className="flex items-center justify-center gap-2">
                 <h3
@@ -840,7 +839,6 @@ export default function BuildADrink() {
                 {selectedIce} • {selectedSugar} • {selectedSize}
               </p>
 
-              {/* Nutritional Info Popup */}
               {showNutritionalInfo && selectedBase && (
                 <div className="mt-2 p-3 bg-white border border-amber-200 rounded-md text-left">
                   <h4 className="font-medium text-sm mb-1 text-black">Nutritional Information</h4>
@@ -864,7 +862,6 @@ export default function BuildADrink() {
                 </div>
               )}
 
-              {/* Toppings list */}
               {selectedToppings.length > 0 && (
                 <div className="mt-2 text-sm text-gray-600">
                   <div
@@ -878,9 +875,7 @@ export default function BuildADrink() {
                       viewBox="0 0 16 16"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`ml-1 transition-transform ${
-                        showToppings ? "rotate-180" : ""
-                      }`}
+                      className={`ml-1 transition-transform ${showToppings ? "rotate-180" : ""}`}
                     >
                       <path
                         d="M4 6L8 10L12 6"
@@ -905,7 +900,6 @@ export default function BuildADrink() {
 
           {/* Right side: Customization Options */}
           <div className="flex-1 flex flex-col gap-6 items-start">
-            {/* Base Selection */}
             <div className="relative w-full">
               <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                 <Coffee size={18} className="text-amber-500" />
@@ -930,7 +924,6 @@ export default function BuildADrink() {
               </Select>
             </div>
 
-            {/* Ice Level */}
             <div className="relative w-full">
               <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                 <Snowflake size={18} className="text-blue-300" />
@@ -966,7 +959,6 @@ export default function BuildADrink() {
               </Select>
             </div>
 
-            {/* Sugar Level */}
             <div className="relative w-full">
               <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                 <Candy size={18} className="text-amber-300" />
@@ -993,7 +985,6 @@ export default function BuildADrink() {
               </Select>
             </div>
 
-            {/* Toppings */}
             <div className="relative w-full">
               <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                 <CupSoda size={18} className="text-purple-400" />
@@ -1053,7 +1044,6 @@ export default function BuildADrink() {
               </Select>
             </div>
 
-            {/* Size Selection */}
             <div className="relative mt-4 w-full">
               <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-8 h-0.5 bg-green-400"></div>
               <label className="block text-sm font-medium text-gray-900 mb-2">Size</label>
@@ -1092,7 +1082,6 @@ export default function BuildADrink() {
               </div>
             </div>
 
-            {/* Special Instructions */}
             <div className="mt-2 w-full">
               <label htmlFor="add-ons" className="block text-sm font-medium text-gray-900 mb-1">
                 Special Instructions
@@ -1106,7 +1095,6 @@ export default function BuildADrink() {
               />
             </div>
 
-            {/* Save Button */}
             <Button
               className="mt-4 bg-amber-500 hover:bg-amber-600 text-white w-full py-3 text-lg"
               disabled={!selectedBase}
@@ -1118,7 +1106,6 @@ export default function BuildADrink() {
         </div>
       </div>
 
-      {/* Sliding Saved Drinks Menu */}
       <div
         id="saved-drinks-menu"
         className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${

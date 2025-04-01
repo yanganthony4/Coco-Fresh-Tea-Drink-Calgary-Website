@@ -35,6 +35,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.58.1",
     "@types/node": "22.13.1",
     "@types/react": "19.0.8",
     "eslint": "^8",
