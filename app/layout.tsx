@@ -8,6 +8,7 @@ export const metadata = {
   description: "Enjoy CoCo Fresh Tea and Juice in Calgary! Serving delicious bubble tea, fruit tea, and milk tea with fresh ingredients. Visit us today!",
   alternates: {
     canonical: "https://www.coco-bubble-tea.ca/", // Canonical URL for the homepage
+    icons:"/favicon.svg",
   },
 };
 
