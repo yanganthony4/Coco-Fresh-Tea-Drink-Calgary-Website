@@ -3,10 +3,11 @@ import Toolbar from './components/Toolbar';
 import Script from "next/script";
 
 export const metadata = {
-  title: "Coco Calgary",
-  description: "CoCo Fresh Tea and Juice",
+  title: "CoCo Fresh Tea & Juice | Calgary Bubble Tea",
+  description: "Enjoy CoCo Fresh Tea and Juice in Calgary! Serving delicious bubble tea, fruit tea, and milk tea with fresh ingredients. Visit us today!",
   alternates: {
     canonical: "https://www.coco-bubble-tea.ca/", // Canonical URL for the homepage
+    icons:"/favicon.svg",
   },
 };
 
