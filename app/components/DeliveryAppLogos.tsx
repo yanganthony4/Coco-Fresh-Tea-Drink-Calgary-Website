@@ -10,10 +10,9 @@ type DeliveryApp = {
 
 const DeliveryAppLogos = () => {
   const deliveryApps: DeliveryApp[] = [
-    { src: "/images/ubereats.png", alt: "Uber Eats", link: "https://www.ubereats.com/" },
-    { src: "/images/doordash.png", alt: "DoorDash", link: "https://www.doordash.com/" },
-    { src: "/images/skipthedishes.png", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
-    { src: "", alt: "", link: "" }, // Placeholder
+    { src: "/images/ubereats.png", alt: "Uber Eats Logo", link: "https://www.ubereats.com/" },
+    { src: "/images/doordash.png", alt: "DoorDash Logo", link: "https://www.doordash.com/" },
+    { src: "/images/skipthedishes.png", alt: "SkipTheDishes Logo", link: "https://www.skipthedishes.com/" },
   ];
 
   const handleImageError = (index: number) => {

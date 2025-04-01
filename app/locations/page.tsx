@@ -11,7 +11,7 @@ export default function Locations(): JSX.Element {
     <div className="h-screen w-full">
       <Map />
       {/* Visually hidden H1 for SEO/accessibility */}
-      <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
+      <h1 className="sr-only">CoCo Bubble Tea - The best Bubble Tea in Calgary</h1>
     </div>
   );
 }

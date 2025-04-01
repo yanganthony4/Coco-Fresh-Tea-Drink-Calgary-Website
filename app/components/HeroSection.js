@@ -9,7 +9,7 @@ export default function HeroSection() {
         <div className="w-full h-full">
           <Image
             src="/images/image4.webp"
-            alt="CoCo Hero Image"
+            alt="Fresh black tea, jasmine tea, and bubble gaga CoCo bubble teas, with fresh green background."
             className="w-full h-auto md:h-full object-cover"
             width={2000}
             height={1200}
