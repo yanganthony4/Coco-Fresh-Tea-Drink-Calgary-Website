@@ -5,15 +5,9 @@ import { Button } from "../components/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/select";
 import { Textarea } from "../components/textarea";
 import {
-  Check,
-  BookmarkIcon,
-  HelpCircle,
-  X,
-  AlertCircle,
-  Coffee,
-  Snowflake,
-  Candy,
-  CupSoda
+  Check, BookmarkIcon, HelpCircle,
+  X, AlertCircle, Coffee,
+  Snowflake, Candy, CupSoda
 } from "lucide-react";
 import { cn } from "../lib/utils";
 
