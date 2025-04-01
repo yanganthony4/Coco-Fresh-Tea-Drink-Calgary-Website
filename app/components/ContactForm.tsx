@@ -33,7 +33,16 @@ export default function ContactForm() {
     setIsPending(true)
     setCaptchaError(null)
 
-    //Check CAPTCHA before submission
+    // ✅ Rate Limiter: Block if submitted too recently
+    const lastSubmit = localStorage.getItem("lastSubmitTime")
+    if (lastSubmit && Date.now() - Number(lastSubmit) < 30000) {
+      setCaptchaError("You're submitting too quickly. Please wait a moment.")
+      setIsPending(false)
+      return
+    }
+    localStorage.setItem("lastSubmitTime", Date.now().toString())
+
+    // Check CAPTCHA before submission
     if (!captchaToken) {
       setCaptchaError("Please complete the reCAPTCHA before submitting.")
       setIsPending(false)
@@ -153,12 +162,12 @@ export default function ContactForm() {
               />
             </div>
 
+            {/* Styled Error Message */}
             {captchaError && (
-  <div className="mt-4 p-3 rounded-md bg-red-100 border border-red-300 text-red-800 text-sm font-medium shadow-sm">
-    {captchaError}
-  </div>
-)}
-
+              <div className="mt-4 p-3 rounded-md bg-red-100 border border-red-300 text-red-800 text-sm font-medium shadow-sm">
+                {captchaError}
+              </div>
+            )}
 
             <button
               type="submit"
