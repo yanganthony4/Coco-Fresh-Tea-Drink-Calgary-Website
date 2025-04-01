@@ -47,7 +47,7 @@ export default function PromotionsList() {
                 <img
                   key={index}
                   src={imgSrc || "/placeholder.svg"}
-                  alt={`${title} Promotion`}
+                  alt={`${title} Promotional Image of current discounts and deals. `}
                   className="w-full h-auto object-contain max-w-[450px]"
                   loading="lazy"
                 />

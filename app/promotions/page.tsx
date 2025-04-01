@@ -58,7 +58,7 @@ export default function Promotions() {
                 ref={cocoRef}
               >
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
-                  <Image src="/images/cocoemoji.png" alt="Coco Emoji" width={50} height={50} className="w-16 sm:w-24 lg:w-32" loading="lazy" />
+                  <Image src="/images/cocoemoji.png" alt="Coco Fresh Tea and Juice Logo" width={50} height={50} className="w-16 sm:w-24 lg:w-32" loading="lazy" />
                 </div>
                 <div className="text-4xl sm:text-5xl lg:text-7xl font-bold text-black font-museo flex">
                   {["C", "o", "C", "o"].map((letter, index) => (

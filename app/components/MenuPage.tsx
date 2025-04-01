@@ -10,7 +10,7 @@ type Drink = {
   image: string;
   name: string;
   description: string;
-  category: string;
+  category: string | string[];
   calories?: string;
   price?: string;
 };
@@ -20,7 +20,7 @@ const MenuPage = () => {
 
   const categories: string[] = [
     "All",
-    "Favourites",
+    "Favorites",
     "Milk Tea",
     "Fresh Tea",
     "Fresh Milk",

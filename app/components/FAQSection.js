@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 
-// Separate component for each FAQ item
+// individual components for each FAQ item
 function FAQItem({ faq, index }) {
   const [open, setOpen] = useState(false)
 

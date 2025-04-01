@@ -43,7 +43,7 @@ export default function ContactForm() {
       >
         <img
           src="/images/contactdrinks.webp"
-          alt="Placeholder"
+          alt="Pink and purple CoCo Bubble Tea Drinks on a table. "
           className="w-full h-full object-cover"
         />
       </motion.div>

@@ -21,9 +21,9 @@ const DeliveryAppCarouselMap = () => {
   });
 
   const [smallImages, setSmallImages] = useState<SmallImage[]>([
-    { src: "/images/ubereats.png", alt: "Uber Eats", link: "https://www.ubereats.com/" },
-    { src: "/images/doordash.png", alt: "DoorDash", link: "https://www.doordash.com/" },
-    { src: "/images/skipthedishes.png", alt: "SkipTheDishes", link: "https://www.skipthedishes.com/" },
+    { src: "/images/ubereats.png", alt: "Uber Eats Logo", link: "https://www.ubereats.com/" },
+    { src: "/images/doordash.png", alt: "DoorDash Logo", link: "https://www.doordash.com/" },
+    { src: "/images/skipthedishes.png", alt: "SkipTheDishes Logo", link: "https://www.skipthedishes.com/" },
   ]);
 
   const [activeIndex, setActiveIndex] = useState<number>(0);

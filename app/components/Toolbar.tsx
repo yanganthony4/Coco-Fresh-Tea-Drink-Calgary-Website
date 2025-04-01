@@ -20,7 +20,7 @@ const Toolbar = () => {
         <Link href="/">
           <LazyImage
             src="/images/logo.png"
-            alt="CoCo Logo"
+            alt="CoCo Fresh Tea and Juice Logo"
             className="w-32 h-auto"
             placeholder="/images/placeholder.jpg"
           />
