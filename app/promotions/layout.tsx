@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "CoCo Bubble Tea Deals & Promotions | Special Offers",
-  description: "Enjoy exclusive deals on CoCo Fresh Tea & Juice! Check out our latest promotions on bubble tea, fruit tea, and more. Limited-time offers available!",
+  title: "CoCo Bubble Tea Deals & Promotions | Special Offers, Discounts & Limited-Time Deals",
+  description: "Unlock exclusive deals at CoCo Fresh Tea & Juice! Browse our latest promotions on bubble tea, fruit tea, milk tea, and more. Don't miss out on limited-time offers and seasonal specials. Treat yourself to your favorite drinks at a great price today!",
   alternates: {
     canonical: "https://www.coco-bubble-tea.ca/promotions", // Canonical URL
   },
