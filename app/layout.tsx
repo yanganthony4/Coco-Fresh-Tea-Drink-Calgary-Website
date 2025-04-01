@@ -21,6 +21,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
+      <head><meta name="google-site-verification" content="yRNnfIzp5iEdkqcT8gOthefeHVPKQESokD4a_VZsvm8" /></head>
       <body className="bg-white">
         {/* Google Tag Manager */}
         <Script
