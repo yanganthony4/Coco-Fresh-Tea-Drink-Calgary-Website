@@ -11,5 +11,6 @@
         "ubereats",
         "Yakult",
         "ynfe"
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }
