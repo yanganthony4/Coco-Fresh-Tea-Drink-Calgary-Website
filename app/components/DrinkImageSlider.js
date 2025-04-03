@@ -23,14 +23,18 @@ export default function DrinkImageSlider() {
         {drinks.map((drink, i) => (
           <div key={i} className="card">
             <div className="card-front">
-              <Image
-                src={drink.src}
-                alt={drink.name}
-                width={170}
-                height={220}
-                className="rounded-md object-contain"
-              />
-            </div>
+           <div className="content">
+             <Image
+              src={drink.src}
+              alt={drink.name}
+              width={170}
+              height={220}
+              className="rounded-md object-contain"
+             />
+             <p className="drink-name">{drink.name}</p>
+           </div>
+         </div>
+
             <div className="card-back">
               <Image
                 src="/images/cocoemoji.png"
@@ -121,6 +125,23 @@ const Wrapper = styled.div`
     width: 100px;
     height: auto;
   }
+
+  .card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+
+  .drink-name {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  line-height: 1.2;
+   }
+
 
   /* Reduce translateZ to reduce spacing between cards */
   .card:nth-child(1) { transform: translate(-50%, -50%) rotateY(0deg) translateZ(200px); }

@@ -113,3 +113,18 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
+.card-front .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.drink-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-top: 0.25rem;
+}
