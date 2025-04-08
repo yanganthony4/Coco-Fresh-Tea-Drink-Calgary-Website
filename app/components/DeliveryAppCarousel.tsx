@@ -37,7 +37,7 @@ const DeliveryAppCarouselMap = () => {
   }, [smallImages.length]);
 
   const handleImageError = (index: number) => {
-    const fallbackSrc = "/images/deliverydriver.webp";
+    const fallbackSrc = "/images/main-image.webp";
     if (index === -1) {
       setMainImage((prev) => ({ ...prev, src: fallbackSrc }));
     } else {
