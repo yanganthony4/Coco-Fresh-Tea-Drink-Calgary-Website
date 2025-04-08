@@ -24,14 +24,16 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
     <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden flex justify-center items-center bg-gray-100">
       {/* Image Container */}
       <div className="relative w-full max-w-screen-xl mx-auto h-full">
-        <Image
-          src={images[currentIndex]}
-          alt={`Banner ${currentIndex}`}
-          width={1920}
-          height={600}
-          style={{ objectFit: "cover" }}
-          className="w-full h-full"
-        />
+        {images.length > 0 && (
+          <Image
+            src={images[currentIndex]}
+            alt={`Banner ${currentIndex}`}
+            width={1920}
+            height={600}
+            style={{ objectFit: "cover" }}
+            className="w-full h-full"
+          />
+        )}
       </div>
 
       {/* Dots Navigation */}

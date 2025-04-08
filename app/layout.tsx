@@ -8,7 +8,11 @@ export const metadata = {
   description: "Enjoy the best bubble tea in Calgary at CoCo Fresh Tea & Juice! Our delicious drinks include bubble tea, fruit tea, and milk tea, made with fresh ingredients. Whether you're craving a refreshing treat or a sweet indulgence, visit us today and experience the ultimate bubble tea experience!",
   alternates: {
     canonical: "https://www.coco-bubble-tea.ca/", // Canonical URL for the homepage
-    icons: "/favicon.svg",
+
+  },
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.ico",
   },
 };
 
