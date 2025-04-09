@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useRef, useState } from "react";
 
 export default function TimelineSection() {
@@ -15,7 +15,6 @@ export default function TimelineSection() {
     { year: "2025", text: "5000+ stores opened worldwide", left: "95%", top: "50%" },
   ];
 
-  // Canvas wave animation setup
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -35,22 +34,29 @@ export default function TimelineSection() {
         ctx.lineWidth = 3;
 
         for (let x = 0; x < canvas.width; x++) {
-          const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2;
+          const y =
+            amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) +
+            canvas.height / 2;
           if (x === 0) {
             ctx.moveTo(x, y);
           } else {
             ctx.lineTo(x, y);
           }
         }
+
         ctx.stroke();
       };
 
-      drawSineWave(0, "rgba(255, 166, 89, 0.3)", 30, 50, 1);
-      drawSineWave(100, "rgba(173, 209, 158, 0.3)", 40, 60, 0.8);
-      drawSineWave(200, "rgba(255, 145, 87, 0.3)", 35, 40, 1.2);
+      // Draw 3 animated waves
+      drawSineWave(0, "rgba(255, 166, 89, 0.3)", 25, 50, 1);
+      drawSineWave(100, "rgba(173, 209, 158, 0.3)", 30, 60, 0.8);
+      drawSineWave(200, "rgba(255, 145, 87, 0.3)", 28, 40, 1.2);
+    };
 
+    const animate = () => {
+      drawWave();
       offset += 0.25;
-      animationFrameId = requestAnimationFrame(drawWave);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     const handleResize = () => {
@@ -61,7 +67,7 @@ export default function TimelineSection() {
 
     window.addEventListener("resize", handleResize);
     handleResize();
-    drawWave();
+    animate(); // Always animate on all devices
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -72,18 +78,20 @@ export default function TimelineSection() {
   return (
     <div className="w-full py-10 reveal-on-scroll opacity-100 transition-all duration-700" style={{ transform: "translateY(40px)" }}>
       <div className="max-w-7xl mx-auto px-6">
-        {/* Center-aligned title with animated underline */}
-        <div className="flex justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center animated-underline inline-block">
+        {/* Section heading */}
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 md:text-center text-left animated-underline inline-block">
             OUR GLOBAL JOURNEY
           </h2>
         </div>
 
-        <div className="relative bg-white/50 p-8 backdrop-blur-sm">
-          <canvas ref={canvasRef} className="w-full h-[280px]" />
+        <div className="relative bg-white/50 px-4 py-8 md:px-8 backdrop-blur-sm">
+          {/* Smaller canvas height on mobile */}
+          <canvas ref={canvasRef} className="w-full h-[80px] md:h-[280px]" />
 
-          <div className="absolute top-0 left-0 w-full h-full overflow-x-auto py-8">
-            <div className="relative h-full min-w-[768px]">
+          {/* Timeline container scaled down on mobile to fit screen */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden py-8">
+          <div className="relative h-full w-full scale-100 md:scale-100 grid grid-cols-7 gap-2">
               {timelineEvents.map((point) => (
                 <div
                   key={point.year}
@@ -96,12 +104,21 @@ export default function TimelineSection() {
                   onMouseLeave={() => setHoveredYear(null)}
                 >
                   <div className="relative flex flex-col items-center">
+                    {/* Timeline dot */}
                     <div
-                      className={`w-5 h-5 bg-[#FF6B35] rounded-full mx-auto mb-2 transition-transform duration-300 ${
-                        hoveredYear === point.year ? "scale-150" : ""
+                      className={`w-3 h-3 md:w-5 md:h-5 bg-[#FF6B35] rounded-full mx-auto mb-1 transition-transform duration-300 ${
+                        hoveredYear === point.year ? "scale-125" : ""
                       }`}
                     />
-                    <div className="text-[black] font-bold text-lg mb-1">{point.year}</div>
+
+
+                    {/* Year label with enhanced mobile readability */}
+                    <div className="text-[black] font-bold text-[9.5px] md:text-lg mb-1 scale-100">
+                      {point.year}
+                    </div>
+
+
+                    {/* Tooltip box */}
                     <div
                       className={`absolute z-10 transition-all duration-300 ${
                         hoveredYear === point.year ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
@@ -120,6 +137,7 @@ export default function TimelineSection() {
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </div>

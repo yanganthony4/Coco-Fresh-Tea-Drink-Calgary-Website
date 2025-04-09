@@ -32,7 +32,7 @@ export default function StorySection() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
       <h2
-        className="text-3xl md:text-5xl font-bold text-center mb-20 reveal-on-scroll opacity-100 transition-all duration-700 animated-underline"
+        className="text-3xl md:text-5xl font-bold md:text-center text-left mb-20 reveal-on-scroll opacity-100 transition-all duration-700 animated-underline"
         style={{ transform: "translateY(40px)" }}
       >
         OUR STORY!
