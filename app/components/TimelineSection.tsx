@@ -1,18 +1,19 @@
 "use client"
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect, useRef, useState } from "react"
 
 interface TimelineEvent {
-  year: string
-  text: string
-  left: string
-  top: string
+  readonly year: string
+  readonly text: string
+  readonly left: string
+  readonly top: "0" | "50%" // only allowed values
 }
 
 export default function TimelineSection(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const [hoveredYear, setHoveredYear] = useState<string | null>(null)
 
-  const timelineEvents: TimelineEvent[] = [
+  const timelineEvents: readonly TimelineEvent[] = [
     { year: "1997", text: "The first CoCo store opened in Taipei", left: "5%", top: "50%" },
     { year: "2005", text: "100th store opened", left: "20%", top: "0" },
     { year: "2007", text: "The first CoCo store opened in Suzhou, China", left: "35%", top: "50%" },
@@ -25,27 +26,27 @@ export default function TimelineSection(): JSX.Element {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
+  
     const ctx = canvas.getContext("2d")
     if (!ctx) return
-
+  
     let animationFrameId: number
     let offset = 0
-
-    const drawWave = () => {
+  
+    const drawWave = (): void => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
+  
       const drawSineWave = (
         baseOffset: number,
         color: string,
         amplitude: number,
         frequency: number,
         speed: number
-      ) => {
+      ): void => {
         ctx.beginPath()
         ctx.strokeStyle = color
         ctx.lineWidth = 3
-
+  
         for (let x = 0; x < canvas.width; x++) {
           const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2
           if (x === 0) {
@@ -54,27 +55,29 @@ export default function TimelineSection(): JSX.Element {
             ctx.lineTo(x, y)
           }
         }
+  
         ctx.stroke()
       }
-
+  
       drawSineWave(0, "rgba(255, 166, 89, 0.3)", 30, 50, 1)
       drawSineWave(100, "rgba(173, 209, 158, 0.3)", 40, 60, 0.8)
       drawSineWave(200, "rgba(255, 145, 87, 0.3)", 35, 40, 1.2)
-
+  
       offset += 0.25
       animationFrameId = requestAnimationFrame(drawWave)
     }
-
-    const handleResize = () => {
+  
+    const handleResize = (): void => {
+      if (!canvas) return
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
       drawWave()
     }
-
+  
     window.addEventListener("resize", handleResize)
     handleResize()
     drawWave()
-
+  
     return () => {
       window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(animationFrameId)
@@ -95,7 +98,7 @@ export default function TimelineSection(): JSX.Element {
 
           <div className="absolute top-0 left-0 w-full h-full overflow-x-auto py-8">
             <div className="relative h-full min-w-[768px]">
-              {timelineEvents.map((point) => (
+              {timelineEvents.map((point: TimelineEvent): JSX.Element => (
                 <div
                   key={point.year}
                   className="absolute transform -translate-x-1/2 transition-all duration-300"
@@ -103,8 +106,8 @@ export default function TimelineSection(): JSX.Element {
                     left: point.left,
                     top: point.top === "0" ? "20%" : "70%",
                   }}
-                  onMouseEnter={() => setHoveredYear(point.year)}
-                  onMouseLeave={() => setHoveredYear(null)}
+                  onMouseEnter={(): void => setHoveredYear(point.year)}
+                  onMouseLeave={(): void => setHoveredYear(null)}
                 >
                   <div className="relative flex flex-col items-center">
                     <div

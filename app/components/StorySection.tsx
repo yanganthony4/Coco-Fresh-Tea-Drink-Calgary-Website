@@ -1,16 +1,17 @@
 "use client"
-import Image from "next/image";
 
-interface StoryItem {
-  id: number
-  title: string
-  subtitle: string
-  text: string
-  imageUrl: string
-  reverse: boolean
+import Image from "next/image"
+
+interface Story {
+  readonly id: number
+  readonly title: string
+  readonly subtitle: string
+  readonly text: string
+  readonly imageUrl: string
+  readonly reverse: boolean
 }
 
-const storyContent: StoryItem[] = [
+const storyContent: readonly Story[] = [
   {
     id: 1,
     title: "A Global Bubble Tea Leader",
@@ -35,7 +36,7 @@ const storyContent: StoryItem[] = [
     imageUrl: "/images/image1.webp",
     reverse: false,
   },
-];
+]
 
 export default function StorySection(): JSX.Element {
   return (
@@ -73,5 +74,5 @@ export default function StorySection(): JSX.Element {
         ))}
       </div>
     </div>
-  );
+  )
 }

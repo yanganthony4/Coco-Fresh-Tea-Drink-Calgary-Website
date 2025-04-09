@@ -1,23 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import emailjs from "emailjs-com"
 
-export default function ContactForm() {
-  const [isPending, setIsPending] = useState(false)
+export default function ContactForm(): JSX.Element {
+  const [isPending, setIsPending] = useState<boolean>(false)
 
-  useEffect(() => {
+  useEffect((): void => {
     emailjs.init("3OhHXYVtaPA-m2hAk")
   }, [])
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     setIsPending(true)
 
+    const form: HTMLFormElement = event.target as HTMLFormElement
+
     try {
-      const form = event.target as HTMLFormElement
-    
       await emailjs.sendForm(
         "sumaiyakurshid@gmail.com",
         "template_n1x13ps",
@@ -26,10 +26,10 @@ export default function ContactForm() {
       )
       alert("Your message has been sent. We'll get back to you soon.")
       form.reset()
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error sending message", error)
       alert("Failed to send message. Please try again later.")
-    }    
+    }
 
     setIsPending(false)
   }

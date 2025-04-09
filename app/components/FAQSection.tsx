@@ -3,64 +3,29 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 
-interface FAQ {
-  question: string
-  answer: string
+interface FaqItemProps {
+  readonly faq: Faq
+  readonly index: number
 }
 
-interface FAQItemProps {
-  faq: FAQ
-  index: number
+interface Faq {
+  readonly question: string
+  readonly answer: string
 }
 
-function FAQItem({ faq, index }: FAQItemProps) {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="bg-gradient-to-r from-[#FFB74D] to-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12"
-      onClick={() => setOpen(!open)}
-    >
-      <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
-        <span className={`text-white text-lg transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
-          ▲
-        </span>
-      </div>
-
-      <motion.p
-        initial={{ height: 0, opacity: 0 }}
-        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-        transition={{ duration: 0.4 }}
-        className="text-white text-left mt-2 overflow-hidden"
-      >
-        {faq.answer}
-      </motion.p>
-    </motion.div>
-  )
-}
-
-export default function FAQSection() {
-  const faqs: FAQ[] = [
+export default function FAQSection(): JSX.Element {
+  const faqs: readonly Faq[] = [
     {
       question: "Where can I collect reward points with my purchase?",
-      answer:
-        "You can collect points by ordering in our app or in the store. Points are synced with your phone number.",
+      answer: "You can collect points by ordering in our app or in the store. Points are synced with your phone number.",
     },
     {
       question: "How to collect points in-store?",
-      answer:
-        "Tell our staff your phone number linked to your account. You'll earn 1 point per drink purchased.",
+      answer: "Tell our staff your phone number linked to your account. You'll earn 1 point per drink purchased.",
     },
     {
       question: "Need help with the Coco app?",
-      answer:
-        "Contact support@gosnappy.io for any issues with your account or points.",
+      answer: "Contact support@gosnappy.io for any issues with your account or points.",
     },
   ]
 
@@ -80,6 +45,37 @@ export default function FAQSection() {
           <FAQItem key={index} faq={faq} index={index} />
         ))}
       </div>
+    </motion.div>
+  )
+}
+
+function FAQItem({ faq, index }: FaqItemProps): JSX.Element {
+  const [open, setOpen] = useState<boolean>(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="bg-gradient-to-r from-[#FFB74D] to-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12"
+      onClick={(): void => setOpen(!open)}
+    >
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
+        <span className={`text-white text-lg transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
+          ▲
+        </span>
+      </div>
+
+      <motion.p
+        initial={{ height: 0, opacity: 0 }}
+        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-white text-left mt-2 overflow-hidden"
+      >
+        {faq.answer}
+      </motion.p>
     </motion.div>
   )
 }
