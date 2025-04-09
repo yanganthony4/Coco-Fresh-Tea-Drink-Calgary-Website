@@ -35,7 +35,7 @@ export default function Home() {
         <div className="w-full">
           <ImageSlider images={images} />
         </div>
-
+        <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
         {/* Section Divider */}
         <hr className="border-2 border-gray-500 w-full mx-auto mt-10 md:mt-20" />
 
