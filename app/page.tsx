@@ -1,5 +1,4 @@
 "use client"
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import DrinkImageSlider from "./components/DrinkImageSlider"
 import Boxes from "./components/HomeBoxes"
@@ -14,26 +13,20 @@ interface ImageApiResponse {
   docs: ImageDoc[]
 }
 
-export default function Home() {
-  const [images, setImages] = useState<string[]>([])
+const HomeImages: string[] = [
+  "/images/homebanner.webp",
+  "/images/strawberryPromo.webp",
+  "/images/mangodream.webp"
+];
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/home-media-images?limit=5")
-      .then((res) => res.json())
-      .then((data: ImageApiResponse) => {
-        const fetched = data.docs.map(
-          (img: ImageDoc) => `http://localhost:3000/api/home-media-images/file/${img.filename}`
-        )
-        setImages(fetched)
-      })
-  }, [])
+export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
         {/* Image Slider */}
         <div className="w-full">
-          <ImageSlider images={images} />
+          <ImageSlider images={HomeImages} />
         </div>
         <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
         {/* Section Divider */}
