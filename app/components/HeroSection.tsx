@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 
-export default function HeroSection() {
+export default function HeroSection(): JSX.Element {
   return (
     <div className="relative w-full h-auto flex justify-center items-center">
       <div className="w-full max-w-screen-xl h-full relative">

@@ -1,5 +1,13 @@
 "use client"
-const values = [
+import { ReactElement } from "react"
+
+interface ValueItem {
+  title: string
+  description: string
+  icon: ReactElement
+}
+
+const values: ValueItem[] = [
   {
     title: "Quality",
     description: "We source only the finest ingredients and maintain strict quality control to ensure every cup is perfect.",
@@ -45,13 +53,12 @@ const values = [
       </svg>
     ),
   },
-];
+]
 
-export default function ValuesSection() {
+export default function ValuesSection(): JSX.Element {
   return (
     <div className="w-full py-14 bg-white/30">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Center-aligned title with animated underline */}
         <div className="flex justify-center">
           <h2
             className="text-3xl md:text-4xl font-bold mb-8 text-center animated-underline inline-block reveal-on-scroll opacity-100 transition-all duration-700"
@@ -77,5 +84,5 @@ export default function ValuesSection() {
         </div>
       </div>
     </div>
-  );
+  )
 }

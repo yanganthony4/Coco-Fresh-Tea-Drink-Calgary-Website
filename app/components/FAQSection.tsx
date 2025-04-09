@@ -3,8 +3,17 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 
-// individual components for each FAQ item
-function FAQItem({ faq, index }) {
+interface FAQ {
+  question: string
+  answer: string
+}
+
+interface FAQItemProps {
+  faq: FAQ
+  index: number
+}
+
+function FAQItem({ faq, index }: FAQItemProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -17,7 +26,6 @@ function FAQItem({ faq, index }) {
       className="bg-gradient-to-r from-[#FFB74D] to-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12"
       onClick={() => setOpen(!open)}
     >
-      {/* Question */}
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
         <span className={`text-white text-lg transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
@@ -25,7 +33,6 @@ function FAQItem({ faq, index }) {
         </span>
       </div>
 
-      {/* Answer - Left-Aligned Text */}
       <motion.p
         initial={{ height: 0, opacity: 0 }}
         animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
@@ -39,7 +46,7 @@ function FAQItem({ faq, index }) {
 }
 
 export default function FAQSection() {
-  const faqs = [
+  const faqs: FAQ[] = [
     {
       question: "Where can I collect reward points with my purchase?",
       answer:

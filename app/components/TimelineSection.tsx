@@ -1,11 +1,18 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 
-export default function TimelineSection() {
-  const canvasRef = useRef(null);
-  const [hoveredYear, setHoveredYear] = useState(null);
+interface TimelineEvent {
+  year: string
+  text: string
+  left: string
+  top: string
+}
 
-  const timelineEvents = [
+export default function TimelineSection(): JSX.Element {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const [hoveredYear, setHoveredYear] = useState<string | null>(null)
+
+  const timelineEvents: TimelineEvent[] = [
     { year: "1997", text: "The first CoCo store opened in Taipei", left: "5%", top: "50%" },
     { year: "2005", text: "100th store opened", left: "20%", top: "0" },
     { year: "2007", text: "The first CoCo store opened in Suzhou, China", left: "35%", top: "50%" },
@@ -13,66 +20,70 @@ export default function TimelineSection() {
     { year: "2014", text: "The first CoCo store opened in Toronto, Canada", left: "65%", top: "50%" },
     { year: "2019", text: "3500+ stores opened worldwide", left: "80%", top: "0" },
     { year: "2025", text: "5000+ stores opened worldwide", left: "95%", top: "50%" },
-  ];
+  ]
 
-  // Canvas wave animation setup
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
-    let animationFrameId;
-    let offset = 0;
+    let animationFrameId: number
+    let offset = 0
 
     const drawWave = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      const drawSineWave = (baseOffset, color, amplitude, frequency, speed) => {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
+      const drawSineWave = (
+        baseOffset: number,
+        color: string,
+        amplitude: number,
+        frequency: number,
+        speed: number
+      ) => {
+        ctx.beginPath()
+        ctx.strokeStyle = color
+        ctx.lineWidth = 3
 
         for (let x = 0; x < canvas.width; x++) {
-          const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2;
+          const y = amplitude * Math.sin((x + baseOffset + offset * speed) / frequency) + canvas.height / 2
           if (x === 0) {
-            ctx.moveTo(x, y);
+            ctx.moveTo(x, y)
           } else {
-            ctx.lineTo(x, y);
+            ctx.lineTo(x, y)
           }
         }
-        ctx.stroke();
-      };
+        ctx.stroke()
+      }
 
-      drawSineWave(0, "rgba(255, 166, 89, 0.3)", 30, 50, 1);
-      drawSineWave(100, "rgba(173, 209, 158, 0.3)", 40, 60, 0.8);
-      drawSineWave(200, "rgba(255, 145, 87, 0.3)", 35, 40, 1.2);
+      drawSineWave(0, "rgba(255, 166, 89, 0.3)", 30, 50, 1)
+      drawSineWave(100, "rgba(173, 209, 158, 0.3)", 40, 60, 0.8)
+      drawSineWave(200, "rgba(255, 145, 87, 0.3)", 35, 40, 1.2)
 
-      offset += 0.25;
-      animationFrameId = requestAnimationFrame(drawWave);
-    };
+      offset += 0.25
+      animationFrameId = requestAnimationFrame(drawWave)
+    }
 
     const handleResize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      drawWave();
-    };
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+      drawWave()
+    }
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    drawWave();
+    window.addEventListener("resize", handleResize)
+    handleResize()
+    drawWave()
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+      window.removeEventListener("resize", handleResize)
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
 
   return (
     <div className="w-full py-10 reveal-on-scroll opacity-100 transition-all duration-700" style={{ transform: "translateY(40px)" }}>
       <div className="max-w-7xl mx-auto px-6">
-        {/* Center-aligned title with animated underline */}
         <div className="flex justify-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center animated-underline inline-block">
             OUR GLOBAL JOURNEY
@@ -123,5 +134,5 @@ export default function TimelineSection() {
         </div>
       </div>
     </div>
-  );
+  )
 }

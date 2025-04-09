@@ -1,7 +1,16 @@
 "use client"
 import Image from "next/image";
 
-const storyContent = [
+interface StoryItem {
+  id: number
+  title: string
+  subtitle: string
+  text: string
+  imageUrl: string
+  reverse: boolean
+}
+
+const storyContent: StoryItem[] = [
   {
     id: 1,
     title: "A Global Bubble Tea Leader",
@@ -28,7 +37,7 @@ const storyContent = [
   },
 ];
 
-export default function StorySection() {
+export default function StorySection(): JSX.Element {
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
       <h2
@@ -39,30 +48,29 @@ export default function StorySection() {
       </h2>
 
       <div className="space-y-32">
-      {storyContent.map(({ id, title, subtitle, text, imageUrl, reverse }) => (
-  <div
-    key={id}
-    className="relative grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal-on-scroll opacity-100 transition-all duration-700"
-    style={{ transform: "translateY(40px)" }}
-  >
-    <div className={`relative ${reverse ? "md:order-2" : "md:order-1"}`}>
-      <div className="absolute -inset-4 bg-[#FF6B35]/10 transform -rotate-2 -z-10" />
-      <Image
-        src={imageUrl}
-        alt={title}
-        width={600}
-        height={400}
-        className="w-full h-auto max-h-[500px] object-contain rounded-lg"
-      />
-    </div>
-    <div className={`${reverse ? "md:order-1" : "md:order-2"}`}>
-      <span className="text-[#FF6B35] font-medium mb-3 block">{subtitle}</span>
-      <h3 className="text-2xl md:text-3xl font-bold mb-6">{title}</h3>
-      <p className="text-lg leading-relaxed">{text}</p>
-    </div>
-  </div>
-))}
-
+        {storyContent.map(({ id, title, subtitle, text, imageUrl, reverse }) => (
+          <div
+            key={id}
+            className="relative grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal-on-scroll opacity-100 transition-all duration-700"
+            style={{ transform: "translateY(40px)" }}
+          >
+            <div className={`relative ${reverse ? "md:order-2" : "md:order-1"}`}>
+              <div className="absolute -inset-4 bg-[#FF6B35]/10 transform -rotate-2 -z-10" />
+              <Image
+                src={imageUrl}
+                alt={title}
+                width={600}
+                height={400}
+                className="w-full h-auto max-h-[500px] object-contain rounded-lg"
+              />
+            </div>
+            <div className={`${reverse ? "md:order-1" : "md:order-2"}`}>
+              <span className="text-[#FF6B35] font-medium mb-3 block">{subtitle}</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">{title}</h3>
+              <p className="text-lg leading-relaxed">{text}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

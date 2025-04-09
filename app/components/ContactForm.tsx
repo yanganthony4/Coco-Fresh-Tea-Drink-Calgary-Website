@@ -11,31 +11,31 @@ export default function ContactForm() {
     emailjs.init("3OhHXYVtaPA-m2hAk")
   }, [])
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsPending(true)
 
     try {
+      const form = event.target as HTMLFormElement
+    
       await emailjs.sendForm(
         "sumaiyakurshid@gmail.com",
         "template_n1x13ps",
-        event.target,
+        form,
         "3OhHXYVtaPA-m2hAk"
       )
       alert("Your message has been sent. We'll get back to you soon.")
-      event.target.reset()
+      form.reset()
     } catch (error) {
       console.error("Error sending message", error)
       alert("Failed to send message. Please try again later.")
-    }
+    }    
 
     setIsPending(false)
   }
 
   return (
     <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-      
-      {/* Left Side - Image (Hidden on Mobile) */}
       <motion.div
         className="hidden md:flex relative w-full h-[400px] bg-[#F7E6D5] items-center justify-center"
         animate={{ opacity: [0, 1], scale: [0.95, 1] }}
@@ -48,21 +48,16 @@ export default function ContactForm() {
         />
       </motion.div>
 
-      {/* Right Side - Contact Form (Full Width on Mobile) */}
       <motion.div
         className="w-full md:w-auto"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Responsive Contact Title */}
         <h1 className="text-2xl md:text-5xl font-bold relative md:-top-7 pt-4 text-[#040202]">
-  CONTACT US
-</h1>
+          CONTACT US
+        </h1>
 
-
-
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <input
