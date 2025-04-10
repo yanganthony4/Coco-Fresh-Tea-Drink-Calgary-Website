@@ -32,7 +32,7 @@ const ProductGrid = ({ products }: ProductGridProps) => {
             onClick={() => handleToggle(index)}
           >
             <LazyImage
-              src={`/menuAssets/${product.image}`}
+              src={`/images/drinks/${product.image}`}
               alt={product.name}
               className="w-full h-48 sm:h-64 lg:h-80 object-contain cursor-pointer rounded-lg"
             />

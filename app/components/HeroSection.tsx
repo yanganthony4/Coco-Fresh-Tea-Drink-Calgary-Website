@@ -1,11 +1,11 @@
 "use client"
-import Image from "next/image";
 
-export default function HeroSection() {
+import Image from "next/image"
+
+export default function HeroSection(): JSX.Element {
   return (
     <div className="relative w-full h-auto flex justify-center items-center">
       <div className="w-full max-w-screen-xl h-full relative">
-        {/* Banner image */}
         <div className="w-full h-full">
           <Image
             src="/images/image4.webp"
@@ -17,7 +17,6 @@ export default function HeroSection() {
           />
         </div>
 
-        {/* Text content */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6">
           <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 opacity-0 animate-fade-in text-center">
             About CoCo
@@ -26,5 +25,5 @@ export default function HeroSection() {
         </div>
       </div>
     </div>
-  );
+  )
 }
