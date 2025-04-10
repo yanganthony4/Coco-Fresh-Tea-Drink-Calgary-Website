@@ -2,14 +2,17 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Button } from "../components/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/select";
-import { Textarea } from "../components/textarea";
 import {
-  Check, BookmarkIcon, HelpCircle,
-  X, AlertCircle, Coffee,
-  Snowflake, Candy, CupSoda
-} from "lucide-react";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/select";
+import { Textarea } from "../components/textarea";
+import { Check, X, Coffee, Snowflake, Candy, CupSoda } from "lucide-react";
 import { cn } from "../lib/utils";
+import { motion } from "framer-motion"; // Import framer-motion for FAQ animations
 
 // Data arrays for drink options
 const baseOptions = [
@@ -182,16 +185,17 @@ const generateRandomPositions = (count, shape) => {
 };
 
 export default function BuildADrink() {
+  // State declarations
   const [selectedBase, setSelectedBase] = useState("");
-  const [selectedIce, setSelectedIce] = useState("Regular Ice");
-  const [selectedSugar, setSelectedSugar] = useState("100% Sugar");
+  const [selectedIce, setSelectedIce] = useState("");
+  const [selectedSugar, setSelectedSugar] = useState("");
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [showToppings, setShowToppings] = useState(false);
   const [addOns, setAddOns] = useState("");
   const [cupFill, setCupFill] = useState({
     base: "",
     baseColor: "transparent",
-    sugarLevel: "100% Sugar",
+    sugarLevel: "",
     toppings: [],
   });
   const [iceCubes, setIceCubes] = useState([]);
@@ -199,12 +203,9 @@ export default function BuildADrink() {
   const [animateToppings, setAnimateToppings] = useState(false);
   const [animateSugar, setAnimateSugar] = useState(false);
   const [savedDrinks, setSavedDrinks] = useState([]);
-  const [showSavedDrinks, setShowSavedDrinks] = useState(false);
 
-  // Additional state
+  // Additional state for size
   const [selectedSize, setSelectedSize] = useState("Regular");
-  const [showNutritionalInfo, setShowNutritionalInfo] = useState(false);
-  const [showSavedDrinksMenu, setShowSavedDrinksMenu] = useState(false);
 
   const prevIceRef = useRef(selectedIce);
   const prevToppingsRef = useRef(selectedToppings);
@@ -218,31 +219,23 @@ export default function BuildADrink() {
     }
   }, []);
 
-  // Close saved drinks menu if user clicks outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const menu = document.getElementById("saved-drinks-menu");
-      if (showSavedDrinksMenu && menu && !menu.contains(event.target)) {
-        const bookmarkIcon = document.getElementById("bookmark-icon");
-        if (!bookmarkIcon || !bookmarkIcon.contains(event.target)) {
-          setShowSavedDrinksMenu(false);
-        }
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showSavedDrinksMenu]);
-
   // Update cup fill when base changes
   useEffect(() => {
     if (selectedBase) {
-      const baseOption = baseOptions.find((option) => option.name === selectedBase);
+      const baseOption = baseOptions.find(
+        (option) => option.name === selectedBase
+      );
       setCupFill((prev) => ({
         ...prev,
         base: selectedBase,
         baseColor: baseOption?.color || "transparent",
+      }));
+    } else {
+      // If no base selected, revert to blank
+      setCupFill((prev) => ({
+        ...prev,
+        base: "",
+        baseColor: "transparent",
       }));
     }
   }, [selectedBase]);
@@ -253,7 +246,9 @@ export default function BuildADrink() {
       setAnimateIce(true);
       setIceCubes([]);
       setTimeout(() => {
-        setIceCubes(generateIceCubePositions(selectedIce));
+        if (selectedIce) {
+          setIceCubes(generateIceCubePositions(selectedIce));
+        }
         setTimeout(() => {
           setAnimateIce(false);
         }, 800);
@@ -269,7 +264,7 @@ export default function BuildADrink() {
       setTimeout(() => {
         setCupFill((prev) => ({
           ...prev,
-          sugarLevel: selectedSugar,
+          sugarLevel: selectedSugar || "",
         }));
         setAnimateSugar(false);
       }, 300);
@@ -323,27 +318,33 @@ export default function BuildADrink() {
   // Topping toggle
   const handleToppingToggle = (toppingName) => {
     setSelectedToppings((prev) =>
-      prev.includes(toppingName) ? prev.filter((t) => t !== toppingName) : [...prev, toppingName]
+      prev.includes(toppingName)
+        ? prev.filter((t) => t !== toppingName)
+        : [...prev, toppingName]
     );
   };
 
   // Get the base color
   const getBaseColor = () => {
-    const baseOption = baseOptions.find((option) => option.name === selectedBase);
+    const baseOption = baseOptions.find(
+      (option) => option.name === selectedBase
+    );
     return baseOption?.color || "#8B4513";
   };
 
   // Calculate nutrition
   const calculateNutrition = () => {
     if (!selectedBase) return { calories: 0, sugar: 0, fat: 0 };
-    const baseNutrition = nutritionalInfo.base[selectedBase] || { calories: 0, sugar: 0, fat: 0 };
+    const baseNutrition =
+      nutritionalInfo.base[selectedBase] || { calories: 0, sugar: 0, fat: 0 };
     const sugarMultiplier = nutritionalInfo.sugar[selectedSugar] || 0;
     let totalCalories = baseNutrition.calories;
     let totalSugar = baseNutrition.sugar * sugarMultiplier;
     let totalFat = baseNutrition.fat;
 
     selectedToppings.forEach((topping) => {
-      const toppingNutrition = nutritionalInfo.toppings[topping] || { calories: 0, sugar: 0, fat: 0 };
+      const toppingNutrition =
+        nutritionalInfo.toppings[topping] || { calories: 0, sugar: 0, fat: 0 };
       totalCalories += toppingNutrition.calories;
       totalSugar += toppingNutrition.sugar;
       totalFat += toppingNutrition.fat;
@@ -357,7 +358,7 @@ export default function BuildADrink() {
     };
   };
 
-  // Render Salty Cream as a top layer
+  // Render functions for toppings and ice cubes
   const renderSaltyCream = (topping, index, position) => {
     const { color, isAnimating } = topping;
     const animationStyle =
@@ -366,9 +367,7 @@ export default function BuildADrink() {
             animation: `fillTopLayer 1s ease-in-out forwards`,
             animationDelay: `${position.delay}s`,
           }
-        : {
-            height: "15%",
-          };
+        : { height: "15%" };
 
     return (
       <div
@@ -389,7 +388,6 @@ export default function BuildADrink() {
     );
   };
 
-  // Render a topping
   const renderTopping = (topping, index, position) => {
     const { shape, color, size, isAnimating, name } = topping;
     if (name === "Salty Cream") {
@@ -531,7 +529,6 @@ export default function BuildADrink() {
     }
   };
 
-  // Render an ice cube
   const renderIceCube = (cube, index) => {
     return (
       <div
@@ -548,42 +545,23 @@ export default function BuildADrink() {
           zIndex: 8,
           animation: animateIce ? `smoothFall 1s ease-in-out forwards` : "none",
           animationDelay: `${cube.delay}s`,
-          transform: animateIce ? "translateY(-50px) rotate(0deg)" : `rotate(${cube.rotate}deg)`,
+          transform: animateIce
+            ? "translateY(-50px) rotate(0deg)"
+            : `rotate(${cube.rotate}deg)`,
         }}
       />
     );
   };
 
-  // Render sugar sparkle
-  const renderSugarSparkle = (sparkle, index) => {
-    return (
-      <div
-        key={`sparkle-${index}`}
-        className="absolute rounded-full"
-        style={{
-          width: `${sparkle.size}px`,
-          height: `${sparkle.size}px`,
-          top: `${sparkle.top}%`,
-          left: `${sparkle.left}%`,
-          backgroundColor: "rgba(255,255,255,0.9)",
-          opacity: sparkle.opacity,
-          animation: animateSugar ? `smoothFallNoRotate 1s ease-in-out forwards` : "none",
-          animationDelay: `${sparkle.delay}s`,
-          transform: animateSugar ? "translateY(-30px)" : "none",
-        }}
-      />
-    );
-  };
-
-  // Save drink
+  // Save drink and reset dropdowns
   const handleSaveDrink = () => {
     if (!selectedBase) return;
     const newDrink = {
       id: Date.now(),
       base: selectedBase,
       baseColor: getBaseColor(),
-      ice: selectedIce,
-      sugar: selectedSugar,
+      ice: selectedIce || "Regular Ice",
+      sugar: selectedSugar || "100% Sugar",
       toppings: selectedToppings,
       addOns,
       size: selectedSize,
@@ -595,9 +573,22 @@ export default function BuildADrink() {
     }
     setSavedDrinks(updatedDrinks);
     localStorage.setItem("savedDrinks", JSON.stringify(updatedDrinks));
+
+    // Reset state after saving
+    setSelectedBase("");
+    setSelectedIce("");
+    setSelectedSugar("");
+    setSelectedToppings([]);
+    setAddOns("");
+    setSelectedSize("Regular");
+    setCupFill({
+      base: "",
+      baseColor: "transparent",
+      sugarLevel: "",
+      toppings: [],
+    });
   };
 
-  // Delete saved drink
   const handleDeleteSavedDrink = (id) => {
     const updatedDrinks = savedDrinks.filter((drink) => drink.id !== id);
     setSavedDrinks(updatedDrinks);
@@ -609,11 +600,11 @@ export default function BuildADrink() {
     return (
       <>
         {/* Base liquid */}
-        {selectedBase && (
+        {cupFill.base && (
           <div
             className="absolute bottom-0 left-0 right-0 transition-all duration-500 ease-in-out"
             style={{
-              height: `${getSugarHeight(selectedSugar)}%`,
+              height: `${getSugarHeight(cupFill.sugarLevel)}%`,
               backgroundColor: cupFill.baseColor,
               zIndex: 5,
             }}
@@ -621,16 +612,24 @@ export default function BuildADrink() {
         )}
 
         {/* Ice cubes */}
-        {selectedIce !== "No Ice" &&
+        {selectedIce && selectedIce !== "No Ice" &&
           iceCubes.map((cube, index) => renderIceCube(cube, index))}
 
         {/* Toppings */}
         {cupFill.toppings.length > 0 &&
           cupFill.toppings.map((topping) => {
             if (topping.name === "Salty Cream") {
-              return renderTopping(topping, 0, { top: 0, left: 0, rotate: 0, delay: 0 });
+              return renderTopping(topping, 0, {
+                top: 0,
+                left: 0,
+                rotate: 0,
+                delay: 0,
+              });
             }
-            const count = topping.shape === "wave" ? 4 : Math.floor(Math.random() * 5) + 3;
+            const count =
+              topping.shape === "wave"
+                ? 4
+                : Math.floor(Math.random() * 5) + 3;
             const positions = generateRandomPositions(count, topping.shape);
             return positions.map((position, posIndex) =>
               renderTopping(topping, posIndex, position)
@@ -638,10 +637,462 @@ export default function BuildADrink() {
           })}
       </>
     );
-  }, [selectedBase, selectedSugar, cupFill, selectedIce, iceCubes, animateIce, animateToppings]);
+  }, [
+    cupFill,
+    selectedIce,
+    iceCubes,
+    animateIce,
+    animateToppings
+  ]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
+      {/* Shared container for both Cart and Drink Builder */}
+      <div className="max-w-4xl w-full px-4 sm:px-8">
+        {/* Saved Drinks Cart */}
+        <div className="mb-8 border border-gray-200 bg-white rounded-lg shadow-sm p-4">
+          <h2 className="text-xl font-bold text-gray-700 mb-2">Your Saved Drinks</h2>
+          {savedDrinks.length === 0 ? (
+            <p className="text-center py-4 text-gray-500">
+              No Saved Drinks Yet. It&apos;s Time To Get Creative!
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {savedDrinks.map((drink) => (
+                <div
+                  key={drink.id}
+                  className="relative border rounded-lg p-4 bg-white shadow-sm flex flex-col"
+                >
+                  <button
+                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                    onClick={() => handleDeleteSavedDrink(drink.id)}
+                  >
+                    <X size={16} />
+                  </button>
+                  {/* Main flex container: left sprite + right details */}
+                  <div className="flex gap-4 flex-1">
+                    {/* Left side: universal drink sprite (fixed size and centered) */}
+                    <div className="w-10 flex-shrink-0 flex items-center justify-center">
+                      <div
+                        className="w-8 h-12 border border-gray-300 rounded-b-full rounded-t-sm"
+                        style={{ backgroundColor: drink.baseColor }}
+                      />
+                    </div>
+                    {/* Right side: the text details */}
+                    <div className="flex flex-col flex-1">
+                      <div className="text-sm font-medium text-gray-700 mb-1">
+                        {drink.base}
+                      </div>
+                      <div className="flex items-center flex-wrap gap-2 text-xs text-gray-700">
+                        <span>
+                          <strong>Ice:</strong> {drink.ice}
+                        </span>
+                        <span className="mx-1">|</span>
+                        <span>
+                          <strong>Sugar:</strong> {drink.sugar}
+                        </span>
+                        <span className="mx-1">|</span>
+                        <span>
+                          <strong>Size:</strong> {drink.size}
+                        </span>
+                      </div>
+                      {drink.toppings.length > 0 && (
+                        <p className="text-xs text-gray-600 mt-1">
+                          <strong>Toppings:</strong> {drink.toppings.join(", ")}
+                        </p>
+                      )}
+                      {drink.addOns && (
+                        <div className="mt-1 text-xs text-gray-700">
+                          <strong>Special Instructions:</strong>{" "}
+                          <em>{drink.addOns}</em>
+                        </div>
+                      )}
+                      <div className="mt-auto text-xs text-gray-600">
+                        {drink.date}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Drink Builder Box */}
+        <div className="border border-gray-200 bg-white rounded-lg shadow-sm p-6">
+          <h1 className="text-3xl font-bold text-[Black] mb-6 text-center w-full">
+            Build Your Perfect Bubble Tea
+          </h1>
+          <div className="flex-1 flex flex-col md:flex-row gap-8 items-start mt-4">
+            {/* Left Side: Cup Visualization */}
+            <div className="flex-1 flex flex-col items-center justify-start relative">
+              <div className="relative w-64 h-96 mt-6">
+                <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-56 h-72 border-4 border-gray-300 rounded-b-[100px] rounded-t-lg overflow-hidden">
+                  {renderedCupContent}
+                </div>
+                <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-6 flex justify-center z-10">
+                  <div className="w-2 h-16 bg-gradient-to-b from-pink-500 to-pink-600 rounded-full -translate-y-8"></div>
+                </div>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-56 h-10 overflow-visible">
+                  {/* Falling ICE */}
+                  {animateIce &&
+                    selectedIce &&
+                    selectedIce !== "No Ice" &&
+                    Array.from({ length: getIceCubeCount(selectedIce) }).map((_, index) => (
+                      <div
+                        key={`falling-ice-${index}`}
+                        className="absolute rounded-md border border-white/80"
+                        style={{
+                          width: `${Math.random() * 6 + 8}px`,
+                          height: `${Math.random() * 6 + 8}px`,
+                          left: `${Math.random() * 80 + 10}%`,
+                          top: `-${Math.random() * 5 + 5}px`,
+                          backgroundColor: "rgba(255, 255, 255, 0.4)",
+                          opacity: Math.random() * 0.3 + 0.4,
+                          boxShadow: "inset 0 0 2px rgba(255, 255, 255, 0.8)",
+                          animation: `smoothFallFromTop 1s ease-in-out forwards`,
+                          animationDelay: `${Math.random() * 0.5}s`,
+                        }}
+                      />
+                    ))}
+                  {/* Falling Toppings */}
+                  {animateToppings &&
+                    (() => {
+                      const prevSet = new Set(prevToppingsRef.current || []);
+                      const currentSet = new Set(selectedToppings);
+                      const addedToppings = selectedToppings.filter((t) => !prevSet.has(t));
+                      return addedToppings.flatMap((toppingName, idx) => {
+                        const topping =
+                          toppings.find((t) => t.name === toppingName) || {
+                            color: "#000000",
+                            shape: "circle",
+                            size: 4,
+                          };
+                        const dropCount = topping.name === "Salty Cream" ? 1 : 3;
+                        return Array.from({ length: dropCount }).map((_, index) => (
+                          <div
+                            key={`falling-topping-${idx}-${index}`}
+                            className={`absolute ${
+                              topping.shape === "circle"
+                                ? "rounded-full"
+                                : topping.shape === "square"
+                                ? ""
+                                : "rounded-sm"
+                            }`}
+                            style={{
+                              width: `${(topping.size + 2) * 1.4}px`,
+                              height: `${(topping.size + 2) * 1.4}px`,
+                              backgroundColor: topping.color,
+                              left: `${Math.random() * 80 + 10}%`,
+                              top: `-${Math.random() * 5 + 5}px`,
+                              animation: `smoothFallFromTop 1s ease-in-out forwards`,
+                              animationDelay: `${Math.random() * 0.5 + idx * 0.1}s`,
+                            }}
+                          />
+                        ));
+                      });
+                    })()}
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <h3
+                    className="font-semibold text-lg"
+                    style={{ color: selectedBase ? getBaseColor() : "#FF9800" }}
+                  >
+                    {selectedBase || "Select your drink"}
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-600">
+                  {/* Show Ice, Sugar, and Size */}
+                  {selectedIce || "Select Ice Level"} • {selectedSugar || "Select Sugar Level"} • {selectedSize}
+                </p>
+                {selectedBase && (
+                  <div className="mt-2 p-3 bg-white border border-amber-200 rounded-md text-left">
+                    <h4 className="font-medium text-sm mb-1 text-black">
+                      Nutritional Information
+                    </h4>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div>
+                        <p className="font-medium text-black">Calories</p>
+                        <p className="text-black">{calculateNutrition().calories}</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-black">Sugar (g)</p>
+                        <p className="text-black">{calculateNutrition().sugar}</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-black">Fat (g)</p>
+                        <p className="text-black">{calculateNutrition().fat}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-700 mt-2">
+                      Values are approximate and may vary.
+                    </p>
+                  </div>
+                )}
+                {selectedToppings.length > 0 && (
+                  <div className="mt-2 text-sm text-gray-600">
+                    <div
+                      className="flex items-center cursor-pointer"
+                      onClick={() => setShowToppings(!showToppings)}
+                    >
+                      <p className="font-medium">Toppings:</p>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`ml-1 transition-transform ${
+                          showToppings ? "rotate-180" : ""
+                        }`}
+                      >
+                        <path
+                          d="M4 6L8 10L12 6"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    {showToppings && (
+                      <ul className="list-disc list-inside mt-1 text-left">
+                        {selectedToppings.map((topping) => (
+                          <li key={topping}>{topping}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Right Side: Customization Options */}
+            <div className="flex-1 flex flex-col gap-6 items-start">
+              {/* Base Drink */}
+              <div className="relative w-full">
+                <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
+                  <Coffee size={18} className="text-amber-500" />
+                </div>
+                <Select value={selectedBase} onValueChange={setSelectedBase}>
+                  <SelectTrigger className="w-full border-amber-500 text-gray-900">
+                    <SelectValue>
+                      {selectedBase || "Select base drink"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {baseOptions.map((option) => (
+                      <SelectItem key={option.name} value={option.name}>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: option.color }}
+                          ></div>
+                          <span className="text-gray-900">{option.name}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Ice Level */}
+              <div className="relative w-full">
+                <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
+                  <Snowflake size={18} className="text-blue-300" />
+                </div>
+                <Select value={selectedIce} onValueChange={setSelectedIce}>
+                  <SelectTrigger className="w-full border-blue-300 text-gray-900">
+                    <SelectValue>
+                      {selectedIce || "Select Ice Level"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {iceLevels.map((level) => (
+                      <SelectItem key={level} value={level}>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-blue-300"
+                              style={{
+                                width:
+                                  level === "Extra Ice"
+                                    ? "100%"
+                                    : level === "Regular Ice"
+                                    ? "75%"
+                                    : level === "Less Ice"
+                                    ? "35%"
+                                    : "0%",
+                              }}
+                            ></div>
+                          </div>
+                          <span className="text-gray-900">{level}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Sugar Level */}
+              <div className="relative w-full">
+                <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
+                  <Candy size={18} className="text-amber-300" />
+                </div>
+                <Select value={selectedSugar} onValueChange={setSelectedSugar}>
+                  <SelectTrigger className="w-full border-amber-300 text-gray-900">
+                    <SelectValue>
+                      {selectedSugar || "Select Sugar Level"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sugarLevels.map((level) => (
+                      <SelectItem key={level} value={level}>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-amber-400"
+                              style={{ width: `${getSugarBarWidth(level)}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-gray-900">{level}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Toppings */}
+              <div className="relative w-full">
+                <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
+                  <CupSoda size={18} className="text-purple-400" />
+                </div>
+                <Select
+                  multiple
+                  value={selectedToppings}
+                  onValueChange={(values) =>
+                    setSelectedToppings(Array.isArray(values) ? values : [values])
+                  }
+                >
+                  <SelectTrigger className="w-full border-purple-400 text-gray-900">
+                    <SelectValue>
+                      {selectedToppings.length === 0
+                        ? "Select toppings"
+                        : `${selectedToppings.length} toppings selected`}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {toppings.map((topping) => (
+                      <div
+                        key={topping.name}
+                        className={cn(
+                          "flex items-center gap-2 p-2 rounded-md cursor-pointer transition-colors",
+                          selectedToppings.includes(topping.name)
+                            ? "bg-purple-100"
+                            : "hover:bg-gray-100"
+                        )}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleToppingToggle(topping.name);
+                        }}
+                      >
+                        <div className="flex-shrink-0 h-4 w-4 rounded-sm border flex items-center justify-center">
+                          {selectedToppings.includes(topping.name) && (
+                            <Check className="h-3 w-3 text-purple-600" />
+                          )}
+                        </div>
+                        <div
+                          className={cn(
+                            "w-3 h-3",
+                            topping.shape === "circle"
+                              ? "rounded-full"
+                              : topping.shape === "square"
+                              ? ""
+                              : topping.shape === "rectangle"
+                              ? "w-4 h-3"
+                              : "rounded-sm"
+                          )}
+                          style={{ backgroundColor: topping.color }}
+                        ></div>
+                        <span className="text-gray-900">{topping.name}</span>
+                      </div>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Size Selector */}
+              <div className="relative mt-4 w-full">
+                <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-8 h-0.5 bg-green-400"></div>
+                <label className="block text-sm font-medium text-gray-900 mb-2">Size</label>
+                <div className="flex items-center gap-4">
+                  <button
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+                      selectedSize === "Regular"
+                        ? "border-green-500 bg-green-50 text-green-700"
+                        : "border-gray-300 text-gray-500 hover:border-green-300"
+                    }`}
+                    onClick={() => setSelectedSize("Regular")}
+                    aria-label="Regular size (16oz)"
+                  >
+                    R
+                  </button>
+                  <div className="text-sm">
+                    <p className="font-medium">Regular</p>
+                    <p className="text-gray-500 text-xs">16 oz</p>
+                  </div>
+
+                  <button
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+                      selectedSize === "Large"
+                        ? "border-green-500 bg-green-50 text-green-700"
+                        : "border-gray-300 text-gray-500 hover:border-green-300"
+                    }`}
+                    onClick={() => setSelectedSize("Large")}
+                    aria-label="Large size (22oz)"
+                  >
+                    L
+                  </button>
+                  <div className="text-sm">
+                    <p className="font-medium">Large</p>
+                    <p className="text-gray-500 text-xs">22 oz</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Special Instructions */}
+              <div className="mt-2 w-full">
+                <label htmlFor="add-ons" className="block text-sm font-medium text-gray-900 mb-1">
+                  Special Instructions
+                </label>
+                <Textarea
+                  id="add-ons"
+                  placeholder="Any special requests? (e.g., less ice on top, extra sweet)"
+                  value={addOns}
+                  onChange={(e) => setAddOns(e.target.value)}
+                  className="min-h-[80px] text-gray-900 w-full"
+                />
+              </div>
+
+              <Button
+                className="mt-4 bg-amber-500 hover:bg-amber-600 text-white w-full py-3 text-lg"
+                disabled={!selectedBase}
+                onClick={handleSaveDrink}
+              >
+                Save Drink!
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ Section (Framer Motion) */}
+        <FAQSection />
+      </div>
+
       <style jsx global>{`
         @keyframes smoothFall {
           0% {
@@ -706,468 +1157,88 @@ export default function BuildADrink() {
           }
         }
       `}</style>
-
-      {/* Main content wrapper */}
-      <div className="max-w-4xl w-full mx-auto px-8 py-8 flex flex-col flex-1">
-        <h1 className="text-3xl font-bold text-amber-900 mb-6 text-center w-full">
-          Build Your Perfect Bubble Tea
-        </h1>
-
-        <div className="flex-1 flex flex-col md:flex-row gap-8 items-start mt-4">
-          {/* Left side: Cup Visualization */}
-          <div className="flex-1 flex flex-col items-center justify-start relative">
-            {/* Help and Saved Drinks Icons */}
-            <div className="absolute top-0 left-0 flex items-center gap-3 z-20">
-              <div className="relative group">
-                <div className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center cursor-help">
-                  <HelpCircle size={16} className="text-amber-800" />
-                </div>
-                <div className="absolute left-full ml-2 top-0 w-64 p-2 bg-white rounded-md border border-gray-200 invisible group-hover:visible z-50">
-                  <p className="text-sm text-gray-700">
-                    Build your perfect bubble tea by selecting a base drink, ice level, sugar level, and optional toppings. The visualization will update in real-time. Save up to 12 of your favorite combinations!
-                  </p>
-                </div>
-              </div>
-
-              <div
-                id="bookmark-icon"
-                className="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center cursor-pointer"
-                onClick={() => setShowSavedDrinksMenu(!showSavedDrinksMenu)}
-              >
-                <BookmarkIcon size={16} className="text-amber-800" />
-              </div>
-            </div>
-
-            {/* The Cup */}
-            <div className="relative w-64 h-96 mt-6">
-              <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-56 h-72 border-4 border-gray-300 rounded-b-[100px] rounded-t-lg overflow-hidden">
-                {renderedCupContent}
-              </div>
-
-              {/* Straw */}
-              <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-6 flex justify-center z-10">
-                <div className="w-2 h-16 bg-gradient-to-b from-pink-500 to-pink-600 rounded-full -translate-y-8"></div>
-              </div>
-
-              {/* Falling items above the cup (ice/toppings) */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-56 h-10 overflow-visible">
-                {animateIce &&
-                  selectedIce !== "No Ice" &&
-                  Array.from({ length: getIceCubeCount(selectedIce) }).map((_, index) => (
-                    <div
-                      key={`falling-ice-${index}`}
-                      className="absolute rounded-md border border-white/80"
-                      style={{
-                        width: `${Math.random() * 6 + 8}px`,
-                        height: `${Math.random() * 6 + 8}px`,
-                        left: `${Math.random() * 80 + 10}%`,
-                        top: `-${Math.random() * 5 + 5}px`,
-                        backgroundColor: "rgba(255, 255, 255, 0.4)",
-                        opacity: Math.random() * 0.3 + 0.4,
-                        boxShadow: "inset 0 0 2px rgba(255, 255, 255, 0.8)",
-                        animation: `smoothFallFromTop 1s ease-in-out forwards`,
-                        animationDelay: `${Math.random() * 0.5}s`,
-                      }}
-                    />
-                  ))}
-
-                {animateToppings &&
-                  (() => {
-                    const prevSet = new Set(prevToppingsRef.current || []);
-                    const currentSet = new Set(selectedToppings);
-                    const addedToppings = selectedToppings.filter((t) => !prevSet.has(t));
-
-                    return addedToppings.flatMap((toppingName, idx) => {
-                      const topping = toppings.find((t) => t.name === toppingName) || {
-                        color: "#000000",
-                        shape: "circle",
-                        size: 4,
-                      };
-                      const dropCount = topping.name === "Salty Cream" ? 1 : 3;
-                      return Array.from({ length: dropCount }).map((_, index) => (
-                        <div
-                          key={`falling-topping-${idx}-${index}`}
-                          className={`absolute ${
-                            topping.shape === "circle"
-                              ? "rounded-full"
-                              : topping.shape === "square"
-                              ? ""
-                              : "rounded-sm"
-                          }`}
-                          style={{
-                            width: `${(topping.size + 2) * 1.4}px`,
-                            height: `${(topping.size + 2) * 1.4}px`,
-                            backgroundColor: topping.color,
-                            left: `${Math.random() * 80 + 10}%`,
-                            top: `-${Math.random() * 5 + 5}px`,
-                            animation: `smoothFallFromTop 1s ease-in-out forwards`,
-                            animationDelay: `${Math.random() * 0.5 + idx * 0.1}s`,
-                          }}
-                        />
-                      ));
-                    });
-                  })()}
-              </div>
-            </div>
-
-            {/* Drink info */}
-            <div className="mt-4 text-center">
-              <div className="flex items-center justify-center gap-2">
-                <h3
-                  className="font-semibold text-lg"
-                  style={{ color: selectedBase ? getBaseColor() : "#8B4513" }}
-                >
-                  {selectedBase || "Select your drink"}
-                </h3>
-                {selectedBase && (
-                  <button
-                    onClick={() => setShowNutritionalInfo(!showNutritionalInfo)}
-                    className="text-amber-600 hover:text-amber-800 transition-colors"
-                    aria-label="Show nutritional information"
-                  >
-                    <AlertCircle size={18} />
-                  </button>
-                )}
-              </div>
-              <p className="text-sm text-gray-600">
-                {selectedIce} • {selectedSugar} • {selectedSize}
-              </p>
-
-              {showNutritionalInfo && selectedBase && (
-                <div className="mt-2 p-3 bg-white border border-amber-200 rounded-md text-left">
-                  <h4 className="font-medium text-sm mb-1 text-black">Nutritional Information</h4>
-                  <div className="grid grid-cols-3 gap-2 text-xs">
-                    <div>
-                      <p className="font-medium text-black">Calories</p>
-                      <p className="text-black">{calculateNutrition().calories}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium text-black">Sugar (g)</p>
-                      <p className="text-black">{calculateNutrition().sugar}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium text-black">Fat (g)</p>
-                      <p className="text-black">{calculateNutrition().fat}</p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-700 mt-2">
-                    Values are approximate and may vary.
-                  </p>
-                </div>
-              )}
-
-              {selectedToppings.length > 0 && (
-                <div className="mt-2 text-sm text-gray-600">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => setShowToppings(!showToppings)}
-                  >
-                    <p className="font-medium">Toppings:</p>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={`ml-1 transition-transform ${showToppings ? "rotate-180" : ""}`}
-                    >
-                      <path
-                        d="M4 6L8 10L12 6"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                  {showToppings && (
-                    <ul className="list-disc list-inside mt-1 text-left">
-                      {selectedToppings.map((topping) => (
-                        <li key={topping}>{topping}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Right side: Customization Options */}
-          <div className="flex-1 flex flex-col gap-6 items-start">
-            <div className="relative w-full">
-              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
-                <Coffee size={18} className="text-amber-500" />
-              </div>
-              <Select value={selectedBase} onValueChange={setSelectedBase}>
-                <SelectTrigger className="w-full border-amber-500 text-gray-900">
-                  <SelectValue>{selectedBase || "Select base drink"}</SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {baseOptions.map((option) => (
-                    <SelectItem key={option.name} value={option.name}>
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: option.color }}
-                        ></div>
-                        <span className="text-gray-900">{option.name}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="relative w-full">
-              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
-                <Snowflake size={18} className="text-blue-300" />
-              </div>
-              <Select value={selectedIce} onValueChange={setSelectedIce}>
-                <SelectTrigger className="w-full border-blue-300 text-gray-900">
-                  <SelectValue>{selectedIce || "Select ice level"}</SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {iceLevels.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      <div className="flex items-center gap-2">
-                        <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-blue-300"
-                            style={{
-                              width:
-                                level === "Extra Ice"
-                                  ? "100%"
-                                  : level === "Regular Ice"
-                                  ? "75%"
-                                  : level === "Less Ice"
-                                  ? "35%"
-                                  : "0%",
-                            }}
-                          ></div>
-                        </div>
-                        <span className="text-gray-900">{level}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="relative w-full">
-              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
-                <Candy size={18} className="text-amber-300" />
-              </div>
-              <Select value={selectedSugar} onValueChange={setSelectedSugar}>
-                <SelectTrigger className="w-full border-amber-300 text-gray-900">
-                  <SelectValue>{selectedSugar || "Select sugar level"}</SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {sugarLevels.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      <div className="flex items-center gap-2">
-                        <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-amber-400"
-                            style={{ width: `${getSugarBarWidth(level)}%` }}
-                          ></div>
-                        </div>
-                        <span className="text-gray-900">{level}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="relative w-full">
-              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
-                <CupSoda size={18} className="text-purple-400" />
-              </div>
-              <Select
-                multiple
-                value={selectedToppings}
-                onValueChange={(values) =>
-                  setSelectedToppings(Array.isArray(values) ? values : [values])
-                }
-              >
-                <SelectTrigger className="w-full border-purple-400 text-gray-900">
-                  <SelectValue>
-                    {selectedToppings.length === 0
-                      ? "Select toppings"
-                      : `${selectedToppings.length} toppings selected`}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {toppings.map((topping) => (
-                    <div
-                      key={topping.name}
-                      className={cn(
-                        "flex items-center gap-2 p-2 rounded-md cursor-pointer transition-colors",
-                        selectedToppings.includes(topping.name)
-                          ? "bg-purple-100"
-                          : "hover:bg-gray-100"
-                      )}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleToppingToggle(topping.name);
-                      }}
-                    >
-                      <div className="flex-shrink-0 h-4 w-4 rounded-sm border flex items-center justify-center">
-                        {selectedToppings.includes(topping.name) && (
-                          <Check className="h-3 w-3 text-purple-600" />
-                        )}
-                      </div>
-                      <div
-                        className={cn(
-                          "w-3 h-3",
-                          topping.shape === "circle"
-                            ? "rounded-full"
-                            : topping.shape === "square"
-                            ? ""
-                            : topping.shape === "rectangle"
-                            ? "w-4 h-3"
-                            : "rounded-sm"
-                        )}
-                        style={{ backgroundColor: topping.color }}
-                      ></div>
-                      <span className="text-gray-900">{topping.name}</span>
-                    </div>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="relative mt-4 w-full">
-              <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-8 h-0.5 bg-green-400"></div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">Size</label>
-              <div className="flex items-center gap-4">
-                <button
-                  className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-                    selectedSize === "Regular"
-                      ? "border-green-500 bg-green-50 text-green-700"
-                      : "border-gray-300 text-gray-500 hover:border-green-300"
-                  }`}
-                  onClick={() => setSelectedSize("Regular")}
-                  aria-label="Regular size (16oz)"
-                >
-                  R
-                </button>
-                <div className="text-sm">
-                  <p className="font-medium">Regular</p>
-                  <p className="text-gray-500 text-xs">16 oz</p>
-                </div>
-
-                <button
-                  className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-                    selectedSize === "Large"
-                      ? "border-green-500 bg-green-50 text-green-700"
-                      : "border-gray-300 text-gray-500 hover:border-green-300"
-                  }`}
-                  onClick={() => setSelectedSize("Large")}
-                  aria-label="Large size (22oz)"
-                >
-                  L
-                </button>
-                <div className="text-sm">
-                  <p className="font-medium">Large</p>
-                  <p className="text-gray-500 text-xs">22 oz</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-2 w-full">
-              <label htmlFor="add-ons" className="block text-sm font-medium text-gray-900 mb-1">
-                Special Instructions
-              </label>
-              <Textarea
-                id="add-ons"
-                placeholder="Any special requests? (e.g., less ice on top, extra sweet)"
-                value={addOns}
-                onChange={(e) => setAddOns(e.target.value)}
-                className="min-h-[80px] text-gray-900 w-full"
-              />
-            </div>
-
-            <Button
-              className="mt-4 bg-amber-500 hover:bg-amber-600 text-white w-full py-3 text-lg"
-              disabled={!selectedBase}
-              onClick={handleSaveDrink}
-            >
-              Save Drink!
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        id="saved-drinks-menu"
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
-          showSavedDrinksMenu ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="p-4 border-b">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-700">Your Saved Drinks</h2>
-            <button
-              className="text-gray-500 hover:text-gray-700"
-              onClick={() => setShowSavedDrinksMenu(false)}
-            >
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-        <div className="overflow-y-auto h-[calc(100%-60px)] p-4">
-          {savedDrinks.length === 0 ? (
-            <p className="text-center py-6 text-gray-500">
-              No Saved Drinks Yet. It's Time To Get Creative!
-            </p>
-          ) : (
-            <div className="space-y-4">
-              {savedDrinks.map((drink) => (
-                <div
-                  key={drink.id}
-                  className="relative border rounded-lg p-3 bg-white shadow-sm"
-                >
-                  <button
-                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-                    onClick={() => handleDeleteSavedDrink(drink.id)}
-                  >
-                    <X size={16} />
-                  </button>
-                  <div className="flex items-start gap-3">
-                    <div
-                      className="w-10 h-14 rounded-b-full rounded-t-sm border border-gray-300 flex-shrink-0 overflow-hidden"
-                      style={{ backgroundColor: drink.baseColor }}
-                    />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-700 text-sm">{drink.base}</h4>
-                      <p className="text-xs text-gray-700">
-                        {drink.ice} • {drink.sugar} • {drink.size || "Regular"}
-                      </p>
-                      {drink.toppings.length > 0 && (
-                        <p className="text-xs text-gray-600 mt-1">
-                          <span className="font-medium">Toppings:</span>{" "}
-                          {drink.toppings.join(", ")}
-                        </p>
-                      )}
-                      {drink.addOns && (
-                        <div className="mt-1">
-                          <p className="text-xs font-medium text-gray-700">
-                            Special Instructions:
-                          </p>
-                          <p className="text-xs text-gray-700 italic">"{drink.addOns}"</p>
-                        </div>
-                      )}
-                      <p className="text-xs text-gray-600 mt-1">{drink.date}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
     </div>
+  );
+}
+
+// Your existing FAQ components below...
+function FAQItem({ faq, index }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="bg-amber-500 p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12"
+      onClick={() => setOpen(!open)}
+    >
+      {/* Question */}
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
+        <span
+          className={`text-white text-lg transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        >
+          ▲
+        </span>
+      </div>
+
+      {/* Answer */}
+      <motion.p
+        initial={{ height: 0, opacity: 0 }}
+        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-white text-left mt-2 overflow-hidden"
+      >
+        {faq.answer}
+      </motion.p>
+    </motion.div>
+  );
+}
+
+function FAQSection() {
+  const faqs = [
+    {
+      question: "How Do I Use This?",
+      answer:
+        "Start building your perfect bubble tea by selecting a base drink, ice level, sugar level, and optional toppings. The visualization will update in real-time. Save up to 12 of your favourite combinations!.",
+    },
+    {
+      question: "Are The Nutritional Values Accurate?",
+      answer:
+        "We have done our research as the CoCo Team to ensure high accuracy for our consumers.",
+    },
+    {
+      question: "Need help with the Coco app?",
+      answer:
+        "Contact support@gosnappy.io for any issues with your account or points.",
+    },
+    {
+      question: "Have Any Other Questions?",
+      answer:
+        "For more specific questions please navigate to our Contact Us page for more help!",
+    },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className="mt-24 max-w-3xl mx-auto text-center relative z-10 pb-32"
+    >
+      <h2 className="text-4xl font-bold text-center mb-12 text-[#FF9800] uppercase tracking-wide">
+        Frequently Asked Questions
+      </h2>
+      <div className="space-y-6">
+        {faqs.map((faq, index) => (
+          <FAQItem key={index} faq={faq} index={index} />
+        ))}
+      </div>
+    </motion.div>
   );
 }
