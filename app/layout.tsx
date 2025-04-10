@@ -2,6 +2,8 @@ import "./globals.css";
 import Toolbar from "./components/Toolbar";
 import Script from "next/script";
 import type { ReactNode } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "CoCo Fresh Tea & Juice | Calgary's Best Bubble Tea, Milk Tea & Fresh Drinks",
@@ -64,17 +66,76 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Toolbar />
           <main className="flex-grow">{children}</main>
 
-          {/* Footer */}
-          <footer className="bg-orange-300 py-6 text-center">
-            <div className="flex justify-center space-x-6 mb-4">
-              <a href="/privacy" className="text-white hover:underline">
-                Privacy Policy
-              </a>
-              <a href="/accessibility" className="text-white hover:underline">
-                Accessibility
-              </a>
-            </div>
-          </footer>
+          <footer
+  className="bg-orange-300 py-6 text-white w-full"
+
+>
+  <div className="container mx-auto px-4 flex flex-col items-center space-y-4">
+    
+    {/* Row 1: Social Media Placeholders + Handle/Search Box */}
+    <div className="flex items-center space-x-4 justify-center">
+      {/* Instagram Icon */}
+      <div className="flex-shrink-0">
+        <Image
+          src="/images/instalogow.png"
+          alt="Instagram"
+          width={24}
+          height={24}
+          className="hover:opacity-80"
+        />
+      </div>
+
+      {/* TikTok Icon */}
+      <div className="flex-shrink-0">
+        <Image
+          src="/images/tiktok.png"
+          alt="TikTok"
+          width={28}
+          height={28}
+          className="hover:opacity-80"
+        />
+      </div>
+
+      {/* Handle & Search Box */}
+<div
+  className="flex items-center border-2 border-white rounded-md overflow-hidden"
+>
+  <span className="px-3 py-1 text-orange-700">@cocobubbleteacalgary</span>
+  <Link
+    href="https://www.facebook.com/cococalgary/"
+    className="bg-white p-1.5"
+    aria-label="Search"
+  >
+    <Image
+      src="/images/searchlogo.png"
+      alt="Search"
+      width={20}
+      height={20}
+      className="text-orange-400"
+      style={{ color: "#f15a24" }}
+    />
+  </Link>
+</div>
+
+    </div>
+
+    {/* Row 2: Privacy Policy & Accessibility Links BELOW the handle */}
+    <div className="flex space-x-6 items-center justify-center">
+      <Link href="/privacy" className="text-white hover:underline">
+        Privacy Policy
+      </Link>
+      <Link href="/accessibility" className="text-white hover:underline">
+        Accessibility
+      </Link>
+    </div>
+
+    {/* Row 3: Copyright */}
+    <div className="text-sm text-white">
+      ©2025 Coco Bubble Tea Calgary
+    </div>
+  </div>
+</footer>
+
         </div>
       </body>
    </html>

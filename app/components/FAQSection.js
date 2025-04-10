@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 
-// individual components for each FAQ item
 function FAQItem({ faq, index }) {
   const [open, setOpen] = useState(false)
 
@@ -14,23 +13,25 @@ function FAQItem({ faq, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="bg-gradient-to-r from-[#FFB74D] to-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12"
+      className="bg-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12 text-left"
       onClick={() => setOpen(!open)}
     >
-      {/* Question */}
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
-        <span className={`text-white text-lg transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
+        <span
+          className={`text-white text-lg transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        >
           ▲
         </span>
       </div>
 
-      {/* Answer - Left-Aligned Text */}
       <motion.p
         initial={{ height: 0, opacity: 0 }}
         animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         transition={{ duration: 0.4 }}
-        className="text-white text-left mt-2 overflow-hidden"
+        className="text-white mt-2 overflow-hidden"
       >
         {faq.answer}
       </motion.p>
@@ -62,9 +63,9 @@ export default function FAQSection() {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="mt-24 max-w-3xl mx-auto text-center relative z-10 pb-32"
+      className="mt-24 max-w-5xl w-full px-4 md:px-0 md:ml-0 md:pl-0 text-left relative z-10 pb-32"
     >
-      <h2 className="text-4xl font-bold text-center mb-12 text-[#FF9800] uppercase tracking-wide">
+      <h2 className="text-4xl font-bold text-left mb-12 text-black uppercase tracking-wide">
         Frequently Asked Questions
       </h2>
 

@@ -21,8 +21,8 @@ const AccessibilityPage: React.FC = () => {
       { className: "max-w-4xl mx-auto px-4 py-12" },
       React.createElement(
         "h1",
-        { className: "text-4xl font-bold text-[#FF5C28] mb-8" },
-        "Accessibility"
+        { className: "text-4xl font-bold text-black mb-8" },
+        "ACCESSIBILITY"
       ),
       React.createElement("div", { className: "space-y-8" },
         renderSection(
