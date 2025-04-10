@@ -15,8 +15,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "types": ["google.maps"],
+    "jsx": "preserve", // Changed from "preserve" to "react-jsx"
+    "types": [
+      "google.maps",
+      "react",
+      "react-dom"
+    ],
     "plugins": [
       {
         "name": "next"

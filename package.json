@@ -37,7 +37,8 @@
   "devDependencies": {
     "@types/google.maps": "^3.58.1",
     "@types/node": "22.13.1",
-    "@types/react": "19.0.8",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.1.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "postcss": "^8",
