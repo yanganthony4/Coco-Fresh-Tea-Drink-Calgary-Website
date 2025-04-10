@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 type Promotion = {
   id: number;
   title: string;
@@ -11,27 +9,34 @@ type Promotion = {
   price: string;
 };
 
-export default function PromotionsList() {
-  const [promotions, setPromotions] = useState<Promotion[]>([]);
+const promotions: Promotion[] = [
+  {
+    id: 1,
+    title: "Creme Brulee Special",
+    description: "Try our new Creme Brulee drinks made with the highest quality!",
+    timeFrame: "April 1 - April 30, 2025",
+    images: ["/images/cremebruleeposter.webp"],
+    price: "4.99"
+  },
+  {
+    id: 2,
+    title: "Strawberry Special",
+    description: "Try our new Strawberry drinks made with the highest quality!",
+    timeFrame: "April 1 - April 30, 2025",
+    images: ["/images/strawberryPromo.webp"],
+    price: "4.99"
+  },
+  {
+    id: 3,
+    title: "Mango Dream",
+    description: "Try our new Mango drinks made with the highest quality!",
+    timeFrame: "April 1 - April 30, 2025",
+    images: ["/images/mangodream.webp"],
+    price: "4.99"
+  },
+]
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/promotions?limit=10")
-      .then((res) => res.json())
-      .then((data) => {
-        const formatted: Promotion[] = data.docs.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          description: item.description,
-          timeFrame: item.timeFrame,
-          images: item.images?.map(
-            (img: any) =>
-              `http://localhost:3000/api/promotion-media/file/${img.filename}`
-          ),
-          price: item.price,
-        }));
-        setPromotions(formatted);
-      });
-  }, []);
+export default function PromotionsList() {
 
   return (
     <div className="w-full lg:w-3/5">
@@ -56,14 +61,14 @@ export default function PromotionsList() {
 
             {/* Text */}
             <div className="text-center md:text-left p-4 md:w-3/5">
-              <h2 className="text-2xl md:text-3xl font-bold text-[#7c3d14] mb-2">
+              <h2 className="text-2xl md:text-3xl font-bold text-black mb-2 uppercase">
                 {title} <span className="text-[#f04e23]">NEW!</span>
               </h2>
               <p className="text-lg text-gray-700 font-medium mb-2">
-                Refresh with choices from <span className="font-bold">{price}</span>.
+                <span className="font-bold">{price}</span>
               </p>
               <p className="text-gray-600">{description}</p>
-              <p className="text-sm text-gray-500 mt-4">{timeFrame}</p>
+              <p className="text-sm text-gray-500 mt-4 uppercase">{timeFrame}</p>
             </div>
           </section>
         )

@@ -16,7 +16,8 @@ interface ImageApiResponse {
 const HomeImages: string[] = [
   "/images/homebanner.webp",
   "/images/strawberryPromo.webp",
-  "/images/mangodream.webp"
+  "/images/mangodream.webp",
+  "/images/cremebruleeposter.webp"
 ];
 
 export default function Home() {
