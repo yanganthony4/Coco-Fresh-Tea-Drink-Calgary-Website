@@ -48,7 +48,7 @@ const MenuPage = () => {
           selectedCategory={selectedCategory}
         />
         <div className="flex-1 lg:pl-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 capitalize">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 uppercase">
             {selectedCategory}
           </h1>
           <ProductGrid products={filteredDrinks} />

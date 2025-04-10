@@ -13,7 +13,7 @@ const CategoryList = ({ categories, onSelectCategory, selectedCategory }: Catego
             <li
               key={index}
               onClick={() => onSelectCategory(category)}
-              className={`cursor-pointer text-sm sm:text-base lg:text-xl font-semibold whitespace-nowrap px-4 py-2 rounded-lg transition-all
+              className={`uppercase cursor-pointer text-sm sm:text-base lg:text-xl font-semibold whitespace-nowrap px-4 py-2 rounded-lg transition-all
                 ${
                   selectedCategory === category
                     ? "text-orange-600 font-bold bg-orange-100"
