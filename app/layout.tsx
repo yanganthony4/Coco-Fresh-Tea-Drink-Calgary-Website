@@ -1,25 +1,20 @@
-import "./globals.css";
-import Toolbar from "./components/Toolbar";
-import Script from "next/script";
-import type { ReactNode } from "react";
+import "./globals.css"
+import Toolbar from "./components/Toolbar"
+import Script from "next/script"
+import type { ReactNode } from "react"
 
 export const metadata = {
   title: "CoCo Fresh Tea & Juice | Calgary's Best Bubble Tea, Milk Tea & Fresh Drinks",
-  description: "Enjoy the best bubble tea in Calgary at CoCo Fresh Tea & Juice! Our delicious drinks include bubble tea, fruit tea, and milk tea, made with fresh ingredients. Whether you're craving a refreshing treat or a sweet indulgence, visit us today and experience the ultimate bubble tea experience!",
+  description:
+    "Enjoy the best bubble tea in Calgary at CoCo Fresh Tea & Juice! Our delicious drinks include bubble tea, fruit tea, and milk tea, made with fresh ingredients. Whether you're craving a refreshing treat or a sweet indulgence, visit us today and experience the ultimate bubble tea experience!",
   alternates: {
-    canonical: "https://www.coco-bubble-tea.ca/", // Canonical URL for the homepage
-
+    canonical: "https://www.coco-bubble-tea.ca/",
+    icons: "/favicon.svg",
   },
-  icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.ico",
-  },
-};
-
-
+}
 
 interface RootLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -28,10 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head><meta name="google-site-verification" content="yRNnfIzp5iEdkqcT8gOthefeHVPKQESokD4a_VZsvm8" /></head>
       <body className="bg-white">
         {/* Google Tag Manager */}
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-3S12T44MMW"
-        />
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-3S12T44MMW" />
         <Script
           id="google-analytics"
           strategy="afterInteractive"
@@ -45,16 +37,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
           }}
         />
 
-        {/* Microsoft Clarity Tracking Code */}
+        {/* Microsoft Clarity */}
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               })(window, document, "clarity", "script", "q3ynfe4cyj");
             `,
           }}
@@ -77,6 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </footer>
         </div>
       </body>
-   </html>
-  );
+    </html>
+  )
 }
+

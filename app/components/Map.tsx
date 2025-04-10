@@ -244,7 +244,11 @@ const Map = () => {
             lng: position.coords.longitude,
           });
         },
-        (error) => console.error("Error fetching location:", error)
+        (error) => {
+          if (process.env.NODE_ENV !== "production") {
+            console.error("Error fetching location:", error)
+          }
+        }        
       );
     }
   }, []);
@@ -461,7 +465,7 @@ const Map = () => {
         {/* Right Panel: Map */}
         <div className="w-full h-full">
           <LoadScript
-            googleMapsApiKey="AIzaSyCDCozLjgMz3Vs2Yzrlj8oupzRarBXZbbE"
+            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
             libraries={libraries}
             onLoad={() => setGoogleLoaded(true)}
           >
@@ -485,5 +489,4 @@ const Map = () => {
  );
 };
 
-export default Map;
-
+export default Map;
