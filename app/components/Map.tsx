@@ -407,7 +407,7 @@ const Map = () => {
                       <li
                         key={location.id}
                         onClick={() => handleSidebarClick(location)}
-                        className={`text-zinc-800 text-xs md:text-sm cursor-pointer p-2 md:p-4 md:pl-10 rounded border-t-2 ${
+                        className={`uppercase text-zinc-800 text-xs md:text-sm cursor-pointer p-2 md:p-4 md:pl-10 rounded border-t-2 ${
                           selectedLocation?.id === location.id ? "bg-gray-200" : "bg-white"
                         } hover:bg-gray-100`}
                       >

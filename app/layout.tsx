@@ -23,7 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head><meta name="google-site-verification" content="yRNnfIzp5iEdkqcT8gOthefeHVPKQESokD4a_VZsvm8" /></head>
-      <body className="bg-white">
+      <body className="bg-white h-full">
         {/* Google Tag Manager */}
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-3S12T44MMW" />
         <Script
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           }}
         />
 
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col">
           <Toolbar />
           <main className="flex-grow">{children}</main>
 

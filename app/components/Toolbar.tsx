@@ -66,10 +66,15 @@ const Toolbar = () => {
             />
           </button>
 
-          {/* Dropdown Menu */}
+          {/* Full-Page Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-[300px] md:w-[500px] z-50">
-              <nav className="flex flex-col space-y-3">
+            <div className="fixed top-0 right-0 h-screen w-full md:w-[400px] bg-white shadow-lg z-40 flex flex-col p-6 overflow-y-auto">
+              <div className="flex justify-end mb-6">
+                <button onClick={toggleDropdown} className="text-orange-500 text-lg font-bold">
+                  ✕
+                </button>
+              </div>
+              <nav className="flex flex-col space-y-5 text-right">
                 {[
                   { href: "/", label: "HOME" },
                   { href: "/promotions", label: "PROMOTIONS" },
@@ -81,7 +86,7 @@ const Toolbar = () => {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="hover:text-orange-300 text-sm text-orange-500 ml-auto"
+                    className="hover:text-orange-300 text-lg text-orange-500"
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     {link.label}
