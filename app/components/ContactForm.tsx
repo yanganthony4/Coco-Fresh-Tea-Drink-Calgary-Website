@@ -90,7 +90,7 @@ export default function ContactForm(): JSX.Element {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full bg-[#FF9800] hover:bg-[#ff99008b] text-[#080707] font-bold py-3 transition-colors"
+            className="w-full bg-gradient-to-r from-[#FFB74D] to-[#FF9800] text-[#080707] font-bold py-3 transition-colors"
           >
             {isPending ? "Sending..." : "Send Message"}
           </button>

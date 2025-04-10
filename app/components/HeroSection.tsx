@@ -18,7 +18,7 @@ export default function HeroSection(): JSX.Element {
         </div>
 
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6">
-          <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 opacity-0 animate-fade-in text-center">
+          <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 opacity-0 animate-fade-in md:text-center text-left">
             About CoCo
           </h1>
           <div className="w-24 h-1 bg-white rounded-full opacity-0 animate-fade-in animation-delay-300" />

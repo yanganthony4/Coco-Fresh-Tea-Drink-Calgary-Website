@@ -59,9 +59,10 @@ export default function ValuesSection(): JSX.Element {
   return (
     <div className="w-full py-14 bg-white/30">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-center">
+        {/* Center-aligned title with animated underline */}
+        <div className="flex">
           <h2
-            className="text-3xl md:text-4xl font-bold mb-8 text-center animated-underline inline-block reveal-on-scroll opacity-100 transition-all duration-700"
+            className="text-3xl md:text-4xl font-bold mb-8 md:text-center text-left animated-underline inline-block reveal-on-scroll opacity-100 transition-all duration-700"
             style={{ transform: "translateY(40px)" }}
           >
             OUR VALUES
