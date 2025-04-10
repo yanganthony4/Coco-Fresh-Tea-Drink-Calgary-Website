@@ -354,112 +354,10 @@ const Map = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      {/* Top Panel: Buttons */}
-      <div className="flex justify-center p-2 bg-white z-10">
-        <div className="flex space-x-4">
-          <button
-            className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
-              viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
-            }`}
-            onClick={() => setViewMode("pickup")}
-          >
-            Pickup
-          </button>
-          <button
-            className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
-              viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
-            }`}
-            onClick={() => setViewMode("delivery")}
-          >
-            Delivery
-          </button>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="grid grid-rows-[60vh_40vh] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden">
-        {/* Left Panel: Sidebar */}
-        <div className="w-full h-full overflow-y-auto bg-white">
-          {viewMode === "pickup" && (
-            <div className="flex p-2 md:p-4">
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search for a location"
-                className="p-2 border rounded text-zinc-800 w-full text-sm md:text-base"
-                onFocus={handleSearch}
-              />
-            </div>
-          )}
-          {viewMode === "pickup" && (
-            <div className="overflow-y-auto">
-              <ul>
-                {sortedLocations.length > 0 ? (
-                  sortedLocations.map((location) => {
-                    const today = getDayOfWeek()
-                    const todayHours = location.schedule[today]
-                    const { isOpen, closingTime, reopeningTime } = getOpenStatus(todayHours, location.schedule)
-                    return (
-                      <li
-                        key={location.id}
-                        onClick={() => handleSidebarClick(location)}
-                        className={`text-zinc-800 text-xs md:text-sm cursor-pointer p-2 md:p-4 md:pl-10 rounded border-t-2 ${
-                          selectedLocation?.id === location.id ? "bg-gray-200" : "bg-white"
-                        } hover:bg-gray-100`}
-                      >
-                        <strong>{location.name}</strong>
-                        <br />
-                        {location.address}
-                        <br />
-                        {location.distance} km away &middot;
-                        <span className={isOpen ? "text-green-600" : "text-red-600"}>
-                          {isOpen
-                            ? ` Open until ${closingTime}`
-                            : ` Closed. Reopens ${reopeningTime ? reopeningTime : "soon"}`}
-                        </span>
-                        <br />
-                        {selectedLocation?.id === location.id && (
-                          <div className="mt-2">
-                            <strong>Phone: </strong>
-                            {location.phone}
-                            <br />
-                            <strong>Hours:</strong>
-                            <ul className="pl-4">
-                              {Object.entries(location.schedule).map(([day, hours]) => (
-                                <li key={day} className={day === today ? "font-bold" : ""}>
-                                  {day}: {hours}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </li>
-                    )
-                  })
-                ) : (
-                  <div className="flex justify-center items-center h-full text-gray-500 text-sm md:text-base">
-                    Unfortunately there aren&apos;t any CoCo Locations within 100km of you.
-                  </div>
-                )}
-              </ul>
-            </div>
-          )}
-          {viewMode === "delivery" && (
-            <div className="flex flex-col items-center pt-10 md:pt-20 flex-grow">
-              <img
-                src="/images/CoCoLogoMascotOnlyGreyTransparent.png"
-                alt="Logo"
-                className="w-16 h-16 md:w-24 md:h-24 mb-3 md:mb-5 opacity-75"
-              />
-              <p className="text-gray-700 text-sm md:text-lg mb-4 md:mb-6 text-center px-4">
-                Can&apos;t make the trip? Order delivery through our partners!
-              </p>
-              <DeliveryAppLogos />
-            </div>
-          )}
-        </div>
-        {/* Right Panel: Map */}
-        <div className="w-full h-full">
+      <div className="grid grid-rows-[45vh_auto_1fr] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden">
+        {/* Map goes first on mobile */}
+        <div className="w-full h-full order-1 md:order-2">
           <LoadScript
             googleMapsApiKey="AIzaSyCDCozLjgMz3Vs2Yzrlj8oupzRarBXZbbE"
             libraries={libraries}
@@ -472,18 +370,119 @@ const Map = () => {
                 zoom={12}
                 options={{ mapId: "11a23be6ab78d144" }}
                 onLoad={(map) => {
-                  mapRef.current = map;
+                  mapRef.current = map
                 }}
-              >
-                {/* markers will go here */}
-              </GoogleMap>
+              />
             </div>
           </LoadScript>
         </div>
+
+        {/* Buttons panel - under map on mobile */}
+        <div className="w-full bg-white p-2 flex justify-center order-2 md:hidden">
+          <div className="flex space-x-4">
+            <button
+              className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+                viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
+              }`}
+              onClick={() => setViewMode("pickup")}
+            >
+              Pickup
+            </button>
+            <button
+              className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+                viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
+              }`}
+              onClick={() => setViewMode("delivery")}
+            >
+              Delivery
+            </button>
+          </div>
+        </div>
+
+        {/* Sidebar goes second on mobile */}
+        <div className="w-full h-full overflow-y-auto bg-white order-3 md:order-1">
+          {/* Desktop buttons - at top of sidebar */}
+          <div className="hidden md:flex justify-center p-2 bg-white">
+            <div className="flex space-x-4">
+              <button
+                className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+                  viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
+                }`}
+                onClick={() => setViewMode("pickup")}
+              >
+                Pickup
+              </button>
+              <button
+                className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+                  viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
+                }`}
+                onClick={() => setViewMode("delivery")}
+              >
+                Delivery
+              </button>
+            </div>
+          </div>
+          {viewMode === "pickup" ? (
+            <>
+              <div className="p-2">
+                <div className="relative">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search for a location"
+                    className="w-full p-2 border rounded-md text-sm text-black"
+                    onFocus={handleSearch}
+                  />
+                </div>
+              </div>
+              <div className="divide-y">
+                {sortedLocations.map((location) => {
+                  const today = getDayOfWeek()
+                  const hours = location.schedule[today]
+                  const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, location.schedule)
+
+                  return (
+                    <div
+                      key={location.id}
+                      className="py-5 px-3 cursor-pointer"
+                      onClick={() => handleSidebarClick(location)}
+                    >
+                      <h3 className="text-black text-sm font-medium">{location.name}</h3>
+                      <p className="text-black text-xs">{location.address}</p>
+                      <p className="text-black text-xs">
+                        {location.distance} km away ·{" "}
+                        <span className={`text-xs ${isOpen ? "text-green-600" : "text-red-500"}`}>
+
+                          {isOpen ? `Open until ${closingTime}` : `Closed. Reopens ${reopeningTime}`}
+                        </span>
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full">
+              <div className="text-center max-w-md mx-auto px-4 py-6">
+                <img
+                  src="/images/CoCoLogoMascotOnlyGreyTransparent.png"
+                  alt="CoCo mascot"
+                  className="w-16 h-16 mx-auto mb-2"
+                />
+                <p className="text-gray-700 mb-4 text-sm">Can't make the trip? Order delivery through our partners!</p>
+                <DeliveryAppLogos />
+              </div>
+              <div className="mt-auto w-full bg-orange-200 py-2 px-4 flex justify-between">
+                <span className="text-sm">Privacy Policy</span>
+                <span className="text-sm">Accessibility</span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
- );
-};
+  )
+}
 
-export default Map;
+export default Map
 

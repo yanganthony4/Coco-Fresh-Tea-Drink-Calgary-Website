@@ -61,7 +61,7 @@ export default function PromotionsList() {
 
             {/* Text */}
             <div className="text-center md:text-left p-4 md:w-3/5">
-              <h2 className="text-2xl md:text-3xl font-bold text-black mb-2 uppercase">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black mb-2 uppercase">
                 {title} <span className="text-[#f04e23]">NEW!</span>
               </h2>
               <p className="text-lg text-gray-700 font-medium mb-2">

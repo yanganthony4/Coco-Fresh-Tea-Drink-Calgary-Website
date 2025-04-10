@@ -5,9 +5,11 @@ import FAQSection from "../components/FAQSection";
 
 export default function ContactPage() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center bg-white px-6 md:px-12">
+    <div className="pt-20 px-4 sm:px-6 md:px-10">
       {/* Contact Form Section */}
-      <ContactForm />
+      <div className="flex justify-center">
+        <ContactForm />
+      </div>
 
       {/* FAQ Section */}
       <FAQSection />

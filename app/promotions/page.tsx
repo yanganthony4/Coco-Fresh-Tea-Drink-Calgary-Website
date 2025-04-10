@@ -27,7 +27,7 @@ export default function Promotions() {
   }, [])
 
   return (
-    <div className="h-auto flex flex-col">
+    <div className="pt-20 h-auto flex flex-col">
       <div className="flex-1 flex flex-col relative">
         {/* Visually hidden H1 for SEO/accessibility */}
         <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
