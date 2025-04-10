@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "../components/select";
 import { Textarea } from "../components/textarea";
-import { Check, X, Coffee, Snowflake, Candy, CupSoda } from "lucide-react";
+import { Check, X, Snowflake, Candy, CupSoda } from "lucide-react";
 import { cn } from "../lib/utils";
 import { motion } from "framer-motion";
 
@@ -23,11 +23,6 @@ interface DrinkOption {
   readonly name: string;
   readonly color: string;
   readonly category: string;
-}
-
-interface Category {
-  readonly label: string;
-  readonly drinks: DrinkOption[];
 }
 
 interface Topping {
@@ -101,48 +96,24 @@ export enum SugarLevel {
 // Data Arrays
 // ------------------------------------------------------------------
 
-// Drink categories with nested drinks for two-step selection
-const drinkCategories: readonly Category[] = [
-  {
-    label: "Milk Tea",
-    drinks: [
-      { name: "CoCo Milk Tea", color: "#8B4513", category: "Milk Tea" },
-      { name: "Jasmine Milk Tea", color: "#A0522D", category: "Milk Tea" },
-      { name: "Oolong Milk Tea", color: "#8B4513", category: "Milk Tea" },
-      { name: "Taro Milk Tea", color: "#9463A8", category: "Milk Tea" },
-    ],
-  },
-  {
-    label: "Fruit Tea",
-    drinks: [
-      { name: "Mango Green Tea", color: "#FFA500", category: "Fruit Tea" },
-      { name: "Passion Fruit Green Tea", color: "#FF8C00", category: "Fruit Tea" },
-    ],
-  },
-  {
-    label: "Milk",
-    drinks: [{ name: "Matcha Latte", color: "#89FA80", category: "Milk" }],
-  },
-  {
-    label: "Slush",
-    drinks: [
-      { name: "Avocado Smoothie", color: "#7CB342", category: "Slush" },
-      { name: "Chocolate Slush", color: "#6D4C41", category: "Slush" },
-    ],
-  },
-  {
-    label: "Fresh Tea",
-    drinks: [
-      { name: "Fresh Black Tea", color: "#3E2723", category: "Fresh Tea" },
-      { name: "Fresh Jasmine Tea", color: "#5D4037", category: "Fresh Tea" },
-    ],
-  },
+// Flattened drink list (with categories but all in a single array).
+const allDrinks: readonly DrinkOption[] = [
+  { name: "CoCo Milk Tea", color: "#8B4513", category: "Milk Tea" },
+  { name: "Jasmine Milk Tea", color: "#A0522D", category: "Milk Tea" },
+  { name: "Oolong Milk Tea", color: "#8B4513", category: "Milk Tea" },
+  { name: "Taro Milk Tea", color: "#9463A8", category: "Milk Tea" },
+  { name: "Mango Green Tea", color: "#FFA500", category: "Fruit Tea" },
+  { name: "Passion Fruit Green Tea", color: "#FF8C00", category: "Fruit Tea" },
+  { name: "Matcha Latte", color: "#89FA80", category: "Milk" },
+  { name: "Avocado Smoothie", color: "#7CB342", category: "Slush" },
+  { name: "Chocolate Slush", color: "#6D4C41", category: "Slush" },
+  { name: "Fresh Black Tea", color: "#3E2723", category: "Fresh Tea" },
+  { name: "Fresh Jasmine Tea", color: "#5D4037", category: "Fresh Tea" },
 ];
 
 const iceLevels: readonly IceLevel[] = Object.values(IceLevel);
 const sugarLevels: readonly SugarLevel[] = Object.values(SugarLevel);
 
-// Toppings including extra ones
 const toppings: readonly Topping[] = [
   { name: "Pearls", color: "#000000", shape: "circle", size: 4 },
   { name: "Sago", color: "#C2B280", shape: "circle", size: 3 },
@@ -151,7 +122,7 @@ const toppings: readonly Topping[] = [
   { name: "Coconut Jelly", color: "#FFFFFF", shape: "rectangle", size: 5 },
   { name: "Red Bean", color: "#8B0000", shape: "bean", size: 3 },
   { name: "Brown Sugar Pearls", color: "#8B4513", shape: "circle", size: 4 },
-  // Extras from screenshot:
+  // Extra toppings
   { name: "Honey Jelly", color: "#FBE7A1", shape: "rectangle", size: 5 },
   { name: "Crystal Pearls", color: "#F8F8F8", shape: "circle", size: 4 },
   { name: "Popping Pearls", color: "#FFA07A", shape: "circle", size: 3 },
@@ -159,6 +130,7 @@ const toppings: readonly Topping[] = [
   { name: "Lychee", color: "#FFC0CB", shape: "chunk", size: 4 },
 ];
 
+// Nutritional info
 const nutritionalInfo = {
   base: {
     "CoCo Milk Tea": { calories: 226, sugar: 24, fat: 3 },
@@ -206,6 +178,7 @@ const nutritionalInfo = {
 // ------------------------------------------------------------------
 const getSugarHeight = (_sugarLevel: string): number => 90;
 
+// For the sugar bar in the dropdown
 const getSugarBarWidth = (sugarLevel: string): number => {
   switch (sugarLevel) {
     case "Extra Sugar":
@@ -262,18 +235,19 @@ const generateIceCubePositions = (iceLevel: string): IceCube[] => {
 const generateRandomPositions = (count: number, shape: string): RandomPosition[] => {
   const positions: RandomPosition[] = [];
   for (let i = 0; i < count; i++) {
+    // Let's keep 'wave' logic the same, but remove crazy transforms
     if (shape === "wave") {
       positions.push({
         top: Math.random() * 10 + 2,
         left: Math.random() * 80 + 10,
-        rotate: Math.random() * 360,
+        rotate: 0,
         delay: Math.random() * 0.5 + 0.2,
       });
     } else {
       positions.push({
         top: Math.random() * 60 + 20,
         left: Math.random() * 80 + 10,
-        rotate: Math.random() * 360,
+        rotate: 0, // remove random rotation
         delay: Math.random() * 0.8 + 0.3,
       });
     }
@@ -285,11 +259,10 @@ const generateRandomPositions = (count: number, shape: string): RandomPosition[]
 // Main Component: BuildADrink
 // ------------------------------------------------------------------
 export default function BuildADrink(): JSX.Element {
-  // States for category & drink selection
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  // Single dropdown for base drink + search
   const [selectedDrink, setSelectedDrink] = useState<string>("");
+  const [drinkSearchTerm, setDrinkSearchTerm] = useState<string>("");
 
-  // Other states
   const [selectedIce, setSelectedIce] = useState<string>("");
   const [selectedSugar, setSelectedSugar] = useState<string>("");
   const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
@@ -307,34 +280,39 @@ export default function BuildADrink(): JSX.Element {
   const [animateSugar, setAnimateSugar] = useState<boolean>(false);
   const [savedDrinks, setSavedDrinks] = useState<SavedDrink[]>([]);
 
-  // Size & milk option
+  // Size & milk
   const [selectedSize, setSelectedSize] = useState<string>("Regular");
   const [milkOption, setMilkOption] = useState<string>("Regular Milk Tea");
 
-  // Refs for change detection
+  // Refs for detecting changes
   const prevIceRef = useRef<string>(selectedIce);
-  const prevToppingsRef = useRef<string[]>(selectedToppings);
   const prevSugarRef = useRef<string>(selectedSugar);
+  const prevToppingsRef = useRef<string[]>(selectedToppings);
+
+  // Flattened array is already "allDrinks"
+  // Filter based on search term
+  const filteredDrinks: DrinkOption[] = allDrinks.filter((drink) =>
+    drink.name.toLowerCase().includes(drinkSearchTerm.toLowerCase())
+  );
 
   // Load saved drinks on mount
-  useEffect((): void => {
+  useEffect(() => {
     const storedDrinks = localStorage.getItem("savedDrinks");
     if (storedDrinks) {
       setSavedDrinks(JSON.parse(storedDrinks));
     }
   }, []);
 
-  // Clear toppings if no drink is chosen
-  useEffect((): void => {
+  // If no drink selected, clear toppings
+  useEffect(() => {
     if (!selectedDrink) {
       setSelectedToppings([]);
     }
   }, [selectedDrink]);
 
-  // Update cup fill when a drink is selected
-  useEffect((): void => {
+  // Update cup fill if a drink is selected
+  useEffect(() => {
     if (selectedDrink) {
-      const allDrinks: DrinkOption[] = drinkCategories.flatMap((cat) => cat.drinks);
       const foundDrink = allDrinks.find((d) => d.name === selectedDrink);
       setCupFill((prev) => ({
         ...prev,
@@ -350,16 +328,16 @@ export default function BuildADrink(): JSX.Element {
     }
   }, [selectedDrink]);
 
-  // Animate ice changes
-  useEffect((): void => {
+  // Animate ice
+  useEffect(() => {
     if (prevIceRef.current !== selectedIce) {
       setAnimateIce(true);
       setIceCubes([]);
-      setTimeout((): void => {
+      setTimeout(() => {
         if (selectedIce) {
           setIceCubes(generateIceCubePositions(selectedIce));
         }
-        setTimeout((): void => {
+        setTimeout(() => {
           setAnimateIce(false);
         }, 800);
       }, 500);
@@ -367,11 +345,11 @@ export default function BuildADrink(): JSX.Element {
     }
   }, [selectedIce]);
 
-  // Animate sugar changes
-  useEffect((): void => {
+  // Animate sugar
+  useEffect(() => {
     if (prevSugarRef.current !== selectedSugar) {
       setAnimateSugar(true);
-      setTimeout((): void => {
+      setTimeout(() => {
         setCupFill((prev) => ({
           ...prev,
           sugarLevel: selectedSugar || "",
@@ -382,11 +360,9 @@ export default function BuildADrink(): JSX.Element {
     }
   }, [selectedSugar]);
 
-  // Animate toppings changes
-  useEffect((): void => {
-    if (
-      JSON.stringify(prevToppingsRef.current) !== JSON.stringify(selectedToppings)
-    ) {
+  // Animate toppings (basic fall in)
+  useEffect(() => {
+    if (JSON.stringify(prevToppingsRef.current) !== JSON.stringify(selectedToppings)) {
       const prevSet = new Set(prevToppingsRef.current);
       const currentSet = new Set(selectedToppings);
       const addedToppings = selectedToppings.filter((t) => !prevSet.has(t));
@@ -394,13 +370,12 @@ export default function BuildADrink(): JSX.Element {
         (t) => !currentSet.has(t)
       );
       const existingToppings = cupFill.toppings.filter(
-        (t) =>
-          !removedToppings.includes(t.name) && !addedToppings.includes(t.name)
+        (t) => !removedToppings.includes(t.name) && !addedToppings.includes(t.name)
       );
 
       if (addedToppings.length > 0) {
         setAnimateToppings(true);
-        setTimeout((): void => {
+        setTimeout(() => {
           const newToppings = addedToppings.map((name) => {
             const topping = toppings.find((t) => t.name === name);
             return {
@@ -412,7 +387,7 @@ export default function BuildADrink(): JSX.Element {
             ...prev,
             toppings: [...existingToppings, ...newToppings],
           }));
-          setTimeout((): void => {
+          setTimeout(() => {
             setAnimateToppings(false);
             setCupFill((prev) => ({
               ...prev,
@@ -421,6 +396,7 @@ export default function BuildADrink(): JSX.Element {
           }, 800);
         }, 100);
       } else {
+        // Removed toppings
         setCupFill((prev) => ({
           ...prev,
           toppings: existingToppings,
@@ -428,22 +404,15 @@ export default function BuildADrink(): JSX.Element {
       }
       prevToppingsRef.current = [...selectedToppings];
     }
-  }, [selectedToppings]);
+  }, [selectedToppings, cupFill.toppings]);
 
-  // Topping toggle function
+  // Topping toggle
   const handleToppingToggle = (toppingName: string): void => {
     setSelectedToppings((prev) =>
       prev.includes(toppingName)
         ? prev.filter((t) => t !== toppingName)
         : [...prev, toppingName]
     );
-  };
-
-  // Get base color from selected drink
-  const getBaseColor = (): string => {
-    const allDrinks = drinkCategories.flatMap((cat) => cat.drinks);
-    const found = allDrinks.find((drink) => drink.name === selectedDrink);
-    return found?.color ?? "#8B4513";
   };
 
   // Calculate nutrition
@@ -474,7 +443,7 @@ export default function BuildADrink(): JSX.Element {
   };
 
   // ------------------------------------------------------------------
-  // Render Functions for Cup Visualization
+  // Render Topping Animation
   // ------------------------------------------------------------------
   const renderSaltyCream = (
     topping: Topping,
@@ -485,7 +454,7 @@ export default function BuildADrink(): JSX.Element {
     const animationStyle =
       isAnimating && animateToppings
         ? {
-            animation: `fillTopLayer 1s ease-in-out forwards`,
+            animation: `fallIn 0.6s ease-out forwards`,
             animationDelay: `${position.delay}s`,
           }
         : { height: "15%" };
@@ -521,108 +490,30 @@ export default function BuildADrink(): JSX.Element {
     const animationStyle =
       isAnimating && animateToppings
         ? {
-            animation: `smoothFall 1s ease-in-out forwards`,
+            animation: `fallIn 0.6s ease-out forwards`,
             animationDelay: `${position.delay}s`,
-            opacity: 0,
-            transform: `translateY(-50px) rotate(${position.rotate}deg)`,
           }
         : {};
     switch (shape) {
       case "circle":
-        return (
-          <div
-            key={`${name}-${index}`}
-            className="absolute rounded-full"
-            style={{
-              backgroundColor: color,
-              width: `${biggerSize}px`,
-              height: `${biggerSize}px`,
-              top: `${position.top}%`,
-              left: `${position.left}%`,
-              opacity: 0.9,
-              zIndex: 6,
-              ...animationStyle,
-            }}
-          />
-        );
       case "square":
-        return (
-          <div
-            key={`${name}-${index}`}
-            className="absolute"
-            style={{
-              backgroundColor: color,
-              width: `${biggerSize}px`,
-              height: `${biggerSize}px`,
-              top: `${position.top}%`,
-              left: `${position.left}%`,
-              opacity: 0.9,
-              zIndex: 6,
-              ...animationStyle,
-            }}
-          />
-        );
       case "rectangle":
+      case "wave":
+      case "chunk":
+      case "bean":
+        // They all do the same simple "fall in" now
         return (
           <div
             key={`${name}-${index}`}
             className="absolute"
             style={{
               backgroundColor: color,
-              width: `${biggerSize + 2}px`,
-              height: `${biggerSize}px`,
-              top: `${position.top}%`,
-              left: `${position.left}%`,
-              opacity: 0.9,
-              zIndex: 6,
-              ...animationStyle,
-            }}
-          />
-        );
-      case "wave":
-        return (
-          <div
-            key={`${name}-${index}`}
-            className="absolute rounded-full"
-            style={{
-              backgroundColor: color,
-              width: `${(size + 8) * 1.4}px`,
-              height: `${(size + 3) * 1.4}px`,
-              top: `${position.top}%`,
-              left: `${position.left}%`,
-              opacity: 0.9,
-              zIndex: 6,
-              ...animationStyle,
-            }}
-          />
-        );
-      case "chunk":
-        return (
-          <div
-            key={`${name}-${index}`}
-            className="absolute rounded-md"
-            style={{
-              backgroundColor: color,
-              width: `${biggerSize + Math.random() * 2}px`,
-              height: `${biggerSize + Math.random() * 2}px`,
-              top: `${position.top}%`,
-              left: `${position.left}%`,
-              transform: `skew(${Math.random() * 10}deg, ${Math.random() * 10}deg)`,
-              opacity: 0.9,
-              zIndex: 6,
-              ...animationStyle,
-            }}
-          />
-        );
-      case "bean":
-        return (
-          <div
-            key={`${name}-${index}`}
-            className="absolute rounded-full"
-            style={{
-              backgroundColor: color,
-              width: `${biggerSize}px`,
-              height: `${biggerSize + 1}px`,
+              borderRadius: shape === "circle" ? "50%" : shape === "wave" ? "50%" : shape === "chunk" ? "6%" : "0",
+              width:
+                shape === "rectangle"
+                  ? `${biggerSize + 2}px`
+                  : `${biggerSize}px`,
+              height: shape === "rectangle" ? `${biggerSize}px` : `${biggerSize}px`,
               top: `${position.top}%`,
               left: `${position.left}%`,
               opacity: 0.9,
@@ -632,6 +523,7 @@ export default function BuildADrink(): JSX.Element {
           />
         );
       default:
+        // fallback for unknown shape
         return (
           <div
             key={`${name}-${index}`}
@@ -668,7 +560,7 @@ export default function BuildADrink(): JSX.Element {
           animation: animateIce ? `smoothFall 1s ease-in-out forwards` : "none",
           animationDelay: `${cube.delay}s`,
           transform: animateIce
-            ? "translateY(-50px) rotate(0deg)"
+            ? "translateY(-50px)"
             : `rotate(${cube.rotate}deg)`,
         }}
       />
@@ -676,11 +568,10 @@ export default function BuildADrink(): JSX.Element {
   };
 
   // ------------------------------------------------------------------
-  // Handlers
+  // Save & Delete
   // ------------------------------------------------------------------
   const handleSaveDrink = (): void => {
     if (!selectedDrink) return;
-    // Combine selected drink with milk option for display
     const fullBaseName = `${selectedDrink} - ${milkOption}`;
 
     const newDrink: SavedDrink = {
@@ -702,8 +593,7 @@ export default function BuildADrink(): JSX.Element {
     setSavedDrinks(updatedDrinks);
     localStorage.setItem("savedDrinks", JSON.stringify(updatedDrinks));
 
-    // Reset all selections
-    setSelectedCategory("");
+    // Reset
     setSelectedDrink("");
     setSelectedIce("");
     setSelectedSugar("");
@@ -711,12 +601,8 @@ export default function BuildADrink(): JSX.Element {
     setAddOns("");
     setSelectedSize("Regular");
     setMilkOption("Regular Milk Tea");
-    setCupFill({
-      base: "",
-      baseColor: "transparent",
-      sugarLevel: "",
-      toppings: [],
-    });
+    setCupFill({ base: "", baseColor: "transparent", sugarLevel: "", toppings: [] });
+    setDrinkSearchTerm("");
   };
 
   const handleDeleteSavedDrink = (id: number): void => {
@@ -726,7 +612,7 @@ export default function BuildADrink(): JSX.Element {
   };
 
   // ------------------------------------------------------------------
-  // Memoize Cup Content (Visualization)
+  // Render Cup Content
   // ------------------------------------------------------------------
   const renderedCupContent = useMemo((): JSX.Element => {
     return (
@@ -744,6 +630,7 @@ export default function BuildADrink(): JSX.Element {
         {selectedIce &&
           selectedIce !== IceLevel.NO_ICE &&
           iceCubes.map((cube, index) => renderIceCube(cube, index))}
+
         {cupFill.toppings.length > 0 &&
           cupFill.toppings.map((topping) => {
             if (topping.name === "Salty Cream") {
@@ -763,16 +650,16 @@ export default function BuildADrink(): JSX.Element {
   }, [cupFill, selectedIce, iceCubes, animateIce, animateToppings]);
 
   // ------------------------------------------------------------------
-  // Main Render
+  // Main UI
   // ------------------------------------------------------------------
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
       <div className="max-w-4xl w-full px-4 sm:px-8">
         {/* Saved Drinks Cart */}
         <div className="mb-8 border border-gray-200 bg-white rounded-lg shadow-sm p-4">
-          <h2 className="text-xl font-bold text-gray-700 mb-2">Your Saved Drinks</h2>
+          <h2 className="text-xl font-bold text-black mb-2">Your Saved Drinks</h2>
           {savedDrinks.length === 0 ? (
-            <p className="text-center py-4 text-gray-500">
+            <p className="text-center py-4 text-black">
               No Saved Drinks Yet. It&apos;s Time To Get Creative!
             </p>
           ) : (
@@ -783,7 +670,7 @@ export default function BuildADrink(): JSX.Element {
                   className="relative border rounded-lg p-4 bg-white shadow-sm flex flex-col"
                 >
                   <button
-                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                    className="absolute top-2 right-2 text-black hover:text-black"
                     onClick={() => handleDeleteSavedDrink(drink.id)}
                   >
                     <X size={16} />
@@ -796,10 +683,10 @@ export default function BuildADrink(): JSX.Element {
                       />
                     </div>
                     <div className="flex flex-col flex-1">
-                      <div className="text-sm font-medium text-gray-700 mb-1">
+                      <div className="text-sm font-medium text-black mb-1">
                         {drink.base}
                       </div>
-                      <div className="flex items-center flex-wrap gap-2 text-xs text-gray-700">
+                      <div className="flex items-center flex-wrap gap-2 text-xs text-black">
                         <span>
                           <strong>Ice:</strong> {drink.ice}
                         </span>
@@ -813,17 +700,17 @@ export default function BuildADrink(): JSX.Element {
                         </span>
                       </div>
                       {drink.toppings.length > 0 && (
-                        <p className="text-xs text-gray-600 mt-1">
+                        <p className="text-xs text-black mt-1">
                           <strong>Toppings:</strong> {drink.toppings.join(", ")}
                         </p>
                       )}
                       {drink.addOns && (
-                        <div className="mt-1 text-xs text-gray-700">
+                        <div className="mt-1 text-xs text-black">
                           <strong>Special Instructions:</strong>{" "}
                           <em>{drink.addOns}</em>
                         </div>
                       )}
-                      <div className="mt-auto text-xs text-gray-600">{drink.date}</div>
+                      <div className="mt-auto text-xs text-black">{drink.date}</div>
                     </div>
                   </div>
                 </div>
@@ -838,7 +725,7 @@ export default function BuildADrink(): JSX.Element {
             Build Your Perfect Bubble Tea
           </h1>
           <div className="flex-1 flex flex-col md:flex-row gap-8 items-start mt-4">
-            {/* Left Side: Cup Visualization */}
+            {/* Left: Cup Visualization */}
             <div className="flex-1 flex flex-col items-center justify-start relative">
               <div className="relative w-64 h-96 mt-6">
                 <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-56 h-72 border-4 border-gray-300 rounded-b-[100px] rounded-t-lg overflow-hidden">
@@ -847,9 +734,7 @@ export default function BuildADrink(): JSX.Element {
                 <div className="absolute top-10 left-1/2 transform -translate-x-1/2 w-6 flex justify-center z-10">
                   <div className="w-2 h-16 bg-gradient-to-b from-pink-500 to-pink-600 rounded-full -translate-y-8" />
                 </div>
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-56 h-10 overflow-visible">
-                  {/* ICE & Toppings animations happen here */}
-                </div>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-56 h-10 overflow-visible" />
               </div>
               <div className="mt-4 text-center">
                 <div className="flex items-center justify-center gap-2">
@@ -860,7 +745,7 @@ export default function BuildADrink(): JSX.Element {
                     {selectedDrink || "Select your drink"}
                   </h3>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-black">
                   {selectedIce || "Select Ice Level"} • {selectedSugar || "Select Sugar Level"} • {selectedSize}
                 </p>
                 {selectedDrink && (
@@ -882,13 +767,13 @@ export default function BuildADrink(): JSX.Element {
                         <p className="text-black">{calculateNutrition().fat}</p>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-700 mt-2">
+                    <p className="text-xs text-black mt-2">
                       Values are approximate and may vary.
                     </p>
                   </div>
                 )}
                 {selectedToppings.length > 0 && (
-                  <div className="mt-2 text-sm text-gray-600">
+                  <div className="mt-2 text-sm text-black">
                     <div
                       className="flex items-center cursor-pointer"
                       onClick={() => setShowToppings(!showToppings)}
@@ -912,7 +797,7 @@ export default function BuildADrink(): JSX.Element {
                       </svg>
                     </div>
                     {showToppings && (
-                      <ul className="list-disc list-inside mt-1 text-left">
+                      <ul className="list-disc list-inside mt-1 text-left text-black">
                         {selectedToppings.map((topping) => (
                           <li key={topping}>{topping}</li>
                         ))}
@@ -922,71 +807,51 @@ export default function BuildADrink(): JSX.Element {
                 )}
               </div>
             </div>
-            {/* Right Side: Customization Options */}
+            {/* Right: Customization Options */}
             <div className="flex-1 flex flex-col gap-6 items-start">
-              {/* Category and Sub-Drink Dropdowns side by side */}
-              <div className="flex gap-2 w-full">
-                {/* Category Dropdown */}
-                <div className="relative w-1/2">
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
-                    Category
-                  </label>
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger className="w-full border-amber-500 text-gray-900">
-                      <SelectValue>
-                        {selectedCategory || "Select a category"}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {drinkCategories.map((cat) => (
-                        <SelectItem key={cat.label} value={cat.label}>
-                          {cat.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Sub-Drink Dropdown */}
-                <div className="relative w-1/2">
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
-                    Drink
-                  </label>
-                  {selectedCategory ? (
-                    <Select
-                      value={selectedDrink}
-                      onValueChange={(val) => setSelectedDrink(val)}
-                    >
-                      <SelectTrigger className="w-full border-amber-500 text-gray-900">
-                        <SelectValue>
-                          {selectedDrink || "Select a drink"}
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {drinkCategories
-                          .find((cat) => cat.label === selectedCategory)
-                          ?.drinks.map((drink) => (
-                            <SelectItem key={drink.name} value={drink.name}>
-                              {drink.name}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
-                  ) : (
-                    <div className="w-full border border-gray-300 text-gray-500 p-2 rounded">
-                      Please select a category first.
+              {/* Single dropdown for base drink w/ search */}
+              <div className="relative w-full">
+                <label className="block text-sm font-medium text-black mb-1">
+                  Base Drink
+                </label>
+                <Select value={selectedDrink} onValueChange={setSelectedDrink}>
+                  <SelectTrigger className="w-full border-amber-500 text-black">
+                    <SelectValue>
+                      {selectedDrink || "Select a base drink"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <div className="p-2">
+                      <input
+                        type="text"
+                        placeholder="Search drinks"
+                        className="w-full p-2 border border-gray-300 rounded-md text-black"
+                        value={drinkSearchTerm}
+                        onChange={(e) => setDrinkSearchTerm(e.target.value)}
+                      />
                     </div>
-                  )}
-                </div>
+                    {filteredDrinks.map((drink) => (
+                      <SelectItem key={drink.name} value={drink.name}>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: drink.color }}
+                          ></div>
+                          <span className="text-black">{drink.name}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
-              {/* Ice Level Dropdown */}
+              {/* Ice Level */}
               <div className="relative w-full">
                 <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                   <Snowflake size={18} className="text-blue-300" />
                 </div>
                 <Select value={selectedIce} onValueChange={setSelectedIce}>
-                  <SelectTrigger className="w-full border-blue-300 text-gray-900">
+                  <SelectTrigger className="w-full border-blue-300 text-black">
                     <SelectValue>
                       {selectedIce || "Select Ice Level"}
                     </SelectValue>
@@ -994,20 +859,38 @@ export default function BuildADrink(): JSX.Element {
                   <SelectContent>
                     {iceLevels.map((level) => (
                       <SelectItem key={level} value={level}>
-                        {level}
+                        {/* Level bars */}
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-blue-300"
+                              style={{
+                                width:
+                                  level === IceLevel.EXTRA_ICE
+                                    ? "100%"
+                                    : level === IceLevel.REGULAR_ICE
+                                    ? "75%"
+                                    : level === IceLevel.LESS_ICE
+                                    ? "35%"
+                                    : "0%",
+                              }}
+                            ></div>
+                          </div>
+                          <span className="text-black">{level}</span>
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Sugar Level Dropdown */}
+              {/* Sugar Level */}
               <div className="relative w-full">
                 <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                   <Candy size={18} className="text-amber-300" />
                 </div>
                 <Select value={selectedSugar} onValueChange={setSelectedSugar}>
-                  <SelectTrigger className="w-full border-amber-300 text-gray-900">
+                  <SelectTrigger className="w-full border-amber-300 text-black">
                     <SelectValue>
                       {selectedSugar || "Select Sugar Level"}
                     </SelectValue>
@@ -1015,14 +898,23 @@ export default function BuildADrink(): JSX.Element {
                   <SelectContent>
                     {sugarLevels.map((level) => (
                       <SelectItem key={level} value={level}>
-                        {level}
+                        {/* Level bars */}
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-amber-400"
+                              style={{ width: `${getSugarBarWidth(level)}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-black">{level}</span>
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Toppings Dropdown */}
+              {/* Toppings */}
               <div className="relative w-full">
                 <div className="absolute -left-8 top-1/2 transform -translate-y-1/2">
                   <CupSoda size={18} className="text-purple-400" />
@@ -1035,7 +927,7 @@ export default function BuildADrink(): JSX.Element {
                       setSelectedToppings(Array.isArray(values) ? values : [values])
                     }
                   >
-                    <SelectTrigger className="w-full border-purple-400 text-gray-900">
+                    <SelectTrigger className="w-full border-purple-400 text-black">
                       <SelectValue>
                         {selectedToppings.length === 0
                           ? "Select toppings"
@@ -1064,22 +956,22 @@ export default function BuildADrink(): JSX.Element {
                               )}
                               style={{ backgroundColor: topping.color }}
                             />
-                            <span className="text-gray-900">{topping.name}</span>
+                            <span className="text-black">{topping.name}</span>
                           </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 ) : (
-                  <div className="w-full border border-gray-300 text-gray-500 p-2 rounded">
+                  <div className="w-full border border-gray-300 text-black p-2 rounded">
                     Please select a base drink to choose toppings.
                   </div>
                 )}
               </div>
 
-              {/* Size Selector */}
+              {/* Size */}
               <div className="relative mt-4 w-full">
-                <label className="block text-sm font-medium text-gray-900 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Size
                 </label>
                 <div className="flex items-center gap-4">
@@ -1088,39 +980,39 @@ export default function BuildADrink(): JSX.Element {
                       "flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors",
                       selectedSize === "Regular"
                         ? "border-green-500 bg-green-50 text-green-700"
-                        : "border-gray-300 text-gray-500 hover:border-green-300"
+                        : "border-gray-300 text-black hover:border-green-300"
                     )}
                     onClick={() => setSelectedSize("Regular")}
                     aria-label="Regular size (16oz)"
                   >
                     R
                   </button>
-                  <div className="text-sm">
+                  <div className="text-sm text-black">
                     <p className="font-medium">Regular</p>
-                    <p className="text-gray-500 text-xs">16 oz</p>
+                    <p className="text-black text-xs">16 oz</p>
                   </div>
                   <button
                     className={cn(
                       "flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors",
                       selectedSize === "Large"
                         ? "border-green-500 bg-green-50 text-green-700"
-                        : "border-gray-300 text-gray-500 hover:border-green-300"
+                        : "border-gray-300 text-black hover:border-green-300"
                     )}
                     onClick={() => setSelectedSize("Large")}
                     aria-label="Large size (22oz)"
                   >
                     L
                   </button>
-                  <div className="text-sm">
+                  <div className="text-sm text-black">
                     <p className="font-medium">Large</p>
-                    <p className="text-gray-500 text-xs">22 oz</p>
+                    <p className="text-black text-xs">22 oz</p>
                   </div>
                 </div>
               </div>
 
-              {/* Milk Option Selector with brown highlight */}
+              {/* Milk Option */}
               <div className="relative mt-4 w-full">
-                <label className="block text-sm font-medium text-gray-900 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Milk Option
                 </label>
                 <div className="flex items-center gap-4">
@@ -1129,7 +1021,7 @@ export default function BuildADrink(): JSX.Element {
                       "flex items-center justify-center px-3 py-2 rounded-full border-2 transition-colors",
                       milkOption === "Regular Milk Tea"
                         ? "border-[#8B4513] bg-[#f7f1eb] text-[#8B4513]"
-                        : "border-gray-300 text-gray-500 hover:border-[#8B4513]"
+                        : "border-gray-300 text-black hover:border-[#8B4513]"
                     )}
                     onClick={() => setMilkOption("Regular Milk Tea")}
                   >
@@ -1140,7 +1032,7 @@ export default function BuildADrink(): JSX.Element {
                       "flex items-center justify-center px-3 py-2 rounded-full border-2 transition-colors",
                       milkOption === "Milk"
                         ? "border-[#8B4513] bg-[#f7f1eb] text-[#8B4513]"
-                        : "border-gray-300 text-gray-500 hover:border-[#8B4513]"
+                        : "border-gray-300 text-black hover:border-[#8B4513]"
                     )}
                     onClick={() => setMilkOption("Milk")}
                   >
@@ -1151,7 +1043,7 @@ export default function BuildADrink(): JSX.Element {
 
               {/* Special Instructions */}
               <div className="mt-2 w-full">
-                <label htmlFor="add-ons" className="block text-sm font-medium text-gray-900 mb-1">
+                <label htmlFor="add-ons" className="block text-sm font-medium text-black mb-1">
                   Special Instructions
                 </label>
                 <Textarea
@@ -1159,10 +1051,11 @@ export default function BuildADrink(): JSX.Element {
                   placeholder="Any special requests? (e.g., less ice on top, extra sweet)"
                   value={addOns}
                   onChange={(e) => setAddOns(e.target.value)}
-                  className="min-h-[80px] text-gray-900 w-full"
+                  className="min-h-[80px] text-black w-full"
                 />
               </div>
 
+              {/* Save Drink */}
               <Button
                 className="mt-4 bg-amber-500 hover:bg-amber-600 text-white w-full py-3 text-lg"
                 disabled={!selectedDrink}
@@ -1181,14 +1074,14 @@ export default function BuildADrink(): JSX.Element {
       <style jsx global>{`
         @keyframes smoothFall {
           0% {
-            transform: translateY(-50px) rotate(0deg);
+            transform: translateY(-50px);
             opacity: 0;
           }
           60% {
             opacity: 1;
           }
           100% {
-            transform: translateY(0) rotate(0deg);
+            transform: translateY(0);
             opacity: 1;
           }
         }
@@ -1204,12 +1097,22 @@ export default function BuildADrink(): JSX.Element {
         }
         @keyframes smoothFallFromTop {
           0% {
-            transform: translateY(0) rotate(0deg);
+            transform: translateY(0);
             opacity: 0.7;
           }
           100% {
-            transform: translateY(50px) rotate(0deg);
+            transform: translateY(50px);
             opacity: 0;
+          }
+        }
+        @keyframes fallIn {
+          0% {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
           }
         }
       `}</style>
@@ -1235,7 +1138,11 @@ function FAQItem({ faq, index }: { faq: FAQ; index: number }): JSX.Element {
     >
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
-        <span className={`text-white text-lg transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
+        <span
+          className={`text-white text-lg transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        >
           ▲
         </span>
       </div>
@@ -1259,7 +1166,7 @@ function FAQSection(): JSX.Element {
     {
       question: "How Do I Use This?",
       answer:
-        "Pick a category, select a specific drink, choose your ice & sugar levels, milk option, and optional toppings. The visualization will update in real-time. Save up to 12 of your favourite combinations!",
+        "Pick a base drink from the dropdown (use the search bar to filter), choose your ice & sugar levels, milk option, and optional toppings. The visualization will update in real-time. Save up to 12 of your favourite combinations!",
     },
     {
       question: "Are The Nutritional Values Accurate?",
