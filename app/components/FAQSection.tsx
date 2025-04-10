@@ -3,9 +3,40 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 
-interface FaqItemProps {
-  readonly faq: Faq
-  readonly index: number
+function FAQItem({ faq, index }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="bg-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12 text-left"
+      onClick={() => setOpen(!open)}
+    >
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
+        <span
+          className={`text-white text-lg transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        >
+          ▲
+        </span>
+      </div>
+
+      <motion.p
+        initial={{ height: 0, opacity: 0 }}
+        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-white mt-2 overflow-hidden"
+      >
+        {faq.answer}
+      </motion.p>
+    </motion.div>
+  )
 }
 
 interface Faq {
@@ -34,9 +65,9 @@ export default function FAQSection(): JSX.Element {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="mt-24 max-w-3xl mx-auto text-center relative z-10 pb-32"
+      className="mt-24 max-w-5xl w-full px-4 md:px-0 md:ml-0 md:pl-0 text-left relative z-10 pb-32"
     >
-      <h2 className="text-4xl font-bold text-center mb-12 text-[#FF9800] uppercase tracking-wide">
+      <h2 className="text-4xl font-bold text-left mb-12 text-black uppercase tracking-wide">
         Frequently Asked Questions
       </h2>
 
@@ -45,37 +76,6 @@ export default function FAQSection(): JSX.Element {
           <FAQItem key={index} faq={faq} index={index} />
         ))}
       </div>
-    </motion.div>
-  )
-}
-
-function FAQItem({ faq, index }: FaqItemProps): JSX.Element {
-  const [open, setOpen] = useState<boolean>(false)
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="bg-gradient-to-r from-[#FFB74D] to-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12"
-      onClick={(): void => setOpen(!open)}
-    >
-      <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold text-white">{faq.question}</h3>
-        <span className={`text-white text-lg transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
-          ▲
-        </span>
-      </div>
-
-      <motion.p
-        initial={{ height: 0, opacity: 0 }}
-        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-        transition={{ duration: 0.4 }}
-        className="text-white text-left mt-2 overflow-hidden"
-      >
-        {faq.answer}
-      </motion.p>
     </motion.div>
   )
 }
