@@ -8,7 +8,7 @@ import { JSX } from "react";
 
 export default function AboutPage(): JSX.Element {
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="pt-20 min-h-screen bg-white text-[black]">
       <HeroSection />
       <StorySection />
       <TimelineSection />

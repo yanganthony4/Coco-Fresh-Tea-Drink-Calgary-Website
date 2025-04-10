@@ -1,51 +1,51 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react"
+import Image from "next/image"
 
 type MainImage = {
-  src: string;
-  alt: string;
-};
+  src: string
+  alt: string
+}
 
 type SmallImage = {
-  src: string;
-  alt: string;
-  link: string;
-};
+  src: string
+  alt: string
+  link: string
+}
 
 const DeliveryAppCarouselMap = () => {
   const [mainImage, setMainImage] = useState<MainImage>({
     src: "/images/main-image.jpg",
     alt: "Main Image",
-  });
+  })
 
   const [smallImages, setSmallImages] = useState<SmallImage[]>([
     { src: "/images/ubereats.png", alt: "Uber Eats Logo", link: "https://www.ubereats.com/" },
     { src: "/images/doordash.png", alt: "DoorDash Logo", link: "https://www.doordash.com/" },
     { src: "/images/skipthedishes.png", alt: "SkipTheDishes Logo", link: "https://www.skipthedishes.com/" },
-  ]);
+  ])
 
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState<number>(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % smallImages.length);
-    }, 2500);
+      setActiveIndex((prevIndex) => (prevIndex + 1) % smallImages.length)
+    }, 2500)
 
-    return () => clearInterval(interval);
-  }, [smallImages.length]);
+    return () => clearInterval(interval)
+  }, [smallImages.length])
 
   const handleImageError = (index: number) => {
-    const fallbackSrc = "/images/main-image.webp";
+    const fallbackSrc = "/images/main-image.webp"
     if (index === -1) {
-      setMainImage((prev) => ({ ...prev, src: fallbackSrc }));
+      setMainImage((prev) => ({ ...prev, src: fallbackSrc }))
     } else {
       setSmallImages((prev) =>
         prev.map((img, i) => (i === index ? { ...img, src: fallbackSrc } : img))
-      );
+      )
     }
-  };
+  }
 
   return (
     <section className="flex items-center justify-center bg-white py-4 md:py-8">
@@ -62,7 +62,7 @@ const DeliveryAppCarouselMap = () => {
         </div>
 
         <div className="flex-1 border-t-4 md:border-l-4 md:border-t-0 border-grey-500 pt-5 md:pt-0 md:pl-5 mt-5 md:mt-0">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-20 mb-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 sm:gap-6 md:gap-20 mb-4">
             {smallImages.map((img, index) => (
               <div
                 key={index}
@@ -96,7 +96,7 @@ const DeliveryAppCarouselMap = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default DeliveryAppCarouselMap;
+export default DeliveryAppCarouselMap

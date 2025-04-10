@@ -5,32 +5,25 @@ import Boxes from "./components/HomeBoxes"
 import DeliveryAppCarousel from "./components/DeliveryAppCarousel"
 import ImageSlider from "./components/ImageSlider"
 
-interface ImageDoc {
-  filename: string
-}
-
-interface ImageApiResponse {
-  docs: ImageDoc[]
-}
-
 const HomeImages: string[] = [
   "/images/homebanner.webp",
   "/images/strawberryPromo.webp",
   "/images/mangodream.webp",
   "/images/cremebruleeposter.webp"
-];
+]
 
 export default function Home() {
-
   return (
     <div className="w-full overflow-x-hidden">
+      {/*This div forces 100% screen width edge-to-edge */}
+      <div className="w-screen">
+        <ImageSlider images={HomeImages} />
+      </div>
+
+      {/*Content container */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
-        {/* Image Slider */}
-        <div className="w-full">
-          <ImageSlider images={HomeImages} />
-        </div>
         <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
-        {/* Section Divider */}
+
         <hr className="border-2 border-gray-500 w-full mx-auto mt-10 md:mt-20" />
 
         {/* Drink Image Slider Section */}
