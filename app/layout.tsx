@@ -56,7 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
         <div className="flex flex-col">
           <Toolbar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow pt-16 md:pt-0">{children}</main>
 
           <footer
   className="bg-orange-300 py-6 text-white w-full"

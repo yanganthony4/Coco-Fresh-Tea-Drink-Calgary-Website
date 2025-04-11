@@ -24,7 +24,7 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
         <h1 className="sr-only">CoCo Bubble Tea - Premium Bubble Tea and Drinks</h1>
 
-        <hr className="border-2 border-gray-500 w-full mx-auto mt-10 md:mt-20" />
+        <hr className="border-2 border-grey-500 w-full mx-auto mt-10 md:mt-20" />
 
         {/* Drink Image Slider Section */}
         <section className="w-full flex flex-col items-center text-center">
@@ -41,7 +41,7 @@ export default function Home() {
           </div>
         </section>
 
-        <hr className="border-2 border-gray-500 w-full mx-auto my-20" />
+        <hr className="border-2 border-grey-500 w-full mx-auto my-20" />
 
         {/* Informational Boxes Section */}
         <div className="w-full flex justify-center">

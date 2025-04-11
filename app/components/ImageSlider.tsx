@@ -1,35 +1,37 @@
-import Image from "next/image"
-import { useState, useEffect } from "react"
+"use client";
+
+import Image from "next/image";
+import { useState, useEffect } from "react";
 
 type ImageSliderProps = {
-  images: string[]
-}
+  images: string[];
+};
 
 const ImageSlider = ({ images }: ImageSliderProps) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0)
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [images.length])
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   const goToSlide = (index: number) => {
-    setCurrentIndex(index)
-  }
+    setCurrentIndex(index);
+  };
 
   return (
-    <div className="relative w-full h-[450px] sm:h-[550px] md:h-[650px] lg:h-[750px] xl:h-[800px] overflow-hidden">
-      <div className="absolute inset-0 w-full h-full">
+    <div className="relative w-full overflow-hidden">
+      <div className="w-full">
         {images.length > 0 && (
           <Image
             src={images[currentIndex]}
             alt={`Banner ${currentIndex}`}
-            fill
-            //Responsive object-fit: contain on mobile, cover on sm+
-            className="object-contain sm:object-cover w-full h-full"
+            width={2000}          // intrinsic width of your image
+            height={1200}         // intrinsic height (adjust if your images differ)
             priority
+            className="w-full h-auto" // this makes the image fill the width and scale its height automatically
           />
         )}
       </div>
@@ -47,7 +49,7 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ImageSlider
+export default ImageSlider;
