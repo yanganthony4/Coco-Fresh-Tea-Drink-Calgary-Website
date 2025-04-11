@@ -1,465 +1,457 @@
 {
-    "drinks": [
-      {
-        "image": "/milk tea drinks/mtsagotaro.webp",
-        "name": "Sago Taro Milk Tea",
-        "description": "Creamy Taro Milk Tea perfectly paired with sago.\nLactose-Free, Caffeine-Free, Gluten-Free, Gelatin-Free, Nut-Free ",
-        "calories": "M: 500 L: 750",
-        "price": "",
-        "category": ["Milk Tea", "Favourites"]
-      },
-      {
-        "image": "/milk tea drinks/mtthreeguys.webp",
-        "name": "Three Guys",
-        "description": "Signature CoCo Milk Tea, with Pearls, Grassjelly and Pudding.",
-        "calories":"",
-        "price":"",
-        "category": ["Milk Tea", "Favourites"]
-      },
-      {
-        "image": "/milk tea drinks/mtbrownsugar.webp",
-        "name": "BrownSugar Pearl Milk Tea",
-        "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
-        "calories":"",
-        "price":"",
-        "category": ["Milk Tea", "Favourites"]
-      },
-      {
-        "image": "/milk tea drinks/mttwoladies.webp",
-        "name": "Two Ladies",
-        "description": "Signature CoCo Milk Tea with Pearls and Pudding",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtbrownsugar.webp",
-        "name": "Brown Sugar Milk Tea",
-        "calories":"",
-        "price":"",
-        "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtcaramel.webp",
-        "name": "Caramel Milk Tea",
-        "description": "Classic Milk Tea with the sweet touch of caramel.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtfreshtaro.webp",
-        "name": "Fresh Taro Milk Tea",
-        "description": "Signature CoCo Milk Tea with mashed Fresh Taro, sweet and creamy.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mthoneydew.webp",
-        "name": "HoneyDew Milk Tea",
-        "description": "Honeydew Jasmine Milk Tea, refreshing yet creamy, paired with Tea Jelly.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtjasmine.webp",
-        "name": "Jasmine Milk Tea",
-        "description": "Light and floral Jasmine Milk tea, perfectly creamy.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtmatcha.webp",
-        "name": "Matcha Milk Tea",
-        "calories":"",
-        "price":"",
-        "description": "Japanese Matcha Milk Tea. Sweet, creamy and earthy.",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtoolong.webp",
-        "name": "Oolong Milk Tea",
-        "description": "",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtpearl.webp",
-        "name": "Pearl Milk Tea",
-        "description": "Signature CoCo Milk Tea with Pearls.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mttaro.webp",
-        "name": "Taro Milk Tea",
-        "description": "Creamy Taro Milk Tea, light and fragrant.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
-      {
-        "image": "/milk tea drinks/mtchoco.webp",
-        "name": "Chocolate Milk Tea",
-        "description": "Classic Chocolate, creamy and rich.",
-        "calories":"",
-        "price":"",
-        "category": "Milk Tea"
-      },
+  "drinks": [
+    {
+      "image": "/images/drinks/milk tea drinks/mtsagotaro.webp",
+      "name": "Sago Taro Milk Tea",
+      "description": "Creamy Taro Milk Tea perfectly paired with sago. \nLactose-Free, Caffeine-Free, Gluten-Free, Gelatin-Free, Nut-Free ",
+      "calories": "M: 500 L: 750",
+      "price": "",
+      "category": ["Milk Tea", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtthreeguys.webp",
+      "name": "Three Guys",
+      "description": "Signature CoCo Milk Tea, with Pearls, Grassjelly and Pudding.",
+      "calories":"",
+      "price":"",
+      "category": ["Milk Tea", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtbrownsugar.webp",
+      "name": "BrownSugar Pearl Milk Tea",
+      "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
+      "calories":"",
+      "price":"",
+      "category": ["Milk Tea", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mttwoladies.webp",
+      "name": "Two Ladies",
+      "description": "Signature CoCo Milk Tea with Pearls and Pudding",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtbrownsugar.webp",
+      "name": "Brown Sugar Milk Tea",
+      "calories":"",
+      "price":"",
+      "description": "Signature CoCo Milk Tea paired with decadent Brown Sugar Pearls.",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtcaramel.webp",
+      "name": "Caramel Milk Tea",
+      "description": "Classic Milk Tea with the sweet touch of caramel.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtfreshtaro.webp",
+      "name": "Fresh Taro Milk Tea",
+      "description": "Signature CoCo Milk Tea with mashed Fresh Taro, sweet and creamy.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mthoneydew.webp",
+      "name": "HoneyDew Milk Tea",
+      "description": "Honeydew Jasmine Milk Tea, refreshing yet creamy, paired with Tea Jelly.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtjasmine.webp",
+      "name": "Jasmine Milk Tea",
+      "description": "Light and floral Jasmine Milk tea, perfectly creamy.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtmatcha.webp",
+      "name": "Matcha Milk Tea",
+      "calories":"",
+      "price":"",
+      "description": "Japanese Matcha Milk Tea. Sweet, creamy and earthy.",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtoolong.webp",
+      "name": "Oolong Milk Tea",
+      "description": "",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtpearl.webp",
+      "name": "Pearl Milk Tea",
+      "description": "Signature CoCo Milk Tea with Pearls.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mttaro.webp",
+      "name": "Taro Milk Tea",
+      "description": "Creamy Taro Milk Tea, light and fragrant.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
+    {
+      "image": "/images/drinks/milk tea drinks/mtchoco.webp",
+      "name": "Chocolate Milk Tea",
+      "description": "Classic Chocolate, creamy and rich.",
+      "calories":"",
+      "price":"",
+      "category": "Milk Tea"
+    },
 
 
 
 
-      {
-        "image": "/fresh tea drinks/ftjasminetea.webp", 
-        "name": "Jasmine Tea",
-        "calories":"",
-        "price":"",
-        "description": "Light and floral jasmine green tea",
-        "category": "Fresh Tea"
-      },
-      {
-        "image": "/fresh tea drinks/ftoolongtea.webp",
-        "name": "Oolong Tea",
-        "calories":"",
-        "price":"",
-        "description": "Smooth and fragrant oolong tea",
-        "category": "Fresh Tea"
-      },
-      {
-        "image": "/fresh tea drinks/ftblacktea.webp",
-        "name": "Black Tea",
-        "calories":"",
-        "price":"",
-        "description": "Classic black tea with rich aroma",
-        "category": "Fresh Tea"
-      },
+    {
+      "image": "/images/drinks/fresh tea drinks/ftjasminetea.webp", 
+      "name": "Jasmine Tea",
+      "calories":"",
+      "price":"",
+      "description": "Light and floral jasmine green tea",
+      "category": "Fresh Tea"
+    },
+    {
+      "image": "/images/drinks/fresh tea drinks/ftoolongtea.webp",
+      "name": "Oolong Tea",
+      "calories":"",
+      "price":"",
+      "description": "Smooth and fragrant oolong tea",
+      "category": "Fresh Tea"
+    },
+    {
+      "image": "/images/drinks/fresh tea drinks/ftblacktea.webp",
+      "name": "Black Tea",
+      "calories":"",
+      "price":"",
+      "description": "Classic black tea with rich aroma",
+      "category": "Fresh Tea"
+    },
 
 
 
 
-      {
-        "image": "/fruit tea drinks/fbubblegaga.webp",
-        "name": "Bubble Gaga",
-        "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly",
-        "calories":"",
-        "price":"",
-        "category": ["Fruit Tea", "Favourites"]
-      },
-      {
-        "image": "/fruit tea drinks/ffreshgrapefruitgreen.webp",
-        "name": "Grapefruit Green Tea",
-        "description": "Refreshing Jasmine Tea with fresh grapefruit juice and pulp.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/ffreshlemongreen.webp",
-        "name": "Lemon Green Tea",
-        "description": "Refreshing Jasmine Tea with freshly juiced lemon",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/ffreshlemonblack.webp",
-        "name": "Lemon Black Tea",
-        "description": "Refreshing Black tea with freshly juiced lemon",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/flemonking.webp",
-        "name": "Lemon King",
-        "description": "Refreshing Jasmine Tea with a whole lemon, fresh hand pressed lemon juice.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/flycheegreentea.webp",
-        "name": "Lychee Green Tea",
-        "description": "Light Jasmine Tea with fresh lychee, perfectly sweet and juicy.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/fmangogreentea.webp",
-        "name": "Mango Green Tea",
-        "description": "Mango Jasmine Tea with fresh mango jam.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/fpassionfruitblack.webp",
-        "name": "Passionfruit Black Tea",
-        "description": "Passionfruit Black Te, perfect balance of tart and sweet.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/fpassionfruitgreen.webp",
-        "name": "Passionfruit Green Tea",
-        "description": "Passionfruit Jasmine Tea, perfect balance of sweet and tart.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
-      {
-        "image": "/fruit tea drinks/fmangopomelo.webp",
-        "name": "Mango Pomelo Tea",
-        "description": "Refreshing mango tea infused with juicy pomelo pulp for a burst of tropical flavor.",
-        "calories":"",
-        "price":"",
-        "category": "Fruit Tea"
-      },
+    {
+      "image": "/images/drinks/fruit tea drinks/fbubblegaga.webp",
+      "name": "Bubble Gaga",
+      "description": "Passion Fruit Green Tea with Pearls and Coconut Jelly",
+      "calories":"",
+      "price":"",
+      "category": ["Fruit Tea", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/ffreshgrapefruitgreen.webp",
+      "name": "Grapefruit Green Tea",
+      "description": "Refreshing Jasmine Tea with fresh grapefruit juice and pulp.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/ffreshlemongreen.webp",
+      "name": "Lemon Green Tea",
+      "description": "Refreshing Jasmine Tea with freshly juiced lemon",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/ffreshlemonblack.webp",
+      "name": "Lemon Black Tea",
+      "description": "Refreshing Black tea with freshly juiced lemon",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/flemonking.webp",
+      "name": "Lemon King",
+      "description": "Refreshing Jasmine Tea with a whole lemon, fresh hand pressed lemon juice.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/flycheegreentea.webp",
+      "name": "Lychee Green Tea",
+      "description": "Light Jasmine Tea with fresh lychee, perfectly sweet and juicy.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/fmangogreentea.webp",
+      "name": "Mango Green Tea",
+      "description": "Mango Jasmine Tea with fresh mango jam.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/fpassionfruitblack.webp",
+      "name": "Passionfruit Black Tea",
+      "description": "Passionfruit Black Te, perfect balance of tart and sweet.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/fpassionfruitgreen.webp",
+      "name": "Passionfruit Green Tea",
+      "description": "Passionfruit Jasmine Tea, perfect balance of sweet and tart.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
+    {
+      "image": "/images/drinks/fruit tea drinks/fmangopomelo.webp",
+      "name": "Mango Pomelo Tea",
+      "description": "Refreshing mango tea infused with juicy pomelo pulp for a burst of tropical flavor.",
+      "calories":"",
+      "price":"",
+      "category": "Fruit Tea"
+    },
 
 
 
 
-      {
-        "image": "/slush drinks/sslushavocado.webp",
-        "name": "Avocado Smoothie",
-        "description": "Fresh milk and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
-        "calories":"",
-        "price":"",
-        "category": ["Slush", "Favourites"]
-      },
-      {
-        "image": "/slush drinks/smangodream.webp",
-        "name": "Mango Dream",
-        "description": "Refreshing, smooth mango slush with fresh mango jam, blended with yakult.",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/smangopomelo.webp",
-        "name": "Mango Pomelo Sago" ,
-        "description": "Creamy Mango Slush with Coconut Milk, Fresh Mango Jam and Pomelo, and Sago",
-        "calories":"",
-        "price":"",
-        "category": ["Slush", "Favourites"]
-      },
-      {
-        "image": "/slush drinks/sstrawberrydream.webp",
-        "name": "Strawberry Dream",
-        "description": "Fresh Strawberry slush, paired with salty cream, the perfect balance.",
-        "calories":"",
-        "price":"",
-        "category": ["Slush", "Favourites"]
-      },
-      {
-        "image": "/slush drinks/sslushavocadopudding.webp",
-        "name": "Avocado Pudding Smoothie",
-        "description": "Fresh whole milk, pudding, and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/schocoslush.webp",
-        "name": "Chocolate Slush",
-        "description": "Smooth decadent chocolate slush.",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/schocodream.webp",
-        "name": "Chocolate Dream",
-        "description": "Smooth decadent chocolate slush with rich brown sugar pearls and salty cream",
-        "category": ["Slush", "Favourites"]
-      },
-      {
-        "image": "/slush drinks/shoneydew.webp",
-        "name": "HoneyDew Slush",
-        "description": "Soft and creamy honey dew, blended with whole milk and salty cream.",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/smangoslush.webp",
-        "name": "Mango Slush",
-        "description": "Mango slush with fresh mango jam.",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/smangodream.webp",
-        "name": "Mango Dream",
-        "description": "Mango slush with fresh mango jam, salty cream.",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/smatcha.webp",
-        "name": "Matcha Slush Macchiato" ,
-        "description": "Japanese Matcha slush topped with salty cream",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/sstrawberry.webp",
-        "name": "Strawberry Slush" ,
-        "description": "Fresh strawberries and juice blended with ice, with white pearls",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/staro.webp",
-        "name": "Taro Slush" ,
-        "description": "Creamy taro milk tea blended with ice",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/scremestrawberry.webp",
-        "name": "Creme Brulee Strawberry",
-        "description": "Luscious strawberry milk layered with sweet crème brûlée for a rich, dessert-inspired treat.",
-        "calories":"",
-        "price":"",
-        "category": "Slush"
-      },
-      {
-        "image": "/slush drinks/spassionfruitmangoslush.webp",
-        "name": "Passionfruit Mango Slush" ,
-        "description": "Refreshing passionfruit and mango juice blended with ice" ,
-        "category": "Slush"
-      },
+    {
+      "image": "/images/drinks/slush drinks/sslushavocado.webp",
+      "name": "Avocado Smoothie",
+      "description": "Fresh milk and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
+      "calories":"",
+      "price":"",
+      "category": ["Slush", "Favourites"]
+    },
+    
+    {
+      "image": "/images/drinks/slush drinks/smangopomelo.webp",
+      "name": "Mango Pomelo Sago" ,
+      "description": "Creamy Mango Slush with Coconut Milk, Fresh Mango Jam and Pomelo, and Sago",
+      "calories":"",
+      "price":"",
+      "category": ["Slush", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/slush drinks/sstrawberrydream.webp",
+      "name": "Strawberry Dream",
+      "description": "Fresh Strawberry slush, paired with salty cream, the perfect balance.",
+      "calories":"",
+      "price":"",
+      "category": ["Slush", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/slush drinks/sslushavocadopudding.webp",
+      "name": "Avocado Pudding Smoothie",
+      "description": "Fresh whole milk, pudding, and avocado blended with ice and salty cream for a twist on a classic dessert.\nCaffeine-Free, Gluten-Free, Nut-Free",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/schocoslush.webp",
+      "name": "Chocolate Slush",
+      "description": "Smooth decadent chocolate slush.",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/schocodream.webp",
+      "name": "Chocolate Dream",
+      "description": "Smooth decadent chocolate slush with rich brown sugar pearls and salty cream",
+      "category": ["Slush", "Favourites"]
+    },
+    {
+      "image": "/images/drinks/slush drinks/shoneydew.webp",
+      "name": "HoneyDew Slush",
+      "description": "Soft and creamy honey dew, blended with whole milk and salty cream.",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/smangoslush.webp",
+      "name": "Mango Slush",
+      "description": "Mango slush with fresh mango jam.",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/smangodream.webp",
+      "name": "Mango Dream",
+      "description": "Mango slush with fresh mango jam, salty cream.",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/smatcha.webp",
+      "name": "Matcha Slush Macchiato" ,
+      "description": "Japanese Matcha slush topped with salty cream",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/sstrawberry.webp",
+      "name": "Strawberry Slush" ,
+      "description": "Fresh strawberries and juice blended with ice, with white pearls",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/staro.webp",
+      "name": "Taro Slush" ,
+      "description": "Creamy taro milk tea blended with ice",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/scremestrawberry.webp",
+      "name": "Creme Brulee Strawberry",
+      "description": "Luscious strawberry milk layered with sweet crème brûlée for a rich, dessert-inspired treat.",
+      "calories":"",
+      "price":"",
+      "category": "Slush"
+    },
+    {
+      "image": "/images/drinks/slush drinks/spassionfruitmangoslush.webp",
+      "name": "Passionfruit Mango Slush" ,
+      "description": "Refreshing passionfruit and mango juice blended with ice" ,
+      "category": "Slush"
+    },
 
 
 
 
-      {
-        "image": "/yakult drinks/ygrapefruityakult.webp",
-        "name": "Grapefruit Yakult",
-        "description": "Fresh grapefruit juice and pulp with Yakult.",
-        "calories":"",
-        "price":"",
-        "category": "Yakult"
-      },
-      {
-        "image": "/yakult drinks/ygreenteayakult.webp",
-        "name": "Green Tea Yakult",
-        "description": "Jasmine tea with Yakult, tart and refreshing.",
-        "calories":"",
-        "price":"",
-        "category": "Yakult"
-      },
-      {
-        "image": "/yakult drinks/ylemonyakult.webp",
-        "name": "Lemon Yakult",
-        "description": "Freshly juiced lemon and Yakult.",
-        "calories":"",
-        "price":"",
-        "category": "Yakult"
-      },
-      {
-        "image": "/yakult drinks/ymangoyakult.webp",
-        "name": "Mango Yakult",
-        "description": "Mango juice, fresh mango jam, and Yakult.",
-        "calories":"",
-        "price":"",
-        "category": "Yakult"
-      },
-      {
-        "image": "/yakult drinks/ylycheeyakult.webp",
-        "name": "Lychee Yakult",
-        "description": "Lychee juice and fruit, and Yakult yogurt",
-        "calories":"",
-        "price":"",
-        "category": "Yakult"
-      },
+    {
+      "image": "/images/drinks/yakult drinks/ygrapefruityakult.webp",
+      "name": "Grapefruit Yakult",
+      "description": "Fresh grapefruit juice and pulp with Yakult.",
+      "calories":"",
+      "price":"",
+      "category": "Yakult"
+    },
+    {
+      "image": "/images/drinks/yakult drinks/ygreenteayakult.webp",
+      "name": "Green Tea Yakult",
+      "description": "Jasmine tea with Yakult, tart and refreshing.",
+      "calories":"",
+      "price":"",
+      "category": "Yakult"
+    },
+    {
+      "image": "/images/drinks/yakult drinks/ylemonyakult.webp",
+      "name": "Lemon Yakult",
+      "description": "Freshly juiced lemon and Yakult.",
+      "calories":"",
+      "price":"",
+      "category": "Yakult"
+    },
+    {
+      "image": "/images/drinks/yakult drinks/ymangoyakult.webp",
+      "name": "Mango Yakult",
+      "description": "Mango juice, fresh mango jam, and Yakult.",
+      "calories":"",
+      "price":"",
+      "category": "Yakult"
+    },
+    {
+      "image": "/images/drinks/yakult drinks/ylycheeyakult.webp",
+      "name": "Lychee Yakult",
+      "description": "Lychee juice and fruit, and Yakult yogurt",
+      "calories":"",
+      "price":"",
+      "category": "Yakult"
+    },
 
 
 
 
-      {
-        "image": "/latte drinks/lbrownsugar.webp",
-        "name": "Brown Sugar Pearl Latte",
-        "description": "Fresh whole milk with decadent Brown Sugar Pearls and salty cream.",
-        "calories":"",
-        "price":"",
-        "category": "Fresh Milk"
-      },
-      {
-        "image": "/latte drinks/lfreshtaromilk.webp",
-        "name": "Fresh Taro Latte",
-        "description": "Fresh whole milk with mashed Fresh Taro and salty cream, sweet and creamy.",
-        "calories":"",
-        "price":"",
-        "category": "Fresh Milk"
-      },
-      {
-        "image": "/latte drinks/lmatcha.webp",
-        "name": "Matcha Latte",
-        "description": "Japanese Matcha with fresh whole milk and salty cream, classic.",
-        "calories":"",
-        "price":"",
-        "category": "Fresh Milk"
-      },
-      {
-        "image": "/latte drinks/lstrawberry.webp",
-        "name": "Strawberry Latte",
-        "description": "Fresh, sweet strawberries with fresh whole milk and salty cream.",
-        "calories":"",
-        "price":"",
-        "category": "Fresh Milk"
-      },
+    {
+      "image": "/images/drinks/latte drinks/lbrownsugar.webp",
+      "name": "Brown Sugar Pearl Latte",
+      "description": "Fresh whole milk with decadent Brown Sugar Pearls and salty cream.",
+      "calories":"",
+      "price":"",
+      "category": "Fresh Milk"
+    },
+    {
+      "image": "/images/drinks/latte drinks/lfreshtaromilk.webp",
+      "name": "Fresh Taro Latte",
+      "description": "Fresh whole milk with mashed Fresh Taro and salty cream, sweet and creamy.",
+      "calories":"",
+      "price":"",
+      "category": "Fresh Milk"
+    },
+    {
+      "image": "/images/drinks/latte drinks/lmatcha.webp",
+      "name": "Matcha Latte",
+      "description": "Japanese Matcha with fresh whole milk and salty cream, classic.",
+      "calories":"",
+      "price":"",
+      "category": "Fresh Milk"
+    },
+    {
+      "image": "/images/drinks/latte drinks/lstrawberry.webp",
+      "name": "Strawberry Latte",
+      "description": "Fresh, sweet strawberries with fresh whole milk and salty cream.",
+      "calories":"",
+      "price":"",
+      "category": "Fresh Milk"
+    },
 
 
 
 
-      {
-        "image": "/salty cream drinks/scblacktea.webp",
-        "name": "Black Tea Salty Cream",
-        "description": "Fresh black tea with salty cream topping.",
-        "calories":"",
-        "price":"",
-        "category": "Salty Cream"
-      },
-      {
-        "image": "/salty cream drinks/scchocolate.webp",
-        "name": "Chocolate Salty Cream",
-        "description": "Rich chocolate milk tea with salty cream topping.",
-        "calories":"",
-        "price":"",
-        "category": "Salty Cream"
-      },
-      {
-        "image": "/salty cream drinks/scgreentea.webp",
-        "name": "Jasmine Tea Salty Cream",
-        "description": "Fresh jasmine tea with salty cream topping.",
-        "calories":"",
-        "price":"",
-        "category": "Salty Cream"
-      },
-      {
-        "image": "/salty cream drinks/scmatcha.webp",
-        "name": "Matcha Salty Cream",
-        "description": "Japanese Matcha milk tea with salty cream topping.",
-        "calories":"",
-        "price":"",
-        "category": "Salty Cream"
-      }
-    ]
-  }
-  
+    {
+      "image": "/images/drinks/salty cream drinks/scblacktea.webp",
+      "name": "Black Tea Salty Cream",
+      "description": "Fresh black tea with salty cream topping.",
+      "calories":"",
+      "price":"",
+      "category": "Salty Cream"
+    },
+    {
+      "image": "/images/drinks/salty cream drinks/scchocolate.webp",
+      "name": "Chocolate Salty Cream",
+      "description": "Rich chocolate milk tea with salty cream topping.",
+      "calories":"",
+      "price":"",
+      "category": "Salty Cream"
+    },
+    {
+      "image": "/images/drinks/salty cream drinks/scgreentea.webp",
+      "name": "Jasmine Tea Salty Cream",
+      "description": "Fresh jasmine tea with salty cream topping.",
+      "calories":"",
+      "price":"",
+      "category": "Salty Cream"
+    },
+    {
+      "image": "/images/drinks/salty cream drinks/scmatcha.webp",
+      "name": "Matcha Salty Cream",
+      "description": "Japanese Matcha milk tea with salty cream topping.",
+      "calories":"",
+      "price":"",
+      "category": "Salty Cream"
+    }
+  ]
+}
