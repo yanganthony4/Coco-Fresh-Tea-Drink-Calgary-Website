@@ -16,7 +16,7 @@ type SmallImage = {
 
 const DeliveryAppCarouselMap = () => {
   const [mainImage, setMainImage] = useState<MainImage>({
-    src: "/images/main-image.jpg",
+    src: "/icons/cocoavataronlyblack.svg",
     alt: "Main Image",
   })
 

@@ -21,6 +21,7 @@ type Location = {
   distance?: number;
 };
 
+
 const libraries: Libraries = ["places", "marker"];
 
 const Map = () => {
@@ -235,6 +236,18 @@ const Map = () => {
     return { isOpen, closingTime: isOpen ? end : null, reopeningTime };
   };
 
+  // Preload marker images for the map (the tiny tool for optimizing image loading)
+  useEffect(() => {
+    const preloadImages = [
+      "/icons/mapstoreicon.svg",
+      "/icons/hereicon.svg",
+    ];
+    preloadImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -246,9 +259,9 @@ const Map = () => {
         },
         (error) => {
           if (process.env.NODE_ENV !== "production") {
-            console.error("Error fetching location:", error)
+            console.error("Error fetching location:", error);
           }
-        }        
+        }
       );
     }
   }, []);
@@ -322,9 +335,9 @@ const Map = () => {
     if (googleLoaded && window.google && mapRef.current) {
       sortedLocations.forEach((location) => {
         const markerDiv = document.createElement("div");
-        markerDiv.style.backgroundImage = "url(/icons/mapstoreicon.png)";
-        markerDiv.style.width = "40px";
-        markerDiv.style.height = "40px";
+        markerDiv.style.backgroundImage = 'url("/icons/mapstoreicon.svg")';
+        markerDiv.style.width = "20px";
+        markerDiv.style.height = "20px";
         markerDiv.style.backgroundSize = "cover";
         markerDiv.style.cursor = "pointer";
         markerDiv.addEventListener("click", () => handleSidebarClick(location));
@@ -340,9 +353,9 @@ const Map = () => {
       });
 
       const userMarkerImg = document.createElement("img");
-      userMarkerImg.src = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-      userMarkerImg.style.width = "30px";
-      userMarkerImg.style.height = "30px";
+      userMarkerImg.src = "/icons/hereicon.svg";
+      userMarkerImg.style.width = "40px";
+      userMarkerImg.style.height = "40px";
       userMarkerImg.style.objectFit = "cover";
 
       const userMarker = new window.google.maps.marker.AdvancedMarkerElement({
@@ -374,7 +387,7 @@ const Map = () => {
                 zoom={12}
                 options={{ mapId: "11a23be6ab78d144" }}
                 onLoad={(map) => {
-                  mapRef.current = map
+                  mapRef.current = map;
                 }}
               />
             </div>
@@ -441,9 +454,9 @@ const Map = () => {
               </div>
               <div className="divide-y">
                 {sortedLocations.map((location) => {
-                  const today = getDayOfWeek()
-                  const hours = location.schedule[today]
-                  const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, location.schedule)
+                  const today = getDayOfWeek();
+                  const hours = location.schedule[today];
+                  const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, location.schedule);
 
                   return (
                     <div
@@ -454,14 +467,13 @@ const Map = () => {
                       <h3 className="text-black text-sm font-medium">{location.name}</h3>
                       <p className="text-black text-xs">{location.address}</p>
                       <p className="text-black text-xs">
-                        {location.distance} km away ·{" "}
+                        {location.distance} km away &middot;{" "}
                         <span className={`text-xs ${isOpen ? "text-green-600" : "text-red-500"}`}>
-
                           {isOpen ? `Open until ${closingTime}` : `Closed. Reopens ${reopeningTime}`}
                         </span>
                       </p>
                     </div>
-                  )
+                  );
                 })}
               </div>
             </>
@@ -473,19 +485,17 @@ const Map = () => {
                   alt="CoCo mascot"
                   className="w-16 h-16 mx-auto mb-2"
                 />
-                <p className="text-gray-700 mb-4 text-sm">Can't make the trip? Order delivery through our partners!</p>
+                <p className="text-gray-700 mb-4 text-sm">
+                  Can't make the trip? Order delivery through our partners!
+                </p>
                 <DeliveryAppLogos />
-              </div>
-              <div className="mt-auto w-full bg-orange-200 py-2 px-4 flex justify-between">
-                <span className="text-sm">Privacy Policy</span>
-                <span className="text-sm">Accessibility</span>
               </div>
             </div>
           )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Map;
+export default Map;

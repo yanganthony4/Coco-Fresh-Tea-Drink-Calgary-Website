@@ -1,0 +1,88 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.2.0
+2 info using node@v20.18.0
+3 silly config load:file:C:\Users\Administrator\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\Administrator\Projects\coco-website\.npmrc
+5 silly config load:file:C:\Users\Administrator\.npmrc
+6 silly config load:file:C:\Users\Administrator\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm ci
+8 verbose argv "ci" "--legacy-peer-deps" "--cache" ".npm" "--prefer-offline"
+9 verbose logfile logs-max:10 dir:C:\Users\Administrator\Projects\coco-website\.npm\_logs\2025-04-11T02_36_34_821Z-
+10 verbose logfile C:\Users\Administrator\Projects\coco-website\.npm\_logs\2025-04-11T02_36_34_821Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest @types/react@^18.2.0
+15 silly packumentCache full:https://registry.npmjs.org/@types%2freact cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/npm 246ms
+17 http fetch GET 200 https://registry.npmjs.org/@types%2freact 160ms (cache miss)
+18 silly packumentCache full:https://registry.npmjs.org/@types%2freact set size:undefined disposed:false
+19 silly fetch manifest @types/react-dom@^19.1.2
+20 silly packumentCache full:https://registry.npmjs.org/@types%2freact-dom cache-miss
+21 http fetch GET 200 https://registry.npmjs.org/@types%2freact-dom 56ms (cache miss)
+22 silly packumentCache full:https://registry.npmjs.org/@types%2freact-dom set size:undefined disposed:false
+23 silly placeDep ROOT @types/react@18.3.20 REPLACE for: coco-website-calgary@0.1.0 want: ^18.2.0
+24 silly placeDep ROOT @types/react-dom@19.1.2 OK for: coco-website-calgary@0.1.0 want: ^19.1.2
+25 verbose stack Error: 
+25 verbose stack `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+25 verbose stack
+25 verbose stack Invalid: lock file's @types/react@19.1.0 does not satisfy @types/react@18.3.20
+25 verbose stack Missing: @types/react-dom@19.1.2 from lock file
+25 verbose stack
+25 verbose stack Clean install a project
+25 verbose stack
+25 verbose stack Usage:
+25 verbose stack npm ci
+25 verbose stack
+25 verbose stack Options:
+25 verbose stack [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+25 verbose stack [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+25 verbose stack [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+25 verbose stack [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+25 verbose stack [--no-bin-links] [--no-fund] [--dry-run]
+25 verbose stack [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+25 verbose stack [--workspaces] [--include-workspace-root] [--install-links]
+25 verbose stack
+25 verbose stack aliases: clean-install, ic, install-clean, isntall-clean
+25 verbose stack
+25 verbose stack Run "npm help ci" for more info
+25 verbose stack     at CI.usageError (C:\Users\Administrator\AppData\Roaming\npm\node_modules\npm\lib\base-cmd.js:111:26)
+25 verbose stack     at CI.exec (C:\Users\Administrator\AppData\Roaming\npm\node_modules\npm\lib\commands\ci.js:70:18)
+25 verbose stack     at async Npm.exec (C:\Users\Administrator\AppData\Roaming\npm\node_modules\npm\lib\npm.js:208:9)
+25 verbose stack     at async module.exports (C:\Users\Administrator\AppData\Roaming\npm\node_modules\npm\lib\cli\entry.js:67:5)
+26 error code EUSAGE
+27 error
+27 error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+27 error
+27 error Invalid: lock file's @types/react@19.1.0 does not satisfy @types/react@18.3.20
+27 error Missing: @types/react-dom@19.1.2 from lock file
+27 error
+27 error Clean install a project
+27 error
+27 error Usage:
+27 error npm ci
+27 error
+27 error Options:
+27 error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+27 error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+27 error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+27 error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+27 error [--no-bin-links] [--no-fund] [--dry-run]
+27 error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+27 error [--workspaces] [--include-workspace-root] [--install-links]
+27 error
+27 error aliases: clean-install, ic, install-clean, isntall-clean
+27 error
+27 error Run "npm help ci" for more info
+28 verbose cwd C:\Users\Administrator\Projects\coco-website
+29 verbose os Windows_NT 10.0.26100
+30 verbose node v20.18.0
+31 verbose npm  v11.2.0
+32 notice
+32 notice New [33mminor[39m version of npm available! [33m11.2.0[39m -> [34m11.3.0[39m
+32 notice Changelog: [34mhttps://github.com/npm/cli/releases/tag/v11.3.0[39m
+32 notice To update run: [4mnpm install -g npm@11.3.0[24m
+32 notice  { force: true, [Symbol(proc-log.meta)]: true }
+33 verbose exit 1
+34 verbose code 1
+35 error A complete log of this run can be found in: C:\Users\Administrator\Projects\coco-website\.npm\_logs\2025-04-11T02_36_34_821Z-debug-0.log
