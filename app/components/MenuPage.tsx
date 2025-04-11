@@ -20,7 +20,7 @@ const MenuPage = () => {
 
   const categories: string[] = [
     "All",
-    "Favorites",
+    "Favorites", // UI remains "Favorites"
     "Milk Tea",
     "Fresh Tea",
     "Fresh Milk",
@@ -35,9 +35,20 @@ const MenuPage = () => {
   const filteredDrinks: Drink[] =
     selectedCategory === "All"
       ? drinks
-      : drinks.filter((drink) =>
-          drink.category.includes(selectedCategory)
-        );
+      : drinks.filter((drink) => {
+          // Special case: when "Favorites" is selected, filter drinks by "Favourites" (data in JSON)
+          if (selectedCategory === "Favorites") {
+            if (typeof drink.category === "string") {
+              return drink.category === "Favourites";
+            }
+            return Array.isArray(drink.category) && drink.category.includes("Favourites");
+          }
+          // Default filtering for other categories
+          if (typeof drink.category === "string") {
+            return drink.category === selectedCategory;
+          }
+          return Array.isArray(drink.category) && drink.category.includes(selectedCategory);
+        });
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 min-h-screen">
@@ -48,8 +59,13 @@ const MenuPage = () => {
           selectedCategory={selectedCategory}
         />
         <div className="flex-1 lg:pl-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 uppercase">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 uppercase flex items-center">
             {selectedCategory}
+            <img
+              src="/images/cocoemoji.png" // ensure this path is correct in your project structure
+              alt="CoCo Emoji"
+              className="ml-2 w-6 h-6 animate-jump"
+            />
           </h1>
           <ProductGrid products={filteredDrinks} />
         </div>

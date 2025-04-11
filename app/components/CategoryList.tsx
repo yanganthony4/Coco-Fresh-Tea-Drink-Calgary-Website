@@ -1,32 +1,67 @@
-type CategoryListProps = {
-  categories: string[];
-  onSelectCategory: (category: string) => void;
-  selectedCategory: string;
-};
+"use client"
 
-const CategoryList = ({ categories, onSelectCategory, selectedCategory }: CategoryListProps) => {
+import { useCallback } from "react"
+
+interface CategoryListProps {
+  categories: string[]
+  selectedCategory: string
+  onSelectCategory: (category: string) => void
+}
+
+const CategoryList = ({ categories, selectedCategory, onSelectCategory }: CategoryListProps): JSX.Element => {
+  const handleCategoryClick = useCallback(
+    (category: string): void => {
+      onSelectCategory(category)
+    },
+    [onSelectCategory],
+  )
+
   return (
-    <div className="w-full lg:w-1/4 lg:pr-8 mb-6 lg:mb-0">
-      <div className="overflow-x-auto lg:overflow-x-visible -mx-4 px-4 lg:mx-0 lg:px-0 lg:border-r lg:border-gray-300">
-        <ul className="flex lg:flex-col space-x-4 lg:space-x-0 lg:space-y-6 min-w-max lg:min-w-0 pb-4 lg:pb-0">
-          {categories.map((category, index) => (
-            <li
-              key={index}
-              onClick={() => onSelectCategory(category)}
-              className={`uppercase cursor-pointer text-sm sm:text-base lg:text-xl font-semibold whitespace-nowrap px-4 py-2 rounded-lg transition-all
-                ${
-                  selectedCategory === category
-                    ? "text-orange-600 font-bold bg-orange-100"
-                    : "text-gray-800 hover:text-orange-600 hover:bg-orange-50"
-                }`}
+    <div className="mb-6 lg:mb-0 w-full lg:w-64">
+      <h2 className="sr-only">Categories</h2>
+      
+      {/* 
+        For mobile: a horizontally scrollable bar.
+        For desktop: fallback to vertical (or keep horizontal if you prefer).
+      */}
+      <ul className="
+          flex 
+          lg:block
+          gap-2       /* spacing between items */
+          lg:gap-0
+          overflow-x-auto  /* enables horizontal scroll on smaller screens */
+          whitespace-nowrap
+      ">
+        {categories.map((category) => (
+          <li 
+            key={category} 
+            className="inline-block lg:block" /* ensures horizontal on mobile, vertical on desktop */
+          >
+            <button
+              onClick={() => handleCategoryClick(category)}
+              className={`
+                inline-block px-4 py-3 rounded-lg transition-all duration-200 relative group
+                ${selectedCategory === category 
+                  ? "bg-orange-100 text-orange-600 font-medium" 
+                  : "hover:bg-gray-50 text-gray-700"
+                }
+              `}
             >
-              {category}
-            </li>
-          ))}
-        </ul>
-      </div>
+              <span className="text-lg relative inline-block">
+                {category}
+                <span
+                  className={`
+                    absolute left-0 bottom-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full 
+                    ${selectedCategory === category ? "w-full" : ""}
+                  `}
+                ></span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
-  );
-};
+  )
+}
 
-export default CategoryList;
+export default CategoryList
