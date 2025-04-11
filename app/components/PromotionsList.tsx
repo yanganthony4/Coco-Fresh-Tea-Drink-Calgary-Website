@@ -44,7 +44,7 @@ export default function PromotionsList() {
         ({ id, title, description, timeFrame, images, price }) => (
           <section
             key={id}
-            className="w-full bg-[#fbf2d7] p-6 shadow-lg mb-8 last:mb-0 rounded-lg flex flex-col md:flex-row items-center justify-between min-h-[250px]"
+            className="w-full bg-[#fbf2d7] p-6 mb-8 last:mb-0 flex flex-col md:flex-row items-center justify-between min-h-[250px]"
           >
             {/* Image */}
             <div className="flex-shrink-0 flex items-center justify-center  w-full md:w-2/5">
