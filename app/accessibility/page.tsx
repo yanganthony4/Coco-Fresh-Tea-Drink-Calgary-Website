@@ -86,7 +86,7 @@ function renderSection(title: string | null, ...content: (string | JSX.Element)[
       ),
     React.createElement(
       "div",
-      { className: "bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg" },
+      { className: "bg-orange-300 rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg" },
       content.map((text, index) =>
         React.createElement("p", { key: index, className: "mb-4" }, text)
       )

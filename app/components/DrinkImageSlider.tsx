@@ -1,7 +1,6 @@
 "use client";
 
 import styled from "styled-components"
-
 import Image from "next/image";
 
 type Drink = {
@@ -10,16 +9,16 @@ type Drink = {
 };
 
 const drinks = [
-  { name: "BSMT", src: "/images/bsmt.png" },
-  { name: "Grapefruit", src: "/images/grapefruit.png" },
-  { name: "BSMT", src: "/images/bsmt.png" },
-  { name: "Popping", src: "/images/popping.png" },
-  { name: "Matcha", src: "/images/matcha.png" },
-  { name: "Popping", src: "/images/popping.png" },
-  { name: "Matcha", src: "/images/matcha.png" },
-  { name: "Grapefruit", src: "/images/grapefruit.png" },
-  { name: "BSMT", src: "/images/bsmt.png" },
-  { name: "Popping", src: "/images/popping.png" },
+  { name: "BLACK SUGAR MILK TEA", src: "/images/bsmt.png" },
+  { name: "GRAPEFRUIT YAKULT", src: "/images/grapefruit.png" },
+  { name: "BLACK SUGAR MILK TEA", src: "/images/bsmt.png" },
+  { name: "GRAPEFRUIT GREEN TEA", src: "/images/popping.png" },
+  { name: "MATCHA SALTY CREAM", src: "/images/matcha.png" },
+  { name: "GRAPEFRUIT GREEN TEA", src: "/images/popping.png" },
+  { name: "MATCHA SALTY CREAM", src: "/images/matcha.png" },
+  { name: "GRAPEFRUIT YAKULT", src: "/images/grapefruit.png" },
+  { name: "BLACK SUGAR MILK TEA", src: "/images/bsmt.png" },
+  { name: "GRAPEFRUIT GREEN TEA", src: "/images/popping.png" },
 ]
 
 export default function DrinkImageSlider() {
@@ -29,17 +28,17 @@ export default function DrinkImageSlider() {
         {drinks.map((drink, i) => (
           <div key={i} className="card">
             <div className="card-front">
-           <div className="content">
-             <Image
-              src={drink.src}
-              alt={drink.name}
-              width={170}
-              height={220}
-              className="rounded-md object-contain"
-             />
-             <p className="drink-name">{drink.name}</p>
-           </div>
-         </div>
+              <div className="content">
+                <Image
+                  src={drink.src}
+                  alt={drink.name}
+                  width={170}
+                  height={220}
+                  className="rounded-md object-contain"
+                />
+                <p className="drink-name">{drink.name}</p>
+              </div>
+            </div>
 
             <div className="card-back">
               <Image
@@ -104,6 +103,24 @@ const Wrapper = styled.div`
     transform: rotateY(180deg);
   }
 
+  /* Position drink name at the bottom of the card */
+  .card-front .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 1rem;
+  }
+
+  /* Update drink name styling: smaller size and orange-300 color */
+  .drink-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fdba74;
+    margin-top: 0.5rem;
+  }
+
   ${drinks
     .map(
       (_, i) => `
@@ -116,50 +133,42 @@ const Wrapper = styled.div`
 
   /* 🔽 Mobile view (max-width: 768px) */
   @media (max-width: 768px) {
-  .card-3d {
-    transform: perspective(1000px) scale(0.65) rotateY(0deg);
-    height: 200px;
+    .card-3d {
+      transform: perspective(1000px) scale(0.65) rotateY(0deg);
+      height: 200px;
+    }
+
+    .card {
+      width: 120px;
+      height: 170px;
+    }
+
+    .card-front img,
+    .card-back img {
+      width: 100px;
+      height: auto;
+    }
+
+    .card-front .content {
+      padding-bottom: 0.5rem;
+    }
+
+    .drink-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fdba74;
+    }
+
+    /* Adjust translateZ for mobile spacing between cards */
+    .card:nth-child(1) { transform: translate(-50%, -50%) rotateY(0deg) translateZ(200px); }
+    .card:nth-child(2) { transform: translate(-50%, -50%) rotateY(36deg) translateZ(200px); }
+    .card:nth-child(3) { transform: translate(-50%, -50%) rotateY(72deg) translateZ(200px); }
+    .card:nth-child(4) { transform: translate(-50%, -50%) rotateY(108deg) translateZ(200px); }
+    .card:nth-child(5) { transform: translate(-50%, -50%) rotateY(144deg) translateZ(200px); }
+    .card:nth-child(6) { transform: translate(-50%, -50%) rotateY(180deg) translateZ(200px); }
+    .card:nth-child(7) { transform: translate(-50%, -50%) rotateY(216deg) translateZ(200px); }
+    .card:nth-child(8) { transform: translate(-50%, -50%) rotateY(252deg) translateZ(200px); }
+    .card:nth-child(9) { transform: translate(-50%, -50%) rotateY(288deg) translateZ(200px); }
+    .card:nth-child(10) { transform: translate(-50%, -50%) rotateY(324deg) translateZ(200px); }
   }
-
-  .card {
-    width: 120px;
-    height: 170px;
-  }
-
-  .card-front img,
-  .card-back img {
-    width: 100px;
-    height: auto;
-  }
-
-  .card-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  }
-
-  .drink-name {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #333;
-  text-align: center;
-  line-height: 1.2;
-   }
-
-
-  /* Reduce translateZ to reduce spacing between cards */
-  .card:nth-child(1) { transform: translate(-50%, -50%) rotateY(0deg) translateZ(200px); }
-  .card:nth-child(2) { transform: translate(-50%, -50%) rotateY(36deg) translateZ(200px); }
-  .card:nth-child(3) { transform: translate(-50%, -50%) rotateY(72deg) translateZ(200px); }
-  .card:nth-child(4) { transform: translate(-50%, -50%) rotateY(108deg) translateZ(200px); }
-  .card:nth-child(5) { transform: translate(-50%, -50%) rotateY(144deg) translateZ(200px); }
-  .card:nth-child(6) { transform: translate(-50%, -50%) rotateY(180deg) translateZ(200px); }
-  .card:nth-child(7) { transform: translate(-50%, -50%) rotateY(216deg) translateZ(200px); }
-  .card:nth-child(8) { transform: translate(-50%, -50%) rotateY(252deg) translateZ(200px); }
-  .card:nth-child(9) { transform: translate(-50%, -50%) rotateY(288deg) translateZ(200px); }
-  .card:nth-child(10) { transform: translate(-50%, -50%) rotateY(324deg) translateZ(200px); }
-}
-
 `

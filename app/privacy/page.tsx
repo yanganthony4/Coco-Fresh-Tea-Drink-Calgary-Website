@@ -27,7 +27,7 @@ const PrivacyPolicy: React.FC = () => {
         <h1 className="text-4xl font-bold text-[#000000] mb-8">PRIVACY POLICY</h1>
 
         <div className="space-y-8">
-          <div className="bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+          <div className="bg-orange-300 rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
             <p className="mb-4">
               This privacy policy will help you understand how CoCo Fresh Tea & Juice Calgary uses and protects the data you provide to us when you visit our website.
             </p>
@@ -89,7 +89,7 @@ function renderSection(title: string, content: (string | string[])[]): JSX.Eleme
         {title}
         <ArrowRight className="h-6 w-6 text-[#FF5C28]" />
       </h2>
-      <div className="bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+      <div className="bg-orange-300 rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
         {content.map((item, index) => (
           typeof item === "string" ? (
             <p key={index}>{item}</p>

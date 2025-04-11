@@ -20,7 +20,7 @@ const MenuPage = () => {
 
   const categories: string[] = [
     "All",
-    "Favorites", // UI remains "Favorites"
+    "Favorites", 
     "Milk Tea",
     "Fresh Tea",
     "Fresh Milk",
