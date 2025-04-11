@@ -122,7 +122,7 @@ export default function ContactForm() {
         {formSubmitted ? (
           <div className="p-6 bg-green-100 border border-green-300 rounded-md">
             <h3 className="text-xl font-semibold text-green-700 mb-2">Thank you!</h3>
-            <p className="text-green-600">Your message has been sent. We'll get back to you soon.</p>
+            <p className="text-green-600">Your message has been sent. We&rsquo;ll get back to you soon.</p>
           </div>
         ) : (
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
