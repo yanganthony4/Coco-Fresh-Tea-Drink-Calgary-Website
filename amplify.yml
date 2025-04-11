@@ -12,9 +12,9 @@ applications:
         baseDirectory: .next
         files:
           - "**/*"
-      cache:
-        paths:
-          - node_modules/**/*
+      # cache:  ❌ Disabling this to avoid ENOSPC
+      #   paths:
+      #     - node_modules/**/*
       environment:
         variables:
           NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: "AIzaSyCDCozLjgMz3Vs2Yzrlj8oupzRarBXZbbE"
