@@ -486,7 +486,7 @@ const Map = () => {
                   className="w-16 h-16 mx-auto mb-2"
                 />
                 <p className="text-gray-700 mb-4 text-sm">
-                  Can't make the trip? Order delivery through our partners!
+                  Can&apos;t make the trip? Order delivery through our partners!
                 </p>
                 <DeliveryAppLogos />
               </div>
