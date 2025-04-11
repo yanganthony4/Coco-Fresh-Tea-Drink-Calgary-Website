@@ -1,42 +1,41 @@
-"use client";
+"use client"
 
-import type { Libraries } from "@react-google-maps/api";
-import { useState, useEffect, useRef } from "react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
-import DeliveryAppLogos from "./DeliveryAppLogos";
+import type { Libraries } from "@react-google-maps/api"
+import { useState, useEffect, useRef } from "react"
+import { GoogleMap, LoadScript } from "@react-google-maps/api"
+import DeliveryAppLogos from "./DeliveryAppLogos"
 
 type Schedule = {
-  [key: string]: string;
-};
+  [key: string]: string
+}
 
 type Location = {
-  id: number;
-  lat: number;
-  lng: number;
-  name: string;
-  address: string;
-  postalcode: string;
-  phone: string;
-  schedule: Schedule;
-  distance?: number;
-};
+  id: number
+  lat: number
+  lng: number
+  name: string
+  address: string
+  postalcode: string
+  phone: string
+  schedule: Schedule
+  distance?: number
+}
 
-
-const libraries: Libraries = ["places", "marker"];
+const libraries: Libraries = ["places", "marker"]
 
 const Map = () => {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number }>({
     lat: 51.0447,
     lng: -114.0719,
-  });
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  const [sortedLocations, setSortedLocations] = useState<Location[]>([]);
-  const [googleLoaded, setGoogleLoaded] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<"pickup" | "delivery">("pickup");
+  })
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
+  const [sortedLocations, setSortedLocations] = useState<Location[]>([])
+  const [googleLoaded, setGoogleLoaded] = useState<boolean>(false)
+  const [viewMode, setViewMode] = useState<"pickup" | "delivery">("pickup")
 
-  const mapRef = useRef<google.maps.Map | null>(null);
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
-  const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+  const mapRef = useRef<google.maps.Map | null>(null)
+  const searchInputRef = useRef<HTMLInputElement | null>(null)
+  const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([])
 
   const locations: Location[] = [
     {
@@ -183,70 +182,67 @@ const Map = () => {
         Sunday: "11:30 AM - 11:00 PM",
       },
     },
-  ];
+  ]
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-    const R = 6371;
-    const dLat = (lat2 - lat1) * (Math.PI / 180);
-    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const R = 6371
+    const dLat = (lat2 - lat1) * (Math.PI / 180)
+    const dLon = (lon2 - lon1) * (Math.PI / 180)
     const a =
       Math.sin(dLat / 2) ** 2 +
-      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return Number.parseFloat((R * c).toFixed(2));
-  };
+      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) ** 2
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return Number.parseFloat((R * c).toFixed(2))
+  }
 
   const getDayOfWeek = (): string => {
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    return days[new Date().getDay()];
-  };
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    return days[new Date().getDay()]
+  }
 
   const getOpenStatus = (
     hours: string | undefined,
-    schedule: Schedule
+    schedule: Schedule,
   ): { isOpen: boolean; closingTime: string | null; reopeningTime: string | null } => {
-    if (!hours) return { isOpen: false, closingTime: null, reopeningTime: null };
+    if (!hours) return { isOpen: false, closingTime: null, reopeningTime: null }
 
-    const [start, end] = hours.split(" - ");
-    const now = new Date();
-    const currentTime = now.getHours() * 60 + now.getMinutes();
+    const [start, end] = hours.split(" - ")
+    const now = new Date()
+    const currentTime = now.getHours() * 60 + now.getMinutes()
 
     const toMinutes = (time: string): number => {
-      const [hour, modifier] = time.split(" ");
-      const [h, m] = hour.split(":").map(Number);
-      const minutes = (h % 12) * 60 + (m || 0);
-      return modifier === "PM" ? minutes + 12 * 60 : minutes;
-    };
-
-    const startMinutes = toMinutes(start);
-    const endMinutes = toMinutes(end);
-    const isOpen = currentTime >= startMinutes && currentTime <= endMinutes;
-
-    let reopeningTime: string | null = null;
-    if (!isOpen) {
-      const days = Object.keys(schedule);
-      const todayIndex = days.indexOf(getDayOfWeek());
-      let nextDayIndex = (todayIndex + 1) % days.length;
-      while (!schedule[days[nextDayIndex]]) {
-        nextDayIndex = (nextDayIndex + 1) % days.length;
-      }
-      reopeningTime = schedule[days[nextDayIndex]].split(" - ")[0];
+      const [hour, modifier] = time.split(" ")
+      const [h, m] = hour.split(":").map(Number)
+      const minutes = (h % 12) * 60 + (m || 0)
+      return modifier === "PM" ? minutes + 12 * 60 : minutes
     }
 
-    return { isOpen, closingTime: isOpen ? end : null, reopeningTime };
-  };
+    const startMinutes = toMinutes(start)
+    const endMinutes = toMinutes(end)
+    const isOpen = currentTime >= startMinutes && currentTime <= endMinutes
+
+    let reopeningTime: string | null = null
+    if (!isOpen) {
+      const days = Object.keys(schedule)
+      const todayIndex = days.indexOf(getDayOfWeek())
+      let nextDayIndex = (todayIndex + 1) % days.length
+      while (!schedule[days[nextDayIndex]]) {
+        nextDayIndex = (nextDayIndex + 1) % days.length
+      }
+      reopeningTime = schedule[days[nextDayIndex]].split(" - ")[0]
+    }
+
+    return { isOpen, closingTime: isOpen ? end : null, reopeningTime }
+  }
 
   // Preload marker images for the map (the tiny tool for optimizing image loading)
   useEffect(() => {
-    const preloadImages = [
-      "/icons/mapstoreicon.svg",
-      "/icons/hereicon.svg",
-    ];
+    const preloadImages = ["/icons/mapstoreicon.svg", "/icons/hereicon.svg"]
     preloadImages.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
+      const img = new Image()
+      img.src = src
+    })
+  }, [])
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -255,16 +251,16 @@ const Map = () => {
           setUserLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          })
         },
         (error) => {
           if (process.env.NODE_ENV !== "production") {
-            console.error("Error fetching location:", error);
+            console.error("Error fetching location:", error)
           }
-        }
-      );
+        },
+      )
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     const sorted = locations
@@ -273,33 +269,33 @@ const Map = () => {
         distance: calculateDistance(userLocation.lat, userLocation.lng, location.lat, location.lng),
       }))
       .filter((location) => location.distance! <= 100)
-      .sort((a, b) => a.distance! - b.distance!);
+      .sort((a, b) => a.distance! - b.distance!)
 
     if (JSON.stringify(sorted) !== JSON.stringify(sortedLocations)) {
-      setSortedLocations(sorted);
+      setSortedLocations(sorted)
     }
-  }, [userLocation]);
+  }, [userLocation, locations])
 
   const handleSearch = () => {
     if (searchInputRef.current && window.google) {
       const bounds = new window.google.maps.LatLngBounds(
         { lat: 50.8429, lng: -114.4086 },
-        { lat: 51.2127, lng: -113.919 }
-      );
+        { lat: 51.2127, lng: -113.919 },
+      )
 
       const autocomplete = new window.google.maps.places.Autocomplete(searchInputRef.current, {
         bounds,
         strictBounds: false,
         componentRestrictions: { country: "ca" },
         fields: ["geometry", "name"],
-      });
+      })
 
       autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
+        const place = autocomplete.getPlace()
         if (place.geometry?.location) {
-          const lat = place.geometry.location.lat();
-          const lng = place.geometry.location.lng();
-          setUserLocation({ lat, lng });
+          const lat = place.geometry.location.lat()
+          const lng = place.geometry.location.lng()
+          setUserLocation({ lat, lng })
 
           const updatedLocations = locations
             .map((location) => ({
@@ -307,74 +303,85 @@ const Map = () => {
               distance: calculateDistance(lat, lng, location.lat, location.lng),
             }))
             .filter((location) => location.distance! <= 100)
-            .sort((a, b) => a.distance! - b.distance!);
-          setSortedLocations(updatedLocations);
+            .sort((a, b) => a.distance! - b.distance!)
+          setSortedLocations(updatedLocations)
 
           if (mapRef.current) {
-            mapRef.current.panTo({ lat, lng });
-            mapRef.current.setZoom(12);
+            mapRef.current.panTo({ lat, lng })
+            mapRef.current.setZoom(12)
           }
         }
-      });
+      })
     }
-  };
+  }
 
   const handleSidebarClick = (location: Location) => {
-    setSelectedLocation(location);
+    setSelectedLocation(location)
     if (mapRef.current) {
-      mapRef.current.panTo({ lat: location.lat, lng: location.lng });
+      mapRef.current.panTo({ lat: location.lat, lng: location.lng })
     }
-  };
+  }
 
   useEffect(() => {
     markersRef.current.forEach((marker) => {
-      marker.map = null;
-    });
-    markersRef.current = [];
+      marker.map = null
+    })
+    markersRef.current = []
 
     if (googleLoaded && window.google && mapRef.current) {
+      // Create store markers
       sortedLocations.forEach((location) => {
-        const markerDiv = document.createElement("div");
-        markerDiv.style.backgroundImage = 'url("/icons/mapstoreicon.svg")';
-        markerDiv.style.width = "20px";
-        markerDiv.style.height = "20px";
-        markerDiv.style.backgroundSize = "cover";
-        markerDiv.style.cursor = "pointer";
-        markerDiv.addEventListener("click", () => handleSidebarClick(location));
+        // Create a proper image element instead of a div with background
+        const markerImg = document.createElement("img")
+        markerImg.src = "/icons/mapstoreicon.svg"
+        markerImg.style.width = "30px" // Increase size from 20px to 30px
+        markerImg.style.height = "30px" // Increase size from 20px to 30px
+        markerImg.style.cursor = "pointer"
+
+        // Add drop shadow for better visibility
+        markerImg.style.filter = "drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3))"
+
+        markerImg.addEventListener("click", () => handleSidebarClick(location))
 
         const marker = new window.google.maps.marker.AdvancedMarkerElement({
           map: mapRef.current,
           position: { lat: location.lat, lng: location.lng },
           title: location.name,
-          content: markerDiv,
-        });
+          content: markerImg,
+          zIndex: 1, // Ensure store markers are below user marker
+        })
 
-        markersRef.current.push(marker);
-      });
+        markersRef.current.push(marker)
+      })
 
-      const userMarkerImg = document.createElement("img");
-      userMarkerImg.src = "/icons/hereicon.svg";
-      userMarkerImg.style.width = "40px";
-      userMarkerImg.style.height = "40px";
-      userMarkerImg.style.objectFit = "cover";
+      // Create user location marker
+      const userMarkerImg = document.createElement("img")
+      userMarkerImg.src = "/icons/hereicon.svg"
+      userMarkerImg.style.width = "40px"
+      userMarkerImg.style.height = "40px"
+      userMarkerImg.style.objectFit = "contain"
+
+      // Add drop shadow and glow effect for better visibility
+      userMarkerImg.style.filter = "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))"
 
       const userMarker = new window.google.maps.marker.AdvancedMarkerElement({
         map: mapRef.current,
         position: userLocation,
         title: "Your Location",
         content: userMarkerImg,
-      });
+        zIndex: 2, // Ensure user marker is above store markers
+      })
 
-      markersRef.current.push(userMarker);
+      markersRef.current.push(userMarker)
     }
-  }, [googleLoaded, sortedLocations, userLocation]);
+  }, [googleLoaded, sortedLocations, userLocation])
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen w-full">
       {/* Main Content */}
-      <div className="grid grid-rows-[45vh_auto_1fr] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden">
+      <div className="grid grid-rows-[45vh_auto_1fr] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden h-full">
         {/* Map goes first on mobile */}
-        <div className="w-full h-full order-1 md:order-2">
+        <div className="w-full h-full order-1 md:order-2 relative">
           <LoadScript
             googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
             libraries={libraries}
@@ -387,7 +394,7 @@ const Map = () => {
                 zoom={12}
                 options={{ mapId: "11a23be6ab78d144" }}
                 onLoad={(map) => {
-                  mapRef.current = map;
+                  mapRef.current = map
                 }}
               />
             </div>
@@ -417,7 +424,7 @@ const Map = () => {
         </div>
 
         {/* Sidebar goes second on mobile */}
-        <div className="w-full h-full overflow-y-auto bg-white order-3 md:order-1">
+        <div className="w-full h-full overflow-y-auto bg-white order-3 md:order-1 flex flex-col">
           {/* Desktop buttons - at top of sidebar */}
           <div className="hidden md:flex justify-center p-2 bg-white">
             <div className="flex space-x-4">
@@ -454,9 +461,9 @@ const Map = () => {
               </div>
               <div className="divide-y">
                 {sortedLocations.map((location) => {
-                  const today = getDayOfWeek();
-                  const hours = location.schedule[today];
-                  const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, location.schedule);
+                  const today = getDayOfWeek()
+                  const hours = location.schedule[today]
+                  const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, location.schedule)
 
                   return (
                     <div
@@ -473,19 +480,19 @@ const Map = () => {
                         </span>
                       </p>
                     </div>
-                  );
+                  )
                 })}
               </div>
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full">
-              <div className="text-center max-w-md mx-auto px-4 py-6">
+            <div className="flex flex-col items-center justify-start h-full overflow-y-auto py-8">
+              <div className="text-center max-w-md mx-auto px-4">
                 <img
                   src="/images/CoCoLogoMascotOnlyGreyTransparent.png"
                   alt="CoCo mascot"
-                  className="w-16 h-16 mx-auto mb-2"
+                  className="w-24 h-24 mx-auto mb-4"
                 />
-                <p className="text-gray-700 mb-4 text-sm">
+                <p className="text-gray-700 mb-6 text-sm">
                   Can&apos;t make the trip? Order delivery through our partners!
                 </p>
                 <DeliveryAppLogos />
@@ -495,7 +502,7 @@ const Map = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Map;
+export default Map

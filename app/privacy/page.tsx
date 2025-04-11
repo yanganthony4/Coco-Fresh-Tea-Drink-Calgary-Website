@@ -1,38 +1,33 @@
-import React, { JSX } from "react";
-import { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
+import type React from "react"
+import type { JSX } from "react"
+import type { Metadata } from "next"
+import { ArrowRight } from "lucide-react"
 
-// Metadata type
-interface MetadataProps {
-  title: string;
-  description: string;
-  alternates: {
-    canonical: string;
-  };
-}
-
-// Updated metadata for SEO
-export const metadata: MetadataProps = {
+export const metadata: Metadata = {
   title: "Privacy Policy | CoCo Fresh Tea & Juice Calgary",
-  description: "Read CoCo Fresh Tea & Juice Calgary's privacy policy and learn how we collect, use, and protect your personal data on our website.",
+  description:
+    "Read CoCo Fresh Tea & Juice Calgary's privacy policy and learn how we collect, use, and protect your personal data on our website.",
   alternates: {
     canonical: "https://www.coco-bubble-tea.ca/privacy", // canonical URL
   },
-};
+}
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-[#000000] mb-8">PRIVACY POLICY</h1>
+    <div className="min-h-screen bg-white pt-20">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold text-[#000000] mb-6">PRIVACY POLICY</h1>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           <div className="bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
-            <p className="mb-4">
-              This privacy policy will help you understand how CoCo Fresh Tea & Juice Calgary uses and protects the data you provide to us when you visit our website.
+            <p className="mb-3">
+              This privacy policy will help you understand how CoCo Fresh Tea & Juice Calgary uses and protects the data
+              you provide to us when you visit our website.
             </p>
             <p>
-              We reserve the right to change this policy at any given time, of which you will be promptly updated. If you want to make sure that you are up to date with the latest changes, we advise you to frequently visit this page.
+              We reserve the right to change this policy at any given time, of which you will be promptly updated. If
+              you want to make sure that you are up to date with the latest changes, we advise you to frequently visit
+              this page.
             </p>
           </div>
 
@@ -58,7 +53,7 @@ const PrivacyPolicy: React.FC = () => {
           {renderSection("Our Cookie Policy", [
             "Once you agree to allow our website to use cookies, you also agree to use the data it collects regarding your online behavior (analyze web traffic, web pages you spend the most time on, and websites you visit).",
             "The data we collect by using cookies is used to customize our website to your needs. After we use the data for statistical analysis, the data is completely removed from our systems.",
-            "Please note that cookies don’t allow us to gain control of your computer in any way. They are strictly used to monitor which pages you find useful and which you do not so that we can provide a better experience for you.",
+            "Please note that cookies don't allow us to gain control of your computer in any way. They are strictly used to monitor which pages you find useful and which you do not so that we can provide a better experience for you.",
           ])}
 
           {renderSection("Links to Other Websites", [
@@ -67,43 +62,43 @@ const PrivacyPolicy: React.FC = () => {
 
           {renderSection("Restricting the Collection of your Personal Data", [
             "At some point, you might wish to restrict the use and collection of your personal data. You can achieve this by doing the following:",
-            "When you are filling the forms on the website, make sure to check if there is a box that you can leave unchecked, if you don’t want to disclose your personal information.",
+            "When you are filling the forms on the website, make sure to check if there is a box that you can leave unchecked, if you don't want to disclose your personal information.",
             "If you have already agreed to share your information with us, feel free to contact us via email and we will be more than happy to change this for you.",
             "CoCo Fresh Tea & Juice Calgary will not lease, sell or distribute your personal information to any third parties unless we have your permission. We might do so if the law forces us. Your personal information will be used when we need to send you promotional materials if you agree to this privacy policy.",
           ])}
 
-          <p className="text-sm text-gray-600 mt-8">
-            Last updated: {new Date().toLocaleDateString()}
-          </p>
+          <p className="text-sm text-gray-600 mt-6">Last updated: {new Date().toLocaleDateString()}</p>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // helper function to render each section with title and content
 function renderSection(title: string, content: (string | string[])[]): JSX.Element {
   return (
-    <section>
-      <h2 className="text-2xl font-bold text-black mb-4 flex items-center gap-2">
+    <section className="mb-6">
+      <h2 className="text-2xl font-bold text-black mb-3 flex items-center gap-2">
         {title}
         <ArrowRight className="h-6 w-6 text-[#FF5C28]" />
       </h2>
       <div className="bg-[#FFB485] rounded-md p-6 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
-        {content.map((item, index) => (
+        {content.map((item, index) =>
           typeof item === "string" ? (
-            <p key={index}>{item}</p>
+            <p key={index} className={index < content.length - 1 ? "mb-3" : ""}>
+              {item}
+            </p>
           ) : (
-            <ul key={index} className="list-disc list-inside space-y-2">
+            <ul key={index} className="list-disc list-inside space-y-2 mb-3">
               {item.map((listItem, subIndex) => (
                 <li key={subIndex}>{listItem}</li>
               ))}
             </ul>
-          )
-        ))}
+          ),
+        )}
       </div>
     </section>
-  );
+  )
 }
 
-export default PrivacyPolicy;
+export default PrivacyPolicy
