@@ -1,5 +1,7 @@
 "use client";
 
+import promotions from "../json/promotions-items.json"; // adjust the path if needed
+
 type Promotion = {
   id: number;
   title: string;
@@ -9,37 +11,10 @@ type Promotion = {
   price: string;
 };
 
-const promotions: Promotion[] = [
-  {
-    id: 1,
-    title: "Creme Brulee Special",
-    description: "Try our new Creme Brulee drinks made with the highest quality!",
-    timeFrame: "April 1 - April 30, 2025",
-    images: ["/images/cremebruleeposter.webp"],
-    price: "4.99"
-  },
-  {
-    id: 2,
-    title: "Strawberry Special",
-    description: "Try our new Strawberry drinks made with the highest quality!",
-    timeFrame: "April 1 - April 30, 2025",
-    images: ["/images/strawberryPromo.webp"],
-    price: "4.99"
-  },
-  {
-    id: 3,
-    title: "Mango Dream",
-    description: "Try our new Mango drinks made with the highest quality!",
-    timeFrame: "April 1 - April 30, 2025",
-    images: ["/images/mangodream.webp"],
-    price: "4.99"
-  },
-]
-
 export default function PromotionsList() {
 
   return (
-    <div className="w-full lg:w-3/5">
+    <div className="w-full lg:w-3/5 font-sora">
       {promotions.map(
         ({ id, title, description, timeFrame, images, price }) => (
           <section

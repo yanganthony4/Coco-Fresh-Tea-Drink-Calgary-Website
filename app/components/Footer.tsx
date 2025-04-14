@@ -1,30 +1,79 @@
-"use client";
+// components/Footer.tsx
+import Link from "next/link";
+import Image from "next/image";
 
-import { ReactNode } from "react";
-import Toolbar from "./Toolbar";
+const Footer = () => {
+  return (
+    <footer className="bg-orange-300 py-6 text-white w-full">
+      <div className="container mx-auto px-4 flex flex-col items-center space-y-4">
+        {/* Row 1: Social Media + Handle/Search Box */}
+        <div className="flex items-center space-x-4 justify-center">
+          <Link
+            href="https://www.instagram.com/cocobubbletea.calgary/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-shrink-0"
+          >
+            <Image
+              src="/images/instalogow.png"
+              alt="Instagram"
+              width={24}
+              height={24}
+              className="hover:opacity-80"
+            />
+          </Link>
 
-type LayoutProps = {
-  children: ReactNode;
+          <Link
+            href="https://www.tiktok.com/@cocoteacalgary?lang=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-shrink-0"
+          >
+            <Image
+              src="/images/tiktok.png"
+              alt="TikTok"
+              width={28}
+              height={28}
+              className="hover:opacity-80"
+            />
+          </Link>
+
+          <div className="flex items-center border-2 border-white rounded-md overflow-hidden">
+            <span className="px-3 py-1 text-white">@cocobubbleteacalgary</span>
+            <Link
+              href="https://www.facebook.com/cococalgary/"
+              className="bg-white p-1.5"
+              aria-label="Search"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/images/searchlogo.png"
+                alt="Search"
+                width={20}
+                height={20}
+                className="text-orange-400"
+                style={{ color: "#f15a24" }}
+              />
+            </Link>
+          </div>
+        </div>
+
+        {/* Row 2: Privacy Policy & Accessibility Links */}
+        <div className="flex space-x-6 items-center justify-center">
+          <Link href="/privacy" className="text-white hover:underline">
+            Privacy Policy
+          </Link>
+          <Link href="/accessibility" className="text-white hover:underline">
+            Accessibility
+          </Link>
+        </div>
+
+        {/* Row 3: Copyright */}
+        <div className="text-sm text-white">©2025 Coco Bubble Tea Calgary</div>
+      </div>
+    </footer>
+  );
 };
 
-export default function Layout({ children }: LayoutProps) {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Toolbar />
-
-      <main className="flex-grow">{children}</main>
-
-      {/* Footer */}
-      <footer className="bg-orange-300 py-6 text-center">
-        <div className="flex justify-center space-x-6 mb-4">
-          <a href="/privacy" className="text-white hover:underline">
-            Privacy Policy
-          </a>
-          <a href="/accessibility" className="text-white hover:underline">
-            Accessibility
-          </a>
-        </div>
-      </footer>
-    </div>
-  );
-}
+export default Footer;

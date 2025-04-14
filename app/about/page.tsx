@@ -1,9 +1,9 @@
 "use client";
 
-import HeroSection from "../components/HeroSection";
-import StorySection from "../components/StorySection";
-import TimelineSection from "../components/TimelineSection";
-import ValuesSection from "../components/ValuesSection";
+import HeroSection from "../components/about-us/HeroSection";
+import StorySection from "../components/about-us/StorySection";
+import TimelineSection from "../components/about-us/TimelineSection";
+import ValuesSection from "../components/about-us/ValuesSection";
 import { JSX } from "react";
 
 export default function AboutPage(): JSX.Element {

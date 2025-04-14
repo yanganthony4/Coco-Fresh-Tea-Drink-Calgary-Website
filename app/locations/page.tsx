@@ -4,7 +4,7 @@ import React, { JSX } from "react";
 import dynamic from "next/dynamic";
 
 // Dynamically import the Map component
-const Map = dynamic(() => import("../components/Map"), { ssr: false });
+const Map = dynamic(() => import("../components/locations/Map"), { ssr: false });
 
 export default function Locations(): JSX.Element {
   return (

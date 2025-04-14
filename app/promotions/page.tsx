@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import PromotionsList from "../components/PromotionsList"
+import PromotionsList from "../components/promotions/PromotionsList"
 import Image from "next/image"
 
 // TypeScript for the component state and refs

@@ -16,7 +16,7 @@ type SmallImage = {
 
 const DeliveryAppCarouselMap = () => {
   const [mainImage, setMainImage] = useState<MainImage>({
-    src: "/icons/main-image.webp",
+    src: "/images/art/deliveryimage.webp",
     alt: "Main Image",
   })
 

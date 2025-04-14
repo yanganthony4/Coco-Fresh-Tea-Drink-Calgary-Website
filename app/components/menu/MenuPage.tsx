@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CategoryList from "./CategoryList";
 import ProductGrid from "./ProductGrid";
-import Data from "./data.json";
+import Data from "../json/menu-items.json";
 
 // Define the shape of a drink item based on the JSON format
 type Drink = {

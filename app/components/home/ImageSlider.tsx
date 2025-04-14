@@ -22,7 +22,7 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
   };
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden pt-16 md:pt-0">
       <div className="w-full">
         {images.length > 0 && (
           <Image

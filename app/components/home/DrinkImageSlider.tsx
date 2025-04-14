@@ -2,24 +2,12 @@
 
 import styled from "styled-components"
 import Image from "next/image";
+import drinks from "../json/drink-card-carousel-items.json"
 
 type Drink = {
   name: string;
   src: string;
 };
-
-const drinks = [
-  { name: "BLACK SUGAR MILK TEA", src: "/images/bsmt.png" },
-  { name: "GRAPEFRUIT YAKULT", src: "/images/grapefruit.png" },
-  { name: "BLACK SUGAR MILK TEA", src: "/images/bsmt.png" },
-  { name: "GRAPEFRUIT GREEN TEA", src: "/images/popping.png" },
-  { name: "MATCHA SALTY CREAM", src: "/images/matcha.png" },
-  { name: "GRAPEFRUIT GREEN TEA", src: "/images/popping.png" },
-  { name: "MATCHA SALTY CREAM", src: "/images/matcha.png" },
-  { name: "GRAPEFRUIT YAKULT", src: "/images/grapefruit.png" },
-  { name: "BLACK SUGAR MILK TEA", src: "/images/bsmt.png" },
-  { name: "GRAPEFRUIT GREEN TEA", src: "/images/popping.png" },
-]
 
 export default function DrinkImageSlider() {
   return (

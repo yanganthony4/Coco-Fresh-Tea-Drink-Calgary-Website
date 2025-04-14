@@ -4,12 +4,14 @@ import type { Libraries } from "@react-google-maps/api";
 import { useState, useEffect, useRef } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import DeliveryAppLogos from "./DeliveryAppLogos";
+// Import store locations from the JSON file in the data folder (located in components)
+import storeLocations from "../data/store-locations.json";
 
 type Schedule = {
   [key: string]: string;
 };
 
-type Location = {
+export type Location = {
   id: number;
   lat: number;
   lng: number;
@@ -21,10 +23,10 @@ type Location = {
   distance?: number;
 };
 
-
 const libraries: Libraries = ["places", "marker"];
 
 const Map = () => {
+  // Default location: Calgary.
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number }>({
     lat: 51.0447,
     lng: -114.0719,
@@ -33,165 +35,26 @@ const Map = () => {
   const [sortedLocations, setSortedLocations] = useState<Location[]>([]);
   const [googleLoaded, setGoogleLoaded] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<"pickup" | "delivery">("pickup");
+  // Use state to track the map instance explicitly.
+  const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
 
-  const mapRef = useRef<google.maps.Map | null>(null);
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  // Keep a ref for markers (so we can clear them as needed).
   const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
-  const locations: Location[] = [
-    {
-      id: 1,
-      lat: 51.140557671521876,
-      lng: -114.06951971593705,
-      name: "Harvest Hills",
-      address: "9650 Harvest Hills Blvd N #1113",
-      postalcode: "T3K 0B3",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "11:30 AM - 11:00 PM",
-        Tuesday: "11:30 AM - 11:00 PM",
-        Wednesday: "11:30 AM - 10:00 PM",
-        Thursday: "11:30 AM - 10:00 PM",
-        Friday: "11:30 AM - 10:00 PM",
-        Saturday: "11:30 AM - 10:00 PM",
-        Sunday: "11:30 AM - 10:00 PM",
-      },
-    },
-    {
-      id: 2,
-      lat: 51.12734580261667,
-      lng: -114.19557993454954,
-      name: "Crowfoot",
-      address: "150 Crowfoot Crescent NW #303",
-      postalcode: "T3G 3T2",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "11:30 AM - 10:00 PM",
-        Tuesday: "11:30 AM - 10:00 PM",
-        Wednesday: "11:30 AM - 10:00 PM",
-        Thursday: "11:30 AM - 10:00 PM",
-        Friday: "11:30 AM - 10:00 PM",
-        Saturday: "11:30 AM - 10:00 PM",
-        Sunday: "11:30 AM - 10:00 PM",
-      },
-    },
-    {
-      id: 3,
-      lat: 51.08259525945537,
-      lng: -114.09418731069533,
-      name: "Northmount Plaza",
-      address: "3400 14 St NW #102",
-      postalcode: "T2K 1H9",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "12:00 PM - 9:00 PM",
-        Tuesday: "12:00 PM - 9:00 PM",
-        Wednesday: "12:00 PM - 9:00 PM",
-        Thursday: "12:00 PM - 9:00 PM",
-        Friday: "12:00 PM - 9:00 PM",
-        Saturday: "12:00 PM - 9:00 PM",
-        Sunday: "12:00 PM - 9:00 PM",
-      },
-    },
-    {
-      id: 4,
-      lat: 51.03746239963937,
-      lng: -114.17783413232726,
-      name: "Christie Crossing",
-      address: "40 Christie Park View SW Unit 8, 3125",
-      postalcode: "T3H 6E7",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "12:00 PM - 10:00 PM",
-        Tuesday: "12:00 PM - 10:00 PM",
-        Wednesday: "12:00 PM - 10:00 PM",
-        Thursday: "12:00 PM - 10:00 PM",
-        Friday: "12:00 PM - 10:00 PM",
-        Saturday: "12:00 PM - 10:00 PM",
-        Sunday: "12:00 PM - 10:00 PM",
-      },
-    },
-    {
-      id: 5,
-      lat: 51.050468599175865,
-      lng: -114.0624531406064,
-      name: "Chinatown",
-      address: "100 3 Ave SE",
-      postalcode: "T2G 0B6",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "11:00 AM - 11:00 PM",
-        Tuesday: "11:00 AM - 11:00 PM",
-        Wednesday: "11:00 AM - 11:00 PM",
-        Thursday: "11:00 AM - 11:00 PM",
-        Friday: "11:00 AM - 11:00 PM",
-        Saturday: "11:00 AM - 11:00 PM",
-        Sunday: "11:00 AM - 11:00 PM",
-      },
-    },
-    {
-      id: 6,
-      lat: 51.0608501132362,
-      lng: -113.98443222480552,
-      name: "Pacific Place",
-      address: "999 36 St NE #311",
-      postalcode: "T2A 6K5",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "11:00 AM - 10:00 PM",
-        Tuesday: "11:00 AM - 10:00 PM",
-        Wednesday: "11:00 AM - 10:00 PM",
-        Thursday: "11:00 AM - 10:00 PM",
-        Friday: "11:00 AM - 10:00 PM",
-        Saturday: "11:00 AM - 10:00 PM",
-        Sunday: "11:00 AM - 10:00 PM",
-      },
-    },
-    {
-      id: 7,
-      lat: 50.96980518223345,
-      lng: -114.06994799758279,
-      name: "Macleod Plaza",
-      address: "9250 Macleod Trail #19",
-      postalcode: "T2J 0P9",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "12:00 AM - 11:00 PM",
-        Tuesday: "12:00 AM - 11:00 PM",
-        Wednesday: "12:00 AM - 11:00 PM",
-        Thursday: "12:00 AM - 11:00 PM",
-        Friday: "12:00 AM - 11:00 PM",
-        Saturday: "12:00 AM - 11:00 PM",
-        Sunday: "12:00 AM - 11:00 PM",
-      },
-    },
-    {
-      id: 8,
-      lat: 50.907236305686475,
-      lng: -114.06601675893562,
-      name: "Shawnessy",
-      address: "16061 Macleod Trail SE #226-2",
-      postalcode: "T2Y 3S5",
-      phone: "XXX-XXX-XXXX",
-      schedule: {
-        Monday: "11:30 AM - 11:00 PM",
-        Tuesday: "11:30 AM - 11:00 PM",
-        Wednesday: "11:30 AM - 11:00 PM",
-        Thursday: "11:30 AM - 11:00 PM",
-        Friday: "11:30 AM - 11:00 PM",
-        Saturday: "11:30 AM - 11:00 PM",
-        Sunday: "11:30 AM - 11:00 PM",
-      },
-    },
-  ];
+  // Use imported store locations from the JSON file.
+  const locations: Location[] = storeLocations as Location[];
 
+  // Calculate distance between two points.
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
     const R = 6371;
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
     const a =
       Math.sin(dLat / 2) ** 2 +
-      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) ** 2;
+      Math.cos(lat1 * (Math.PI / 180)) *
+        Math.cos(lat2 * (Math.PI / 180)) *
+        Math.sin(dLon / 2) ** 2;
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return Number.parseFloat((R * c).toFixed(2));
   };
@@ -236,26 +99,36 @@ const Map = () => {
     return { isOpen, closingTime: isOpen ? end : null, reopeningTime };
   };
 
-  // Preload marker images for the map (the tiny tool for optimizing image loading)
+  // Preload marker images.
   useEffect(() => {
-    const preloadImages = [
-      "/icons/mapstoreicon.svg",
-      "/icons/hereicon.svg",
-    ];
+    const preloadImages = ["/icons/mapstoreicon.svg", "/icons/hereicon.svg"];
     preloadImages.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
   }, []);
 
+  // Improved user location effect:
+  // 1. Load cached location from localStorage (if available)
+  // 2. Request current position via Geolocation API, then update state and cache.
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const cachedLocation = window.localStorage.getItem("userLocation");
+      if (cachedLocation) {
+        setUserLocation(JSON.parse(cachedLocation));
+      }
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setUserLocation({
+          const freshLocation = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          };
+          setUserLocation(freshLocation);
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem("userLocation", JSON.stringify(freshLocation));
+          }
         },
         (error) => {
           if (process.env.NODE_ENV !== "production") {
@@ -266,6 +139,7 @@ const Map = () => {
     }
   }, []);
 
+  // Update sorted locations based on current userLocation.
   useEffect(() => {
     const sorted = locations
       .map((location) => ({
@@ -300,7 +174,6 @@ const Map = () => {
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
           setUserLocation({ lat, lng });
-
           const updatedLocations = locations
             .map((location) => ({
               ...location,
@@ -310,9 +183,9 @@ const Map = () => {
             .sort((a, b) => a.distance! - b.distance!);
           setSortedLocations(updatedLocations);
 
-          if (mapRef.current) {
-            mapRef.current.panTo({ lat, lng });
-            mapRef.current.setZoom(12);
+          if (mapInstance) {
+            mapInstance.panTo({ lat, lng });
+            mapInstance.setZoom(12);
           }
         }
       });
@@ -321,18 +194,20 @@ const Map = () => {
 
   const handleSidebarClick = (location: Location) => {
     setSelectedLocation(location);
-    if (mapRef.current) {
-      mapRef.current.panTo({ lat: location.lat, lng: location.lng });
+    if (mapInstance) {
+      mapInstance.panTo({ lat: location.lat, lng: location.lng });
     }
   };
 
+  // Create and clean up markers.
   useEffect(() => {
+    // Remove previous markers.
     markersRef.current.forEach((marker) => {
       marker.map = null;
     });
     markersRef.current = [];
 
-    if (googleLoaded && window.google && mapRef.current) {
+    if (googleLoaded && window.google && mapInstance) {
       sortedLocations.forEach((location) => {
         const markerDiv = document.createElement("div");
         markerDiv.style.backgroundImage = 'url("/icons/mapstoreicon.svg")';
@@ -343,7 +218,7 @@ const Map = () => {
         markerDiv.addEventListener("click", () => handleSidebarClick(location));
 
         const marker = new window.google.maps.marker.AdvancedMarkerElement({
-          map: mapRef.current,
+          map: mapInstance,
           position: { lat: location.lat, lng: location.lng },
           title: location.name,
           content: markerDiv,
@@ -352,6 +227,7 @@ const Map = () => {
         markersRef.current.push(marker);
       });
 
+      // Create user location marker.
       const userMarkerImg = document.createElement("img");
       userMarkerImg.src = "/icons/hereicon.svg";
       userMarkerImg.style.width = "40px";
@@ -359,7 +235,7 @@ const Map = () => {
       userMarkerImg.style.objectFit = "cover";
 
       const userMarker = new window.google.maps.marker.AdvancedMarkerElement({
-        map: mapRef.current,
+        map: mapInstance,
         position: userLocation,
         title: "Your Location",
         content: userMarkerImg,
@@ -367,13 +243,21 @@ const Map = () => {
 
       markersRef.current.push(userMarker);
     }
-  }, [googleLoaded, sortedLocations, userLocation]);
+
+    // Cleanup markers on dependency change/unmount.
+    return () => {
+      markersRef.current.forEach((marker) => {
+        marker.map = null;
+      });
+      markersRef.current = [];
+    };
+  }, [googleLoaded, mapInstance, sortedLocations, userLocation]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col">
       {/* Main Content */}
       <div className="grid grid-rows-[45vh_auto_1fr] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden">
-        {/* Map goes first on mobile */}
+        {/* Map Section */}
         <div className="w-full h-full order-1 md:order-2">
           <LoadScript
             googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
@@ -387,18 +271,18 @@ const Map = () => {
                 zoom={12}
                 options={{ mapId: "11a23be6ab78d144" }}
                 onLoad={(map) => {
-                  mapRef.current = map;
+                  setMapInstance(map);
                 }}
               />
             </div>
           </LoadScript>
         </div>
 
-        {/* Buttons panel - under map on mobile */}
+        {/* Buttons Panel - Mobile */}
         <div className="w-full bg-white p-2 flex justify-center order-2 md:hidden">
           <div className="flex space-x-4">
             <button
-              className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+              className={`uppercase font-sora px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
                 viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
               }`}
               onClick={() => setViewMode("pickup")}
@@ -406,7 +290,7 @@ const Map = () => {
               Pickup
             </button>
             <button
-              className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+              className={`uppercase font-sora px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
                 viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
               }`}
               onClick={() => setViewMode("delivery")}
@@ -416,9 +300,13 @@ const Map = () => {
           </div>
         </div>
 
-        {/* Sidebar goes second on mobile */}
-        <div className="w-full h-full overflow-y-auto bg-white order-3 md:order-1">
-          {/* Desktop buttons - at top of sidebar */}
+        {/* Sidebar */}
+        <div
+        className="w-full overflow-y-auto bg-white order-3 md:order-1"
+        style={{ maxHeight: "calc(100vh - 45vh - 4rem)" }}
+        >
+          {/* Sidebar internal content */}
+          {/* Desktop buttons (if applicable) */}
           <div className="hidden md:flex justify-center p-2 bg-white">
             <div className="flex space-x-4">
               <button
@@ -439,6 +327,7 @@ const Map = () => {
               </button>
             </div>
           </div>
+
           {viewMode === "pickup" ? (
             <>
               <div className="p-2">
@@ -457,14 +346,13 @@ const Map = () => {
                   const today = getDayOfWeek();
                   const hours = location.schedule[today];
                   const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, location.schedule);
-
                   return (
                     <div
                       key={location.id}
-                      className="py-5 px-3 cursor-pointer"
+                      className="py-5 px-3 cursor-pointer font-sora "
                       onClick={() => handleSidebarClick(location)}
                     >
-                      <h3 className="text-black text-sm font-medium">{location.name}</h3>
+                      <h3 className="text-orange-500 uppercase text-sm">{location.name}</h3>
                       <p className="text-black text-xs">{location.address}</p>
                       <p className="text-black text-xs">
                         {location.distance} km away &middot;{" "}
@@ -489,10 +377,10 @@ const Map = () => {
                   Can&apos;t make the trip? Order delivery through our partners!
                 </p>
                 <DeliveryAppLogos />
-              </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
       </div>
     </div>
   );

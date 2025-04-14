@@ -1,7 +1,7 @@
 "use client";
 
-import ContactForm from "../components/ContactForm";
-import FAQSection from "../components/FAQSection";
+import ContactForm from "../components/contact-us/ContactForm";
+import FAQSection from "../components/contact-us/FAQSection";
 
 export default function ContactPage() {
   return (

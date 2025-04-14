@@ -1,9 +1,9 @@
 "use client"
 import Link from "next/link"
-import DrinkImageSlider from "./components/DrinkImageSlider"
-import Boxes from "./components/HomeBoxes"
-import DeliveryAppCarousel from "./components/DeliveryAppCarousel"
-import ImageSlider from "./components/ImageSlider"
+import DrinkImageSlider from "./components/home/DrinkImageSlider"
+import Boxes from "./components/home/HomeBoxes"
+import DeliveryAppCarousel from "./components/home/DeliveryAppCarousel"
+import ImageSlider from "./components/home/ImageSlider"
 
 const HomeImages: string[] = [
   "/images/homebanner.webp",
