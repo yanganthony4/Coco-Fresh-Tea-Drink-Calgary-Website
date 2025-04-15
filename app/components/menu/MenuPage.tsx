@@ -62,7 +62,7 @@ const MenuPage = () => {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 uppercase flex items-center">
             {selectedCategory}
             <img
-              src="/images/cocoemoji.png" // ensure this path is correct in your project structure
+              src="/images/art/cocoemoji.webp" 
               alt="CoCo Emoji"
               className="ml-2 w-6 h-6 animate-jump"
             />

@@ -1,12 +1,12 @@
 [
-    { "name": "BLACK SUGAR MILK TEA", "src": "/images/bsmt.png" },
-    { "name": "GRAPEFRUIT YAKULT", "src": "/images/grapefruit.png" },
-    { "name": "BLACK SUGAR MILK TEA", "src": "/images/bsmt.png" },
-    { "name": "GRAPEFRUIT GREEN TEA", "src": "/images/popping.png" },
-    { "name": "MATCHA SALTY CREAM", "src": "/images/matcha.png" },
-    { "name": "GRAPEFRUIT GREEN TEA", "src": "/images/popping.png" },
-    { "name": "MATCHA SALTY CREAM", "src": "/images/matcha.png" },
-    { "name": "GRAPEFRUIT YAKULT", "src": "/images/grapefruit.png" },
-    { "name": "BLACK SUGAR MILK TEA", "src": "/images/bsmt.png" },
-    { "name": "GRAPEFRUIT GREEN TEA", "src": "/images/popping.png" }
+    { "name": "BLACK SUGAR MILK TEA", "src": "/images/webps/bsmt.webp" },
+    { "name": "GRAPEFRUIT YAKULT", "src": "/images/webps/grapefruit.webp" },
+    { "name": "BLACK SUGAR MILK TEA", "src": "/images/webps/bsmt.webp" },
+    { "name": "GRAPEFRUIT GREEN TEA", "src": "/images/webps/popping.webp" },
+    { "name": "MATCHA SALTY CREAM", "src": "/images/webps/matcha.webp" },
+    { "name": "GRAPEFRUIT GREEN TEA", "src": "/images/webps/popping.webp" },
+    { "name": "MATCHA SALTY CREAM", "src": "/images/webps/matcha.webp" },
+    { "name": "GRAPEFRUIT YAKULT", "src": "/images/webps/grapefruit.webp" },
+    { "name": "BLACK SUGAR MILK TEA", "src": "/images/webps/bsmt.webp" },
+    { "name": "GRAPEFRUIT GREEN TEA", "src": "/images/webps/popping.webp" }
 ]  

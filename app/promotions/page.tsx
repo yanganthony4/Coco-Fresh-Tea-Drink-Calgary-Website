@@ -36,7 +36,7 @@ export default function Promotions() {
           <div className="relative w-full max-w-[1555px] mx-auto">
             <div className="relative w-full">
               <Image
-                src="/images/Promotionsbanner.png"
+                src="/images/pngs/Promotionsbanner.png"
                 alt="Promotions Background"
                 width={1000}
                 height={500}
@@ -56,7 +56,7 @@ export default function Promotions() {
               <div className="flex flex-col items-center py-6 sm:py-8 lg:py-12 px-4 sm:px-16 w-full" ref={cocoRef}>
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>
                   <Image
-                    src="/images/cocoemoji.png"
+                    src="/images/art/cocoemoji.webp"
                     alt="Coco Fresh Tea and Juice Logo"
                     width={50}
                     height={50}

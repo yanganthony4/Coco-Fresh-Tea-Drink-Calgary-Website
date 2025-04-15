@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import DeliveryAppLogos from "./DeliveryAppLogos";
 // Import store locations from the JSON file in the data folder (located in components)
-import storeLocations from "../data/store-locations.json";
+import storeLocations from "../json/store-locations.json";
 
 type Schedule = {
   [key: string]: string;
@@ -369,7 +369,7 @@ const Map = () => {
             <div className="flex flex-col items-center justify-center h-full">
               <div className="text-center max-w-md mx-auto px-4 py-6">
                 <img
-                  src="/images/CoCoLogoMascotOnlyGreyTransparent.png"
+                  src="/images/art/CoCoLogoMascotOnlyGreyTransparent.svg"
                   alt="CoCo mascot"
                   className="w-16 h-16 mx-auto mb-2"
                 />

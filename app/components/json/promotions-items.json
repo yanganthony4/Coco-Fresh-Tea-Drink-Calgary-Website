@@ -4,7 +4,7 @@
       "title": "Creme Brulee Special",
       "description": "Try our new Creme Brulee drinks made with the highest quality!",
       "timeFrame": "April 1 - April 30, 2025",
-      "images": ["/images/cremebruleeposter.webp"],
+      "images": ["/images/webps/cremebruleeposter.webp"],
       "price": "4.99"
     },
     {
@@ -12,7 +12,7 @@
       "title": "Strawberry Special",
       "description": "Try our new Strawberry drinks made with the highest quality!",
       "timeFrame": "April 1 - April 30, 2025",
-      "images": ["/images/strawberryPromo.webp"],
+      "images": ["/images/webps/strawberryPromo.webp"],
       "price": "4.99"
     },
     {
@@ -20,7 +20,7 @@
       "title": "Mango Dream",
       "description": "Try our new Mango drinks made with the highest quality!",
       "timeFrame": "April 1 - April 30, 2025",
-      "images": ["/images/mangodream.webp"],
+      "images": ["/images/webps/mangodream.webp"],
       "price": "4.99"
     }
   ]

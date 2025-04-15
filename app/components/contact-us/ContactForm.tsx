@@ -102,7 +102,7 @@ export default function ContactForm() {
         animate={{ opacity: [0, 1], scale: [0.95, 1] }}
         transition={{ duration: 1 }}
       >
-        <img src="/images/contactdrinks.webp" alt="Bubble tea drinks" className="w-full h-full object-cover" />
+        <img src="/images/webps/contactdrinks.webp" alt="Bubble tea drinks" className="w-full h-full object-cover" />
       </motion.div>
 
       {/* Right Side - Form */}

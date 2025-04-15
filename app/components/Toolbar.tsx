@@ -38,10 +38,10 @@ const Toolbar = () => {
           <div className="flex items-center space-x-8">
             <Link href="/">
               <LazyImage
-                src="/images/logo.png"
+                src="/images/art/logo.svg"
                 alt="CoCo Logo"
                 className="w-32 h-auto"
-                placeholder="/images/placeholder.jpg"
+                placeholder="/images/art/placeholder.jpg"
               />
             </Link>
             <nav className="hidden md:flex space-x-5 font-sora">
@@ -71,10 +71,10 @@ const Toolbar = () => {
             <a href="/locations" className="font-sora">
               <div className="flex items-center space-x-2">
                 <LazyImage
-                  src="/images/locationicon.png"
+                  src="/images/art/locationicon.svg"
                   alt="Location Icon"
                   className="w-6 h-6"
-                  placeholder="/images/placeholder.jpg"
+                  placeholder="/images/art/placeholder.jpg"
                 />
                 <p className="text-sm text-orange-500 hover:text-orange-300">
                   FIND YOUR COCO!
@@ -84,10 +84,10 @@ const Toolbar = () => {
             <div className="relative">
               <button onClick={toggleDropdown} className="focus:outline-none">
                 <LazyImage
-                  src="/images/hamburgericon.png"
+                  src="/images/art/hamburgericon.svg"
                   alt="Hamburger Icon"
                   className="w-8 h-8"
-                  placeholder="/images/placeholder.jpg"
+                  placeholder="/images/art/placeholder.jpg"
                 />
               </button>
             </div>

@@ -15,7 +15,7 @@ const Footer = () => {
             className="flex-shrink-0"
           >
             <Image
-              src="/images/instalogow.png"
+              src="/images/art/instalogow.svg"
               alt="Instagram"
               width={24}
               height={24}
@@ -30,7 +30,7 @@ const Footer = () => {
             className="flex-shrink-0"
           >
             <Image
-              src="/images/tiktok.png"
+              src="/images/art/tiktok.svg"
               alt="TikTok"
               width={28}
               height={28}
@@ -48,7 +48,7 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <Image
-                src="/images/searchlogo.png"
+                src="/images/art/searchlogo.svg"
                 alt="Search"
                 width={20}
                 height={20}

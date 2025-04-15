@@ -8,7 +8,7 @@ export default function HeroSection(): JSX.Element {
       <div className="w-full max-w-screen-xl h-full relative">
         <div className="w-full h-full">
           <Image
-            src="/images/image4.webp"
+            src="/images/webps/image4.webp"
             alt="Fresh black tea, jasmine tea, and bubble gaga CoCo bubble teas, with fresh green background."
             className="w-full h-auto md:h-full object-cover"
             width={2000}

@@ -30,7 +30,7 @@ export default function DrinkImageSlider() {
 
             <div className="card-back">
               <Image
-                src="/images/cocoemoji.png"
+                src="/images/art/cocoemoji.webp"
                 alt="Back"
                 width={170}
                 height={220}
