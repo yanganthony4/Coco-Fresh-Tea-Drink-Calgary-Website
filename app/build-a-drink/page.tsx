@@ -1,15 +1,15 @@
 "use client";
 
 import { JSX, useState, useEffect } from "react";
-import drinksData from "../components/data.json";
+import drinksData from "../components/json/menu-items.json";
 
 // Import components
-import SavedDrinksCart from "../components/SavedDrinksCart";
-import DrinkVisualization from "../components/DrinkVisualization";
-import OptionsPanel from "../components/OptionsPanel";
+import SavedDrinksCart from "../components/drink-builder/SavedDrinksCart";
+import DrinkVisualization from "../components/drink-builder/DrinkVisualization";
+import OptionsPanel from "../components/drink-builder/OptionsPanel";
 
 // Import types and enums
-import { Drink, SavedDrink, IceLevel, SugarLevel } from "../components/DrinkBuilderTypes";
+import { Drink, SavedDrink, IceLevel, SugarLevel } from "../components/drink-builder/DrinkBuilderTypes";
 
 // Helper functions for calculating bar fill percentages
 const iceLevelPercentage = (level: string): number => {
