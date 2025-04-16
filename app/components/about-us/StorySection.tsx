@@ -15,7 +15,7 @@ const storyContent: readonly Story[] = [
   {
     id: 1,
     title: "A Global Bubble Tea Leader",
-    subtitle: "Our Beginning",
+    subtitle: "OUR BEGINNING",
     text: "CoCo Bubble Tea was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea, CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality tea with unmatchable services to customers. Over decades, CoCo has kept its promise in quality and services with innovative drinks, stylish store designs, fresh ingredients, and distinctive recipes. With the first New York store opening in 2011, CoCo successfully expanded globally. CoCo aims to create a diverse and sustainable community for its customers while embracing tradition and innovation.",
     imageUrl: "/images/webps/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp",
     reverse: false,
@@ -23,7 +23,7 @@ const storyContent: readonly Story[] = [
   {
     id: 2,
     title: "Fresh Ingredients, Creative Drinks",
-    subtitle: "Canadian Experience",
+    subtitle: "CANADIAN EXPERIENCE",
     text: "In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an authentic and innovative bubble tea experience to communities across the country. As CoCo expands in Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.",
     imageUrl: "/images/webps/image3.webp",
     reverse: true,
@@ -31,7 +31,7 @@ const storyContent: readonly Story[] = [
   {
     id: 3,
     title: "Sustainability & Inclusivity",
-    subtitle: "Our Vision",
+    subtitle: "OUR VISION",
     text: "CoCo dedicates itself to everything we do. We seek high-quality ingredients, deliver trendy drinks with passion and dedication, and provide service from the heart. Our mission is to consistently give you the best bubble tea experience possible.",
     imageUrl: "/images/webps/image1.webp",
     reverse: false,

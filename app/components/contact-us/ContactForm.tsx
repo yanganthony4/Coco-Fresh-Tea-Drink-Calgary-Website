@@ -33,7 +33,7 @@ export default function ContactForm() {
     setIsPending(true)
     setCaptchaError(null)
 
-    // ✅ Rate Limiter: Block if submitted too recently
+    // Rate Limiter: Block if submitted too recently
     const lastSubmit = localStorage.getItem("lastSubmitTime")
     if (lastSubmit && Date.now() - Number(lastSubmit) < 30000) {
       setCaptchaError("You're submitting too quickly. Please wait a moment.")

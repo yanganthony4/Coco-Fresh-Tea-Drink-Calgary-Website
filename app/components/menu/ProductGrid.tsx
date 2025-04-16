@@ -34,10 +34,8 @@ const ProductGrid = ({ products }: ProductGridProps): JSX.Element => {
           />
         </div>
 
-        {/* 
-          On mobile devices use ml-4 to shift the text a little to the right,
-          while using ml-10 on medium screens and larger.
-        */}
+        {/* On mobile devices use ml-4 to shift the text a little to the right,
+          while using ml-10 on medium screens and larger. */}
         <div className="p-4 ml-4 md:ml-10">
           <h3 className="text-lg font-semibold text-gray-900 mb-1">{product.name}</h3>
           <p className="text-sm text-gray-600 mb-2">{product.description}</p>
