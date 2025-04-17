@@ -1,17 +1,13 @@
 "use client";
 
 import React from "react";
-import { Drink } from "./DrinkBuilderTypes";
+import { Drink, IceLevel, SugarLevel } from "./DrinkBuilderTypes";
 
 interface DrinkVisualizationProps {
   currentDrink?: Drink;
   selectedIce: string;
   selectedSugar: string;
   selectedToppings: string[];
-  iceMarkers: { label: string; percent: number }[];
-  sugarMarkers: { label: string; percent: number }[];
-  iceLevelPercentage: (level: string) => number;
-  sugarLevelPercentage: (level: string) => number;
 }
 
 export default function DrinkVisualization({
@@ -19,84 +15,98 @@ export default function DrinkVisualization({
   selectedIce,
   selectedSugar,
   selectedToppings,
-  iceMarkers,
-  sugarMarkers,
-  iceLevelPercentage,
-  sugarLevelPercentage,
 }: DrinkVisualizationProps) {
+  const getIceImage = (level: string): string => {
+    switch (level) {
+      case IceLevel.LESS_ICE:
+        return "/images/drinkbuilder/ice level 1.webp";
+      case IceLevel.REGULAR_ICE:
+        return "/images/drinkbuilder/ice level 2.webp";
+      case IceLevel.EXTRA_ICE:
+        return "/images/drinkbuilder/ice level 3.webp";
+      default:
+        return "/images/drinkbuilder/ice level.webp";
+    }
+  };
+
+  const getSugarImage = (level: string): string => {
+    switch (level) {
+      case SugarLevel.THIRTY:
+        return "/images/drinkbuilder/sugar level 1.webp";
+      case SugarLevel.FIFTY:
+        return "/images/drinkbuilder/sugar level 2.webp";
+      case SugarLevel.SEVENTY:
+        return "/images/drinkbuilder/sugar level 3.webp";
+      case SugarLevel.HUNDRED_PERCENT:
+        return "/images/drinkbuilder/sugar level 4.webp";
+      case SugarLevel.EXTRA_SUGAR:
+        return "/images/drinkbuilder/sugar level 5.webp";
+      default:
+        return "/images/drinkbuilder/sugar level.webp";
+    }
+  };
+
+  const getToppingIconPath = (topping: string): string => {
+    return `/images/drinkbuilder/${topping.toLowerCase().replace(/\s+/g, " ")}.webp`;
+  };
+
   return (
-    <div className="flex-1 flex flex-col items-center relative">
-      <div className="flex items-center">
-        {/* ICE Bar */}
-        <div className="w-8 h-96 flex flex-col justify-end relative mr-2">
-          <div className="absolute inset-0 bg-gray-200">
-            {iceMarkers.map((marker) => (
-              <div
-                key={marker.label}
-                className="absolute left-0 right-0 border-t border-gray-400"
-                style={{ bottom: `${marker.percent}%` }}
-              />
-            ))}
-          </div>
-          <div
-            className="bg-blue-300 w-full absolute bottom-0"
-            style={{
-              height: `${selectedIce ? iceLevelPercentage(selectedIce) : 0}%`,
-            }}
-          ></div>
+    <div className="w-full flex flex-col items-center px-2">
+      <div className="flex items-center justify-center gap-4 max-w-full overflow-x-auto">
+        {/* ICE (left) */}
+        <div className="flex-shrink-0 h-72 md:h-96 w-12 md:w-16 flex items-center justify-center">
+          <img
+            src={getIceImage(selectedIce)}
+            alt={`Ice Level: ${selectedIce}`}
+            className="w-full h-full object-contain"
+          />
         </div>
 
-        {/* Drink Image */}
-        <div className="relative w-64 h-96 border border-gray-300 rounded overflow-hidden">
+        {/* DRINK (center) */}
+        <div className="relative flex-shrink-0 h-72 md:h-96 w-48 md:w-64 border-4 border-black rounded overflow-hidden">
           {currentDrink ? (
             <img
-              src={`/images/${currentDrink.image}`}
+              src={`${currentDrink.image}`}
               alt={currentDrink.name}
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
-              Select a drink to preview
+            <div className="w-full h-full flex items-center justify-center font-sora text-gray-400">
+              SELECT A BASE
             </div>
           )}
-          {/* Toppings Bubbles */}
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 p-2">
-            {selectedToppings.map((topping, index) => (
+
+          {/* TOPPINGS */}
+          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1 p-1 flex-wrap">
+            {selectedToppings.slice(0, 5).map((t, i) => (
               <div
-                key={index}
-                className="w-8 h-8 bg-gray-100 border border-gray-300 rounded flex items-center justify-center"
+                key={i}
+                className="w-8 h-8 md:w-10 md:h-10 bg-white border border-black rounded-md overflow-hidden flex items-center justify-center p-1"
               >
-                <span className="text-xs text-gray-500">
-                  {topping.charAt(0)}
-                </span>
+                <img
+                  src={getToppingIconPath(t)}
+                  alt={t}
+                  className="w-full h-full object-contain"
+                />
               </div>
             ))}
           </div>
         </div>
 
-        {/* SUGAR Bar */}
-        <div className="w-8 h-96 flex flex-col justify-end relative ml-2">
-          <div className="absolute inset-0 bg-gray-200">
-            {sugarMarkers.map((marker) => (
-              <div
-                key={marker.label}
-                className="absolute left-0 right-0 border-t border-gray-400"
-                style={{ bottom: `${marker.percent}%` }}
-              />
-            ))}
-          </div>
-          <div
-            className="bg-amber-300 w-full absolute bottom-0"
-            style={{
-              height: `${selectedSugar ? sugarLevelPercentage(selectedSugar) : 0}%`,
-            }}
-          ></div>
+        {/* SUGAR (right) */}
+        <div className="flex-shrink-0 h-72 md:h-96 w-12 md:w-16 flex items-center justify-center">
+          <img
+            src={getSugarImage(selectedSugar)}
+            alt={`Sugar Level: ${selectedSugar}`}
+            className="w-full h-full object-contain"
+          />
         </div>
       </div>
 
+      {/* LABEL */}
       <div className="mt-4 text-center">
         <h3 className="font-semibold text-lg text-black">
-          {currentDrink ? currentDrink.name : "Select your drink"}
+          {currentDrink?.name ?? "Select your drink"}
         </h3>
         <p className="text-sm text-black">
           {selectedIce || "Select Ice Level"} • {selectedSugar || "Select Sugar Level"}

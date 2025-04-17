@@ -14,8 +14,8 @@ export default function SavedDrinksCart({
   onDelete,
 }: SavedDrinksCartProps) {
   return (
-    <div className="mb-8 border border-gray-200 bg-white rounded-lg shadow-sm p-4">
-      <h2 className="text-xl font-bold text-black mb-2">Your Saved Drinks</h2>
+    <div className="mb-8 border border-gray-200 bg-white rounded-lg shadow-sm p-4 mt-16">
+      <h2 className="text-xl font-sora text-black mb-2">YOUR DRINKS</h2>
       {savedDrinks.length === 0 ? (
         <p className="text-center py-4 text-black">
           No Saved Drinks Yet. It's Time To Get Creative!
@@ -34,47 +34,46 @@ export default function SavedDrinksCart({
                 <X size={16} />
               </button>
               <div className="flex gap-4 flex-1">
-                <div className="w-10 flex-shrink-0 flex items-center justify-center">
+                <div className="w-12 flex-shrink-0 flex items-center justify-center">
                   {/* Render the drink image */}
                   {drink.image ? (
                     <img
-                      src={`/images/${drink.image}`}
+                      src={`${drink.image}`}
                       alt={drink.base}
-                      className="w-8 h-12 object-cover rounded"
+                      className="w-10 h-16 object-cover rounded"
                     />
                   ) : (
                     <div className="w-8 h-12 bg-gray-300 rounded"></div>
                   )}
                 </div>
                 <div className="flex flex-col flex-1">
-                  <div className="text-sm font-medium text-black mb-1">
+                  <div className="text-sm font-medium text-orange-500 font-sora uppercase mb-1">
                     {drink.base}
                   </div>
-                  <div className="flex items-center flex-wrap gap-2 text-xs text-black">
+                  <div className="flex items-center flex-wrap gap-2 text-xs md:text-sm text-black">
                     <span>
-                      <strong>Ice:</strong> {drink.ice}
+                      <strong>Ice:</strong> {drink.ice} 
                     </span>
-                    <span className="mx-1">|</span>
+                    <span className="">|</span>
                     <span>
                       <strong>Sugar:</strong> {drink.sugar}
                     </span>
-                    <span className="mx-1">|</span>
+                    <span className="">|</span>
                     <span>
                       <strong>Size:</strong> {drink.size}
                     </span>
                   </div>
                   {drink.toppings.length > 0 && (
-                    <p className="text-xs text-black mt-1">
+                    <p className="text-xs md:text-sm text-black mt-1">
                       <strong>Toppings:</strong> {drink.toppings.join(", ")}
                     </p>
                   )}
                   {drink.addOns && (
-                    <div className="mt-1 text-xs text-black">
+                    <div className="mt-1 text-xs md:text-sm text-black">
                       <strong>Special Instructions:</strong>{" "}
                       <em>{drink.addOns}</em>
                     </div>
                   )}
-                  <div className="mt-auto text-xs text-black">{drink.date}</div>
                 </div>
               </div>
             </div>

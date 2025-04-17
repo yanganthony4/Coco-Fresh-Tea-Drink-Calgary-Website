@@ -45,14 +45,14 @@ export const Select: React.FC<SelectProps> = ({ value, onValueChange, children, 
   };
 
   return (
-    <div ref={selectRef} className="relative inline-block text-left">
+    <div ref={selectRef} className="relative inline-block text-left w-full">
       <div onClick={() => setIsOpen(!isOpen)}>
         <SelectTrigger isOpen={isOpen}>
           <SelectValue value={value} />
         </SelectTrigger>
       </div>
       {isOpen && (
-        <div className="absolute mt-1 w-full rounded-md bg-white border shadow-lg z-10">
+        <div className="text-lg md:text-mdabsolute mt-1 w-full rounded-md bg-white border shadow-lg z-10">
           <SelectContent onSelect={handleSelect} multiple={multiple}>
             {children}
           </SelectContent>
@@ -74,7 +74,7 @@ export const SelectTrigger: React.FC<SelectTriggerProps> = ({ children, isOpen }
   return (
     <button
       type="button"
-      className="w-full p-2 text-left border rounded-md bg-white text-gray-900 flex items-center justify-between"
+      className="h-16 text-lg md:h-12 md:text-md w-full px-2 text-left border rounded-md bg-white text-gray-900 flex items-center justify-between"
     >
       {children}
       <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />

@@ -93,7 +93,6 @@ export default function DrinkBuilder(): JSX.Element {
       id: Date.now(),
       base: selectedDrink,
       image: currentDrink.image, // Save the drink image
-      baseColor: "", // No longer used
       ice: selectedIce || IceLevel.REGULAR_ICE,
       sugar: selectedSugar || SugarLevel.HUNDRED_PERCENT,
       toppings: selectedToppings,

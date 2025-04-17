@@ -125,6 +125,7 @@ const Toolbar = () => {
               { href: "/locations", label: "LOCATIONS" },
               { href: "/about", label: "OUR STORY" },
               { href: "/contact-us", label: "CONTACT US" },
+              { href: "/build-a-drink", label: "BUILD A DRINK" },
             ].map((link) => (
               <Link
                 key={link.href}

@@ -12,7 +12,6 @@ export interface Drink {
     id: number;
     base: string;
     image: string;
-    baseColor: string;
     ice: string;
     sugar: string;
     toppings: string[];
@@ -32,9 +31,25 @@ export interface Drink {
   export enum SugarLevel {
     EXTRA_SUGAR = "Extra Sugar",
     HUNDRED_PERCENT = "100% Sugar",
-    SEVENTY = "70%",
-    FIFTY = "50%",
-    THIRTY = "30%",
+    SEVENTY = "70% Sugar",
+    FIFTY = "50% Sugar",
+    THIRTY = "30% Sugar",
     NO_SUGAR = "No Sugar",
   }
+
+  export const AvailableToppings:string[] =[
+    "Pearls",
+    "Sago",
+    "Pudding",
+    "Red Bean",
+    "Tea Jelly",
+    "Fresh Taro",
+    "Salty Cream",
+    "Grass Jelly",
+    "White Pearls",
+    "Coconut Jelly",
+    "Brown Sugar Pearls",
+    "Popping Lychee Pearls",
+    "Popping Strawberry Pearls",
+  ]
   
