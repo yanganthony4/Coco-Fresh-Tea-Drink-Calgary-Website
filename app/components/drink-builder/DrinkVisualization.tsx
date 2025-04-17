@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Drink, IceLevel, SugarLevel } from "./DrinkBuilderTypes";
 
 interface DrinkVisualizationProps {
   currentDrink?: Drink;
-  selectedIce: string;
-  selectedSugar: string;
+  selectedIce: IceLevel | "";
+  selectedSugar: SugarLevel | "";
   selectedToppings: string[];
 }
 
@@ -16,7 +17,7 @@ export default function DrinkVisualization({
   selectedSugar,
   selectedToppings,
 }: DrinkVisualizationProps) {
-  const getIceImage = (level: string): string => {
+  const getIceImage = (level: IceLevel | ""): string => {
     switch (level) {
       case IceLevel.LESS_ICE:
         return "/images/drinkbuilder/ice level 1.webp";
@@ -29,7 +30,7 @@ export default function DrinkVisualization({
     }
   };
 
-  const getSugarImage = (level: string): string => {
+  const getSugarImage = (level: SugarLevel | ""): string => {
     switch (level) {
       case SugarLevel.THIRTY:
         return "/images/drinkbuilder/sugar level 1.webp";
@@ -46,29 +47,44 @@ export default function DrinkVisualization({
     }
   };
 
-  const getToppingIconPath = (topping: string): string => {
-    return `/images/drinkbuilder/${topping.toLowerCase().replace(/\s+/g, " ")}.webp`;
-  };
+  const getToppingIconPath = (topping: string): string =>
+    `/images/drinkbuilder/${topping.toLowerCase().replace(/\s+/g, " ")}.webp`;
+
+  const displayName = currentDrink?.name ?? "Select your drink";
+  const displayIce = selectedIce || "Select Ice Level";
+  const displaySugar = selectedSugar || "Select Sugar Level";
 
   return (
-    <div className="w-full flex flex-col items-center px-2">
-      <div className="flex items-center justify-center gap-4 max-w-full overflow-x-auto">
-        {/* ICE (left) */}
-        <div className="flex-shrink-0 h-72 md:h-96 w-12 md:w-16 flex items-center justify-center">
-          <img
+    <section
+      aria-labelledby="drink-visualization-title"
+      className="w-full px-2"
+    >
+      {/* Visual Row */}
+      <div className="flex items-center justify-center gap-4 overflow-x-auto overflow-y-visible">
+        {/* ICE */}
+        <figure className="flex-shrink-0 w-10 flex items-center justify-center max-h-[70vh]">
+          <Image
             src={getIceImage(selectedIce)}
-            alt={`Ice Level: ${selectedIce}`}
-            className="w-full h-full object-contain"
+            alt={`Ice Level: ${displayIce}`}
+            width={64}
+            height={256}
+            className="h-auto max-h-[70vh]"
+            priority={false}
           />
-        </div>
+          <figcaption className="sr-only">
+            Ice level: {displayIce}
+          </figcaption>
+        </figure>
 
-        {/* DRINK (center) */}
-        <div className="relative flex-shrink-0 h-72 md:h-96 w-48 md:w-64 border-4 border-black rounded overflow-hidden">
+        {/* DRINK */}
+        <figure className="relative flex-shrink-0 w-56 md:w-64 h-96 md:h-98 border-4 border-black rounded overflow-hidden">
           {currentDrink ? (
-            <img
-              src={`${currentDrink.image}`}
+            <Image
+              src={currentDrink.image}
               alt={currentDrink.name}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover h-auto "
+              priority={true}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center font-sora text-gray-400">
@@ -77,41 +93,59 @@ export default function DrinkVisualization({
           )}
 
           {/* TOPPINGS */}
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1 p-1 flex-wrap">
-            {selectedToppings.slice(0, 5).map((t, i) => (
-              <div
-                key={i}
-                className="w-8 h-8 md:w-10 md:h-10 bg-white border border-black rounded-md overflow-hidden flex items-center justify-center p-1"
-              >
-                <img
-                  src={getToppingIconPath(t)}
-                  alt={t}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+          {selectedToppings.length > 0 && (
+            <ul
+              role="list"
+              aria-label="Selected toppings"
+              className="absolute bottom-0 left-0 right-0 flex flex-wrap justify-center gap-1 p-1"
+            >
+              {selectedToppings.slice(0, 5).map((topping, i) => (
+                <li
+                  key={i}
+                  className="w-8 h-8 md:w-10 md:h-10 bg-white border border-black rounded-md overflow-hidden flex items-center justify-center p-1"
+                >
+                  <Image
+                    src={getToppingIconPath(topping)}
+                    alt={topping}
+                    width={32}
+                    height={32}
+                    className="h-auto"
+                    priority={false}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+        </figure>
 
-        {/* SUGAR (right) */}
-        <div className="flex-shrink-0 h-72 md:h-96 w-12 md:w-16 flex items-center justify-center">
-          <img
+        {/* SUGAR */}
+        <figure className="flex-shrink-0 w-10 flex items-center justify-center max-h-[70vh]">
+          <Image
             src={getSugarImage(selectedSugar)}
-            alt={`Sugar Level: ${selectedSugar}`}
-            className="w-full h-full object-contain"
+            alt={`Sugar Level: ${displaySugar}`}
+            width={64}
+            height={256}
+            className="h-auto max-h-[70vh]"
+            priority={false}
           />
-        </div>
+          <figcaption className="sr-only">
+            Sugar level: {displaySugar}
+          </figcaption>
+        </figure>
       </div>
 
-      {/* LABEL */}
+      {/* LABELS */}
       <div className="mt-4 text-center">
-        <h3 className="font-semibold text-lg text-black">
-          {currentDrink?.name ?? "Select your drink"}
+        <h3
+          id="drink-visualization-title"
+          className="font-semibold text-lg text-black"
+        >
+          {displayName}
         </h3>
         <p className="text-sm text-black">
-          {selectedIce || "Select Ice Level"} • {selectedSugar || "Select Sugar Level"}
+          {displayIce} • {displaySugar}
         </p>
       </div>
-    </div>
+    </section>
   );
 }

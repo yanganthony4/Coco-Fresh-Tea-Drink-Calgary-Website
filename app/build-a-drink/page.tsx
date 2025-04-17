@@ -1,6 +1,8 @@
+// src/app/drink-builder/page.tsx
 "use client";
 
-import { JSX, useState, useEffect } from "react";
+import React, { JSX, useState, useEffect } from "react";
+import Head from "next/head";
 import drinksData from "../components/json/menu-items.json";
 
 // Import components
@@ -9,7 +11,12 @@ import DrinkVisualization from "../components/drink-builder/DrinkVisualization";
 import OptionsPanel from "../components/drink-builder/OptionsPanel";
 
 // Import types and enums
-import { Drink, SavedDrink, IceLevel, SugarLevel } from "../components/drink-builder/DrinkBuilderTypes";
+import {
+  Drink,
+  SavedDrink,
+  IceLevel,
+  SugarLevel,
+} from "../components/drink-builder/DrinkBuilderTypes";
 
 // Helper functions for calculating bar fill percentages
 const iceLevelPercentage = (level: string): number => {
@@ -65,16 +72,19 @@ export default function DrinkBuilder(): JSX.Element {
   // Shared state for customization
   const [savedDrinks, setSavedDrinks] = useState<SavedDrink[]>([]);
   const [selectedDrink, setSelectedDrink] = useState<string>("");
-  // Default sugar level is now set to "100% Sugar"
-  const [selectedSugar, setSelectedSugar] = useState<string>("100% Sugar");
+  const [selectedSugar, setSelectedSugar] = useState<string>(
+    SugarLevel.HUNDRED_PERCENT
+  );
   const [drinkSearchTerm, setDrinkSearchTerm] = useState<string>("");
-  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState<boolean>(false);
-  const [selectedIce, setSelectedIce] = useState<string>("");
+  const [isSearchDropdownOpen, setIsSearchDropdownOpen] =
+    useState<boolean>(false);
+  const [selectedIce, setSelectedIce] = useState<string>(IceLevel.REGULAR_ICE);
   const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<string>("Regular");
   const [milkOption, setMilkOption] = useState<string>("Regular Milk Tea");
   const [addOns, setAddOns] = useState<string>("");
 
+  // Load saved drinks from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("savedDrinks");
     if (stored) {
@@ -85,14 +95,13 @@ export default function DrinkBuilder(): JSX.Element {
   const allDrinks: Drink[] = drinksData.drinks;
 
   const handleSaveDrink = (): void => {
-    // Require a base drink to be selected.
     const currentDrink = allDrinks.find((d) => d.name === selectedDrink);
     if (!currentDrink) return;
 
     const newDrink: SavedDrink = {
       id: Date.now(),
       base: selectedDrink,
-      image: currentDrink.image, // Save the drink image
+      image: currentDrink.image,
       ice: selectedIce || IceLevel.REGULAR_ICE,
       sugar: selectedSugar || SugarLevel.HUNDRED_PERCENT,
       toppings: selectedToppings,
@@ -103,9 +112,7 @@ export default function DrinkBuilder(): JSX.Element {
     };
 
     const updated = [newDrink, ...savedDrinks];
-    if (updated.length > 12) {
-      updated.pop();
-    }
+    if (updated.length > 12) updated.pop();
     setSavedDrinks(updated);
     localStorage.setItem("savedDrinks", JSON.stringify(updated));
 
@@ -113,8 +120,8 @@ export default function DrinkBuilder(): JSX.Element {
     setSelectedDrink("");
     setDrinkSearchTerm("");
     setIsSearchDropdownOpen(false);
-    setSelectedIce("Regular");
-    setSelectedSugar("100% Sugar"); // Reset sugar back to default.
+    setSelectedIce(IceLevel.REGULAR_ICE);
+    setSelectedSugar(SugarLevel.HUNDRED_PERCENT);
     setSelectedToppings([]);
     setSelectedSize("Regular");
     setMilkOption("Regular Milk Tea");
@@ -132,50 +139,101 @@ export default function DrinkBuilder(): JSX.Element {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
-      <div className="max-w-4xl w-full px-4 sm:px-8">
-        {/* Saved Drinks Cart at the top */}
-        <SavedDrinksCart savedDrinks={savedDrinks} onDelete={handleDeleteSavedDrink} />
+    <>
+      <Head>
+        <title>Build Your Drink | CoCo Fresh Tea</title>
+        <meta
+          name="description"
+          content="Customize your perfect bubble tea at CoCo Fresh Tea — choose your base, ice, sugar, toppings, and more!"
+        />
+      </Head>
 
-        {/* Main Builder Area: Two columns */}
-        <div className="flex flex-col md:flex-row gap-8 items-start">
-          {/* Left: Drink Visualization */}
-          <DrinkVisualization
-            currentDrink={currentDrink}
-            selectedIce={selectedIce}
-            selectedSugar={selectedSugar}
-            selectedToppings={selectedToppings}
-            iceMarkers={iceMarkers}
-            sugarMarkers={sugarMarkers}
-            iceLevelPercentage={iceLevelPercentage}
-            sugarLevelPercentage={sugarLevelPercentage}
-          />
+      <main className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
+        {/* Page heading (screen-reader only) */}
+        <h1 className="sr-only">Customize Your Drink</h1>
 
-          {/* Right: Options Panel */}
-          <OptionsPanel
-            allDrinks={allDrinks}
-            selectedDrink={selectedDrink}
-            setSelectedDrink={setSelectedDrink}
-            drinkSearchTerm={drinkSearchTerm}
-            setDrinkSearchTerm={setDrinkSearchTerm}
-            isSearchDropdownOpen={isSearchDropdownOpen}
-            setIsSearchDropdownOpen={setIsSearchDropdownOpen}
-            selectedIce={selectedIce}
-            setSelectedIce={setSelectedIce}
-            selectedSugar={selectedSugar}
-            setSelectedSugar={setSelectedSugar}
-            selectedToppings={selectedToppings}
-            setSelectedToppings={setSelectedToppings}
-            selectedSize={selectedSize}
-            setSelectedSize={setSelectedSize}
-            milkOption={milkOption}
-            setMilkOption={setMilkOption}
-            addOns={addOns}
-            setAddOns={setAddOns}
-            onSaveDrink={handleSaveDrink}
-          />
+        <div className="max-w-4xl w-full px-4 sm:px-8">
+          {/* Saved Drinks */}
+          <section
+            aria-labelledby="saved-drinks-heading"
+            className="mb-8"
+          >
+            <h2
+              id="saved-drinks-heading"
+              className="text-2xl font-sora text-black mb-4"
+            >
+              Your Saved Drinks
+            </h2>
+            <SavedDrinksCart
+              savedDrinks={savedDrinks}
+              onDelete={handleDeleteSavedDrink}
+            />
+          </section>
+
+          {/* Builder */}
+          <section
+            aria-labelledby="builder-heading"
+          >
+            <h2
+              id="builder-heading"
+              className="text-2xl font-bold text-black mb-6"
+            >
+              Build Your Drink
+            </h2>
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <article
+                aria-labelledby="visualization-heading"
+                className="flex-1"
+              >
+                <h3 className="sr-only" id="visualization-heading">
+                  Drink Visualization
+                </h3>
+                <DrinkVisualization
+                  currentDrink={currentDrink}
+                  selectedIce={selectedIce}
+                  selectedSugar={selectedSugar}
+                  selectedToppings={selectedToppings}
+                  iceMarkers={iceMarkers}
+                  sugarMarkers={sugarMarkers}
+                  iceLevelPercentage={iceLevelPercentage}
+                  sugarLevelPercentage={sugarLevelPercentage}
+                />
+              </article>
+
+              <aside
+                aria-labelledby="options-heading"
+                className="flex-1"
+              >
+                <h3 className="sr-only" id="options-heading">
+                  Drink Options Panel
+                </h3>
+                <OptionsPanel
+                  allDrinks={allDrinks}
+                  selectedDrink={selectedDrink}
+                  setSelectedDrink={setSelectedDrink}
+                  drinkSearchTerm={drinkSearchTerm}
+                  setDrinkSearchTerm={setDrinkSearchTerm}
+                  isSearchDropdownOpen={isSearchDropdownOpen}
+                  setIsSearchDropdownOpen={setIsSearchDropdownOpen}
+                  selectedIce={selectedIce}
+                  setSelectedIce={setSelectedIce}
+                  selectedSugar={selectedSugar}
+                  setSelectedSugar={setSelectedSugar}
+                  selectedToppings={selectedToppings}
+                  setSelectedToppings={setSelectedToppings}
+                  selectedSize={selectedSize}
+                  setSelectedSize={setSelectedSize}
+                  milkOption={milkOption}
+                  setMilkOption={setMilkOption}
+                  addOns={addOns}
+                  setAddOns={setAddOns}
+                  onSaveDrink={handleSaveDrink}
+                />
+              </aside>
+            </div>
+          </section>
         </div>
-      </div>
-    </div>
+      </main>
+    </>
   );
 }

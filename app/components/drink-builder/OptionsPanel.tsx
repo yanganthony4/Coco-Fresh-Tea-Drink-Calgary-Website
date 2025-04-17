@@ -12,13 +12,17 @@ import {
   IceLevel,
   SugarLevel,
   AvailableToppings,
+  Topping,
+  Size,
 } from "./DrinkBuilderTypes";
 import { Select, SelectItem } from "./DrinkBuilderSelect";
 import { Button } from "./DrinkBuilderButton";
 import { Coffee, Snowflake, Candy, Coins, X } from "lucide-react";
 import ToppingsSelector from "./ToppingsSelector";
 
+// ——————————————————————————————————————————————————
 // Inline Textarea
+// ——————————————————————————————————————————————————
 export function Textarea({
   className = "",
   ...props
@@ -31,7 +35,7 @@ export function Textarea({
   );
 }
 
-interface OptionsPanelProps {
+export interface OptionsPanelProps {
   allDrinks: Drink[];
   selectedDrink: string;
   setSelectedDrink: Dispatch<SetStateAction<string>>;
@@ -39,16 +43,14 @@ interface OptionsPanelProps {
   setDrinkSearchTerm: Dispatch<SetStateAction<string>>;
   isSearchDropdownOpen: boolean;
   setIsSearchDropdownOpen: Dispatch<SetStateAction<boolean>>;
-  selectedIce: string;
-  setSelectedIce: Dispatch<SetStateAction<string>>;
-  selectedSugar: string;
-  setSelectedSugar: Dispatch<SetStateAction<string>>;
-  selectedToppings: string[];
-  setSelectedToppings: Dispatch<SetStateAction<string[]>>;
-  selectedSize: string;
-  setSelectedSize: Dispatch<SetStateAction<string>>;
-  milkOption: string;
-  setMilkOption: Dispatch<SetStateAction<string>>;
+  selectedIce: IceLevel | "";
+  setSelectedIce: Dispatch<SetStateAction<IceLevel | "">>;
+  selectedSugar: SugarLevel | "";
+  setSelectedSugar: Dispatch<SetStateAction<SugarLevel | "">>;
+  selectedToppings: Topping[];
+  setSelectedToppings: Dispatch<SetStateAction<Topping[]>>;
+  selectedSize: Size | "";
+  setSelectedSize: Dispatch<SetStateAction<Size | "">>;
   addOns: string;
   setAddOns: Dispatch<SetStateAction<string>>;
   onSaveDrink: () => void;
@@ -70,15 +72,12 @@ export default function OptionsPanel({
   setSelectedToppings,
   selectedSize,
   setSelectedSize,
-  milkOption,
-  setMilkOption,
   addOns,
   setAddOns,
   onSaveDrink,
 }: OptionsPanelProps) {
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -93,7 +92,6 @@ export default function OptionsPanel({
       document.removeEventListener("mousedown", handleClickOutside);
   }, [setIsSearchDropdownOpen]);
 
-  // Filter base drinks by search term
   const filteredDrinks = drinkSearchTerm
     ? allDrinks.filter((d) =>
         d.name.toLowerCase().includes(drinkSearchTerm.toLowerCase())
@@ -103,18 +101,35 @@ export default function OptionsPanel({
   return (
     <div className="w-full flex flex-col gap-6">
       {/* Base Drink Search */}
-      <div ref={searchRef} className="relative w-full">
+      <div
+        ref={searchRef}
+        className="w-full relative"
+        aria-labelledby="base-drink-label"
+      >
         <div className="flex items-center gap-2 mb-1">
           <Coffee size={18} className="text-orange-300" />
-          <span className="text-lg uppercase font-sora text-black">
+          <span
+            id="base-drink-label"
+            className="text-lg uppercase font-sora text-black"
+          >
             Base Drink
           </span>
         </div>
+
+        {/* ← New inner wrapper */}
         <div className="relative">
+          <label htmlFor="drink-search" className="sr-only">
+            Base Drink
+          </label>
           <input
+            id="drink-search"
             type="text"
+            role="textbox"
+            aria-controls="base-drink-listbox"
+            aria-autocomplete="list"
+            aria-expanded={isSearchDropdownOpen}
             placeholder="Search and select a base drink"
-            className="w-full h-16 text-xl md:h-12 md:text-md px-2 border border-amber-500 rounded-md text-black "
+            className="w-full h-16 text-xl md:h-12 md:text-md px-2 border border-amber-500 rounded-md text-black"
             value={drinkSearchTerm}
             onChange={(e) => setDrinkSearchTerm(e.target.value)}
             onClick={() => setIsSearchDropdownOpen(true)}
@@ -122,24 +137,33 @@ export default function OptionsPanel({
           {selectedDrink && (
             <button
               type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
+              className="absolute inset-y-0 right-2 flex items-center text-gray-500"
               onClick={() => {
                 setSelectedDrink("");
                 setDrinkSearchTerm("");
                 setIsSearchDropdownOpen(false);
               }}
+              aria-label="Clear selection"
             >
               <X size={16} />
             </button>
           )}
         </div>
+
         {isSearchDropdownOpen && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+          <ul
+            id="base-drink-listbox"
+            role="listbox"
+            tabIndex={-1}
+            className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+          >
             {filteredDrinks.length > 0 ? (
               filteredDrinks.map((drink) => (
-                <div
+                <li
                   key={drink.name}
-                  className="flex items-center gap-2 p-2 hover:bg-gray-500 cursor-pointer"
+                  role="option"
+                  aria-selected={selectedDrink === drink.name}
+                  className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
                     setSelectedDrink(drink.name);
                     setDrinkSearchTerm(drink.name);
@@ -147,71 +171,81 @@ export default function OptionsPanel({
                   }}
                 >
                   <span className="text-black">{drink.name}</span>
-                </div>
+                </li>
               ))
             ) : (
-              <div className="p-2 text-gray-500">No drinks found</div>
+              <li className="p-2 text-gray-500">No drinks found</li>
             )}
-          </div>
+          </ul>
         )}
       </div>
 
       {/* Ice Level */}
-      <div className="relative w-full">
-        <div className="flex items-center gap-2 mb-1">
+      <fieldset className="relative w-full">
+        <legend className="flex items-center gap-2 mb-1">
           <Snowflake size={18} className="text-blue-300" />
           <span className="text-lg uppercase font-sora text-black">
             Ice Level
           </span>
-        </div>
-        <Select value={selectedIce} onValueChange={setSelectedIce}>
+        </legend>
+        <Select
+          aria-label="Ice Level"
+          value={selectedIce}
+          onValueChange={setSelectedIce}
+        >
           {Object.values(IceLevel).map((level) => (
             <SelectItem key={level} value={level}>
               <span className="text-black">{level}</span>
             </SelectItem>
           ))}
         </Select>
-      </div>
+      </fieldset>
 
       {/* Sugar Level */}
-      <div className="relative w-full">
-        <div className="flex items-center gap-2 mb-1">
+      <fieldset className="relative w-full">
+        <legend className="flex items-center gap-2 mb-1">
           <Candy size={18} className="text-yellow-300" />
           <span className="text-lg uppercase font-sora text-black">
             Sugar Level
           </span>
-        </div>
-        <Select value={selectedSugar} onValueChange={setSelectedSugar}>
+        </legend>
+        <Select
+          aria-label="Sugar Level"
+          value={selectedSugar}
+          onValueChange={setSelectedSugar}
+        >
           {Object.values(SugarLevel).map((level) => (
             <SelectItem key={level} value={level}>
               <span className="text-black">{level}</span>
             </SelectItem>
           ))}
         </Select>
-      </div>
+      </fieldset>
 
       {/* Toppings Selector */}
-      <div className="relative w-full">
-        <div className="flex items-center gap-2 mb-1">
+      <fieldset className="relative w-full">
+        <legend id="toppings-legend" className="flex items-center gap-2 mb-1">
           <Coins size={18} className="text-black" />
           <span className="text-lg uppercase font-sora text-black">
             Toppings
           </span>
-        </div>
+        </legend>
         <ToppingsSelector
+          aria-labelledby="toppings-legend"
           toppingsList={AvailableToppings}
           selectedToppings={selectedToppings}
           onToggle={(t) =>
-            setSelectedToppings((prev) =>
-              prev.includes(t)
+            setSelectedToppings((prev) => {
+              const already = prev.includes(t);
+              return already
                 ? prev.filter((x) => x !== t)
                 : prev.length < 5
-                  ? [...prev, t]
-                  : prev
-            )
+                ? [...prev, t]
+                : prev;
+            })
           }
         />
-      </div>
+      </fieldset>
 
       {/* Size Options */}
       <div className="w-full">
@@ -219,38 +253,44 @@ export default function OptionsPanel({
           Size
         </label>
         <div className="flex items-center gap-4">
+          {/* Regular */}
           <button
-            onClick={() => setSelectedSize("Regular")}
+            type="button"
+            onClick={() => setSelectedSize(Size.MEDIUM)}
             className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-              selectedSize === "Regular"
+              selectedSize === Size.MEDIUM
                 ? "border-green-500 bg-green-50 text-green-700"
                 : "border-gray-300 text-black"
             }`}
-            aria-label="Regular size (16oz)"
+            aria-label="Regular size (16 oz)"
           >
             R
           </button>
           <div className="text-sm text-black">
             <p className="font-medium">Regular</p>
-            <p className="text-xs">16 oz</p>
+            <p className="text-xs">16 oz</p>
           </div>
+
+          {/* Large */}
           <button
-            onClick={() => setSelectedSize("Large")}
+            type="button"
+            onClick={() => setSelectedSize(Size.LARGE)}
             className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-              selectedSize === "Large"
+              selectedSize === Size.LARGE
                 ? "border-green-500 bg-green-50 text-green-700"
                 : "border-gray-300 text-black"
             }`}
-            aria-label="Large size (22oz)"
+            aria-label="Large size (22 oz)"
           >
             L
           </button>
           <div className="text-sm text-black">
             <p className="font-medium">Large</p>
-            <p className="text-xs">22 oz</p>
+            <p className="text-xs">22 oz</p>
           </div>
         </div>
       </div>
+
 
       {/* Special Instructions */}
       <div className="w-full">
@@ -271,8 +311,9 @@ export default function OptionsPanel({
 
       {/* Save Button */}
       <Button
+        type="button"
         onClick={onSaveDrink}
-        className="mt-4 w-full py-3 text-lg uppercase font-sora"
+        className="mt-4 w-full py-3 text-lg uppercase font-sora bg-orange-400 md-rounded"
         disabled={!selectedDrink}
       >
         Save Drink
