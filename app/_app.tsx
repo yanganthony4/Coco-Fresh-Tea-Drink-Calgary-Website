@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Layout from "./components/Footer"; // Adjust if this is the layout component you meant
+import Layout from "./components/Layout";
 import { useEffect, ReactNode, JSX } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";

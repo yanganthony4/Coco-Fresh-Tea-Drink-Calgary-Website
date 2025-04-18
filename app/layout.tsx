@@ -58,7 +58,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <div className="flex flex-col">
           <Toolbar />
           <main className="flex-grow">{children}</main>
-          <Footer />
+          <Footer children={undefined} />
         </div>
       </body>
     </html>
