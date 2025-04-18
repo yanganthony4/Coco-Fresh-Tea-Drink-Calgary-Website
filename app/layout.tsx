@@ -1,6 +1,7 @@
+// app/layout.tsx
 import "./globals.css";
 import Toolbar from "./components/Toolbar";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 import Script from "next/script";
 import type { ReactNode } from "react";
 
@@ -12,21 +13,27 @@ export const metadata = {
     canonical: "https://www.coco-bubble-tea.ca/",
     icons: "/favicon.svg",
   },
-}
+};
 
 interface RootLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="yRNnfIzp5iEdkqcT8gOthefeHVPKQESokD4a_VZsvm8" />
+        <meta
+          name="google-site-verification"
+          content="yRNnfIzp5iEdkqcT8gOthefeHVPKQESokD4a_VZsvm8"
+        />
       </head>
       <body className="bg-white h-full">
         {/* Google Tag Manager */}
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-3S12T44MMW" />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-3S12T44MMW"
+        />
         <Script
           id="google-analytics"
           strategy="afterInteractive"
@@ -55,12 +62,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           }}
         />
 
-        <div className="flex flex-col">
-          <Toolbar />
-          <main className="flex-grow">{children}</main>
-          <Footer children={undefined} />
-        </div>
+        <Footer>
+          <div className="flex flex-col min-h-screen">
+            <Toolbar />
+            <main className="flex-grow">{children}</main>
+          </div>
+        </Footer>
       </body>
     </html>
-  )
+  );
 }
