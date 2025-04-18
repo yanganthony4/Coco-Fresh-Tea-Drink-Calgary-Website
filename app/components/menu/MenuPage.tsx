@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CategoryList from "./CategoryList";
 import ProductGrid from "./ProductGrid";
+import Image from "next/image";
 import Data from "../json/menu-items.json";
 
 // Define the shape of a drink item based on the JSON format
@@ -20,14 +21,14 @@ const MenuPage = () => {
 
   const categories: string[] = [
     "All",
-    "Favorites", 
+    "Favorites",
     "Milk Tea",
     "Fresh Tea",
     "Fresh Milk",
     "Fruit Tea",
     "Slush",
     "Salty Cream",
-    "Yakult"
+    "Yakult",
   ];
 
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -36,18 +37,22 @@ const MenuPage = () => {
     selectedCategory === "All"
       ? drinks
       : drinks.filter((drink) => {
-          // Special case: when "Favorites" is selected, filter drinks by "Favourites" (data in JSON)
           if (selectedCategory === "Favorites") {
             if (typeof drink.category === "string") {
               return drink.category === "Favourites";
             }
-            return Array.isArray(drink.category) && drink.category.includes("Favourites");
+            return (
+              Array.isArray(drink.category) &&
+              drink.category.includes("Favourites")
+            );
           }
-          // Default filtering for other categories
           if (typeof drink.category === "string") {
             return drink.category === selectedCategory;
           }
-          return Array.isArray(drink.category) && drink.category.includes(selectedCategory);
+          return (
+            Array.isArray(drink.category) &&
+            drink.category.includes(selectedCategory)
+          );
         });
 
   return (
@@ -61,10 +66,13 @@ const MenuPage = () => {
         <div className="flex-1 lg:pl-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 uppercase flex items-center">
             {selectedCategory}
-            <img
-              src="/images/art/cocoemoji.webp" 
+            <Image
+              src="/images/art/cocoemoji.webp"
               alt="CoCo Emoji"
-              className="ml-2 w-6 h-6 animate-jump"
+              width={24}
+              height={24}
+              className="ml-2 animate-jump"
+              priority
             />
           </h1>
           <ProductGrid products={filteredDrinks} />

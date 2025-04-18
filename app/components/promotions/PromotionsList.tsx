@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import promotions from "../json/promotions-items.json"; // adjust the path if needed
 
 type Promotion = {
@@ -12,7 +13,6 @@ type Promotion = {
 };
 
 export default function PromotionsList() {
-
   return (
     <div className="w-full lg:w-3/5 font-sora">
       {promotions.map(
@@ -22,13 +22,15 @@ export default function PromotionsList() {
             className="w-full bg-[#fbf2d7] p-6 mb-8 last:mb-0 flex flex-col md:flex-row items-center justify-between min-h-[250px]"
           >
             {/* Image */}
-            <div className="flex-shrink-0 flex items-center justify-center  w-full md:w-2/5">
+            <div className="flex-shrink-0 flex items-center justify-center w-full md:w-2/5 max-w-[450px]">
               {images?.map((imgSrc, index) => (
-                <img
+                <Image
                   key={index}
                   src={imgSrc || "/placeholder.svg"}
-                  alt={`${title} Promotional Image of current discounts and deals. `}
-                  className="w-full h-auto object-contain max-w-[450px]"
+                  alt={`${title} promotional image of current discounts and deals.`}
+                  width={450}
+                  height={300}
+                  className="w-full h-auto object-contain"
                   loading="lazy"
                 />
               ))}
@@ -36,7 +38,7 @@ export default function PromotionsList() {
 
             {/* Text */}
             <div className="text-center md:text-left p-4 md:w-3/5">
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black mb-2 uppercase">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black mb-2 uppercase">
                 {title} <span className="text-[#f04e23]">NEW!</span>
               </h2>
               <p className="text-lg text-gray-700 font-medium mb-2">

@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import emailjs from "emailjs-com"
 import ReCAPTCHA from "react-google-recaptcha"
+import Image from 'next/image';
 
 export default function ContactForm() {
   const [isPending, setIsPending] = useState(false)
@@ -95,14 +96,19 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 items-center">
+    <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 items-center">
       {/* Left Side - Image */}
       <motion.div
-        className="hidden md:flex relative w-full h-[400px] bg-[#F7E6D5] items-center justify-center"
+        className="hidden md:flex relative w-full h-[500px] bg-[#F7E6D5] items-center justify-center"
         animate={{ opacity: [0, 1], scale: [0.95, 1] }}
         transition={{ duration: 1 }}
       >
-        <img src="/images/webps/contactdrinks.webp" alt="Bubble tea drinks" className="w-full h-full object-cover" />
+        <Image
+        src="/images/webps/contactusart.webp"
+        alt="Bubble tea drinks"
+        fill
+        priority
+      />
       </motion.div>
 
       {/* Right Side - Form */}
@@ -112,7 +118,7 @@ export default function ContactForm() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="text-2xl md:text-5xl font-bold relative md:-top-7 pt-4 text-[#040202]">CONTACT US</h1>
+        <h1 className="text-2xl md:text-5xl font-bold relative md:-top-5 pt-4 text-[#040202]">CONTACT US</h1>
 
         {formSubmitted ? (
           <div className="p-6 bg-green-100 border border-green-300 rounded-md">

@@ -12,7 +12,9 @@ export default function ContactPage() {
       </div>
 
       {/* FAQ Section */}
-      <FAQSection />
+      <div className="flex justify-center">
+        <FAQSection />
+      </div>
     </div>
   );
 }

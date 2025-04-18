@@ -13,7 +13,7 @@ function FAQItem({ faq, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="bg-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12 text-left"
+      className="bg-[#FF9800] p-5 cursor-pointer transition-all duration-300 mb-6 last:mb-12 text-left m-auto "
       onClick={() => setOpen(!open)}
     >
       <div className="flex justify-between items-center">

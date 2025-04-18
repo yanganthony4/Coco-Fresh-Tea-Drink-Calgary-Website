@@ -3,6 +3,7 @@
 import React from "react";
 import { X } from "lucide-react";
 import { SavedDrink } from "./DrinkBuilderTypes";
+import Image from "next/image";
 
 interface SavedDrinksCartProps {
   savedDrinks: SavedDrink[];
@@ -18,7 +19,7 @@ export default function SavedDrinksCart({
       <h2 className="text-xl font-sora text-black mb-2">YOUR DRINKS</h2>
       {savedDrinks.length === 0 ? (
         <p className="text-center py-4 text-black">
-          No Saved Drinks Yet. It's Time To Get Creative!
+          No Saved Drinks Yet. It&aposs Time To Get Creative!
         </p>
       ) : (
         <div className="space-y-4">
@@ -37,11 +38,13 @@ export default function SavedDrinksCart({
                 <div className="w-12 flex-shrink-0 flex items-center justify-center">
                   {/* Render the drink image */}
                   {drink.image ? (
-                    <img
-                      src={`${drink.image}`}
-                      alt={drink.base}
-                      className="w-10 h-16 object-cover rounded"
-                    />
+                    <Image
+                    src={drink.image}
+                    alt={drink.base}
+                    width={40}
+                    height={64}
+                    className="object-cover rounded"
+                  />
                   ) : (
                     <div className="w-8 h-12 bg-gray-300 rounded"></div>
                   )}
@@ -70,7 +73,7 @@ export default function SavedDrinksCart({
                   )}
                   {drink.addOns && (
                     <div className="mt-1 text-xs md:text-sm text-black">
-                      <strong>Special Instructions:</strong>{" "}
+                      <strong>Special Instructions:</strong>
                       <em>{drink.addOns}</em>
                     </div>
                   )}
