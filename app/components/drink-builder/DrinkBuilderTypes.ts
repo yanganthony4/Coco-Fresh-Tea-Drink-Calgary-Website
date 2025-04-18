@@ -42,9 +42,8 @@ export enum SugarLevel {
 }
 
 export enum Size {
-  SMALL  = "Small",
-  MEDIUM = "Medium",
-  LARGE  = "Large",
+  REGULAR = "Regular",
+  LARGE   = "Large",
 }
 
 
@@ -71,6 +70,5 @@ export interface SavedDrink {
   toppings:  string[];   // array of topping names
   addOns:    string;     // free‑form special instructions
   size:      string;     // e.g. "Regular" or any custom label
-  milk:      string;     // e.g. "Regular Milk Tea" or enum value
   date:      string;     // toLocaleDateString() output
 }

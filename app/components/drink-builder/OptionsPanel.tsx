@@ -116,7 +116,6 @@ export default function OptionsPanel({
           </span>
         </div>
 
-        {/* ← New inner wrapper */}
         <div className="relative">
           <label htmlFor="drink-search" className="sr-only">
             Base Drink
@@ -232,16 +231,15 @@ export default function OptionsPanel({
         </legend>
         <ToppingsSelector
           aria-labelledby="toppings-legend"
-          toppingsList={AvailableToppings}
+          toppingsList={[...AvailableToppings] as Topping[]}
           selectedToppings={selectedToppings}
-          onToggle={(t) =>
+          onToggle={(t: Topping) =>
             setSelectedToppings((prev) => {
               const already = prev.includes(t);
-              return already
-                ? prev.filter((x) => x !== t)
-                : prev.length < 5
-                ? [...prev, t]
-                : prev;
+              if (already) {
+                return prev.filter((x) => x !== t);
+              }
+              return prev.length < 5 ? [...prev, t] : prev;
             })
           }
         />
@@ -256,19 +254,19 @@ export default function OptionsPanel({
           {/* Regular */}
           <button
             type="button"
-            onClick={() => setSelectedSize(Size.MEDIUM)}
+            onClick={() => setSelectedSize(Size.REGULAR)}
             className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-              selectedSize === Size.MEDIUM
+              selectedSize === Size.REGULAR
                 ? "border-green-500 bg-green-50 text-green-700"
                 : "border-gray-300 text-black"
             }`}
-            aria-label="Regular size (16 oz)"
+            aria-label="Regular size (16 oz)"
           >
             R
           </button>
           <div className="text-sm text-black">
             <p className="font-medium">Regular</p>
-            <p className="text-xs">16 oz</p>
+            <p className="text-xs">16 oz</p>
           </div>
 
           {/* Large */}
@@ -280,17 +278,16 @@ export default function OptionsPanel({
                 ? "border-green-500 bg-green-50 text-green-700"
                 : "border-gray-300 text-black"
             }`}
-            aria-label="Large size (22 oz)"
+            aria-label="Large size (22 oz)"
           >
             L
           </button>
           <div className="text-sm text-black">
             <p className="font-medium">Large</p>
-            <p className="text-xs">22 oz</p>
+            <p className="text-xs">22 oz</p>
           </div>
         </div>
       </div>
-
 
       {/* Special Instructions */}
       <div className="w-full">

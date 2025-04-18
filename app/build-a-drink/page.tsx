@@ -16,10 +16,12 @@ import {
   SavedDrink,
   IceLevel,
   SugarLevel,
+  Size,
+  Topping,
 } from "../components/drink-builder/DrinkBuilderTypes";
 
 // Helper functions for calculating bar fill percentages
-const iceLevelPercentage = (level: string): number => {
+const iceLevelPercentage = (level: IceLevel | ""): number => {
   switch (level) {
     case IceLevel.EXTRA_ICE:
       return 100;
@@ -34,7 +36,7 @@ const iceLevelPercentage = (level: string): number => {
   }
 };
 
-const sugarLevelPercentage = (level: string): number => {
+const sugarLevelPercentage = (level: SugarLevel | ""): number => {
   switch (level) {
     case SugarLevel.EXTRA_SUGAR:
       return 110;
@@ -72,16 +74,17 @@ export default function DrinkBuilder(): JSX.Element {
   // Shared state for customization
   const [savedDrinks, setSavedDrinks] = useState<SavedDrink[]>([]);
   const [selectedDrink, setSelectedDrink] = useState<string>("");
-  const [selectedSugar, setSelectedSugar] = useState<string>(
+  const [selectedSugar, setSelectedSugar] = useState<SugarLevel | "">(
     SugarLevel.HUNDRED_PERCENT
   );
   const [drinkSearchTerm, setDrinkSearchTerm] = useState<string>("");
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] =
     useState<boolean>(false);
-  const [selectedIce, setSelectedIce] = useState<string>(IceLevel.REGULAR_ICE);
-  const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
-  const [selectedSize, setSelectedSize] = useState<string>("Regular");
-  const [milkOption, setMilkOption] = useState<string>("Regular Milk Tea");
+  const [selectedIce, setSelectedIce] = useState<IceLevel | "">(
+    IceLevel.REGULAR_ICE
+  );
+  const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
+  const [selectedSize, setSelectedSize] = useState<Size>(Size.REGULAR);
   const [addOns, setAddOns] = useState<string>("");
 
   // Load saved drinks from localStorage
@@ -107,7 +110,6 @@ export default function DrinkBuilder(): JSX.Element {
       toppings: selectedToppings,
       addOns,
       size: selectedSize,
-      milk: milkOption,
       date: new Date().toLocaleDateString(),
     };
 
@@ -123,8 +125,7 @@ export default function DrinkBuilder(): JSX.Element {
     setSelectedIce(IceLevel.REGULAR_ICE);
     setSelectedSugar(SugarLevel.HUNDRED_PERCENT);
     setSelectedToppings([]);
-    setSelectedSize("Regular");
-    setMilkOption("Regular Milk Tea");
+    setSelectedSize(Size.REGULAR);
     setAddOns("");
   };
 
@@ -149,15 +150,11 @@ export default function DrinkBuilder(): JSX.Element {
       </Head>
 
       <main className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
-        {/* Page heading (screen-reader only) */}
         <h1 className="sr-only">Customize Your Drink</h1>
 
         <div className="max-w-4xl w-full px-4 sm:px-8">
           {/* Saved Drinks */}
-          <section
-            aria-labelledby="saved-drinks-heading"
-            className="mb-8"
-          >
+          <section aria-labelledby="saved-drinks-heading" className="mb-8">
             <h2
               id="saved-drinks-heading"
               className="text-2xl font-sora text-black mb-4"
@@ -171,9 +168,7 @@ export default function DrinkBuilder(): JSX.Element {
           </section>
 
           {/* Builder */}
-          <section
-            aria-labelledby="builder-heading"
-          >
+          <section aria-labelledby="builder-heading">
             <h2
               id="builder-heading"
               className="text-2xl font-bold text-black mb-6"
@@ -193,17 +188,10 @@ export default function DrinkBuilder(): JSX.Element {
                   selectedIce={selectedIce}
                   selectedSugar={selectedSugar}
                   selectedToppings={selectedToppings}
-                  iceMarkers={iceMarkers}
-                  sugarMarkers={sugarMarkers}
-                  iceLevelPercentage={iceLevelPercentage}
-                  sugarLevelPercentage={sugarLevelPercentage}
                 />
               </article>
 
-              <aside
-                aria-labelledby="options-heading"
-                className="flex-1"
-              >
+              <aside aria-labelledby="options-heading" className="flex-1">
                 <h3 className="sr-only" id="options-heading">
                   Drink Options Panel
                 </h3>
@@ -223,8 +211,6 @@ export default function DrinkBuilder(): JSX.Element {
                   setSelectedToppings={setSelectedToppings}
                   selectedSize={selectedSize}
                   setSelectedSize={setSelectedSize}
-                  milkOption={milkOption}
-                  setMilkOption={setMilkOption}
                   addOns={addOns}
                   setAddOns={setAddOns}
                   onSaveDrink={handleSaveDrink}
