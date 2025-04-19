@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { JSX } from "react/jsx-runtime";
 
 export default function HeroSection(): JSX.Element {
   return (
@@ -25,5 +26,5 @@ export default function HeroSection(): JSX.Element {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,5 +1,6 @@
 "use client"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, JSX } from "react";
+
 
 interface TimelineEvent {
   year: string

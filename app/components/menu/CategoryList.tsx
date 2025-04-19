@@ -1,6 +1,7 @@
 "use client"
 
-import { useCallback } from "react"
+import { useCallback } from "react";
+import { JSX } from "react/jsx-runtime";
 
 interface CategoryListProps {
   categories: string[]

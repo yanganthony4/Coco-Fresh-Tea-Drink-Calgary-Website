@@ -3,7 +3,12 @@
 import { JSX, useState } from "react"
 import { motion } from "framer-motion"
 
-function FAQItem({ faq, index }) {
+interface FAQItemProps {
+  faq: Faq;
+  index: number;
+}
+
+function FAQItem({ faq, index }: FAQItemProps) {
   const [open, setOpen] = useState(false)
 
   return (

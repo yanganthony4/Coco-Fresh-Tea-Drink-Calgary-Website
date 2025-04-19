@@ -1,5 +1,6 @@
 "use client"
-import { ReactElement } from "react"
+import { ReactElement } from "react";
+import { JSX } from "react/jsx-runtime";
 
 interface ValueItem {
   title: string

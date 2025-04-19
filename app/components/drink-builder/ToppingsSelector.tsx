@@ -2,14 +2,15 @@
 "use client";
 
 import React from "react";
+import type { Topping } from "./DrinkBuilderTypes";
 
 export interface ToppingsSelectorProps {
   /** All toppings from your JSON */
-  toppingsList: string[];
+  toppingsList: readonly Topping[];
   /** Currently selected toppings */
-  selectedToppings: string[];
+  selectedToppings: Topping[];
   /** Called with a topping name whenever it’s clicked */
-  onToggle: (topping: string) => void;
+  onToggle: (topping: Topping) => void;
 }
 
 export default function ToppingsSelector({
