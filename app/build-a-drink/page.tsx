@@ -84,7 +84,7 @@ export default function DrinkBuilder(): JSX.Element {
     IceLevel.REGULAR_ICE
   );
   const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
-  const [selectedSize, setSelectedSize] = useState<Size>(Size.REGULAR);
+  const [selectedSize, setSelectedSize] = useState<"" | Size>(Size.REGULAR);
   const [addOns, setAddOns] = useState<string>("");
 
   // Load saved drinks from localStorage
