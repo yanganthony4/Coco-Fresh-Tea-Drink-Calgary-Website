@@ -51,7 +51,7 @@ export default function Promotions() {
         <div className="container mx-auto px-4 lg:px-6 pt-4 sm:pt-6 lg:pt-8 pb-10">
           <div className="flex flex-col lg:flex-row items-start justify-center gap-4 sm:gap-8">
             {/* Left Side Content */}
-            <div className="w-full lg:w-1/3 flex flex-col items-center justify-center lg:sticky lg:top-8">
+            <div className="w-full hidden md:w-1/3 md:flex md:flex-col md:items-center justify-center my-auto">
               {/* Emoji Animation and CoCo text */}
               <div className="flex flex-col items-center py-6 sm:py-8 lg:py-12 px-4 sm:px-16 w-full" ref={cocoRef}>
                 <div className={`${isEmojiVisible ? "animate-bounce" : ""} mb-2 sm:mb-4 px-7`}>

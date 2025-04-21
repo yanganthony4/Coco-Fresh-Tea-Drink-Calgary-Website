@@ -223,9 +223,12 @@ export default function Map() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div
+      className="flex flex-col"
+      style={{ height: "calc(100vh - 5rem)" }} // Adjust based on actual heights
+    >
       <div className="grid grid-rows-[45vh_auto_1fr] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden">
-        {/* Map */}
+        {/* Map Section */}
         <div className="w-full h-full order-1 md:order-2">
           <LoadScript
             googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
@@ -243,7 +246,7 @@ export default function Map() {
         </div>
 
         {/* Mobile Buttons */}
-        <div className="w-full bg-white p-2 flex justify-center order-2 md:hidden">
+        <div className="w-full bg-white p-2 flex justify-center space-x-2 order-2 md:hidden">
           <button
             className={`uppercase font-sora px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
               viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
@@ -263,10 +266,10 @@ export default function Map() {
         </div>
 
         {/* Sidebar / Delivery Panel */}
-        <div className="w-full overflow-y-auto bg-white order-3 md:order-1" style={{ maxHeight: "calc(100vh - 45vh - 4rem)" }}>
-          <div className="hidden md:flex justify-center p-2 bg-white">
+        <div className="w-full overflow-y-auto bg-white order-3 md:order-1">
+          <div className="hidden md:flex justify-center p-2 bg-white space-x-2">
             <button
-              className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+              className={`uppercase font-sora px-8 sm:px-14 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
                 viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
               }`}
               onClick={() => setViewMode("pickup")}
@@ -274,7 +277,7 @@ export default function Map() {
               Pickup
             </button>
             <button
-              className={`px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+              className={`uppercase font-sora px-8 sm:px-14 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
                 viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
               }`}
               onClick={() => setViewMode("delivery")}
