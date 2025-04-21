@@ -57,12 +57,12 @@ export default function DrinkVisualization({
   return (
     <section
       aria-labelledby="drink-visualization-title"
-      className="w-full px-2"
+      className="w-full"
     >
       {/* Visual Row */}
-      <div className="flex items-center justify-center gap-4 overflow-x-auto overflow-y-visible">
+      <div className="flex items-center justify-center gap-2 ">
         {/* ICE */}
-        <figure className="flex-shrink-0 w-10 flex items-center justify-center max-h-[70vh]">
+        <figure className="flex-shrink-0 flex items-center justify-center max-h-[80vh] w-10">
           <Image
             src={getIceImage(selectedIce)}
             alt={`Ice Level: ${displayIce}`}
@@ -77,7 +77,7 @@ export default function DrinkVisualization({
         </figure>
 
         {/* DRINK */}
-        <figure className="relative flex-shrink-0 w-56 md:w-64 h-96 md:h-98 border-4 border-black rounded overflow-hidden">
+        <figure className="relative flex-shrink-0 md:w-58 md:w-64 w-4/5 h-96 md:h-98 border-4 border-black rounded overflow-hidden">
           {currentDrink ? (
             <Image
               src={currentDrink.image}
@@ -102,13 +102,13 @@ export default function DrinkVisualization({
               {selectedToppings.slice(0, 5).map((topping, i) => (
                 <li
                   key={i}
-                  className="w-8 h-8 md:w-10 md:h-10 bg-white border border-black rounded-md overflow-hidden flex items-center justify-center p-1"
+                  className="w-14 h-14 md:w-10 md:h-10 bg-white border border-black rounded-md overflow-hidden flex items-center justify-center p-1"
                 >
                   <Image
                     src={getToppingIconPath(topping)}
                     alt={topping}
-                    width={32}
-                    height={32}
+                    width={64}
+                    height={64}
                     className="h-auto"
                     priority={false}
                   />
@@ -119,7 +119,7 @@ export default function DrinkVisualization({
         </figure>
 
         {/* SUGAR */}
-        <figure className="flex-shrink-0 w-10 flex items-center justify-center max-h-[70vh]">
+        <figure className="flex-shrink-0 flex items-center justify-center max-h-[70vh] w-10">
           <Image
             src={getSugarImage(selectedSugar)}
             alt={`Sugar Level: ${displaySugar}`}
@@ -135,7 +135,7 @@ export default function DrinkVisualization({
       </div>
 
       {/* LABELS */}
-      <div className="mt-4 text-center">
+      <div className="hidden md:mt-4 md:text-center md:font-sora">
         <h3
           id="drink-visualization-title"
           className="font-semibold text-lg text-black"

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const AccessibilityPage: React.FC = () => {
   return React.createElement(
     "div",
-    { className: "min-h-screen bg-white" },
+    { className: "min-h-screen bg-white mt-16 font-sora" },
     React.createElement(
       "div",
       { className: "max-w-4xl mx-auto px-4 py-12" },

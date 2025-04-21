@@ -76,7 +76,7 @@ export default function FAQSection(): JSX.Element {
         Frequently Asked Questions
       </h2>
 
-      <div className="space-y-6">
+      <div className="space-y-6 uppercase font-sora justify-center item">
         {faqs.map((faq, index) => (
           <FAQItem key={index} faq={faq} index={index} />
         ))}

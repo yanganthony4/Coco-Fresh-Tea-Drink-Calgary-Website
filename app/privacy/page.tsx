@@ -22,7 +22,7 @@ export const metadata: MetadataProps = {
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mt-16 font-sora">
       <div className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-[#000000] mb-8">PRIVACY POLICY</h1>
 

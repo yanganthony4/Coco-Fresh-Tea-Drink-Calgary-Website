@@ -19,7 +19,7 @@ export default function SavedDrinksCart({
       <h2 className="text-xl font-sora text-black mb-2">YOUR DRINKS</h2>
       {savedDrinks.length === 0 ? (
         <p className="text-center py-4 text-black">
-          No Saved Drinks Yet. It&aposs Time To Get Creative!
+          Nothing here yet, scroll down to make your drink!
         </p>
       ) : (
         <div className="space-y-4">

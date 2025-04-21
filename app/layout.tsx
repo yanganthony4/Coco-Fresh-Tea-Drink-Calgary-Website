@@ -21,7 +21,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <head>
         <meta
           name="google-site-verification"
@@ -62,12 +62,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           }}
         />
 
-        <Footer>
-          <div className="flex flex-col min-h-screen">
-            <Toolbar />
-            <main className="flex-grow">{children}</main>
-          </div>
-        </Footer>
+        <div className="flex flex-col min-h-screen">
+          <Toolbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

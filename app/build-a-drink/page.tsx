@@ -169,16 +169,10 @@ export default function DrinkBuilder(): JSX.Element {
 
           {/* Builder */}
           <section aria-labelledby="builder-heading">
-            <h2
-              id="builder-heading"
-              className="text-2xl font-bold text-black mb-6"
-            >
-              Build Your Drink
-            </h2>
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <article
                 aria-labelledby="visualization-heading"
-                className="flex-1"
+                className="items-center justify-center w-full md:w-2/5"
               >
                 <h3 className="sr-only" id="visualization-heading">
                   Drink Visualization

@@ -179,6 +179,50 @@ export default function OptionsPanel({
         )}
       </div>
 
+      {/* Size Options */}
+      <div className="w-full">
+        <label className="block text-lg uppercase font-sora text-black mb-2">
+          Size
+        </label>
+        <div className="flex items-center gap-4">
+          {/* Regular */}
+          <button
+            type="button"
+            onClick={() => setSelectedSize(Size.REGULAR)}
+            className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+              selectedSize === Size.REGULAR
+                ? "border-green-500 bg-green-50 text-green-700"
+                : "border-gray-300 text-black"
+            }`}
+            aria-label="Regular size (16 oz)"
+          >
+            R
+          </button>
+          <div className="text-sm text-black">
+            <p className="font-medium">Regular</p>
+            <p className="text-xs">16 oz</p>
+          </div>
+
+          {/* Large */}
+          <button
+            type="button"
+            onClick={() => setSelectedSize(Size.LARGE)}
+            className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+              selectedSize === Size.LARGE
+                ? "border-green-500 bg-green-50 text-green-700"
+                : "border-gray-300 text-black"
+            }`}
+            aria-label="Large size (22 oz)"
+          >
+            L
+          </button>
+          <div className="text-sm text-black">
+            <p className="font-medium">Large</p>
+            <p className="text-xs">22 oz</p>
+          </div>
+        </div>
+      </div>
+
       {/* Ice Level */}
       <fieldset className="relative w-full">
         <legend className="flex items-center gap-2 mb-1">
@@ -244,50 +288,6 @@ export default function OptionsPanel({
           }
         />
       </fieldset>
-
-      {/* Size Options */}
-      <div className="w-full">
-        <label className="block text-lg uppercase font-sora text-black mb-2">
-          Size
-        </label>
-        <div className="flex items-center gap-4">
-          {/* Regular */}
-          <button
-            type="button"
-            onClick={() => setSelectedSize(Size.REGULAR)}
-            className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-              selectedSize === Size.REGULAR
-                ? "border-green-500 bg-green-50 text-green-700"
-                : "border-gray-300 text-black"
-            }`}
-            aria-label="Regular size (16 oz)"
-          >
-            R
-          </button>
-          <div className="text-sm text-black">
-            <p className="font-medium">Regular</p>
-            <p className="text-xs">16 oz</p>
-          </div>
-
-          {/* Large */}
-          <button
-            type="button"
-            onClick={() => setSelectedSize(Size.LARGE)}
-            className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-              selectedSize === Size.LARGE
-                ? "border-green-500 bg-green-50 text-green-700"
-                : "border-gray-300 text-black"
-            }`}
-            aria-label="Large size (22 oz)"
-          >
-            L
-          </button>
-          <div className="text-sm text-black">
-            <p className="font-medium">Large</p>
-            <p className="text-xs">22 oz</p>
-          </div>
-        </div>
-      </div>
 
       {/* Special Instructions */}
       <div className="w-full">

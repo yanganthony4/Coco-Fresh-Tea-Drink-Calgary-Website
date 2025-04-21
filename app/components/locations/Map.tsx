@@ -1,3 +1,4 @@
+// components/Map.tsx
 "use client";
 
 import type { Libraries } from "@react-google-maps/api";
@@ -40,7 +41,12 @@ export default function Map() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const locations: Location[] = storeLocations as Location[];
 
-  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+  const calculateDistance = (
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number
+  ): number => {
     const R = 6371;
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
@@ -54,7 +60,15 @@ export default function Map() {
   };
 
   const getDayOfWeek = (): string => {
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     return days[new Date().getDay()];
   };
 
@@ -94,38 +108,44 @@ export default function Map() {
   };
 
   useEffect(() => {
-    const preload = ["/icons/mapstoreicon.svg", "/icons/hereicon.svg"];
-    preload.forEach((src) => new window.Image().src = src);
+    // preload marker icons
+    ["/icons/mapstoreicon.svg", "/icons/hereicon.svg"].forEach(
+      (src) => (new window.Image().src = src)
+    );
   }, []);
 
   useEffect(() => {
+    // get cached or fresh geolocation
     if (typeof window !== "undefined") {
       const cached = window.localStorage.getItem("userLocation");
       if (cached) setUserLocation(JSON.parse(cached));
     }
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        ({ coords }) => {
-          const fresh = { lat: coords.latitude, lng: coords.longitude };
-          setUserLocation(fresh);
-          window.localStorage.setItem("userLocation", JSON.stringify(fresh));
-        },
-        (err) => {
-          if (process.env.NODE_ENV !== "production") console.error(err);
-        }
-      );
-    }
+    navigator.geolocation?.getCurrentPosition(
+      ({ coords }) => {
+        const fresh = { lat: coords.latitude, lng: coords.longitude };
+        setUserLocation(fresh);
+        window.localStorage.setItem("userLocation", JSON.stringify(fresh));
+      },
+      (err) => {
+        if (process.env.NODE_ENV !== "production") console.error(err);
+      }
+    );
   }, []);
 
   useEffect(() => {
+    // sort locations by distance ≤100km
     const sorted = locations
       .map((loc) => ({
         ...loc,
-        distance: calculateDistance(userLocation.lat, userLocation.lng, loc.lat, loc.lng),
+        distance: calculateDistance(
+          userLocation.lat,
+          userLocation.lng,
+          loc.lat,
+          loc.lng
+        ),
       }))
       .filter((loc) => (loc.distance ?? 0) <= 100)
       .sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
-
     if (JSON.stringify(sorted) !== JSON.stringify(sortedLocations)) {
       setSortedLocations(sorted);
     }
@@ -134,19 +154,18 @@ export default function Map() {
   const handleSidebarClick = useCallback(
     (location: Location) => {
       setSelectedLocation(location);
-      if (mapInstance) {
-        mapInstance.panTo({ lat: location.lat, lng: location.lng });
-      }
+      mapInstance?.panTo({ lat: location.lat, lng: location.lng });
     },
     [mapInstance]
   );
 
   useEffect(() => {
-    // cleanup old markers
+    // clear old markers
     markersRef.current.forEach((m) => (m.map = null));
     markersRef.current = [];
 
     if (googleLoaded && mapInstance) {
+      // place store markers
       sortedLocations.forEach((loc) => {
         const div = document.createElement("div");
         Object.assign(div.style, {
@@ -167,6 +186,7 @@ export default function Map() {
         markersRef.current.push(marker);
       });
 
+      // place user marker
       const userImg = document.createElement("img");
       Object.assign(userImg.style, {
         width: "40px",
@@ -196,11 +216,14 @@ export default function Map() {
         { lat: 50.8429, lng: -114.4086 },
         { lat: 51.2127, lng: -113.919 }
       );
-      const autocomplete = new window.google.maps.places.Autocomplete(searchInputRef.current, {
-        bounds,
-        componentRestrictions: { country: "ca" },
-        fields: ["geometry", "name"],
-      });
+      const autocomplete = new window.google.maps.places.Autocomplete(
+        searchInputRef.current,
+        {
+          bounds,
+          componentRestrictions: { country: "ca" },
+          fields: ["geometry", "name"],
+        }
+      );
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         if (place.geometry?.location) {
@@ -223,32 +246,30 @@ export default function Map() {
   };
 
   return (
-    <div
-      className="flex flex-col"
-      style={{ height: "calc(100vh - 5rem)" }} // Adjust based on actual heights
-    >
-      <div className="grid grid-rows-[45vh_auto_1fr] md:grid-rows-1 md:grid-cols-[40%_60%] flex-1 overflow-hidden">
-        {/* Map Section */}
-        <div className="w-full h-full order-1 md:order-2">
-          <LoadScript
-            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
-            libraries={libraries}
-            onLoad={() => setGoogleLoaded(true)}
-          >
-            <GoogleMap
-              mapContainerClassName="w-full h-full"
-              center={userLocation}
-              zoom={12}
-              options={{ mapId: "11a23be6ab78d144" }}
-              onLoad={(map) => setMapInstance(map)}
-            />
-          </LoadScript>
-        </div>
-
-        {/* Mobile Buttons */}
-        <div className="w-full bg-white p-2 flex justify-center space-x-2 order-2 md:hidden">
+    <div className="grid grid-rows-[60vh_auto] md:grid-cols-[3fr_2fr] md:grid-rows-1 h-full w-full">
+      {/* Map: fixed 60vh on mobile, full height on desktop */}
+      <div className="row-start-1 md:row-start-1 md:col-start-1">
+        <LoadScript
+          googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
+          libraries={libraries}
+          onLoad={() => setGoogleLoaded(true)}
+        >
+          <GoogleMap
+            mapContainerClassName="w-full h-full"
+            center={userLocation}
+            zoom={12}
+            options={{ mapId: "11a23be6ab78d144" }}
+            onLoad={map => setMapInstance(map)}
+          />
+        </LoadScript>
+      </div>
+  
+      {/* Sidebar: below the map on mobile, alongside on desktop */}
+      <aside className="row-start-2 overflow-y-auto bg-white md:row-start-1 md:col-start-2 sticky top-0">
+        {/* Buttons */}
+        <div className="flex space-x-2 p-4">
           <button
-            className={`uppercase font-sora px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+            className={`flex-1 uppercase font-sora py-2 rounded-full border border-orange-500 text-sm ${
               viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
             }`}
             onClick={() => setViewMode("pickup")}
@@ -256,7 +277,7 @@ export default function Map() {
             Pickup
           </button>
           <button
-            className={`uppercase font-sora px-4 sm:px-10 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
+            className={`flex-1 uppercase font-sora py-2 rounded-full border border-orange-500 text-sm ${
               viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
             }`}
             onClick={() => setViewMode("delivery")}
@@ -264,80 +285,56 @@ export default function Map() {
             Delivery
           </button>
         </div>
-
-        {/* Sidebar / Delivery Panel */}
-        <div className="w-full overflow-y-auto bg-white order-3 md:order-1">
-          <div className="hidden md:flex justify-center p-2 bg-white space-x-2">
-            <button
-              className={`uppercase font-sora px-8 sm:px-14 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
-                viewMode === "pickup" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
-              }`}
-              onClick={() => setViewMode("pickup")}
-            >
-              Pickup
-            </button>
-            <button
-              className={`uppercase font-sora px-8 sm:px-14 py-2 text-sm sm:text-base rounded-3xl border-orange-500 border ${
-                viewMode === "delivery" ? "bg-orange-500 text-white" : "bg-white text-orange-500"
-              }`}
-              onClick={() => setViewMode("delivery")}
-            >
-              Delivery
-            </button>
-          </div>
-
+        {/* Search */}
+        <div className="px-4">
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Search for a location"
+            className="w-full p-2 border rounded-md text-sm text-black"
+            onFocus={handleSearch}
+          />
+        </div>
+        {/* List or delivery panel */}
+        <div className="divide-y">
           {viewMode === "pickup" ? (
-            <div>
-              <div className="p-2">
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search for a location"
-                  className="w-full p-2 border rounded-md text-sm text-black"
-                  onFocus={handleSearch}
-                />
-              </div>
-              <div className="divide-y">
-                {sortedLocations.map((loc) => {
-                  const today = getDayOfWeek();
-                  const hours = loc.schedule[today];
-                  const { isOpen, closingTime, reopeningTime } = getOpenStatus(hours, loc.schedule);
-                  return (
-                    <div
-                      key={loc.id}
-                      className="py-5 px-3 cursor-pointer font-sora"
-                      onClick={() => handleSidebarClick(loc)}
-                    >
-                      <h3 className="text-orange-500 uppercase text-sm">{loc.name}</h3>
-                      <p className="text-black text-xs">{loc.address}</p>
-                      <p className="text-black text-xs">
-                        {loc.distance} km away ·{" "}
-                        <span className={isOpen ? "text-green-600" : "text-red-500"}>
-                          {isOpen ? `Open until ${closingTime}` : `Closed. Reopens ${reopeningTime}`}
-                        </span>
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            sortedLocations.map(loc => {
+              const today = getDayOfWeek();
+              const { isOpen, closingTime, reopeningTime } = getOpenStatus(loc.schedule[today], loc.schedule);
+              return (
+                <div
+                  key={loc.id}
+                  className="py-4 px-3 cursor-pointer font-sora"
+                  onClick={() => handleSidebarClick(loc)}
+                >
+                  <h3 className="text-orange-500 uppercase text-sm">{loc.name}</h3>
+                  <p className="text-black text-xs">{loc.address}</p>
+                  <p className="text-black text-xs">
+                    {loc.distance} km ·{' '}
+                    <span className={isOpen ? 'text-green-600' : 'text-red-500'}>
+                      {isOpen ? `Open until ${closingTime}` : `Closed. Reopens ${reopeningTime}`}
+                    </span>
+                  </p>
+                </div>
+              );
+            })
           ) : (
-            <div className="flex flex-col items-center justify-center h-full">
+            <div className="flex flex-col items-center justify-center h-full p-4">
               <Image
                 src="/images/art/CoCoLogoMascotOnlyGreyTransparent.svg"
                 alt="CoCo mascot"
                 width={64}
                 height={64}
-                className="mx-auto mb-2"
+                className="mb-4"
               />
-              <p className="text-gray-700 mb-4 text-sm text-center">
+              <p className="text-gray-700 mb-6 text-sm text-center font-sora uppercase">
                 Can&apos;t make the trip? Order delivery through our partners!
               </p>
               <DeliveryAppLogos />
             </div>
           )}
         </div>
-      </div>
+      </aside>
     </div>
-  );
+  );  
 }

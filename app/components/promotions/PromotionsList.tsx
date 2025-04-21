@@ -45,7 +45,7 @@ export default function PromotionsList() {
             aria-controls={`promotion-desc-${id}`}
             className="w-full focus:outline-none"
           >
-            <div className="relative mx-auto w-[425px] h-[280px] overflow-hidden md:w-[500px] md:h-[290px]">
+            <div className="relative mx-auto w-[425px] h-[250px] overflow-hidden md:w-[500px] md:h-[290px]">
               {/* "NEW" badge */}
               {isNew(timeFrame) && (
                 <div className="absolute top-2 left-2 bg-orange-500 text-white text-xl font-bold px-2 py-1 rounded shadow z-10">

@@ -10,9 +10,10 @@ type DeliveryApp = {
 
 const DeliveryAppLogos = () => {
   const deliveryApps: DeliveryApp[] = [
-    { src: "/images/webps/ubereats.webp", alt: "Uber Eats Logo", link: "https://www.ubereats.com/" },
-    { src: "/images/webps/doordash.webp", alt: "DoorDash Logo", link: "https://www.doordash.com/" },
-    { src: "/images/webps/skipthedishes.webp", alt: "SkipTheDishes Logo", link: "https://www.skipthedishes.com/" },
+    { src: "/images/webps/ubereats.webp", alt: "Uber Eats Logo", link: "https://www.ubereats.com/ca/brand-city/calgary-ab/coco-fresh-tea-juice" },
+    { src: "/images/webps/doordash.webp", alt: "DoorDash Logo", link: "https://www.doordash.com/en-CA/store/coco-fresh-tea-&-juice-(canada)-calgary-364209/1332864/" },
+    { src: "/images/webps/skipthedishes.webp", alt: "SkipTheDishes Logo", link: "https://www.skipthedishes.com/brands/coco-fresh-tea-and-juice" },
+    { src: "/images/webps/fantuan.webp", alt: "SkipTheDishes Logo", link: "https://order.fantuan.ca/en-US/restaurantlist/search?keyword=coco%20fresh%20tea&suggestKeyword=CoCo&controlSearchSource=SUGGEST" },
   ];
 
   const handleImageError = (index: number) => {
@@ -20,8 +21,8 @@ const DeliveryAppLogos = () => {
   };
 
   return (
-    <section className="flex items-center justify-center bg-white py-4 sm:py-8 md:py-12 lg:py-20 mx-2 sm:mx-4 md:mx-6 lg:mx-10">
-      <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 max-w-5xl w-full">
+    <section className="flex items-center justify-center bg-white py-4">
+      <div className="flex flex-wrap justify-center items-center gap-4">
         {deliveryApps.map((app, index) => (
           <a
             key={index}
@@ -34,9 +35,9 @@ const DeliveryAppLogos = () => {
               <Image
                 src={app.src || "/placeholder.svg"}
                 alt={app.alt}
-                width={200}
-                height={150}
-                className="rounded-lg object-contain w-[100px] h-[75px] sm:w-[150px] sm:h-[112px] md:w-[175px] md:h-[131px] lg:w-[200px] lg:h-[150px]"
+                width={100}
+                height={100}
+                className="rounded-lg object-contain w-[75px] h-[75px] sm:w-[100px] sm:h-[100px] "
                 onError={() => handleImageError(index)}
               />
             ) : (
