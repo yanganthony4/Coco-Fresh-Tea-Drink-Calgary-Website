@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import promotions from "../json/promotions-items.json"; // adjust the path if needed
+import { useState } from "react";
+import promotions from "../json/promotions-items.json";
 
 type Promotion = {
   id: number;
@@ -9,47 +10,79 @@ type Promotion = {
   description: string;
   timeFrame: string;
   images: string[];
-  price: string;
 };
 
+function isNew(timeFrame: string): boolean {
+  const match = timeFrame.match(/(\w+ \d{1,2}) - (\w+ \d{1,2}), (\d{4})/);
+  if (!match) return false;
+
+  const [_, startStr, endStr, yearStr] = match;
+  const start = new Date(`${startStr}, ${yearStr}`);
+  const end = new Date(`${endStr}, ${yearStr}`);
+  const today = new Date();
+
+  return today >= start && today <= end;
+}
+
 export default function PromotionsList() {
+  const [openPromotionId, setOpenPromotionId] = useState<number | null>(null);
+
+  const toggleDropdown = (id: number) => {
+    setOpenPromotionId((prev) => (prev === id ? null : id));
+  };
+
   return (
-    <div className="w-full lg:w-3/5 font-sora">
-      {promotions.map(
-        ({ id, title, description, timeFrame, images, price }) => (
-          <section
-            key={id}
-            className="w-full bg-[#fbf2d7] p-6 mb-8 last:mb-0 flex flex-col md:flex-row items-center justify-between min-h-[250px]"
+    <div className="w-full h-auto font-sora">
+      {promotions.map(({ id, title, description, timeFrame, images }) => (
+        <section
+          key={id}
+          className="w-full bg-[#fbf2d7] rounded-md mb-8 last:mb-0 flex flex-col items-center justify-center"
+        >
+          {/* Image */}
+          <button
+            onClick={() => toggleDropdown(id)}
+            aria-expanded={openPromotionId === id}
+            aria-controls={`promotion-desc-${id}`}
+            className="w-full focus:outline-none"
           >
-            {/* Image */}
-            <div className="flex-shrink-0 flex items-center justify-center w-full md:w-2/5 max-w-[450px]">
-              {images?.map((imgSrc, index) => (
+            <div className="relative mx-auto w-[425px] h-[280px] overflow-hidden md:w-[500px] md:h-[290px]">
+              {/* "NEW" badge */}
+              {isNew(timeFrame) && (
+                <div className="absolute top-2 left-2 bg-orange-500 text-white text-xl font-bold px-2 py-1 rounded shadow z-10">
+                  NEW
+                </div>
+              )}
+              
+              {images.map((imgSrc, index) => (
                 <Image
                   key={index}
                   src={imgSrc || "/placeholder.svg"}
                   alt={`${title} promotional image of current discounts and deals.`}
-                  width={450}
-                  height={300}
-                  className="w-full h-auto object-contain"
+                  fill
+                  className="object-fill transition-transform hover:scale-105"
                   loading="lazy"
                 />
               ))}
             </div>
+          </button>
 
-            {/* Text */}
-            <div className="text-center md:text-left p-4 md:w-3/5">
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black mb-2 uppercase">
-                {title} <span className="text-[#f04e23]">NEW!</span>
-              </h2>
-              <p className="text-lg text-gray-700 font-medium mb-2">
-                <span className="font-bold">{price}</span>
-              </p>
-              <p className="text-gray-600">{description}</p>
-              <p className="text-sm text-gray-500 mt-4 uppercase">{timeFrame}</p>
-            </div>
-          </section>
-        )
-      )}
+
+          {/* Text Dropdown */}
+          <div
+            id={`promotion-desc-${id}`}
+            className={`transition-all duration-300 ease-in-out overflow-hidden w-full max-w-[500px] bg-[#fbf2d7] ${
+              openPromotionId === id ? "max-h-[500px] p-5 md:px-0 md:py-3" : "max-h-0 opacity-0"
+            }`}
+          >
+            <h2 className="text-black uppercase text-xl md:text-3xl pl-3">
+              {title}
+            </h2>
+            <p className="text-sm text-orange-500 uppercase pl-3">{timeFrame}</p>
+
+            <p className="text-black pb-2 pl-3">{description}</p>
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
