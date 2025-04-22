@@ -149,7 +149,7 @@ export default function DrinkBuilder(): JSX.Element {
         />
       </Head>
 
-      <main className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
+      <main className="min-h-screen bg-gray-50 flex flex-col items-center py-8 pt-20">
         <h1 className="sr-only">Customize Your Drink</h1>
 
         <div className="max-w-4xl w-full px-4 sm:px-8">
@@ -159,7 +159,7 @@ export default function DrinkBuilder(): JSX.Element {
               id="saved-drinks-heading"
               className="text-2xl font-sora text-black mb-4"
             >
-              Your Saved Drinks
+              BUILD A DRINK!
             </h2>
             <SavedDrinksCart
               savedDrinks={savedDrinks}
