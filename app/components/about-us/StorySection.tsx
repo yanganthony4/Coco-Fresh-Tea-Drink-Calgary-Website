@@ -3,14 +3,15 @@
 import Image from "next/image";
 import { JSX } from "react/jsx-runtime";
 
+// Defines the structure of a story object
 interface Story {
-  readonly id: number
-  readonly title: string
-  readonly subtitle: string
-  readonly text: string
-  readonly imageUrl: string
-  readonly reverse: boolean
-}
+  readonly id: number // Unique identifier for the story
+  readonly title: string // Title of the story
+  readonly subtitle: string // Subtitle of the story (e.g., section label)
+  readonly text: string // Main content of the story
+  readonly imageUrl: string // Image path
+  readonly reverse: boolean // if true, the image comes after the text
+}                          // if false, the image comes before the text
 
 const storyContent: readonly Story[] = [
   {
@@ -19,7 +20,7 @@ const storyContent: readonly Story[] = [
     subtitle: "OUR BEGINNING",
     text: "CoCo Bubble Tea was founded in 1997 by Chairman Tommy Hung. In a world where culture blends with tea, CoCo found its core mission, 'Consistency and Continuity', to bring the highest quality tea with unmatchable services to customers. Over decades, CoCo has kept its promise in quality and services with innovative drinks, stylish store designs, fresh ingredients, and distinctive recipes. With the first New York store opening in 2011, CoCo successfully expanded globally. CoCo aims to create a diverse and sustainable community for its customers while embracing tradition and innovation.",
     imageUrl: "/images/webps/122b2bb7-e065-4676-9692-86ff09443f32-retina-large.webp",
-    reverse: false,
+    reverse: false, // Normal layout
   },
   {
     id: 2,
@@ -27,7 +28,7 @@ const storyContent: readonly Story[] = [
     subtitle: "CANADIAN EXPERIENCE",
     text: "In Canada, CoCo Bubble Tea offers a diverse menu of creative drinks made with fresh ingredients, served in stylish and welcoming stores. From classic milk teas to bold fruit infusions, CoCo brings an authentic and innovative bubble tea experience to communities across the country. As CoCo expands in Canada, it remains dedicated to inclusivity, sustainability, and a passion for tea.",
     imageUrl: "/images/webps/image3.webp",
-    reverse: true,
+    reverse: true, // Reverse layout
   },
   {
     id: 3,
@@ -39,6 +40,7 @@ const storyContent: readonly Story[] = [
   },
 ]
 
+// Main component 
 export default function StorySection(): JSX.Element {
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
@@ -51,6 +53,7 @@ export default function StorySection(): JSX.Element {
 
       <div className="space-y-32">
         {storyContent.map(({ id, title, subtitle, text, imageUrl, reverse }) => (
+          // Each story block --- grid layout for image and text
           <div
             key={id}
             className="relative grid md:grid-cols-2 gap-12 md:gap-16 items-center reveal-on-scroll opacity-100 transition-all duration-700"

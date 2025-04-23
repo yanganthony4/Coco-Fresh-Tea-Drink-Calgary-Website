@@ -3,9 +3,9 @@ import { ReactElement } from "react";
 import { JSX } from "react/jsx-runtime";
 
 interface ValueItem {
-  title: string
-  description: string
-  icon: ReactElement
+  title: string // Value title
+  description: string // Description of the value
+  icon: ReactElement // Icon for the value
 }
 
 const values: ValueItem[] = [

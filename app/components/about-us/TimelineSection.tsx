@@ -1,21 +1,22 @@
 "use client"
 import { useEffect, useRef, useState, JSX } from "react";
 
-
+// Timeline Dots 
 interface TimelineEvent {
   year: string
   text: string
-  left: string
-  mobileLeft: string
-  top: string
+  left: string // horizontal position for desktop
+  mobileLeft: string // horizontal position for mobile
+  top: string // vertical placement 
 }
 
 export default function TimelineSection(): JSX.Element {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const [hoveredYear, setHoveredYear] = useState<string | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null) 
+  const [hoveredYear, setHoveredYear] = useState<string | null>(null) // Tracks which year is hovered
   const [activeYear, setActiveYear] = useState<string | null>(null) // New state for clicked/tapped year
-  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState<boolean>(false) // Tracks if user is on mobile
 
+  // Data array for each timeline event
   const timelineEvents: TimelineEvent[] = [
     { year: "1997", text: "The first CoCo store opened in Taipei", left: "5%", mobileLeft: "5%", top: "50%" },
     { year: "2005", text: "100th store opened", left: "20%", mobileLeft: "20%", top: "0" },
@@ -38,18 +39,19 @@ export default function TimelineSection(): JSX.Element {
     { year: "2025", text: "5000+ stores opened worldwide", left: "95%", mobileLeft: "95%", top: "50%" },
   ]
 
+  // detect if user is on mobile or not
   useEffect(() => {
-    // Check if we're on mobile
     const checkMobile = (): void => {
       setIsMobile(window.innerWidth < 768)
     }
 
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
+    checkMobile() 
+    window.addEventListener("resize", checkMobile) // Update on resize
 
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  // Responsible for drawing and animating the sine waves
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -63,6 +65,7 @@ export default function TimelineSection(): JSX.Element {
     const drawWave = (): void => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+      // Draws one sine wave
       const drawSineWave = (
         baseOffset: number,
         color: string,
@@ -91,18 +94,20 @@ export default function TimelineSection(): JSX.Element {
         ctx.stroke()
       }
 
-      // Draw 3 animated waves
+      // Draw 3 animated waves and layer them
       drawSineWave(0, "rgba(255, 166, 89, 0.3)", 25, 50, 1)
       drawSineWave(100, "rgba(173, 209, 158, 0.3)", 30, 60, 0.8)
       drawSineWave(200, "rgba(255, 145, 87, 0.3)", 28, 40, 1.2)
     }
 
+    // Main animation loop 
     const animate = (): void => {
       drawWave()
       offset += 0.25
       animationFrameId = requestAnimationFrame(animate)
     }
 
+    // Makes sure canvas is resized properly
     const handleResize = (): void => {
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
