@@ -32,7 +32,7 @@ export default function PromotionsList() {
   };
 
   return (
-    <div className="w-full h-auto font-sora">
+    <div className="w-[60%] mx-auto h-auto font-sora md:w-auto">
       {promotions.map(({ id, title, description, timeFrame, images }) => (
         <section
           key={id}
@@ -45,7 +45,7 @@ export default function PromotionsList() {
             aria-controls={`promotion-desc-${id}`}
             className="w-full focus:outline-none"
           >
-            <div className="relative mx-auto max-w-[425px] h-[250px] overflow-hidden md:w-[500px] md:h-[290px]">
+            <div className="relative overflow-hidden md:w-[700px] md:h-[400px]">
               {/* "NEW" badge */}
               {isNew(timeFrame) && (
                 <div className="absolute top-2 left-2 bg-orange-500 text-white text-xl font-bold px-2 py-1 rounded shadow z-10">

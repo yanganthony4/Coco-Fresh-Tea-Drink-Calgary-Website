@@ -7,9 +7,7 @@ import ImageSlider from "./components/home/ImageSlider"
 
 const HomeImages: string[] = [
   "/images/webps/homebanner.webp",
-  "/images/webps/strawberryPromo.webp",
-  "/images/webps/mangodream.webp",
-  "/images/webps/cremebruleeposter.webp"
+  
 ]
 
 export default function Home() {
